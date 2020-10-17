@@ -1,0 +1,21 @@
+
+@import '../abstract/variables';
+
+.card{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    // word-wrap: break-word;
+    background-color: $color-white;
+    background-clip: border-box;
+    border: 0;
+    border-radius: .75rem;
+    // box-shadow: 0 .125rem .25rem rgba(0,0,0,.075) !important;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.05);
+
+    &__body{
+        flex: 1 1 auto;
+        padding: 1rem;
+    }
+}

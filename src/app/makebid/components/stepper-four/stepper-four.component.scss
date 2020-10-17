@@ -1,0 +1,64 @@
+@import '../../../../styles/abstract/variables';
+
+.bid {
+
+  &--img {
+    width: 100%;
+    vertical-align: middle;
+    border-radius: .5rem;
+    // height: 100%;
+    // max-height: 25rem;
+  }
+
+  &_info {
+    padding: 1rem 1.5rem;
+    // background-color: $color-off-black;
+    border-radius: .5rem;
+
+    &--heading {
+      font-size: $font-size-regular-alt;
+      //   padding: .5rem 0;
+        margin: 0 0 .5rem;
+    //   line-height: 1;
+      display: block;
+    }
+
+    &--amount {
+      // border-top: solid .075rem $app-background;
+      font-size: $font-size-regular-alt;
+      font-weight: bold;
+      // padding: 1rem 0;
+      // margin: .5rem 0;
+    //   line-height: 1;
+      color: $color-primary;
+      display: block;
+    }
+
+    &_auction {
+      //   border-top: solid .075rem $app-background;
+      margin: 3rem 0;
+
+      .p-grid {
+        // border-bottom: solid .1rem $app-background;
+        padding: .25rem 0;
+        line-height: 1;
+        align-items: center;
+      }
+
+      &--title {
+        font-weight: 900;
+        font-size: $font-size-regular-alt;
+        text-transform: capitalize;
+      }
+
+      &--subdetails {
+        font-size: $font-size-regular-alt;
+        text-transform: uppercase;
+        display: block;
+        color: $color-primary;
+        text-align: right;
+      }
+
+    }
+  }
+}

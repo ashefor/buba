@@ -1,0 +1,73 @@
+<div class="p-grid animate__animated animate__fadeIn animate__faster">
+  <div class="p-col-12 p-sm-5">
+    <div class="bid">
+      <img class="bid--img"
+        src="https://specials-images.forbesimg.com/imageserve/5f766465171081b47b0e73ad/960x0.jpg?fit=scale" alt=""
+        srcset="">
+    </div>
+  </div>
+  <div class="p-col-12 p-sm-7">
+    <div class="bid_info">
+      <span class="bid_info--heading">
+        iPhone 12
+      </span>
+      <span class="bid_info--amount">
+        {{(itemAmount) | currency : '₦ '}}
+      </span>
+      <div class="bid_info_type">
+        <div class="bid_info_type-content bid_info_type--left">
+          <span class="bid_info_type-content--heading">bid 1</span>
+          <p class="bid_info_type-content--text">This bid category has a percentage compensation bonus on completed bids
+          </p>
+          <p-toggleButton [(ngModel)]="bidType1" (onChange)="handleBidTypeChange(1, $event)" [offIcon]="offIcon"
+            [onIcon]="onIcon"></p-toggleButton>
+        </div>
+        <div class="bid_info_type--hr"></div>
+        <div class="bid_info_type-content bid_info_type--right">
+          <span class="bid_info_type-content--heading">bid 2</span>
+          <p class="bid_info_type-content--text">This bid category does not have a percentage compensation bonus on
+            completed bids</p>
+          <p-toggleButton [(ngModel)]="bidType2" (onChange)="handleBidTypeChange(2, $event)" [onIcon]="onIcon"
+            [offIcon]="offIcon"></p-toggleButton>
+        </div>
+      </div>
+      <div class="bid_info_auction">
+        <div class="p-field">
+            <label>bid status</label>
+            <p-progressBar [value]="50" [showValue]="false" [style]="{'height': '6px'}"></p-progressBar>
+          </div>
+        <div class="p-grid">
+          <div class="p-col-7">
+            <span class="bid_info_auction--title">Number of bids</span>
+          </div>
+          <div class="p-col-5">
+            <!-- <div class="p-inputgroup">
+                            <button type="button" (click)="decreaseQty()" pButton pRipple icon="pi pi-minus" styleClass="p-button-plain"></button>    
+                            <input type="number" pInputText class="" placeholder="tickets" min="1" [value]="quantity" (input)="changeQty($event)">   
+                            <button (click)="increaseQty()" type="button" pButton pRipple icon="pi pi-plus" styleClass="p-button-danger"></button>      
+                        </div> -->
+            <p-inputNumber inputStyleClass="w-100" [(ngModel)]="quantity" mode="decimal" [showButtons]="true" [min]="1"
+              [max]="100" (onInput)="changeQty($event)">
+            </p-inputNumber>
+          </div>
+        </div>
+        <div class="p-grid">
+          <div class="p-col-7">
+            <span class="bid_info_auction--title">amount</span>
+          </div>
+          <div class="p-col-5">
+            <span class="bid_info_auction--subdetails">
+              {{(itemAmount * quantity) | currency : '₦'}}
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="p-text-right">
+        <button type="button" (click)="makeBid()"
+          class="button button--wider button--noborder button--primary button--raised text--upper">
+          bid
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

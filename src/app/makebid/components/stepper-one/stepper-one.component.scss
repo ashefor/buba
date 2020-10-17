@@ -1,0 +1,148 @@
+@import '../../../../styles/abstract/variables';
+
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+// ::ng-deep.p-progressbar-value{
+//   background-color: red !important;
+// }
+input[type=number] {
+  -moz-appearance: textfield;
+
+  // font-size: $font-size-regular-alt;
+
+  &:focus{
+      box-shadow: unset;
+  }
+}
+
+
+.bid {
+
+  &--img {
+    width: 100%;
+    vertical-align: middle;
+    border-radius: .5rem;
+    // height: 100%;
+    // max-height: 25rem;
+  }
+
+  &_info {
+    padding: 1rem 1.5rem;
+    // background-color: $color-off-black;
+    border-radius: .5rem;
+
+    &--heading {
+      font-size: $font-size-regular-alt;
+      //   padding: .5rem 0;
+        margin: 0 0 .5rem;
+      // line-height: 1;
+      display: block;
+    }
+
+    &--amount {
+      // border-top: solid .075rem $app-background;
+      font-size: $font-size-regular-alt;
+      font-weight: bold;
+      // padding: 1rem 0;
+      // margin: .5rem 0;
+      // line-height: 1;
+      color: $color-primary;
+      display: block;
+    }
+
+    &_auction {
+      //   border-top: solid .075rem $app-background;
+      margin: 3rem 0;
+
+      label{
+        font-size: $font-size-regular-alt;
+        text-transform: uppercase;
+      }
+      .p-grid {
+        // border-bottom: solid .1rem $app-background;
+        padding: .25rem 0;
+        line-height: 1;
+        align-items: center;
+      }
+
+      &--title {
+        font-weight: 900;
+        font-size: $font-size-regular-alt;
+        text-transform: capitalize;
+      }
+
+      &--subdetails {
+        font-size: $font-size-regular-alt;
+        text-transform: uppercase;
+        display: block;
+        color: $color-primary;
+        text-align: right;
+      }
+
+    }
+
+ 
+
+    &_type {
+      display: flex;
+      justify-content: space-between;
+      padding: 1rem .75rem;
+      border-radius: .5rem;
+      position: relative;
+      margin: 1rem 0;
+      background-color: lighten($color: $color-primary, $amount: 30);
+
+      &-content {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        padding: .25rem;
+        // justify-content: space-between;
+        width: calc(100%/2 - 1rem);
+
+        p-toggleButton {
+          margin-top: auto;
+        }
+
+        &--heading {
+          display: block;
+          font-size: $font-size-medium;
+          text-transform: capitalize;
+          line-height: 1;
+          font-weight: 900;
+          margin: 0 0 1rem;
+        }
+
+        &--text {
+          font-size: $font-size-small;
+          line-height: 1.1;
+          margin: 0 0 1rem;
+        }
+      }
+
+      &--hr {
+        height: calc(100% - 2rem);
+        width: .1rem;
+        background: red;
+        position: absolute;
+        left: 50%;
+        right: 50%;
+        top: 1rem;
+        margin: 0 .5rem;
+      }
+
+      &--left {
+        text-align: left;
+      }
+
+      &--right {
+        text-align: right;
+      }
+    }
+  }
+}

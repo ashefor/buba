@@ -1,0 +1,40 @@
+<div class="p-grid animate__animated animate__fadeIn animate__faster">
+    <div class="p-col-10 p-md-8 p-lg-6 p-mx-auto">
+        <form (ngSubmit)="login()">
+            <div class="p-fluid">
+                <div class="p-field">
+                    <label for="firstname1">email</label>
+                    <input class="p-inputtext-lg" id="firstname1" type="text" pInputText> 
+                </div>
+                <div class="p-field">
+                    <label for="lastname1">password</label>
+                   <div class="password-toggle">
+                    <a class="password-forgot">
+                       forgot password?
+                    </a>
+                    <input class="p-inputtext-lg password-toggle--input" id="lastname1" [type]="hide ? 'password' : 'text'" pInputText>
+                    <span class="password-toggle--button" (click)="hide =! hide">
+                        {{hide? 'show' : 'hide'}}
+                    </span>
+                   </div>
+                </div>
+                <div class="p-field p-mt-5">
+                    <button type="submit" class="button button--primary button--raised button--wide text--upper">
+                        login
+                    </button>
+                </div>
+                <div class="buba-form__bottom-group">
+                    <div class="buba-form__bottom-text-container">
+                        <span class="buba-form__bottom-text">or</span>
+                    </div>
+                    <hr class="buba-form__bottom-decoration" />
+                </div>
+                <div class="p-field p-mt-3">
+                    <button type="button" class="button button--primary button--raised button--wide text--upper">
+                        register
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

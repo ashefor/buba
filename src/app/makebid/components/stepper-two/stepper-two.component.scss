@@ -1,0 +1,84 @@
+@import '../../../../styles/abstract/variables';
+
+form {
+  label {
+    font-size: $font-size-semi-small;
+    text-transform: capitalize;
+  }
+
+  .password-toggle {
+    position: relative;
+
+    &--input {
+      padding-right: 5rem;
+    }
+
+    &--button {
+      position: absolute;
+      right: 1rem;
+      text-transform: capitalize;
+      transform: translate(0, 50%);
+      display: inline-block;
+      cursor: pointer;
+    }
+
+    .password-forgot{
+      position: absolute;
+      right: 0;
+      top: -2rem;
+      font-size: $font-size-semi-small;
+      text-transform: capitalize;
+      cursor: pointer;
+      color: $color-primary;
+      &:hover{
+          text-decoration: underline;
+      }
+    }
+  }
+
+  .buba-form{
+    &__bottom {
+        &-group {
+          text-align: center;
+          position: relative;
+          //   margin-bottom: 1.7rem;
+        }
+    
+        &-text-container {
+          padding-right: 1rem;
+          padding-left: 1rem;
+          background-color: $color-white;
+          display: inline-block;
+          position: relative;
+          z-index: 2;
+        }
+    
+        &-text {
+          text-transform: uppercase;
+          font-style: normal;
+          font-weight: 700;
+        //   font-size: $font-size-semi-small;
+          line-height: 1.5rem;
+          color: grey;
+          display: inline-block;
+          mix-blend-mode: normal;
+          border-radius: 100%;
+          border: .1rem solid #ccc;
+          padding: .5rem;
+          position: relative;
+        }
+    
+        &-decoration {
+          mix-blend-mode: normal;
+          opacity: 0.4;
+          border: .1rem solid #ccc;
+          position: absolute;
+          margin: 0;
+          bottom: 50%;
+          left: 0;
+          right: 0;
+          transform: translateY(50%);
+        }
+      }
+  }
+}

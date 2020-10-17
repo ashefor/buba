@@ -1,0 +1,68 @@
+<div class="p-grid animate__animated animate__fadeIn animate__faster">
+    <div class="p-col-12 p-sm-5">
+      <div class="bid">
+        <img class="bid--img"
+          src="https://specials-images.forbesimg.com/imageserve/5f766465171081b47b0e73ad/960x0.jpg?fit=scale" alt=""
+          srcset="">
+      </div>
+    </div>
+    <div class="p-col-12 p-sm-7">
+      <div class="bid_info">
+        <span class="bid_info--heading">
+          iPhone 12
+        </span>
+        <span class="bid_info--amount">
+          {{itemAmount | currency : '₦ '}}
+        </span>
+        <div class="bid_info_auction">
+            <div class="p-grid">
+                <div class="p-col-7">
+                  <span class="bid_info_auction--title">bid type</span>
+                </div>
+                <div class="p-col-5">
+                    <span class="bid_info_auction--subdetails">
+                        12
+                    </span>
+                </div>
+              </div>
+          <div class="p-grid">
+            <div class="p-col-7">
+              <span class="bid_info_auction--title">Number of bids</span>
+            </div>
+            <div class="p-col-5">
+                <span class="bid_info_auction--subdetails">
+                    12
+                </span>
+            </div>
+          </div>
+          <div class="p-grid">
+            <div class="p-col-7">
+              <span class="bid_info_auction--title">amount</span>
+            </div>
+            <div class="p-col-5">
+              <span class="bid_info_auction--subdetails">
+                {{(20000) | currency : '₦'}}
+            </span>
+            </div>
+          </div>
+          <div class="p-grid">
+            <div class="p-col-7">
+              <span class="bid_info_auction--title">wallet balance</span>
+            </div>
+            <div class="p-col-5">
+              <span class="bid_info_auction--subdetails">
+                {{(569000) | currency : '₦'}}
+            </span>
+            </div>
+          </div>
+        </div>
+        <div class="p-text-right">
+          <button type="button" (click)="makeBid()"
+            class="button button--wider button--noborder button--primary button--raised text--upper">
+            confirm bid
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

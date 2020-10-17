@@ -1,0 +1,23 @@
+@import '../../../../styles/abstract/variables';
+
+.topnav{
+    background-color: $color-white;
+    height: 5rem;
+    /* position: fixed; */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 997;
+    box-shadow: 0 0 4px rgba(0,0,0,.25);
+    border-bottom: .1rem solid $color-ash;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: 0 3.5rem;
+
+    .logo{
+        img{
+            width: 10rem;
+        }
+    }
+}
