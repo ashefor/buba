@@ -1,4 +1,5 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-stepper-three',
@@ -7,7 +8,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 })
 export class StepperThreeComponent implements OnInit {
   @Output() authenticateEmitter = new EventEmitter();
-
+  @Input() animation: any;
   constructor() { }
 
   ngOnInit(): void {

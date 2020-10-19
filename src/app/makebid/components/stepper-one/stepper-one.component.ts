@@ -1,4 +1,5 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-stepper-one',
@@ -6,6 +7,9 @@ import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/cor
   styleUrls: ['./stepper-one.component.scss']
 })
 export class StepperOneComponent implements OnInit, OnDestroy {
+  @Input() bidList: any;
+  @Input() bidInfo: any;
+  @Input() animation: any;
   totalAmount = 0;
   quantity = 1;
   onIcon = 'pi pi-check';
@@ -15,7 +19,7 @@ export class StepperOneComponent implements OnInit, OnDestroy {
   itemAmount = 2500;
 
   @Output() makeBidEmitter = new EventEmitter();
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
   }
@@ -52,7 +56,7 @@ export class StepperOneComponent implements OnInit, OnDestroy {
   // }
 
   makeBid() {
-    this.makeBidEmitter.emit('done');
+    this.makeBidEmitter.emit(2);
   }
 
   changeQty(event) {
@@ -63,15 +67,23 @@ export class StepperOneComponent implements OnInit, OnDestroy {
     }
   }
 
-  increaseQty() {
-    this.quantity++;
-  }
+  // increaseQty() {
+  //   this.quantity++;
+  // }
 
-  decreaseQty() {
-    if (this.quantity > 1) {
-      this.quantity--;
+  // decreaseQty() {
+  //   if (this.quantity > 1) {
+  //     this.quantity--;
+  //   } else {
+  //     return;
+  //   }
+  // }
+
+  getBidProgressValue() {
+    if (this.bidType1) {
+      return ((this.bidInfo.bids_lucky_five / this.bidInfo.bid_list.total_bid_lucky_five) * 100);
     } else {
-      return;
+      return ((this.bidInfo.bids_lucky_one / this.bidInfo.bid_list.total_bid_lucky_one) * 100);
     }
   }
 }

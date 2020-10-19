@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-stepper-four',
@@ -7,6 +7,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 })
 export class StepperFourComponent implements OnInit {
   @Output() makeBidEmitter = new EventEmitter();
+  @Input() animation: any;
   itemAmount = 2500;
 
   constructor() { }

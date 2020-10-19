@@ -1,68 +1,72 @@
 <div class="buba-bid">
   <div class="p-grid">
     <div class="p-col-12 p-sm-10 p-md-8 p-lg-7 p-mx-auto">
-     <div class="card">
-       <div class="card__body">
-        <div>
-          <div class="stepper">
-            <div class="stepper-indicator"
-              [ngClass]="{'stepper-indicator--completed': currentPage  > 1, 'stepper-indicator--current': currentPage  === 1}">
-              <i class="pi pi-check"></i>
-              <span>1</span>
+      <div class="card">
+        <div class="card__body">
+          <div>
+            <div class="stepper">
+              <div class="stepper-indicator"
+                [ngClass]="{'stepper-indicator--completed': currentPage  > 1, 'stepper-indicator--current': currentPage  === 1}">
+                <i class="pi pi-check"></i>
+                <span>1</span>
+              </div>
+              <span class="stepper-spacer" [ngClass]="{'stepper-spacer--completed': currentPage  > 1}">
+
+              </span>
+              <div class="stepper-indicator"
+                [ngClass]="{'stepper-indicator--completed': currentPage  > 2, 'stepper-indicator--current': currentPage  === 2}">
+                <i class="pi pi-check"></i>
+                <span>2</span>
+              </div>
+              <span class="stepper-spacer" [ngClass]="{'stepper-spacer--completed': currentPage  > 2}">
+
+              </span>
+              <div class="stepper-indicator"
+                [ngClass]="{'stepper-indicator--completed': currentPage  > 3, 'stepper-indicator--current': currentPage  === 3}">
+                <i class="pi pi-check"></i>
+                <span>3</span>
+              </div>
+              <span class="stepper-spacer" [ngClass]="{'stepper-spacer--completed': currentPage  > 3}">
+
+              </span>
+              <div class="stepper-indicator"
+                [ngClass]="{'stepper-indicator--completed': currentPage  > 4, 'stepper-indicator--current': currentPage  === 4}">
+                <i class="pi pi-check"></i>
+                <span>4</span>
+              </div>
+              <span class="stepper-spacer" [ngClass]="{'stepper-spacer--completed': currentPage  > 4}">
+
+              </span>
+              <div class="stepper-indicator" [ngClass]="{'stepper-indicator--completed': currentPage  === 5}">
+                <i class="pi pi-check"></i>
+                <span>5</span>
+              </div>
             </div>
-            <span class="stepper-spacer" [ngClass]="{'stepper-spacer--completed': currentPage  > 1}">
-  
-            </span>
-            <div class="stepper-indicator"
-              [ngClass]="{'stepper-indicator--completed': currentPage  > 2, 'stepper-indicator--current': currentPage  === 2}">
-              <i class="pi pi-check"></i>
-              <span>2</span>
+            <div class="stepper-content">
+              <div [ngSwitch]="currentPage">
+                <div class="w-100">
+                  <ng-container *ngSwitchCase="1">
+                    <app-stepper-one [animation]="animation" [bidInfo]="bidInfo"
+                      (makeBidEmitter)="goToNextPage($event)"></app-stepper-one>
+                  </ng-container>
+                  <ng-container *ngSwitchCase="2">
+                    <app-stepper-two [animation]="animation" (loginEmitter)="goToNextPage($event)"></app-stepper-two>
+                  </ng-container>
+                  <ng-container *ngSwitchCase="3">
+                    <app-stepper-three [animation]="animation" (authenticateEmitter)="goToNextPage($event)"></app-stepper-three>
+                  </ng-container>
+                  <ng-container *ngSwitchCase="4">
+                    <app-stepper-four [animation]="animation" (makeBidEmitter)="goToNextPage($event)"></app-stepper-four>
+                  </ng-container>
+                  <ng-container *ngSwitchCase="5">
+                    <app-stepper-five [animation]="animation"></app-stepper-five>
+                  </ng-container>
+                </div>
+              </div>
             </div>
-            <span class="stepper-spacer" [ngClass]="{'stepper-spacer--completed': currentPage  > 2}">
-  
-            </span>
-            <div class="stepper-indicator"
-              [ngClass]="{'stepper-indicator--completed': currentPage  > 3, 'stepper-indicator--current': currentPage  === 3}">
-              <i class="pi pi-check"></i>
-              <span>3</span>
-            </div>
-            <span class="stepper-spacer" [ngClass]="{'stepper-spacer--completed': currentPage  > 3}">
-  
-            </span>
-            <div class="stepper-indicator"
-              [ngClass]="{'stepper-indicator--completed': currentPage  > 4, 'stepper-indicator--current': currentPage  === 4}">
-              <i class="pi pi-check"></i>
-              <span>4</span>
-            </div>
-            <span class="stepper-spacer" [ngClass]="{'stepper-spacer--completed': currentPage  > 4}">
-  
-            </span>
-            <div class="stepper-indicator"
-              [ngClass]="{'stepper-indicator--completed': currentPage  === 5}">
-              <i class="pi pi-check"></i>
-              <span>5</span>
-            </div>
-          </div>
-          <div class="stepper-content">
-            <ng-container *ngIf="currentPage === 1">
-              <app-stepper-one (makeBidEmitter)="goToNextPage($event)"></app-stepper-one>
-            </ng-container>
-            <ng-container *ngIf="currentPage === 2">
-              <app-stepper-two (loginEmitter)="goToNextPage($event)"></app-stepper-two>
-            </ng-container>
-            <ng-container *ngIf="currentPage === 3">
-              <app-stepper-three (authenticateEmitter)="goToNextPage($event)"></app-stepper-three>
-            </ng-container>
-            <ng-container *ngIf="currentPage === 4">
-              <app-stepper-four (makeBidEmitter)="goToNextPage($event)"></app-stepper-four>
-            </ng-container>
-            <ng-container *ngIf="currentPage === 5">
-              <app-stepper-five></app-stepper-five>
-            </ng-container>
           </div>
         </div>
-       </div>
-     </div>
+      </div>
     </div>
   </div>
 </div>

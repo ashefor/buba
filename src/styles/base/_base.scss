@@ -3,6 +3,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Gayathri&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Sen&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
 @import '../abstract/variables';
 
@@ -25,8 +26,8 @@ html{
 body{
 	box-sizing: border-box;
 	// font-family: 'Baloo 2', cursive;
-	// font-family: 'Quicksand', sans-serif;
-	font-family: 'Sen', sans-serif;
+	font-family: 'Poppins', sans-serif;
+	// font-family: 'Sen', sans-serif;
 	font-style: normal;
 	line-height: 1.5;
 }

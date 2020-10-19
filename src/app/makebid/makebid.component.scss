@@ -7,6 +7,7 @@
   .card{
     &__body{
       min-height: 50rem;
+      overflow-x: hidden;
     }
   }
 
@@ -24,6 +25,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      transition: all .3s ease-in-out;
   
       i {
         display: none;
@@ -60,7 +62,7 @@
       }
   
       &--current{
-          transform: scale(1.2);
+          transform: scale(1.25);
       border: .1rem solid $color-primary;
       color: $color-deep-black;
       }
@@ -72,6 +74,7 @@
       height: .5rem;
       border-radius: .5rem;
       background-color: $color-ash;
+      transition: all .3s ease-in-out;
   
       &--completed{
           background-color: $color-primary;

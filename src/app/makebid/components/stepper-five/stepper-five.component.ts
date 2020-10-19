@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-stepper-five',
@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./stepper-five.component.scss']
 })
 export class StepperFiveComponent implements OnInit {
-
+  @Input() animation: any;
   constructor() { }
 
   ngOnInit(): void {
