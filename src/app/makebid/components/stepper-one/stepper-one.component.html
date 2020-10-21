@@ -2,7 +2,7 @@
    <div class="p-grid animate__animated animate__faster" [ngClass]="animation">
      <div class="p-col-12 p-sm-5">
        <div class="bid">
-         <img class="bid--img" [src]="bidInfo.bid_list.product_image" alt="" srcset="">
+         <img class="bid--img" [src]="bidInfo.bid_list.product_image" alt="product image">
        </div>
      </div>
      <div class="p-col-12 p-sm-7">
@@ -31,6 +31,9 @@
                [offIcon]="offIcon"></p-toggleButton>
            </div>
          </div>
+         <div class="p-text-left text--warning">
+          <small>Select bid type</small>
+         </div>
          <div class="bid_info_auction">
            <div class="p-field">
              <label>bid status</label>
@@ -58,15 +61,16 @@
              </div>
              <div class="p-col-5">
                <span class="bid_info_auction--subdetails">
-                 {{(bidInfo.bid_details.price * quantity) | currency : '₦'}}
+                 {{(totalAmount ?  totalAmount : (bidInfo.bid_details.price * quantity)) | currency : '₦'}}
                </span>
              </div>
            </div>
          </div>
          <div class="p-text-right">
-           <button type="button" (click)="makeBid()"
+           <button type="button" (click)="makeBid()" [disabled]="processing"
              class="button button--wider button--noborder button--primary button--raised text--upper">
-             bid
+             <i *ngIf="processing" class="pi pi-spin pi-spinner p-mr-2"></i>
+             {{processing ? 'please wait' : 'bid'}}
            </button>
          </div>
        </div>

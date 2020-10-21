@@ -11,6 +11,7 @@ import { environment } from 'src/environments/environment';
 export class AuthService {
   urlModule = 'auth';
   redirectUrl: string;
+  currentPage: number;
   constructor(private http: HttpClient, private router: Router) { }
 
   storeToken(token: string) {
@@ -33,4 +34,23 @@ export class AuthService {
     return !!this.getToken();
   }
 
+  clearSessionStorage() {
+    return sessionStorage.clear();
+  }
+
+  getWalletBalance() {
+    return this.http.get(`${environment.bubaApi}/user/account/details`).pipe(catchError((error) => throwError(error)));
+  }
+
+  login(user) {
+    return this.http.post(`${environment.bubaApi}/user/account/login`, user).pipe(catchError((error) => throwError(error)));
+  }
+
+  register(newUser) {
+    return this.http.post(`${environment.bubaApi}/user/account/create`, newUser).pipe(catchError((error) => throwError(error)));
+  }
+
+  createPaymentAccount() {
+    return this.http.get(`${environment.bubaApi}/user/account/payment/create`).pipe(catchError((error) => throwError(error)));
+  }
 }

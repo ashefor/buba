@@ -1,6 +1,9 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { LoadingBarService } from '@ngx-loading-bar/core';
+import { ToastrService } from 'ngx-toastr';
+import { Observable, TimeoutError } from 'rxjs';
 import { AuthService } from '../core/services/auth.service';
 import { BidService } from './services/bid.service';
 
@@ -10,17 +13,22 @@ import { BidService } from './services/bid.service';
   styleUrls: ['./makebid.component.scss']
 })
 export class MakebidComponent implements OnInit {
-  currentPage = 1;
+  currentPage$: Observable<number>;
+  bidDetails$: Observable<any>;
+  accountDetails$: Observable<any>;
   bidId: string;
   bidList: any;
-  bidDetails: any;
   bidInfo: any;
   state: false;
   animation = 'animate__slideInRight';
+  processing: boolean;
   // tslint:disable-next-line: max-line-length
-  constructor(private route: ActivatedRoute, private service: BidService, private loadingBar: LoadingBarService, private auth: AuthService) { }
+  constructor(private route: ActivatedRoute, private service: BidService, private loadingBar: LoadingBarService, private auth: AuthService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
+    this.currentPage$ = this.service.getCurrentPage$();
+    this.bidDetails$ = this.service.getBidDetails$();
+    this.accountDetails$ = this.service.getWalletDetails$();
     this.route.queryParams.subscribe((params: Params) => {
       console.log(params.id);
       this.fetchOneBid(params.id);
@@ -28,7 +36,7 @@ export class MakebidComponent implements OnInit {
   }
 
   changePage() {
-    this.currentPage += 1;
+    // this.currentPage += 1;
   }
 
 
@@ -36,18 +44,25 @@ export class MakebidComponent implements OnInit {
   goToNextPage(event) {
     console.log(event);
     this.animation = 'animate__slideInRight';
-    if (this.currentPage === 1) {
-      if (this.auth.isLoggedIn()) {
-        return this.currentPage = 3;
-      } else {
-        return this.currentPage += 1;
-      }
-    } else {
-      return this.currentPage += 1;
-    }
+    this.service.setCurrentPage(3);
   }
 
+  logUserIn(user) {
+    // console.log(user);
+    // this.loadingBar.start();
+    // this.auth.login(user).subscribe((loggedUser: any) => {
+    //   this.loadingBar.stop();
+    //   console.log(loggedUser);
+    // }, (error: any) => {
+    //   this.loadingBar.stop();
+    //   console.log(error);
+    //   if(error instanceof HttpErrorResponse) {
+    //     if(error.status === 400) {
 
+    //     }
+    //   }
+    // })
+  }
   fetchOneBid(bidId) {
     this.loadingBar.start();
     this.service.listOneBid(bidId).subscribe((data: any) => {
@@ -63,8 +78,10 @@ export class MakebidComponent implements OnInit {
     });
   }
 
-  goBack() {
-    this.animation = 'animate__slideInLeft';
-    return this.currentPage -= 1;
-  }
+  // goBack() {
+  //   this.animation = 'animate__slideInLeft';
+  //   return this.currentPage -= 1;
+  // }
+
+
 }

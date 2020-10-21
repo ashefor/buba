@@ -6,57 +6,56 @@
           <div>
             <div class="stepper">
               <div class="stepper-indicator"
-                [ngClass]="{'stepper-indicator--completed': currentPage  > 1, 'stepper-indicator--current': currentPage  === 1}">
+                [ngClass]="{'stepper-indicator--completed': (currentPage$ | async)  > 1, 'stepper-indicator--current': (currentPage$ | async)  === 1}">
                 <i class="pi pi-check"></i>
                 <span>1</span>
               </div>
-              <span class="stepper-spacer" [ngClass]="{'stepper-spacer--completed': currentPage  > 1}">
+              <span class="stepper-spacer" [ngClass]="{'stepper-spacer--completed': (currentPage$ | async)  > 1}">
 
               </span>
               <div class="stepper-indicator"
-                [ngClass]="{'stepper-indicator--completed': currentPage  > 2, 'stepper-indicator--current': currentPage  === 2}">
+                [ngClass]="{'stepper-indicator--completed': (currentPage$ | async)  > 2, 'stepper-indicator--current': (currentPage$ | async)  === 2}">
                 <i class="pi pi-check"></i>
                 <span>2</span>
               </div>
-              <span class="stepper-spacer" [ngClass]="{'stepper-spacer--completed': currentPage  > 2}">
+              <span class="stepper-spacer" [ngClass]="{'stepper-spacer--completed': (currentPage$ | async)  > 2}">
 
               </span>
               <div class="stepper-indicator"
-                [ngClass]="{'stepper-indicator--completed': currentPage  > 3, 'stepper-indicator--current': currentPage  === 3}">
+                [ngClass]="{'stepper-indicator--completed': (currentPage$ | async)  > 3, 'stepper-indicator--current': (currentPage$ | async)  === 3}">
                 <i class="pi pi-check"></i>
                 <span>3</span>
               </div>
-              <span class="stepper-spacer" [ngClass]="{'stepper-spacer--completed': currentPage  > 3}">
+              <span class="stepper-spacer" [ngClass]="{'stepper-spacer--completed': (currentPage$ | async)  > 3}">
 
               </span>
               <div class="stepper-indicator"
-                [ngClass]="{'stepper-indicator--completed': currentPage  > 4, 'stepper-indicator--current': currentPage  === 4}">
+                [ngClass]="{'stepper-indicator--completed': (currentPage$ | async)  > 4, 'stepper-indicator--current': (currentPage$ | async)  === 4}">
                 <i class="pi pi-check"></i>
                 <span>4</span>
               </div>
-              <span class="stepper-spacer" [ngClass]="{'stepper-spacer--completed': currentPage  > 4}">
+              <span class="stepper-spacer" [ngClass]="{'stepper-spacer--completed': (currentPage$ | async)  > 4}">
 
               </span>
-              <div class="stepper-indicator" [ngClass]="{'stepper-indicator--completed': currentPage  === 5}">
+              <div class="stepper-indicator" [ngClass]="{'stepper-indicator--completed': (currentPage$ | async)  === 5}">
                 <i class="pi pi-check"></i>
                 <span>5</span>
               </div>
             </div>
             <div class="stepper-content">
-              <div [ngSwitch]="currentPage">
+              <div [ngSwitch]="(currentPage$ | async)">
                 <div class="w-100">
                   <ng-container *ngSwitchCase="1">
-                    <app-stepper-one [animation]="animation" [bidInfo]="bidInfo"
-                      (makeBidEmitter)="goToNextPage($event)"></app-stepper-one>
+                    <app-stepper-one [animation]="animation" [bidInfo]="bidInfo"></app-stepper-one>
                   </ng-container>
                   <ng-container *ngSwitchCase="2">
-                    <app-stepper-two [animation]="animation" (loginEmitter)="goToNextPage($event)"></app-stepper-two>
+                    <app-stepper-two [animation]="animation" [bidDetails]="(bidDetails$ | async)" (loginEmitter)="logUserIn($event)"></app-stepper-two>
                   </ng-container>
                   <ng-container *ngSwitchCase="3">
-                    <app-stepper-three [animation]="animation" (authenticateEmitter)="goToNextPage($event)"></app-stepper-three>
+                    <app-stepper-three [accountDetails]="(accountDetails$ | async)"  [bidDetails]="(bidDetails$ | async)" [animation]="animation"></app-stepper-three>
                   </ng-container>
                   <ng-container *ngSwitchCase="4">
-                    <app-stepper-four [animation]="animation" (makeBidEmitter)="goToNextPage($event)"></app-stepper-four>
+                    <app-stepper-four [bidDetails]="(bidDetails$ | async)" [animation]="animation"></app-stepper-four>
                   </ng-container>
                   <ng-container *ngSwitchCase="5">
                     <app-stepper-five [animation]="animation"></app-stepper-five>

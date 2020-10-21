@@ -12,7 +12,14 @@ import { StepperFiveComponent } from './components/stepper-five/stepper-five.com
 
 
 @NgModule({
-  declarations: [MakebidComponent, StepperOneComponent, StepperTwoComponent, StepperThreeComponent, StepperFourComponent, StepperFiveComponent],
+  declarations: [
+    MakebidComponent,
+    StepperOneComponent,
+    StepperTwoComponent,
+    StepperThreeComponent,
+    StepperFourComponent,
+    StepperFiveComponent
+  ],
   imports: [
     CommonModule,
     SharedModule,

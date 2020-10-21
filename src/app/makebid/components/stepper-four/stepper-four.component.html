@@ -2,17 +2,17 @@
     <div class="p-col-12 p-sm-5">
       <div class="bid">
         <img class="bid--img"
-          src="https://specials-images.forbesimg.com/imageserve/5f766465171081b47b0e73ad/960x0.jpg?fit=scale" alt=""
+          [src]="bidDetails.product_image" alt="product image"
           srcset="">
       </div>
     </div>
     <div class="p-col-12 p-sm-7">
       <div class="bid_info">
         <span class="bid_info--heading">
-          iPhone 12
+          {{bidDetails.product_name}}
         </span>
         <span class="bid_info--amount">
-          {{itemAmount | currency : '₦ '}}
+          {{bidDetails.bid_price | currency : '₦ '}}
         </span>
         <div class="bid_info_auction">
             <div class="p-grid">
@@ -21,7 +21,7 @@
                 </div>
                 <div class="p-col-5">
                     <span class="bid_info_auction--subdetails">
-                        12
+                        {{bidDetails.bid_type === '1' ? 'lucky five': 'lucky one'}}
                     </span>
                 </div>
               </div>
@@ -31,7 +31,7 @@
             </div>
             <div class="p-col-5">
                 <span class="bid_info_auction--subdetails">
-                    12
+                   {{bidDetails.no_of_bid}}
                 </span>
             </div>
           </div>
@@ -41,7 +41,7 @@
             </div>
             <div class="p-col-5">
               <span class="bid_info_auction--subdetails">
-                {{(20000) | currency : '₦'}}
+                {{bidDetails.total_amount | currency : '₦'}}
             </span>
             </div>
           </div>
@@ -51,15 +51,16 @@
             </div>
             <div class="p-col-5">
               <span class="bid_info_auction--subdetails">
-                {{(569000) | currency : '₦'}}
+                {{bidDetails.wallet_balance | currency : '₦'}}
             </span>
             </div>
           </div>
         </div>
         <div class="p-text-right">
-          <button type="button" (click)="makeBid()"
+          <button type="button" (click)="makeBid()" [disabled]="processing"
             class="button button--wider button--noborder button--primary button--raised text--upper">
-            confirm bid
+            <i *ngIf="processing" class="pi pi-spin pi-spinner p-mr-2"></i>
+             {{processing ? 'please wait' : 'confirm bid'}}
           </button>
         </div>
       </div>

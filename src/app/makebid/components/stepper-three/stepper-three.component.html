@@ -1,17 +1,48 @@
 <div class="p-grid animate__animated animate__faster" [ngClass]="animation">
     <div class="p-col-10 p-md-8 p-lg-6 p-mx-auto">
-        <form (ngSubmit)="authenticate()" >
-            <div class="p-fluid">
-                <div class="p-field">
-                    <label for="firstname1">email</label>
-                    <input class="p-inputtext-lg" id="firstname1" type="text" pInputText> 
+        <div class="p-fluid">
+            <div class="p-grid">
+                <div class="p-field p-col-5">
+                    <span class="text--semi-small text--upper account-title">
+                        bank name
+                    </span>
                 </div>
-                <div class="p-field p-mt-5">
-                    <button type="submit" class="button button--primary button--raised button--wide text--upper">
-                        authenticate
-                    </button>
+                <div class="p-field p-col-7">
+                    <span class="text--regular-alt text--upper account-subtitle">
+                        {{accountDetails.payment_bank_name}}
+                    </span>
                 </div>
             </div>
-        </form>
+            <div class="p-grid">
+                <div class="p-field p-col-5">
+                    <span class="text--semi-small text--upper account-title">
+                        account name
+                    </span>
+                </div>
+                <div class="p-field p-col-7">
+                    <span class="text--regular-alt text--upper account-subtitle">
+                        {{accountDetails.payment_account_name}}
+                    </span>
+                </div>
+            </div>
+            <div class="p-grid">
+                <div class="p-field p-col-5">
+                    <span class="text--semi-small text--upper account-title">
+                        account number
+                    </span>
+                </div>
+                <div class="p-field p-col-7">
+                    <span class="text--regular-alt text--upper account-subtitle">
+                        {{accountDetails.payment_account_number}}
+                    </span>
+                </div>
+            </div>
+            <div class="p-field p-mt-5">
+                <button type="button" [disabled]="processing" (click)="authenticate()" class="button button--primary button--raised button--wide text--upper">
+                    <i *ngIf="processing" class="pi pi-spin pi-spinner p-mr-2"></i>
+                    {{processing ? 'please wait' : 'proceed'}}
+                </button>
+            </div>
+        </div>
     </div>
 </div>

@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  bubaApi: 'http://api.buba.ng/public'
+  bubaApi: 'https://api.buba.ng/public'
 };
 
 /*
