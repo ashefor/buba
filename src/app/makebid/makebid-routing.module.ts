@@ -5,7 +5,7 @@ import { MakebidComponent } from './makebid.component';
 
 const routes: Routes = [
   {
-    path: 'bid',
+    path: ':id',
     component: MakebidComponent
   }
 ];

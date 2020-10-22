@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { LoadingBarService } from '@ngx-loading-bar/core';
 import { ToastrService } from 'ngx-toastr';
@@ -23,13 +23,13 @@ export class MakebidComponent implements OnInit {
   animation = 'animate__slideInRight';
   processing: boolean;
   // tslint:disable-next-line: max-line-length
-  constructor(private route: ActivatedRoute, private service: BidService, private loadingBar: LoadingBarService, private auth: AuthService, private toastr: ToastrService) { }
+  constructor(private route: ActivatedRoute, private service: BidService, private loadingBar: LoadingBarService, private auth: AuthService, private toastr: ToastrService, private chref: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.currentPage$ = this.service.getCurrentPage$();
     this.bidDetails$ = this.service.getBidDetails$();
     this.accountDetails$ = this.service.getWalletDetails$();
-    this.route.queryParams.subscribe((params: Params) => {
+    this.route.params.subscribe((params: Params) => {
       console.log(params.id);
       this.fetchOneBid(params.id);
     });
@@ -39,7 +39,9 @@ export class MakebidComponent implements OnInit {
     // this.currentPage += 1;
   }
 
-
+  handleGoback(page) {
+    this.service.setCurrentPage(page);
+  }
 
   goToNextPage(event) {
     console.log(event);

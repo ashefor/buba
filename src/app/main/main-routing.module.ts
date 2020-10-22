@@ -9,7 +9,7 @@ const routes: Routes = [
     component: MainComponent,
     children: [
       {
-        path: 'process',
+        path: 'process_bid',
         loadChildren: () => import('../makebid/makebid.module').then(m => m.MakebidModule)
       }
     ]

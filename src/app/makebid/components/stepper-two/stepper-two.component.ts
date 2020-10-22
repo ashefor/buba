@@ -111,11 +111,13 @@ export class StepperTwoComponent implements OnInit, OnDestroy {
       this.loggingIn = false;
       this.loginForm.enable();
       this.auth.storeToken(loggedUser.token);
+      this.auth.storeUser(loggedUser.user);
       // this.loginEmitter.emit();
       console.log(loggedUser);
       console.log(this.bidDetails);
       this.bidDetails.wallet_balance = loggedUser.user.balance;
       this.bidService.setBidDetails(this.bidDetails);
+      this.bidService.setWalletDetails(loggedUser.user);
       console.log(this.bidDetails);
       if (parseFloat(loggedUser.user.balance) < parseFloat(this.bidDetails.total_amount)) {
         this.bidService.setCurrentPage(3);
@@ -159,6 +161,7 @@ export class StepperTwoComponent implements OnInit, OnDestroy {
       this.loadingBar.stop();
       this.isRegistering = false;
       this.registerForm.enable();
+      this.auth.storeUser(newUser.user);
       // this.auth.storeToken(newUser.token);
       // this.loginEmitter.emit();
       console.log(newUser);

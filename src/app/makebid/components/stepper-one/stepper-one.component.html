@@ -13,6 +13,9 @@
          <span class="bid_info--amount">
            {{bidInfo.bid_details.price | currency : '₦ '}}
          </span>
+         <div class="p-text-left text--warning p-my-3">
+          <span class="p-text-primary">Select bid type</span>
+         </div>
          <div class="bid_info_type">
            <div class="bid_info_type-content bid_info_type--left">
              <span class="bid_info_type-content--heading">Lucky Five</span>
@@ -31,8 +34,8 @@
                [offIcon]="offIcon"></p-toggleButton>
            </div>
          </div>
-         <div class="p-text-left text--warning">
-          <small>Select bid type</small>
+         <div class="p-text-center">
+           <p>Bid ends on <span class="text--bold">{{bidInfo.bid_details.end_date | date: 'medium'}}</span></p>
          </div>
          <div class="bid_info_auction">
            <div class="p-field">

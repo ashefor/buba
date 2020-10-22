@@ -14,7 +14,7 @@ import { BidService } from '../../services/bid.service';
 export class StepperFourComponent implements OnInit, OnDestroy {
   @Input() animation: any;
   @Input() bidDetails: bidDetails;
-  @Output() makeBidEmitter = new EventEmitter();
+  @Output() stepFourEmitter = new EventEmitter();
   itemAmount = 2500;
   processing: boolean;
 
@@ -60,6 +60,10 @@ export class StepperFourComponent implements OnInit, OnDestroy {
       } else {
         this.toastr.error('An unknown error has occured. Please try again later', 'Error');
       }
-    })
+    });
+  }
+
+  goBack() {
+    this.stepFourEmitter.emit(1);
   }
 }

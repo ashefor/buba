@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { throwError } from 'rxjs';
+import { BehaviorSubject, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
@@ -12,30 +12,33 @@ export class AuthService {
   urlModule = 'auth';
   redirectUrl: string;
   currentPage: number;
+  user = JSON.parse(sessionStorage.getItem('bidbuba-user'));
+  userObject$  = new BehaviorSubject<any>(this.user);
   constructor(private http: HttpClient, private router: Router) { }
 
   storeToken(token: string) {
-    return sessionStorage.setItem('creditalert-access-token', token);
+    return sessionStorage.setItem('bidbuba-access-token', token);
   }
 
   getToken() {
-    return sessionStorage.getItem('creditalert-access-token');
+    return sessionStorage.getItem('bidbuba-access-token');
   }
 
   storeUser(user: any) {
-    return sessionStorage.setItem('creditalert-user', JSON.stringify(user));
+    sessionStorage.setItem('bidbuba-user', JSON.stringify(user));
+    return this.userObject$.next(user);
   }
 
-  getUser() {
-    return sessionStorage.getItem('creditalert-user');
+  getUser$() {
+    return this.userObject$.asObservable();
   }
 
   isLoggedIn() {
     return !!this.getToken();
   }
 
-  clearSessionStorage() {
-    return sessionStorage.clear();
+  async clearSessionStorage() {
+    await sessionStorage.clear();
   }
 
   getWalletBalance() {

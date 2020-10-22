@@ -22,7 +22,7 @@ export class TokenInterceptor implements HttpInterceptor {
         }
         return next.handle(req).pipe(catchError(error => {
             if (error instanceof HttpErrorResponse && error.status === 401) {
-                this.service.clearSessionStorage();
+                this.service.clearSessionStorage().then(() => this.service.storeUser(null));
                 this.toastr.error('Please sign in to continue', 'Unauthorised!');
                 this.bidService.setCurrentPage(2);
                 return throwError(error);

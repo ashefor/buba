@@ -15,7 +15,7 @@ import { BidService } from '../../services/bid.service';
   styleUrls: ['./stepper-three.component.scss']
 })
 export class StepperThreeComponent implements OnInit, OnDestroy {
-  @Output() authenticateEmitter = new EventEmitter();
+  @Output() stepThreeEmitter = new EventEmitter();
   @Input() animation: any;
   @Input() bidDetails: bidDetails;
   @Input() accountDetails: any;
@@ -30,6 +30,10 @@ export class StepperThreeComponent implements OnInit, OnDestroy {
     this.loadingBar.stop();
   }
 
+  goBack() {
+    this.stepThreeEmitter.emit(1);
+  }
+
   authenticate() {
     this.loadingBar.start();
     this.processing = true;
@@ -38,6 +42,7 @@ export class StepperThreeComponent implements OnInit, OnDestroy {
       this.processing = false;
       console.log(data);
       this.bidService.setWalletDetails(data.user);
+      this.authService.storeUser(data.user);
       if (parseFloat(data.user.balance) > parseFloat(this.bidDetails.total_amount)) {
         this.bidService.setCurrentPage(4);
       } else {
