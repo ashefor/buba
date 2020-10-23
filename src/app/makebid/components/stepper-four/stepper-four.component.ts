@@ -3,6 +3,8 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angu
 import { LoadingBarService } from '@ngx-loading-bar/core';
 import { ToastrService } from 'ngx-toastr';
 import { TimeoutError } from 'rxjs';
+import { concatMap, tap } from 'rxjs/operators';
+import { AuthService } from 'src/app/core/services/auth.service';
 import { bidDetails } from '../../models/bid-details';
 import { BidService } from '../../services/bid.service';
 
@@ -18,7 +20,7 @@ export class StepperFourComponent implements OnInit, OnDestroy {
   itemAmount = 2500;
   processing: boolean;
 
-  constructor(private loadingBar: LoadingBarService, private bidService: BidService, private toastr: ToastrService) { }
+  constructor(private loadingBar: LoadingBarService, private auth: AuthService, private bidService: BidService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
   }
@@ -30,20 +32,23 @@ export class StepperFourComponent implements OnInit, OnDestroy {
 
   makeBid() {
     this.loadingBar.start();
-    const {bid_id, bid_type, no_of_bid} = this.bidDetails;
-    const bidData = {bid_id, bid_type, no_of_bid};
+    const { bid_id, bid_type, no_of_bid } = this.bidDetails;
+    const bidData = { bid_id, bid_type, no_of_bid };
     console.log(bidData);
     this.processing = true;
-    this.bidService.buyBid(bidData).subscribe((data: any) => {
+    this.bidService.buyBid(bidData).pipe(tap((bid) => {
+      console.log(bid);
+   }), concatMap(() => this.auth.getWalletBalance())).subscribe((data: any) => {
       this.loadingBar.stop();
       this.processing = false;
       console.log(data);
+      this.auth.storeUser(data.user);
       if (data.status === 'success') {
         this.bidService.setCurrentPage(5);
       } else {
         this.toastr.error(data.message, 'Error!');
       }
-    } , (error: any) => {
+    }, (error: any) => {
       this.loadingBar.stop();
       this.processing = false;
       console.log(error);

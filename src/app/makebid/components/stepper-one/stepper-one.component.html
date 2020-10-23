@@ -54,7 +54,7 @@
                                 <button (click)="increaseQty()" type="button" pButton pRipple icon="pi pi-plus" styleClass="p-button-danger"></button>      
                             </div> -->
                <p-inputNumber inputStyleClass="w-100" [(ngModel)]="quantity" mode="decimal" [showButtons]="true"
-                 [min]="1" [max]="100" (onInput)="changeQty($event)">
+                 [min]="1"  (onInput)="changeQty($event)">
                </p-inputNumber>
              </div>
            </div>
