@@ -8,10 +8,10 @@ const routes: Routes = [
     path: '',
     component: MainComponent,
     children: [
-      {
-        path: 'process_bid',
-        loadChildren: () => import('../makebid/makebid.module').then(m => m.MakebidModule)
-      }
+      // {
+      //   path: 'process_bid',
+      //   loadChildren: () => import('../makebid/makebid.module').then(m => m.MakebidModule)
+      // }
     ]
   }
 ];

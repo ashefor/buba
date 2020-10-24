@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from '../core/services/auth.service';
 
@@ -8,11 +9,10 @@ import { AuthService } from '../core/services/auth.service';
   styleUrls: ['./main.component.scss'],
 })
 export class MainComponent implements OnInit {
-  userDetails$: Observable<any>;
   constructor(private auth: AuthService) { }
 
   ngOnInit(): void {
-    this.userDetails$ = this.auth.getUser$();
   }
+
 
 }

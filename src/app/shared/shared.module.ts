@@ -6,11 +6,14 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {ProgressBarModule} from 'primeng/progressbar';
 import {ToggleButtonModule} from 'primeng/togglebutton';
+import { SidenavComponent } from './components/sidenav/sidenav.component';
+import { RouterModule } from '@angular/router';
+import { TopnavComponent } from './components/topnav/topnav.component';
 
 
 
 @NgModule({
-  declarations: [],
+  declarations: [SidenavComponent, TopnavComponent],
   imports: [
     CommonModule,
     ButtonModule,
@@ -19,6 +22,7 @@ import {ToggleButtonModule} from 'primeng/togglebutton';
     ToggleButtonModule,
     ProgressBarModule,
     InputNumberModule,
+    RouterModule,
     InputTextModule
   ],
   exports: [
@@ -28,6 +32,9 @@ import {ToggleButtonModule} from 'primeng/togglebutton';
     ToggleButtonModule,
     ReactiveFormsModule,
     FormsModule,
+    TopnavComponent,
+    RouterModule,
+    SidenavComponent,
     InputTextModule
   ]
 })

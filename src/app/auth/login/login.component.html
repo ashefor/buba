@@ -1,0 +1,36 @@
+<div class="account p-grid">
+  <div class="p-col-12 p-md-7 p-lg-4 p-mx-auto account__container">
+    <div class="account__head">
+      <a href="" class="account__head__logo">
+        <img src="assets/img/logo-red.png" alt="buba">
+      </a>
+      <h1 class="account__head__title">Log in to your account</h1>
+    </div>
+    <div class="account__body">
+      <div class="account__form">
+        <form>
+          <div class="p-fluid">
+            <div class="p-field form__item">
+              <label for="email" class="form__label text--capital">email</label>
+              <input type="text" id="email" class="form__input form__input--lg">
+            </div>
+            <div class="p-field form__item">
+              <label for="password" class="form__label text--capital">password</label>
+              <input type="password" id="password" class="form__input form__input--lg">
+            </div>
+            <div class="p-field form__item text--right">
+              <a href="" class="text--capital form__link">forgot password?</a>
+            </div>
+            <div class="p-field form__item">
+              <button class="button button--raised button--primary button--wide text--capital">login</button>
+            </div>
+            <div class="p-field form__item">
+              <p class="form__text text--center">Don't have an account? <a [routerLink]="['/register']"
+                  class="text--capital form__link form__link--primary">Register</a> </p>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

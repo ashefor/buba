@@ -1,0 +1,55 @@
+<div class="account p-grid">
+  <div class="p-col-12 p-sm-9 p-md-10 p-lg-6 p-mx-auto account__container">
+    <div class="account__head">
+      <a href="" class="account__head__logo">
+        <img src="assets/img/logo-red.png" alt="buba">
+      </a>
+      <h1 class="account__head__title">Create your account</h1>
+    </div>
+    <div class="account__body">
+      <div class="account__form">
+        <form>
+          <div class="p-fluid">
+            <div class="p-fluid p-formgrid p-grid">
+              <div class="p-field p-col-12 p-md-6 form__item">
+                <label for="firstname" class="form__label text--capital">first name</label>
+                <input type="text" id="firstname" class="form__input form__input--lg">
+              </div>
+              <div class="p-field p-col-12 p-md-6 form__item">
+                <label for="lastname" class="form__label text--capital">last name</label>
+                <input type="text" id="lastname" class="form__input form__input--lg">
+              </div>
+            </div>
+            <div class="p-fluid p-formgrid p-grid">
+              <div class="p-field p-col-12 p-md-6 form__item">
+                <label for="email" class="form__label text--capital">email</label>
+                <input type="email" id="email" class="form__input form__input--lg">
+              </div>
+              <div class="p-field p-col-12 p-md-6 form__item">
+                <label for="phone_number" class="form__label text--capital">phone number</label>
+                <input type="tel" id="phone_number" class="form__input form__input--lg">
+              </div>
+            </div>
+            <div class="p-fluid p-formgrid p-grid">
+              <div class="p-field p-col-12 p-md-6 form__item">
+                <label for="password" class="form__label text--capital">password</label>
+                <input type="password" id="password" class="form__input form__input--lg">
+              </div>
+              <div class="p-field p-col-12 p-md-6 form__item">
+                <label for="password_confirm" class="form__label text--capital">confirm password</label>
+                <input type="password" id="password_confirm" class="form__input form__input--lg">
+              </div>
+            </div>
+            <div class="p-field form__item">
+              <button class="button button--raised button--primary button--wide text--capital">create account</button>
+            </div>
+            <div class="p-field form__item">
+              <p class="form__text text--center">Already have an account? <a [routerLink]="['/login']"
+                  class="text--capital form__link form__link--primary">Login</a> </p>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

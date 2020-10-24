@@ -1,0 +1,26 @@
+@import '../../styles/abstract/variables';
+
+.main{
+    margin-top: 5rem;
+
+    &__sidebar{
+        position: fixed;
+        top: 5rem;
+        width: 20rem;
+        padding: 4rem 2rem;
+    }
+
+    &__content{
+        width: calc(100% - 20rem);
+        margin-left: auto;
+
+        &__container{
+            margin-left: auto;
+            margin-right: auto;
+
+            @media all and (min-width: 1200px) {
+                width: 90%;
+            }
+        }
+    }
+}

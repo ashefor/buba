@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { LoadingBarService } from '@ngx-loading-bar/core';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, TimeoutError } from 'rxjs';
@@ -12,13 +13,23 @@ import { loggedInUser } from 'src/app/makebid/models/logged-user';
   styleUrls: ['./topnav.component.scss']
 })
 export class TopnavComponent implements OnInit {
-  @Input() userDetails$: Observable<any>;
+  userDetails$: Observable<any>;
   processing: boolean;
-  constructor(private authService: AuthService, private toastr: ToastrService) { }
+  currentUrl: string[];
+  constructor(private authService: AuthService, private toastr: ToastrService, private router: Router) { }
 
   ngOnInit(): void {
+    this.userDetails$ = this.authService.getUser$();
+    this.currentUrl = this.router.url.split('/');
   }
 
+  get showGoToStoreButton() {
+    if (this.currentUrl[1].includes('process_bid')) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   refreshWallet() {
     this.processing = true;

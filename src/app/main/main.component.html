@@ -1,5 +1,14 @@
-<section class="wrapper">
-   <app-topnav [userDetails$]="userDetails$"></app-topnav>
-<router-outlet></router-outlet>
+<section class="container">
+  <app-topnav></app-topnav>
+  <main class="main">
+    <div class="main__sidebar">
+      <app-sidenav></app-sidenav>
+    </div>
+    <div class="main__content">
+      <div class="main__content__container">
+         <router-outlet></router-outlet>
+      </div>
+    </div>
+  </main>
 
 </section>

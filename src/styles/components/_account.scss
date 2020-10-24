@@ -1,0 +1,43 @@
+@import '../abstract/variables';
+
+.account{
+    margin: 0 !important;
+    min-height: 100vh;
+    align-items: center;
+
+    &__body{
+        background-color: $color-white;
+        padding: 2.5rem;
+        border-radius: .5rem;
+        box-shadow: 0 4px 8px 0 rgba(131,137,160,.2);
+
+        @media all and (min-width: 768px) {
+            padding: 4rem 5rem;
+        }
+       
+    }
+
+    &__head{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 3rem;
+
+        &__logo{
+            display: inline-block;
+            margin-bottom: 2rem;
+        }
+
+        &__title{
+            font-size: $font-size-medium;
+            font-weight: 700;
+            line-height: 1.3;
+            color: $color-deep-black;
+
+            @media all and (min-width: 768px) {
+                font-size: $font-size-large;
+            }
+        }
+    }
+}

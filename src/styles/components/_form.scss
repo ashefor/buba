@@ -1,0 +1,49 @@
+@import '../abstract/variables';
+
+.form {
+  &__item {
+    &:not(:last-child) {
+      margin-bottom: 2rem;
+    }
+  }
+
+  &__label {
+    color: $color-ash;
+    display: inline-block;
+    font-size: $font-size-regular;
+    font-weight: 700;
+  }
+
+  &__text {
+    color: $color-ash;
+    font-size: $font-size-semi-small;
+  }
+
+  &__input {
+    background: #ffffff;
+    padding: 0.5rem;
+    border: 1px solid #ced4da;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+    appearance: none;
+    border-radius: .3rem;
+    width: 100%;
+
+    &--lg {
+      font-size: $font-size-regular;
+      padding: .75rem;
+    }
+  }
+
+  &__link {
+    color: $color-ash;
+    display: inline-block;
+    font-size: $font-size-semi-small;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all .3s ease;
+
+    &--primary {
+      color: $color-primary;
+    }
+  }
+}
