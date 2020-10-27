@@ -1,0 +1,33 @@
+<div class="settings">
+    <div class="settings__container">
+      <div class="settings__pageheader">
+        <h1 class="settings__pageheader__title text--capital">
+            settings
+          </h1>
+      </div>
+      <div class="settings__pagebody">
+        <div class="p-grid">
+          <div class="p-col-3 settings__pagebody__left">
+            <div class="settings__nav">
+                <a class="settings__nav__item" [routerLink]="['profile-edit']" routerLinkActive="active" >
+                    edit profile
+                </a>
+                <a class="settings__nav__item" [routerLink]="['change-password']" routerLinkActive="active">
+                    change password
+                </a>
+                <a class="settings__nav__item" [routerLink]="['id-card']" routerLinkActive="active">
+                    add id card
+                </a>
+                <a class="settings__nav__item" [routerLink]="['bank-account']" routerLinkActive="active">
+                    add bank account
+                </a>
+            </div>
+          </div>
+          <div class="p-col-8 p-md-7 p-mx-auto settings__pagebody__right">
+           <router-outlet></router-outlet>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

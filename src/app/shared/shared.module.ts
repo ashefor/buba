@@ -4,11 +4,14 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {ProgressBarModule} from 'primeng/progressbar';
-import {ToggleButtonModule} from 'primeng/togglebutton';
+import { ProgressBarModule } from 'primeng/progressbar';
+import { ToggleButtonModule } from 'primeng/togglebutton';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { RouterModule } from '@angular/router';
 import { TopnavComponent } from './components/topnav/topnav.component';
+import { KeyFilterModule } from 'primeng/keyfilter';
+import { SidebarModule } from 'primeng/sidebar';
+import { DropdownModule } from 'primeng/dropdown';
 
 
 
@@ -20,10 +23,13 @@ import { TopnavComponent } from './components/topnav/topnav.component';
     ReactiveFormsModule,
     FormsModule,
     ToggleButtonModule,
+    DropdownModule,
     ProgressBarModule,
     InputNumberModule,
-    RouterModule,
-    InputTextModule
+    KeyFilterModule,
+    InputTextModule,
+    SidebarModule,
+    RouterModule
   ],
   exports: [
     ButtonModule,
@@ -31,11 +37,14 @@ import { TopnavComponent } from './components/topnav/topnav.component';
     ProgressBarModule,
     ToggleButtonModule,
     ReactiveFormsModule,
+    DropdownModule,
     FormsModule,
     TopnavComponent,
-    RouterModule,
+    KeyFilterModule,
     SidenavComponent,
-    InputTextModule
+    InputTextModule,
+    SidebarModule,
+    RouterModule
   ]
 })
 export class SharedModule { }

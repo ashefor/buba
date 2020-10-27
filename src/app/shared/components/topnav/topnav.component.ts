@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoadingBarService } from '@ngx-loading-bar/core';
 import { ToastrService } from 'ngx-toastr';
@@ -16,6 +16,9 @@ export class TopnavComponent implements OnInit {
   userDetails$: Observable<any>;
   processing: boolean;
   currentUrl: string[];
+  showMobileNav =  false;
+  @Input() display: boolean;
+  @Output() toggleSideMenuEmitter = new EventEmitter();
   constructor(private authService: AuthService, private toastr: ToastrService, private router: Router) { }
 
   ngOnInit(): void {
@@ -23,6 +26,10 @@ export class TopnavComponent implements OnInit {
     this.currentUrl = this.router.url.split('/');
   }
 
+  toggleSideMenu() {
+    // this.showMobileNav = ! this.showMobileNav;
+    this.toggleSideMenuEmitter.emit();
+  }
   get showGoToStoreButton() {
     if (this.currentUrl[1].includes('process_bid')) {
       return true;

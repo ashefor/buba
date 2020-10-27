@@ -12,8 +12,8 @@ export class AuthService {
   urlModule = 'auth';
   redirectUrl: string;
   currentPage: number;
-  user = JSON.parse(sessionStorage.getItem('bidbuba-user'));
-  userObject$  = new BehaviorSubject<any>(this.user);
+  user = sessionStorage.getItem('bidbuba-user');
+  userObject$  = new BehaviorSubject<any>(JSON.parse(this.user) || null);
   constructor(private http: HttpClient, private router: Router) { }
 
   storeToken(token: string) {

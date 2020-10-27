@@ -1,0 +1,36 @@
+<div>
+    <div class="page__header">
+      <h4 class="page__header__main">
+        Bank Account
+      </h4>
+      <p class="page__header__caption">
+        Add a new bank account
+      </p>
+    </div>
+    <div class="page__content">
+        <div class="addbank">
+            <div class="account__form">
+              <form>
+                <div class="p-fluid">
+                  <div class="p-field form__item">
+                    <label for="bankname" class="form__label text--capital">bank name</label>
+                    <!-- <input type="text" id="bankname" class="form__input form__input--lg"> -->
+                    <p-dropdown styleClass="bank-dropdown" [filter]="true"
+                    [options]="banks" optionLabel="name" name="bank_name" [(ngModel)]="bank_name"></p-dropdown>
+                  </div>
+                  <div class="p-field form__item">
+                    <label for="accountnumber" class="form__label text--capital">account number</label>
+                    <input type="text" class="form__input form__input--lg" pKeyFilter="num">
+                  </div>
+                  <div class="p-field form__item">
+                    <button type="submit" class="button button--primary button--raised text--upper">
+                      add bank
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+    </div>
+  </div>
+  

@@ -103,7 +103,8 @@ input[type=number] {
         flex-wrap: nowrap;
         padding: .25rem;
         // justify-content: space-between;
-        width: calc(100%/2 - 1rem);
+        // width: calc(100%/2 - 1rem);
+        width: 100%;
 
         p-toggleButton {
           margin-top: auto;
@@ -144,5 +145,19 @@ input[type=number] {
         text-align: right;
       }
     }
+  }
+}
+
+.winning{
+  // margin: 5rem 0;
+  text-align: right;
+  &__item{
+    font-size: 1.2rem;
+    display: inline-block;
+  }
+
+  &__percent{
+    color: $color-primary;
+    font-size: 1.4rem;
   }
 }

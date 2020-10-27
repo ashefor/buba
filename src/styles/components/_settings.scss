@@ -1,0 +1,19 @@
+@import '../abstract/variables';
+
+.page {
+    &__header {
+      margin-bottom: 2.5rem;
+  
+      &__main {
+        font-size: $font-size-medium;
+        color: $color-grey;
+        margin-bottom: 1rem;
+      }
+  
+      &__caption {
+        color: $color-ash;
+        font-size: $font-size-regular;
+        line-height: 1.5;
+      }
+    }
+  }

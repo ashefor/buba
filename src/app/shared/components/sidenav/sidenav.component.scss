@@ -1,36 +1,44 @@
 @import '../../../../styles/abstract/variables';
 
-.sidenav{
+.sidenav {
+  padding-top: 2rem;
 
-    &__item{
-        margin-bottom: 2rem;
-        text-decoration: none;
-        cursor: pointer;
-        padding: 1.5rem;
-        display: flex;
-        align-items: center;
-        font-size: $font-size-medium;
-        color: $color-ash;
-        font-weight: bold;
+  @media all and (min-width: 768px) {
+    padding-top: 0;
+  }
 
-        &__icon{
-            font-size: $font-size-medium;
-            margin-right: 1.5rem;
-        }
+  &__item {
+    margin-bottom: 2rem;
+    text-decoration: none;
+    cursor: pointer;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    font-size: $font-size-medium;
+    color: $color-ash;
+    font-weight: bold;
 
-        &__text{
-            display: block;
-        }
-
-        &.active{
-            background-color: $color-white;
-            color: $color-grey;
-            box-shadow: 0 2px 4px 0 rgba(112,121,139,.18);
-            border-radius: .5rem;
-        }
-
-        &.logout{
-            color: $color-danger;
-        }
+    &__icon {
+      font-size: $font-size-medium;
+      margin-right: 1.5rem;
     }
+
+    &__text {
+      display: block;
+    }
+
+    &.active {
+      color: $color-grey;
+
+      @media all and (min-width: 768px) {
+        background-color: $color-white;
+        box-shadow: 0 2px 4px 0 rgba(112, 121, 139, .18);
+        border-radius: .5rem;
+      }
+    }
+
+    &.logout {
+      color: $color-danger;
+    }
+  }
 }

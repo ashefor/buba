@@ -1,0 +1,64 @@
+@import '../../styles/abstract/variables';
+
+.settings {
+  &__pageheader {
+    margin-bottom: 2rem;
+
+    &__title {
+      line-height: 1.2;
+      font-size: $font-size-large;
+
+      @media all and (min-width: 768px) {
+        // font-size: $font-size-extra-large;
+        font-size: 3rem;
+      }
+    }
+  }
+
+
+  &__nav {
+    &__item {
+      display: block;
+      text-decoration: none;
+      padding: 1rem 1.25rem;
+      // color: #1b1d1c;
+      color: $color-black;
+      font-size: $font-size-regular;
+      line-height: 1.5;
+      text-transform: capitalize;
+
+      @media all and (min-width: 768px) {
+          
+      padding: 1.2rem 2.4rem;
+      }
+
+      &.active {
+        background-color: $color-white;
+        border-left: .15rem solid $color-primary;
+      }
+    }
+  }
+
+  &__pagebody {
+    &__right {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      min-width: 0;
+      // word-wrap: break-word;
+      background-color: $color-white;
+      background-clip: border-box;
+      border: 0;
+      border-radius: 1rem;
+    //   flex: 1 1 auto;
+      padding: 2.5rem 2rem;
+      // box-shadow: 0 .125rem .25rem rgba(0,0,0,.075) !important;
+      // box-shadow: 0 2px 5px 0 rgba(0,0,0,0.05);
+      box-shadow: 0 2px 4px 0 rgba(112, 121, 139, .18);
+
+      @media all and (min-width: 768px) {
+        padding: 3.5rem 5.5rem;
+      }
+    }
+  }
+}

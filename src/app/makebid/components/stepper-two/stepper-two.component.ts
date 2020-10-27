@@ -45,7 +45,7 @@ export class StepperTwoComponent implements OnInit, OnDestroy {
   loggingIn: boolean;
   isRegistering: boolean;
   isResetting: boolean;
-  registerSubscription = new Subscription();;
+  registerSubscription = new Subscription();
   constructor(private fb: FormBuilder, private loadingBar: LoadingBarService, private auth: AuthService, private bidService: BidService) { }
 
   ngOnInit(): void {

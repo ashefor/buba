@@ -8,10 +8,18 @@ const routes: Routes = [
     path: '',
     component: MainComponent,
     children: [
-      // {
-      //   path: 'process_bid',
-      //   loadChildren: () => import('../makebid/makebid.module').then(m => m.MakebidModule)
-      // }
+      {
+        path: '',
+        redirectTo: 'home'
+      },
+      {
+        path: 'home',
+        loadChildren: () => import('../dashboard/dashboard.module').then(m => m.DashboardModule)
+      },
+      {
+        path: 'settings',
+        loadChildren: () => import('../settings/settings.module').then(m => m.SettingsModule)
+      }
     ]
   }
 ];

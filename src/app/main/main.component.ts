@@ -9,10 +9,18 @@ import { AuthService } from '../core/services/auth.service';
   styleUrls: ['./main.component.scss'],
 })
 export class MainComponent implements OnInit {
+  display: boolean;
   constructor(private auth: AuthService) { }
 
   ngOnInit(): void {
   }
 
+  showSideMenu(event) {
+    this.display = ! this.display;
+  }
+  
 
+  closeSideMenu() {
+    this.display = false;
+  }
 }

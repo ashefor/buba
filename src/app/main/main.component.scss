@@ -1,26 +1,49 @@
 @import '../../styles/abstract/variables';
 
-.main{
-    margin-top: 5rem;
+.main {
+  margin-top: 5rem;
 
-    &__sidebar{
-        position: fixed;
-        top: 5rem;
-        width: 20rem;
-        padding: 4rem 2rem;
+  &__sidebar {
+    display: none;
+    height: 100%;
+    overflow: auto;
+
+    @media all and (min-width: 768px) {
+      display: block;
+      position: fixed;
+      top: 5rem;
+      width: 20rem;
+      padding: 4rem 0 4rem .5rem;
     }
 
-    &__content{
-        width: calc(100% - 20rem);
-        margin-left: auto;
+  }
 
-        &__container{
-            margin-left: auto;
-            margin-right: auto;
+  &__content {
+    width: 100%;
+    margin-left: auto;
 
-            @media all and (min-width: 1200px) {
-                width: 90%;
-            }
-        }
+    @media all and (min-width: 768px) {
+
+      width: calc(100% - 20rem);
+      margin-left: auto;
     }
+
+    &__container {
+      margin-left: auto;
+      margin-right: auto;
+      padding: 4rem 0;
+
+      @media all and (min-width: 768px) {
+        width: 95%;
+      }
+
+      @media all and (min-width: 992px) {
+        width: 90%;
+      }
+
+      @media all and (min-width: 1200px) {
+        width: 85%;
+      }
+    }
+  }
 }

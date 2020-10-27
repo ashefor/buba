@@ -9,97 +9,128 @@
 
 *,
 *::after,
-*::before{
-	margin:0;
-	padding:0;
-	box-sizing: inherit;
-}
-html{
-	font-size: 62.5%;
-
-	@media only screen and (max-width: 600px) {
-		font-size:50%;
-	  }
-	
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
 }
 
-body{
-	box-sizing: border-box;
-	// font-family: 'Baloo 2', cursive;
-	font-family: 'Poppins', sans-serif;
-	// font-family: 'Sen', sans-serif;
-	font-style: normal;
-	line-height: 1.2;
-}
+html {
+  font-size: 62.5%;
 
-a{
-	// color: inherit !important;
-	transition: all .2s ease-out;
-
-	&:hover{
-		// text-decoration: none !important;
-		// color: //TODO;
-	}
-
-	&.btn:hover{
-		text-decoration: none;
-	}
-
-	&:visited{
-		// color: #F58634;
-	}
-}
-
-p{
-	margin: 0;
-}
-
-input,select{
-
-	font-family: inherit;
-	border-image: none;
-	outline: none;
-	background: transparent;
+  @media only screen and (max-width: 600px) {
+    font-size: 50%;
+  }
 
 }
 
-
-label,input,select{
-
-	// font-size: //TODO;
-
-}
-html, body{
-    background-color: $color-off-black;
-    // margin: 0;
+body {
+  box-sizing: border-box;
+  // font-family: 'Baloo 2', cursive;
+  // font-family: 'Poppins', sans-serif;
+  font-family: 'Sen', sans-serif;
+  font-style: normal;
+  line-height: 1.2;
 }
 
-.vh-100{
-    min-height: 100vh;
-}
-.h-100{
-	height: 100%;
-}
-.w-100{
-	width: 100%;
+a {
+  // color: inherit !important;
+  transition: all .2s ease-out;
+
+  &:hover {
+    // text-decoration: none !important;
+    // color: //TODO;
+  }
+
+  &.btn:hover {
+    text-decoration: none;
+  }
+
+  &:visited {
+    // color: #F58634;
+  }
 }
 
- .p-progressbar-value{
+p {
+  margin: 0;
+}
+
+input,
+select {
+
+  font-family: inherit;
+  border-image: none;
+  outline: none;
+  background: transparent;
+
+}
+
+
+label,
+input,
+select {
+
+  // font-size: //TODO;
+
+}
+
+html,
+body {
+  background-color: $color-off-black;
+  // margin: 0;
+}
+
+.vh-100 {
+  min-height: 100vh;
+}
+
+.h-100 {
+  height: 100%;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.p-progressbar-value {
   background-color: $color-primary !important;
 }
 
-.p-inputnumber-button-up, .p-inputnumber-button-down{
-	background-color: $color-primary !important;
-	border: none !important;
+.p-inputnumber-button-up,
+.p-inputnumber-button-down {
+  background-color: $color-primary !important;
+  border: none !important;
 
 }
 
-.p-togglebutton.p-button.p-highlight{
-	background-color: $color-primary !important;
-	color: white !important;
-	border: none;
+.p-togglebutton.p-button.p-highlight {
+  background-color: $color-primary !important;
+  color: white !important;
+  border: none;
 }
 
-.p-inputnumber{
-	width: 100%;
+.p-inputnumber {
+  width: 100%;
+}
+
+.p-sidebar-left {
+  top: 5rem !important;
+}
+
+.bank-dropdown.p-dropdown {
+  // background-color: $color-off-black;
+  // border: none;
+  padding: .25rem;
+
+  .p-dropdown-label {
+    //   font-size: 1.25rem;
+    font-size: 1.4rem;
+    color: #000000;
+  }
+
+  .p-dropdown-items-wrapper {
+    //   font-size: 1.25rem;
+    font-size: 1.4rem;
+    color: #000000;
+  }
 }

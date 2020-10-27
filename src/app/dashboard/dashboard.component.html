@@ -1,0 +1,97 @@
+<div class="dashboard">
+  <div class="dashboard__container">
+    <div class="dashboard__pageheader">
+      <ng-container *ngIf="(storedUserDetails$ | async) as storedUserDetails">
+        <h1 class="dashboard__pageheader__title text--capital">
+            welcome<span>, {{storedUserDetails.firstname}}&nbsp;{{storedUserDetails.lastname}}</span>
+          </h1>
+      </ng-container>
+    </div>
+    <div class="dashboard__pagebody">
+      <div class="p-grid">
+        <div class="p-col-12 p-md-12 p-lg-4 dashboard__pagebody__left">
+         <div class="p-d-flex p-flex-column p-flex-md-row p-flex-lg-column">
+            <div class="balance p-mr-md-2 p-mr-lg-0">
+                <span class="balance__header text--upper">
+                  balance
+                </span>
+               <ng-container *ngIf="loadingDetails; else loadedBalance">
+                <div class="text--center py-2 loading">
+                    <i class="pi pi-spin pi-spinner"></i>
+                </div>
+               </ng-container>
+               <ng-template #loadedBalance>
+                <span class="balance__amount text--700">
+                    {{userdetails?.balance | currency: '₦ '}}
+                  </span>
+               </ng-template>
+              </div>
+              <div class="balance p-ml-md-2 p-ml-lg-0">
+                <span class="balance__header text--upper">
+                  winning balance
+                </span>
+                <ng-container *ngIf="loadingDetails; else loadedWiningBalance">
+                    <div class="text--center py-2 loading">
+                        <i class="pi pi-spin pi-spinner"></i>
+                    </div>
+                   </ng-container>
+                   <ng-template #loadedWiningBalance>
+                    <span class="balance__amount text--700">
+                        {{userdetails?.winnings_balance | currency: '₦ '}}
+                      </span>
+                   </ng-template>
+              </div>
+         </div>
+        </div>
+        <div class="p-col-12  p-md-12 p-lg-8 dashboard__pagebody__right">
+          <div class="payment">
+            <span class="payment__header text--upper">
+              payment account details
+            </span>
+           <ng-container *ngIf="loadingDetails; else loadedAccountDetails">
+            <div class="text--center loading">
+                <i class="pi pi-spin pi-spinner"></i>
+            </div>
+           </ng-container>
+           <ng-template #loadedAccountDetails>
+            <div class="p-grid payment__container py-3">
+                <div class="p-col-12 p-md-8 payment__details">
+                  <span class="payment__bank payment__details__item text--capital">
+                    {{userdetails.payment_bank_name? userdetails.payment_bank_name : 'N/A'}}
+                  </span>
+                  <span class="payment__name payment__details__item text--capital">
+                    {{userdetails.payment_account_name ? userdetails.payment_account_name : 'N/A'}}
+                  </span>
+                  <span class="payment__account payment__details__item text--700 text--capital">
+                    {{userdetails.payment_account_number ? userdetails?.payment_account_number : 'N/A'}}
+                  </span>
+                </div>
+                <div class="p-col-12 p-md-4 payment__details__item p-as-center">
+                  <button class="button button--primary text--capital payment__addbutton payment__details__button">
+                    fund account
+                  </button>
+                </div>
+              </div>
+           </ng-template>
+          </div>
+          <div class="bids">
+            <span class="bids__header text--upper">
+              open bid(s)
+            </span>
+            <div class="bids__details">
+                <span class="bids__bank bids__details__item text--capital">
+                  providus bank
+                </span>
+                <span class="bids__name bids__details__item text--capital">
+                  Fund Wallet for Fe S
+                </span>
+                <span class="bids__account bids__details__item text--700 text--capital">
+                    4000029288
+                </span>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

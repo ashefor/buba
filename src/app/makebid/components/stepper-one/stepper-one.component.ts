@@ -103,7 +103,8 @@ export class StepperOneComponent implements OnInit, OnDestroy {
     const bid: bidDetails = {
       bid_id: this.bidInfo.bid_list.display_id,
       no_of_bid: this.quantity.toString(),
-      bid_type: this.bidType1 ? '1' : '2',
+      // bid_type: this.bidType1 ? '1' : '2',
+      bid_type: '1',
       // tslint:disable-next-line: max-line-length
       total_amount: this.totalAmount ? this.totalAmount.toString() : (parseFloat(this.bidInfo.bid_details.price) * this.quantity).toString(),
       bid_price: this.bidInfo.bid_details.price,
@@ -140,5 +141,10 @@ export class StepperOneComponent implements OnInit, OnDestroy {
         this.toastr.error('An unknown error has occured. Please try again later', 'Error');
       }
     });
+  }
+
+  get chanceOfWinning() {
+    const percentage = ((this.quantity / this.bidInfo.bid_list.total_bid_lucky_five) * 100)
+    return percentage.toFixed(1);
   }
 }

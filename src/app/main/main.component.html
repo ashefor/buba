@@ -1,10 +1,14 @@
 <section class="container">
-  <app-topnav></app-topnav>
+  <app-topnav [display]="display" (toggleSideMenuEmitter)="showSideMenu($event)"></app-topnav>
+  <p-sidebar [(visible)]="display" [showCloseIcon]="false">
+   <app-sidenav (closeSideBarEmitter)="closeSideMenu()"></app-sidenav>
+</p-sidebar>
   <main class="main">
     <div class="main__sidebar">
       <app-sidenav></app-sidenav>
     </div>
     <div class="main__content">
+       <!-- <button (click)="showSideMenu()">show</button> -->
       <div class="main__content__container">
          <router-outlet></router-outlet>
       </div>

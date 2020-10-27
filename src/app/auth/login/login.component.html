@@ -8,26 +8,58 @@
     </div>
     <div class="account__body">
       <div class="account__form">
-        <form>
+        <form (ngSubmit)="logIn(loginForm.value)" [formGroup]="loginForm">
+            <ng-container *ngIf="loginForm.errors">
+                <span *ngIf="loginForm.errors.badRequest" class="p-invalid p-my-2 p-d-block p-text-center text--semi-small">
+                  {{loginForm.errors.badRequest}}
+                </span>
+                <span *ngIf="loginForm.errors.unAuthorized"
+                  class="p-invalid p-my-2 p-d-block p-text-center text--semi-small">
+                  {{loginForm.errors.unAuthorized}}
+                </span>
+              </ng-container>
           <div class="p-fluid">
+              
             <div class="p-field form__item">
               <label for="email" class="form__label text--capital">email</label>
-              <input type="text" id="email" class="form__input form__input--lg">
+              <input type="text" id="email" formControlName="email" class="form__input form__input--lg">
+              <ng-container
+              *ngIf="(formControls.email.dirty || formControls.email.touched) && formControls.email.errors">
+              <span *ngIf="formControls.email.errors.required" id="email-help"
+                class="p-invalid p-my-2 p-d-block">Email is required</span>
+              <span *ngIf="formControls.email.errors.email" id="email-help"
+                class="p-invalid p-my-2 p-d-block">Please enter valid email only</span>
+            </ng-container>
             </div>
             <div class="p-field form__item">
               <label for="password" class="form__label text--capital">password</label>
-              <input type="password" id="password" class="form__input form__input--lg">
+              <span class="p-input-icon-right">
+                <i (click)="hide = ! hide" class="pi" [class]="hide ? 'pi-eye' :'pi-eye-slash'" style="font-size: 1.4rem; cursor: pointer"></i>
+                <input [type]="hide ? 'password' : 'text'" class="form__input form__input--lg" formControlName="password" />
+            </span>
+              <!-- <input type="password" formControlName="password" id="password" class="form__input form__input--lg"> -->
+              <ng-container
+              *ngIf="(formControls.password.dirty || formControls.password.touched) && formControls.password.errors">
+              <span *ngIf="formControls.password.errors.required" id="password-help"
+                class="p-invalid p-mb-2 p-d-block p-px-2">Please enter password</span>
+              <span *ngIf="formControls.password.errors.minlength" id="password-help"
+                class="p-invalid p-mb-2 p-d-block p-px-2">Password must be at least characters</span>
+            </ng-container>
             </div>
             <div class="p-field form__item text--right">
-              <a href="" class="text--capital form__link">forgot password?</a>
+              <a [routerLink]="['/reset-password']" class="text--capital form__link">forgot password?</a>
             </div>
             <div class="p-field form__item">
-              <button class="button button--raised button--primary button--wide text--capital">login</button>
+                <button type="submit" [disabled]="loggingIn"
+                class="button button--primary button--raised button--wide text--upper">
+                <i *ngIf="loggingIn" class="pi pi-spin pi-spinner p-mr-2"></i>
+                {{loggingIn ? 'loggin in..' : 'log in'}}
+              </button>
             </div>
-            <div class="p-field form__item">
+            <!-- <div class="p-field form__item">
               <p class="form__text text--center">Don't have an account? <a [routerLink]="['/register']"
                   class="text--capital form__link form__link--primary">Register</a> </p>
-            </div>
+            </div> -->
           </div>
         </form>
       </div>
