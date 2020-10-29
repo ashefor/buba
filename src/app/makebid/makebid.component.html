@@ -43,27 +43,37 @@
                 <span>5</span>
               </div>
             </div>
-            <div class="stepper-content">
-              <div [ngSwitch]="(currentPage$ | async)">
-                <div class="w-100">
-                  <ng-container *ngSwitchCase="1">
-                    <app-stepper-one [animation]="animation" [bidInfo]="bidInfo"></app-stepper-one>
-                  </ng-container>
-                  <ng-container *ngSwitchCase="2">
-                    <app-stepper-two [animation]="animation" [bidDetails]="(bidDetails$ | async)" (loginEmitter)="logUserIn($event)"></app-stepper-two>
-                  </ng-container>
-                  <ng-container *ngSwitchCase="3">
-                    <app-stepper-three [accountDetails]="(accountDetails$ | async)" (stepThreeEmitter)="handleGoback($event)"  [bidDetails]="(bidDetails$ | async)" [animation]="animation"></app-stepper-three>
-                  </ng-container>
-                  <ng-container *ngSwitchCase="4">
-                    <app-stepper-four [bidDetails]="(bidDetails$ | async)" (stepFourEmitter)="handleGoback($event)" [animation]="animation"></app-stepper-four>
-                  </ng-container>
-                  <ng-container *ngSwitchCase="5">
-                    <app-stepper-five [animation]="animation"></app-stepper-five>
-                  </ng-container>
+              <ng-container *ngIf="fetchBidErrors; else noError">
+                <div class="text--center error">
+                  <div class="error__item">
+                    <p class="text--capital error__item--text">Sorry, Bid {{fetchBidErrors}}</p>
+                  <a href="http://buba.ng" role="button" class="button button--primary error__item--link">back to store</a>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-template #noError>
+                <div class="stepper-content">
+                <div [ngSwitch]="(currentPage$ | async)">
+                  <div class="w-100">
+                    <ng-container *ngSwitchCase="1">
+                      <app-stepper-one [animation]="animation" [bidInfo]="bidInfo" [error]="fetchBidErrors"></app-stepper-one>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="2">
+                      <app-stepper-two [animation]="animation" [bidDetails]="(bidDetails$ | async)" (loginEmitter)="logUserIn($event)"></app-stepper-two>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="3">
+                      <app-stepper-three [accountDetails]="(accountDetails$ | async)" (stepThreeEmitter)="handleGoback($event)"  [bidDetails]="(bidDetails$ | async)" [animation]="animation"></app-stepper-three>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="4">
+                      <app-stepper-four [bidDetails]="(bidDetails$ | async)" (stepFourEmitter)="handleGoback($event)" [animation]="animation"></app-stepper-four>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="5">
+                      <app-stepper-five [animation]="animation"></app-stepper-five>
+                    </ng-container>
+                  </div>
                 </div>
               </div>
-            </div>
+              </ng-template>
           </div>
         </div>
       </div>

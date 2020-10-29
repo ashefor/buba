@@ -13,15 +13,9 @@
          <span class="bid_info--amount">
            {{(bidInfo.bid_details.price ? bidInfo.bid_details.price : 0) | currency : '₦ '}}
          </span>
-         <div class="p-text-left text--warning p-my-3">
-           <span class="p-text-primary">Select bid type</span>
-         </div>
          <div class="bid_info_type">
            <div class="bid_info_type-content bid_info_type--left">
-             <span class="bid_info_type-content--heading">Lucky Five</span>
-             <p class="bid_info_type-content--text">With LuckyFive, five users have the opportunity to win.
-               <br>
-               <br>
+             <p class="bid_info_type-content--text">
                For complete bids, the top winner takes the item while the total bid amount is shared amongst the other
                four winners in the following proportion : 25%, 15%, 10%, 6% respectively.
                <br>
@@ -59,18 +53,13 @@
                <span class="bid_info_auction--title">Number of bids</span>
              </div>
              <div class="p-col-5">
-               <!-- <div class="p-inputgroup">
-                                <button type="button" (click)="decreaseQty()" pButton pRipple icon="pi pi-minus" styleClass="p-button-plain"></button>    
-                                <input type="number" pInputText class="" placeholder="tickets" min="1" [value]="quantity" (input)="changeQty($event)">   
-                                <button (click)="increaseQty()" type="button" pButton pRipple icon="pi pi-plus" styleClass="p-button-danger"></button>      
-                            </div> -->
                <p-inputNumber inputStyleClass="w-100" [(ngModel)]="quantity" mode="decimal" [showButtons]="true"
                  [min]="1" (onInput)="changeQty($event)">
                </p-inputNumber>
              </div>
              <div class="p-col-12 winning">
-              <span class="winning__item">
-                Chances of winning: <span class="winning__percent">{{chanceOfWinning}}&</span>
+              <span class="winning__item text--bold">
+                Chances of winning: <span class="winning__percent">{{chanceOfWinning}}%</span>
             </span>
             </div>
            </div>

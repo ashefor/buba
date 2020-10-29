@@ -16,6 +16,7 @@ export class MakebidComponent implements OnInit {
   currentPage$: Observable<number>;
   bidDetails$: Observable<any>;
   accountDetails$: Observable<any>;
+  fetchBidErrors: any;
   bidId: string;
   bidList: any;
   bidInfo: any;
@@ -74,9 +75,12 @@ export class MakebidComponent implements OnInit {
         this.bidInfo = data;
         this.bidList = data.bid_list;
       }
-    }, error => {
+    }, (error: HttpErrorResponse) => {
       this.loadingBar.stop();
       console.log(error);
+      if (error.status === 404) {
+        this.fetchBidErrors = error.error.message;
+      }
     });
   }
 

@@ -14,6 +14,7 @@ import { BidService } from '../../services/bid.service';
   styleUrls: ['./stepper-one.component.scss']
 })
 export class StepperOneComponent implements OnInit, OnDestroy {
+  @Input() error: any;
   @Input() bidList: any;
   @Input() bidInfo: any;
   @Input() animation: any;
