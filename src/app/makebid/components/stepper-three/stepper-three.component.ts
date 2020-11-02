@@ -26,7 +26,7 @@ export class StepperThreeComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    console.log('leaving');
+    // console.log('leaving');
     this.loadingBar.stop();
   }
 
@@ -40,7 +40,7 @@ export class StepperThreeComponent implements OnInit, OnDestroy {
     this.authService.getWalletBalance().subscribe((data: loggedInUser) => {
       this.loadingBar.stop();
       this.processing = false;
-      console.log(data);
+      // console.log(data);
       this.bidService.setWalletDetails(data.user);
       this.authService.storeUser(data.user);
       if (parseFloat(data.user.balance) > parseFloat(this.bidDetails.total_amount)) {
@@ -51,7 +51,7 @@ export class StepperThreeComponent implements OnInit, OnDestroy {
     }, (error: any) => {
       this.loadingBar.stop();
       this.processing = false;
-      console.log(error);
+      // console.log(error);
       if (error instanceof HttpErrorResponse) {
         if (error.status === 401) {
           this.bidService.setCurrentPage(2);

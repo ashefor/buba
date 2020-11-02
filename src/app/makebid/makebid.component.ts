@@ -31,7 +31,7 @@ export class MakebidComponent implements OnInit {
     this.bidDetails$ = this.service.getBidDetails$();
     this.accountDetails$ = this.service.getWalletDetails$();
     this.route.params.subscribe((params: Params) => {
-      console.log(params.id);
+      // console.log(params.id);
       this.fetchOneBid(params.id);
     });
   }
@@ -45,20 +45,20 @@ export class MakebidComponent implements OnInit {
   }
 
   goToNextPage(event) {
-    console.log(event);
+    // console.log(event);
     this.animation = 'animate__slideInRight';
     this.service.setCurrentPage(3);
   }
 
   logUserIn(user) {
-    // console.log(user);
+    // // console.log(user);
     // this.loadingBar.start();
     // this.auth.login(user).subscribe((loggedUser: any) => {
     //   this.loadingBar.stop();
-    //   console.log(loggedUser);
+    //   // console.log(loggedUser);
     // }, (error: any) => {
     //   this.loadingBar.stop();
-    //   console.log(error);
+    //   // console.log(error);
     //   if(error instanceof HttpErrorResponse) {
     //     if(error.status === 400) {
 
@@ -70,14 +70,14 @@ export class MakebidComponent implements OnInit {
     this.loadingBar.start();
     this.service.listOneBid(bidId).subscribe((data: any) => {
       this.loadingBar.stop();
-      console.log(data);
+      // console.log(data);
       if (data.status === 'success') {
         this.bidInfo = data;
         this.bidList = data.bid_list;
       }
     }, (error: HttpErrorResponse) => {
       this.loadingBar.stop();
-      console.log(error);
+      // console.log(error);
       if (error.status === 404) {
         this.fetchBidErrors = error.error.message;
       }

@@ -1,0 +1,13 @@
+@import '../../../../styles/abstract/variables';
+
+.withdrawal {
+  &__body {
+        &__new{
+            text-align: left;
+
+            @media all and (min-width: 768px) {
+                text-align: right;
+            }
+        }
+  }
+}

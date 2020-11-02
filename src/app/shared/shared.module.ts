@@ -12,16 +12,19 @@ import { TopnavComponent } from './components/topnav/topnav.component';
 import { KeyFilterModule } from 'primeng/keyfilter';
 import { SidebarModule } from 'primeng/sidebar';
 import { DropdownModule } from 'primeng/dropdown';
+import { TableModule } from 'primeng/table';
+import { MobileSidenavComponent } from './components/mobile-sidenav/mobile-sidenav.component';
 
 
 
 @NgModule({
-  declarations: [SidenavComponent, TopnavComponent],
+  declarations: [SidenavComponent, TopnavComponent, MobileSidenavComponent],
   imports: [
     CommonModule,
     ButtonModule,
     ReactiveFormsModule,
     FormsModule,
+    TableModule,
     ToggleButtonModule,
     DropdownModule,
     ProgressBarModule,
@@ -38,10 +41,12 @@ import { DropdownModule } from 'primeng/dropdown';
     ToggleButtonModule,
     ReactiveFormsModule,
     DropdownModule,
+    TableModule,
     FormsModule,
     TopnavComponent,
     KeyFilterModule,
     SidenavComponent,
+    MobileSidenavComponent,
     InputTextModule,
     SidebarModule,
     RouterModule

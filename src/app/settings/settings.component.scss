@@ -1,20 +1,6 @@
 @import '../../styles/abstract/variables';
 
 .settings {
-  &__pageheader {
-    margin-bottom: 2rem;
-
-    &__title {
-      line-height: 1.2;
-      font-size: $font-size-large;
-
-      @media all and (min-width: 768px) {
-        // font-size: $font-size-extra-large;
-        font-size: 3rem;
-      }
-    }
-  }
-
 
   &__nav {
     &__item {
@@ -39,7 +25,7 @@
     }
   }
 
-  &__pagebody {
+  &__body {
     &__right {
       display: flex;
       flex-direction: column;
@@ -57,6 +43,9 @@
       box-shadow: 0 2px 4px 0 rgba(112, 121, 139, .18);
 
       @media all and (min-width: 768px) {
+        padding: 3.5rem 4.5rem;
+      }
+      @media all and (min-width: 992px) {
         padding: 3.5rem 5.5rem;
       }
     }

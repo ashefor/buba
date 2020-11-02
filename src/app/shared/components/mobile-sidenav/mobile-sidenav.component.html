@@ -1,0 +1,65 @@
+<div class="sidenav">
+  <div class="sidenav__container">
+    <a class="sidenav__item" [routerLink]="['/dashboard']" routerLinkActive="active" (click)="closeSideBar($event)">
+      <i class="pi pi-home sidenav__item__icon"></i>
+      <span class="sidenav__item__text text--capital">dashboard</span>
+    </a>
+    <a class="sidenav__item" [routerLink]="['/funding']" routerLinkActive="active" (click)="closeSideBar($event)">
+      <i class="pi pi-bookmark sidenav__item__icon"></i>
+      <span class="sidenav__item__text text--capital">funding</span>
+    </a>
+    <a class="sidenav__item" (click)="closeSideBar($event)">
+      <i class="pi pi-ticket sidenav__item__icon"></i>
+      <span class="sidenav__item__text text--capital">bids</span>
+    </a>
+    <a class="accordion sidenav__item" [ngClass]="{'active': withdrawals1RLA.isActive || withdrawals2RLA.isActive}">
+      <i class="pi pi-money-bill sidenav__item__icon"></i>
+      <span class="sidenav__item__text text--capital">withdrawals</span>
+      <i class="pi pi-angle-right iconRight"></i>
+    </a>
+    <div class="sidenav__mobilenav">
+        <a class="sidenav__item" [routerLink]="['/withdrawals/new']" routerLinkActive="active"
+          (click)="closeSideBar($event)" #withdrawals1RLA="routerLinkActive">
+          <i class="pi pi-money-bill sidenav__item__icon"></i>
+          <span class="sidenav__item__text text--capital">new</span>
+        </a>
+        <a class="sidenav__item" [routerLink]="['/withdrawals/history']" routerLinkActive="active"
+        (click)="closeSideBar($event)" #withdrawals2RLA="routerLinkActive">
+        <i class="pi pi-bookmark sidenav__item__icon"></i>
+        <span class="sidenav__item__text text--capital">history</span>
+      </a>
+      </div>
+    <a class="accordion sidenav__item"
+      [ngClass]="{'active': settings1RLA.isActive || settings2RLA.isActive || settings3RLA.isActive || settings4RLA.isActive}">
+      <i class="pi pi-cog sidenav__item__icon"></i>
+      <span class="sidenav__item__text text--capital">settings</span>
+      <i class="pi pi-angle-right iconRight"></i>
+    </a>
+    <div class="sidenav__mobilenav">
+      <a class="sidenav__item" [routerLink]="['/settings/profile-edit']" routerLinkActive="active"
+        (click)="closeSideBar($event)" #settings1RLA="routerLinkActive">
+        <i class="pi pi-home sidenav__item__icon"></i>
+        <span class="sidenav__item__text text--capital">edit profile</span>
+      </a>
+      <a class="sidenav__item" [routerLink]="['/settings/change-password']" routerLinkActive="active"
+        (click)="closeSideBar($event)" #settings2RLA="routerLinkActive">
+        <i class="pi pi-ticket sidenav__item__icon"></i>
+        <span class="sidenav__item__text text--capital">change password</span>
+      </a>
+      <a class="sidenav__item" [routerLink]="['/settings/id-card']" routerLinkActive="active"
+        (click)="closeSideBar($event)" #settings3RLA="routerLinkActive">
+        <i class="pi pi-ticket sidenav__item__icon"></i>
+        <span class="sidenav__item__text text--capital">add id card</span>
+      </a>
+      <a class="sidenav__item" [routerLink]="['/settings/bank-account']" routerLinkActive="active"
+        (click)="closeSideBar($event)" #settings4RLA="routerLinkActive">
+        <i class="pi pi-cog sidenav__item__icon"></i>
+        <span class="sidenav__item__text text--capital">add bank account</span>
+      </a>
+    </div>
+    <div class="sidenav__item logout" (click)="logOut()">
+      <i class="pi pi-home sidenav__item__icon"></i>
+      <span class="sidenav__item__text text--capital">log out</span>
+    </div>
+  </div>
+</div>

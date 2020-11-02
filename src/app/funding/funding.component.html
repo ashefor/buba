@@ -1,0 +1,29 @@
+<div class="funding">
+    <div class="funding__container">
+      <div class="pageheader">
+        <h1 class="pageheader__title text--capital">
+            funding history
+          </h1>
+      </div>
+      <div class="pagebody funding__body">
+        <div class="p-grid">
+            <p-table [value]="fundingHistory" styleClass="p-datatable-lg p-datatable-responsive-demo">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Date Created</th>
+                        <th>Amount</th>
+                        <th>Type</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-funding>
+                    <tr>
+                        <td>{{funding.created_at | date}}</td>
+                        <td>{{funding.amount |currency: '₦ '}}</td>
+                        <td>{{funding.type}}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+      </div>
+    </div>
+  </div>

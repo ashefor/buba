@@ -8,15 +8,15 @@ import { AuthService } from 'src/app/core/services/auth.service';
   styleUrls: ['./sidenav.component.scss']
 })
 export class SidenavComponent implements OnInit {
-  @Output() closeSideBarEmitter = new EventEmitter();
+  // @Output() closeSideBarEmitter = new EventEmitter();
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
   }
 
-  closeSideBar(action) {
-    this.closeSideBarEmitter.emit(action);
-  }
+  // closeSideBar(action) {
+  //   this.closeSideBarEmitter.emit(action);
+  // }
   logOut() {
     this.authService.clearSessionStorage().then(() => {
       this.authService.storeUser(null);

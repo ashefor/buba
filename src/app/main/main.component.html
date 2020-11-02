@@ -1,7 +1,7 @@
 <section class="container">
   <app-topnav [display]="display" (toggleSideMenuEmitter)="showSideMenu($event)"></app-topnav>
   <p-sidebar [(visible)]="display" [showCloseIcon]="false">
-   <app-sidenav (closeSideBarEmitter)="closeSideMenu()"></app-sidenav>
+   <app-mobile-sidenav (closeSideBarEmitter)="closeSideMenu()"></app-mobile-sidenav>
 </p-sidebar>
   <main class="main">
     <div class="main__sidebar">

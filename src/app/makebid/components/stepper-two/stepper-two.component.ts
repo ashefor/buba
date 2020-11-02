@@ -103,7 +103,7 @@ export class StepperTwoComponent implements OnInit, OnDestroy {
     const { email, password } = formvalue;
     newFormValue.param = email;
     newFormValue.password = password;
-    console.log(newFormValue);
+    // console.log(newFormValue);
     this.loadingBar.start();
     this.loggingIn = true;
     this.loginForm.disable();
@@ -114,12 +114,12 @@ export class StepperTwoComponent implements OnInit, OnDestroy {
       this.auth.storeToken(loggedUser.token);
       this.auth.storeUser(loggedUser.user);
       // this.loginEmitter.emit();
-      console.log(loggedUser);
-      console.log(this.bidDetails);
+      // console.log(loggedUser);
+      // console.log(this.bidDetails);
       this.bidDetails.wallet_balance = loggedUser.user.balance;
       this.bidService.setBidDetails(this.bidDetails);
       this.bidService.setWalletDetails(loggedUser.user);
-      console.log(this.bidDetails);
+      // console.log(this.bidDetails);
       if (parseFloat(loggedUser.user.balance) < parseFloat(this.bidDetails.total_amount)) {
         this.bidService.setCurrentPage(3);
       } else {
@@ -129,7 +129,7 @@ export class StepperTwoComponent implements OnInit, OnDestroy {
       this.loggingIn = false;
       this.loadingBar.stop();
       this.loginForm.enable();
-      console.log(error);
+      // console.log(error);
       if (error instanceof HttpErrorResponse) {
         if (error.status === 400) {
           this.loginForm.setErrors({
@@ -152,7 +152,7 @@ export class StepperTwoComponent implements OnInit, OnDestroy {
     if (this.registerForm.invalid) {
       return;
     }
-    console.log(formvalue);
+    // console.log(formvalue);
     this.loadingBar.start();
     this.isRegistering = true;
     this.registerForm.disable();
@@ -165,17 +165,17 @@ export class StepperTwoComponent implements OnInit, OnDestroy {
       this.auth.storeUser(newUser.user);
       // this.auth.storeToken(newUser.token);
       // this.loginEmitter.emit();
-      console.log(newUser);
+      // console.log(newUser);
       // this.bidDetails.wallet_balance = newUser.user.balance;
       this.bidService.setBidDetails(this.bidDetails);
       this.bidService.setWalletDetails(newUser.user);
-      console.log(this.bidDetails);
+      // console.log(this.bidDetails);
       this.bidService.setCurrentPage(3);
     }, (error: any) => {
       this.isRegistering = false;
       this.loadingBar.stop();
       this.registerForm.enable();
-      console.log(error);
+      // console.log(error);
       if (error instanceof HttpErrorResponse) {
         if (error.status === 400) {
           this.registerForm.setErrors({

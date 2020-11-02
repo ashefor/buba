@@ -1,15 +1,90 @@
-import { Component, OnInit } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { LoadingBarService } from '@ngx-loading-bar/core';
+import { ToastrService } from 'ngx-toastr';
+import { Subscription, TimeoutError } from 'rxjs';
+import { states } from 'src/app/states';
+import { ProfileService } from '../../services/profile.service';
 
 @Component({
   selector: 'app-profile-edit',
   templateUrl: './profile-edit.component.html',
   styleUrls: ['./profile-edit.component.scss']
 })
-export class ProfileEditComponent implements OnInit {
-
-  constructor() { }
+export class ProfileEditComponent implements OnInit, OnDestroy {
+  states: any[] = states;
+  state: any = null;
+  profileEditForm: FormGroup;
+  loading: boolean;
+  profileEditSubscription = new Subscription();
+  constructor(private fb: FormBuilder,
+              private profileService: ProfileService,
+              private toastr: ToastrService, private loadingBar: LoadingBarService) { }
 
   ngOnInit(): void {
+    this.formInit();
+  }
+  ngOnDestroy() {
+    this.loadingBar.stop();
+    this.profileEditSubscription.unsubscribe();
   }
 
+  formInit() {
+    this.profileEditForm = this.fb.group({
+      firstname: [null, Validators.required],
+      lastname: [null, Validators.required],
+      address: [null, Validators.required],
+      city: [null, Validators.required],
+      state: [null, Validators.required],
+    });
+  }
+
+  get formControls() {
+    return this.profileEditForm.controls;
+  }
+
+  editProfileHandler(formvalue) {
+    if (this.profileEditForm.invalid) {
+      return;
+    }
+    console.log(formvalue);
+    const { state } = formvalue;
+    formvalue.state = state.name;
+    console.log(formvalue);
+    this.loading = true;
+    this.loadingBar.start();
+    this.profileEditForm.disable();
+    this.profileEditSubscription = this.profileService.editProfileDetails(formvalue).subscribe((profileData: any) => {
+      this.profileEditForm.enable();
+      this.loading = false;
+      this.loadingBar.stop();
+      console.log(profileData);
+      if (profileData.status === 'success') {
+        this.toastr.success('Success', profileData.message);
+        this.profileEditForm.reset();
+      } else {
+        this.toastr.error('Error!', profileData.message);
+      }
+    }, (error: any) => {
+      this.loading = false;
+      this.loadingBar.stop();
+      this.profileEditForm.enable();
+      console.log(error);
+      if (error instanceof HttpErrorResponse) {
+        this.toastr.error('Error', error.error ? error.error.error : 'An error has occured. Please try again later');
+        if (error.status === 400) {
+          console.log(error.error);
+          const badRequestError = error.error.message;
+          this.profileEditForm.setErrors({
+            badRequest: badRequestError
+          });
+        } else {
+          this.toastr.error(error.error ? error.error.error : 'An error has occured. Please try again later', 'Error');
+        }
+      } else if (error instanceof TimeoutError) {
+        this.toastr.error('Time Out!', 'Server timeout. Please try again later');
+      }
+    });
+  }
 }

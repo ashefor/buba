@@ -65,7 +65,7 @@
                       <app-stepper-three [accountDetails]="(accountDetails$ | async)" (stepThreeEmitter)="handleGoback($event)"  [bidDetails]="(bidDetails$ | async)" [animation]="animation"></app-stepper-three>
                     </ng-container>
                     <ng-container *ngSwitchCase="4">
-                      <app-stepper-four [bidDetails]="(bidDetails$ | async)" (stepFourEmitter)="handleGoback($event)" [animation]="animation"></app-stepper-four>
+                      <app-stepper-four [bidDetails]="(bidDetails$ | async)" (stepFourEmitter)="handleGoback($event)" [accountDetails]="(accountDetails$ | async)" [animation]="animation"></app-stepper-four>
                     </ng-container>
                     <ng-container *ngSwitchCase="5">
                       <app-stepper-five [animation]="animation"></app-stepper-five>

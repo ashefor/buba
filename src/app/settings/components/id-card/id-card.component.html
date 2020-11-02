@@ -1,14 +1,45 @@
 <div>
-    <div class="page__header">
-      <h4 class="page__header__main">
-        Add/Change Identification
-      </h4>
-      <p class="page__header__caption">
-        Update your identification
-      </p>
-    </div>
-    <div class="page__content">
-  
+  <div class="page__header">
+    <h4 class="page__header__main">
+      Add/Change Identification
+    </h4>
+    <p class="page__header__caption">
+      Update your identification
+    </p>
+  </div>
+  <div class="page__content">
+    <div class="account__form">
+      <div class="p-field form__item">
+        <input type="file" hidden #file (input)="onFileChanged($event)">
+        <button class="button text--capital" (click)="file.click()">
+          <i class="pi pi-upload p-mr-2"></i>
+          <span>select file</span>
+        </button>
+      </div>
+      <div class="p-field form__item" *ngIf="selectedFile">
+        <div class="form__upload">
+          <div class="form__upload__item" [ngClass]="{'isDisabled': loading}">
+            <span class="form__upload__item__icon form__upload__item--icon">
+              <i class="pi pi-file"></i>
+            </span>
+            <span class="form__upload__item__text">
+              {{selectedFile.name}}
+            </span>
+            <span class="form__upload__item__icon form__upload__item__icon--right">
+              <button type="button" [disabled]="loading" (click)="clearFileUpload(file)" class="button">
+                <i class="pi pi-trash"></i>
+              </button>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="p-field form__item">
+        <button (click)="onUpload()" type="button" [disabled]="!selectedFile || loading"
+          class="button button--primary button--raised text--upper">
+          <i *ngIf="loading" class="pi pi-spin pi-spinner p-mr-2"></i>
+                {{loading ? 'uploading' : 'upload'}}
+        </button>
+      </div>
     </div>
   </div>
-  
+</div>

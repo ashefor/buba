@@ -10,21 +10,70 @@
   <div class="page__content">
     <div class="profile">
       <div class="account__form">
-        <form>
+        <form [formGroup]="profileEditForm" (ngSubmit)="editProfileHandler(profileEditForm.value)">
           <div class="p-fluid">
             <div class="p-field form__item">
-              <label for="email" class="form__label text--capital">email</label>
-              <input type="text" id="email" class="form__input form__input--lg">
-
+              <label for="firstname">First Name</label>
+              <input id="firstname" formControlName="firstname" type="text" class="form__input form__input--lg">
+              <ng-container
+                *ngIf="(formControls.firstname.dirty || formControls.firstname.touched) && formControls.firstname.errors">
+                <span *ngIf="formControls.firstname.errors.required" class="p-invalid p-mb-2 p-d-block p-px-2">Enter
+                  First name</span>
+              </ng-container>
             </div>
             <div class="p-field form__item">
-              <label for="password" class="form__label text--capital">password</label>
-              <input type="password" id="password" class="form__input form__input--lg">
-
+              <label for="lastname">Last Name</label>
+              <input id="lastname" type="text" formControlName="lastname" class="form__input form__input--lg">
+              <ng-container
+                *ngIf="(formControls.lastname.dirty || formControls.lastname.touched) && formControls.lastname.errors">
+                <span *ngIf="formControls.lastname.errors.required" class="p-invalid p-mb-2 p-d-block p-px-2">Enter Last
+                  name</span>
+              </ng-container>
             </div>
             <div class="p-field form__item">
-              <button type="submit" class="button button--primary button--raised text--upper">
-                save
+              <label for="address">Address</label>
+              <textarea id="address" type="text" formControlName="address" rows="2" class="form__input form__textarea"
+                autoResize="autoResize"></textarea>
+              <ng-container
+                *ngIf="(formControls.address.dirty || formControls.address.touched) && formControls.address.errors">
+                <span *ngIf="formControls.address.errors.required" class="p-invalid p-mb-2 p-d-block p-px-2">Enter
+                  address</span>
+              </ng-container>
+            </div>
+            <div class="p-fluid p-formgrid p-grid">
+              <div class="p-field p-col-12 p-lg-6">
+                <label for="state">State</label>
+                <!-- <input id="state" type="text" class="form__input form__input--lg"> -->
+                <p-dropdown styleClass="bank-dropdown" placeholder="Select state" [filter]="true" [options]="states"
+                  formControlName="state" optionLabel="name" name="bank_name"></p-dropdown>
+                <ng-container
+                  *ngIf="(formControls.state.dirty || formControls.state.touched) && formControls.state.errors">
+                  <span *ngIf="formControls.state.errors.required" class="p-invalid p-mb-2 p-d-block p-px-2">Select
+                    state</span>
+                </ng-container>
+              </div>
+              <div class="p-field p-col-12 p-lg-6">
+                <label for="city">City</label>
+                <input id="city" formControlName="city" type="text" class="form__input form__input--lg">
+                <ng-container
+                  *ngIf="(formControls.city.dirty || formControls.city.touched) && formControls.city.errors">
+                  <span *ngIf="formControls.city.errors.required" class="p-invalid p-mb-2 p-d-block p-px-2">Enter
+                    city</span>
+                </ng-container>
+              </div>
+            </div>
+            <div class="p-field form__item">
+              <ng-container *ngIf="profileEditForm.errors && profileEditForm.errors.badRequest">
+                <span class="p-invalid p-my-2 p-d-block">
+                  {{profileEditForm.errors.badRequest}}
+                </span>
+              </ng-container>
+            </div>
+            <div class="p-field form__item">
+              <button [disabled]="loading || profileEditForm.invalid" type="submit"
+                class="button button--primary button--raised text--upper">
+                <i *ngIf="loading" class="pi pi-spin pi-spinner p-mr-2"></i>
+                {{loading ? 'saving' : 'save changes'}}
               </button>
             </div>
           </div>

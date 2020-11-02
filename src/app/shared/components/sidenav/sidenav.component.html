@@ -1,22 +1,22 @@
 <div class="sidenav">
   <div class="sidenav__container">
-    <a class="sidenav__item" [routerLink]="['/dashboard/home']" routerLinkActive="active" (click)="closeSideBar($event)">
+    <a class="sidenav__item" [routerLink]="['/dashboard']" routerLinkActive="active">
       <i class="pi pi-home sidenav__item__icon"></i>
       <span class="sidenav__item__text text--capital">dashboard</span>
     </a>
-    <a class="sidenav__item" [routerLink]="['/dashboard/funding']" routerLinkActive="active" (click)="closeSideBar($event)">
+    <a class="sidenav__item" [routerLink]="['/funding']" routerLinkActive="active">
       <i class="pi pi-ticket sidenav__item__icon"></i>
       <span class="sidenav__item__text text--capital">funding</span>
     </a>
-    <a class="sidenav__item" (click)="closeSideBar($event)">
+    <a class="sidenav__item">
       <i class="pi pi-ticket sidenav__item__icon"></i>
       <span class="sidenav__item__text text--capital">bids</span>
     </a>
-    <a class="sidenav__item" (click)="closeSideBar($event)">
+    <a class="sidenav__item" [routerLink]="['/withdrawals']" routerLinkActive="active">
       <i class="pi pi-ticket sidenav__item__icon"></i>
       <span class="sidenav__item__text text--capital">withdrawals</span>
     </a>
-    <a class="sidenav__item" [routerLink]="['/dashboard/settings']" routerLinkActive="active" (click)="closeSideBar($event)">
+    <a class="sidenav__item" [routerLink]="['/settings']" routerLinkActive="active">
       <i class="pi pi-cog sidenav__item__icon"></i>
       <span class="sidenav__item__text text--capital">settings</span>
     </a>

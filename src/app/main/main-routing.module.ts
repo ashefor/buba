@@ -10,15 +10,23 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'home'
+        redirectTo: 'dashboard'
       },
       {
-        path: 'home',
+        path: 'dashboard',
         loadChildren: () => import('../dashboard/dashboard.module').then(m => m.DashboardModule)
       },
       {
         path: 'settings',
         loadChildren: () => import('../settings/settings.module').then(m => m.SettingsModule)
+      },
+      {
+        path: 'funding',
+        loadChildren: () => import('../funding/funding.module').then(m => m.FundingModule)
+      },
+      {
+        path: 'withdrawals',
+        loadChildren: () => import('../withdrawal/withdrawal.module').then(m=> m.WithdrawalModule)
       }
     ]
   }

@@ -14,7 +14,7 @@ export class TokenInterceptor implements HttpInterceptor {
         private toastr: ToastrService, private bidService: BidService, private activatedRoute: ActivatedRoute) { }
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         // tslint:disable-next-line: no-string-literal
-        let routePath = this.activatedRoute.snapshot['_routerState'].url;
+        const routePath = this.activatedRoute.snapshot['_routerState'].url;
         if (this.service.isLoggedIn()) {
             const token = this.service.getToken();
             req = req.clone({

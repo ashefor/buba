@@ -1,7 +1,7 @@
 <div class="topnav">
   <nav class="topnav__container">
     <div class="topnav__left">
-      <div class="topnav__item p-d-md-none">
+      <div class="topnav__item p-d-md-none" [hidden]="showGoToStoreButton">
         <div class="hamburger" [ngClass]="{'active': display}" (click)="toggleSideMenu()">
           <div class="hamburger__bar hamburger__bar__top"></div>
           <div class="hamburger__bar hamburger__bar__middle"></div>

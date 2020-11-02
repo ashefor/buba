@@ -88,6 +88,11 @@ body {
   height: 100%;
 }
 
+.isDisabled {
+  pointer-events: none;
+  opacity: .7;
+}
+
 .w-100 {
   width: 100%;
 }
@@ -121,7 +126,7 @@ body {
 .bank-dropdown.p-dropdown {
   // background-color: $color-off-black;
   // border: none;
-  padding: .25rem;
+  padding: .275rem .25rem;
 
   .p-dropdown-label {
     //   font-size: 1.25rem;
@@ -133,5 +138,48 @@ body {
     //   font-size: 1.25rem;
     font-size: 1.4rem;
     color: #000000;
+  }
+
+
+}
+
+.p-datatable-lg .p-datatable-thead {
+  font-size: 1.5rem;
+}
+
+.p-datatable-lg .p-datatable-tbody {
+  font-size: 1.25rem !important;
+}
+
+@media screen and (max-width: 40rem) {
+  .p-datatable {
+    &.p-datatable-responsive-demo {
+
+      .p-datatable-thead>tr>th,
+      .p-datatable-tfoot>tr>td {
+        display: none !important;
+      }
+
+      .p-datatable-tbody>tr>td {
+        text-align: left;
+        display: block;
+        width: 100%;
+        float: left;
+        clear: left;
+        border: 0 none;
+
+        .p-column-title {
+          padding: .4rem;
+          min-width: 30%;
+          display: inline-block;
+          margin: -.4em 1em -.4em -.4rem;
+          font-weight: bold;
+        }
+
+        &:last-child {
+          border-bottom: 1px solid $color-ash
+        }
+      }
+    }
   }
 }

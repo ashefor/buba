@@ -1,0 +1,34 @@
+<div class="newwithdraw">
+    <div class="withdrawal__container">
+      <div class="pageheader">
+        <h1 class="pageheader__title text--capital">
+            withdrawals
+          </h1>
+      </div>
+      <div class="pagebody withdrawal__body">
+        <div class="p-grid">
+            <div class="p-col-12 withdrawal__body__new">
+                <a role="button" [routerLink]="['/withdrawals/new']" class="button button--primary button--raised button--wider button--lg text--capital">new withdrawal</a>
+            </div>
+            <div class="p-col-12 withdrawal__body__history">
+                <p-table [value]="withdawalHistory" styleClass="p-datatable-lg p-datatable-responsive-demo">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>Date Created</th>
+                            <th>Amount</th>
+                            <th>Type</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-withdrawal>
+                        <tr>
+                            <td>{{withdrawal.created_at | date}}</td>
+                            <td>{{withdrawal.amount |currency: '₦ '}}</td>
+                            <td>{{withdrawal.type}}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>

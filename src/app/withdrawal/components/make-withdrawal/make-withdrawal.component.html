@@ -1,0 +1,63 @@
+<div class="newwithdraw">
+  <div class="newwithdraw__container">
+      <div class="newwithdraw__nav p-d-none p-d-md-block">
+        <a class="newwithdraw__nav__text" [routerLink]="['/withdrawals/history']">back to withdrawals</a>
+      </div>
+    <div class="pageheader">
+      <h1 class="pageheader__title text--capital">
+        new withdrawal
+      </h1>
+    </div>
+    <div class="pagebody newwithdraw__body">
+      <div class="p-grid">
+        <div class="p-col-12 p-sm-9 p-md-7 p-lg-6 p-mr-auto newwithdraw__body__form">
+          <div class="card">
+            <div class="card__body">
+              <form autocomplete="nope" novalidate [formGroup]="withdrawalForm"
+                (ngSubmit)="makeWithDrawal(withdrawalForm.value)">
+                <div class="p-fluid">
+                  <div class="p-field form__item">
+                    <label class="form__label text--capital">Amount</label>
+                    <!-- <input type="tel" autocomplete="false" id="accountnumber" class="form__input form__input--lg" pKeyFilter="num"> -->
+                    <input type="tel" autocomplete="rando" class="form__input form__input--lg form__input__amount"
+                      placeholder="₦" formControlName="amount" readonly="readonly"
+                      onfocus="javascript: this.removeAttribute('readonly')" pKeyFilter="money"
+                      (input)="formatLoanAmountInput($event)" onblur="javascript: this.setAttribute('readonly', true)">
+                    <ng-container
+                      *ngIf="(formControls.amount.dirty || formControls.amount.touched) && formControls.amount.errors">
+                      <span *ngIf="formControls.amount.errors.required" id="amount-help"
+                        class="p-invalid p-my-2 p-d-block">Enter amount to withdraw</span>
+                    </ng-container>
+                  </div>
+                  <div class="p-field form__item">
+                    <label for="confirmpassword" class="form__label text--capital">password</label>
+                    <input autocomplete="new-password" type="password" formControlName="password"
+                      id="confirmpassword" class="form__input form__input--lg">
+                    <ng-container
+                      *ngIf="(formControls.password.dirty || formControls.password.touched) && formControls.password.errors">
+                      <span *ngIf="formControls.password.errors.required" id="password-help"
+                        class="p-invalid p-my-2 p-d-block">Enter your password</span>
+                    </ng-container>
+                  </div>
+                  <div class="p-field form__item">
+                    <ng-container *ngIf="withdrawalForm.errors && withdrawalForm.errors.badRequest">
+                      <span class="p-invalid p-my-2 p-d-block">
+                        {{withdrawalForm.errors.badRequest}}
+                      </span>
+                    </ng-container>
+                  </div>
+                  <div class="p-field form__item">
+                    <button [disabled]="loading" type="submit" class="button button--raised button--lg button--primary text--capital">
+                      <i *ngIf="loading" class="pi pi-spin pi-spinner p-mr-2"></i>
+                      {{loading ? 'processing' : 'make withdrawal'}}
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
