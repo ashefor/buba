@@ -2,6 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { LoadingBarService } from '@ngx-loading-bar/core';
 import { ToastrService } from 'ngx-toastr';
 import { FundingService } from './services/funding.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Observable, TimeoutError } from 'rxjs';
 
 @Component({
   selector: 'app-funding',
@@ -12,6 +14,7 @@ export class FundingComponent implements OnInit, OnDestroy {
   pagenumber = 1;
   pagesize = 10;
   fundingHistory: any[];
+  isFetchingHistory: boolean;
   constructor(private fundingService: FundingService, private loadingBar: LoadingBarService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
@@ -36,6 +39,21 @@ export class FundingComponent implements OnInit, OnDestroy {
         console.log(this.fundingHistory);
       }
       console.log(this.fundingHistory);
+    }, (error: any) => {
+      this.loadingBar.stop();
+      this.isFetchingHistory = false;
+      console.log(error);
+      if (error instanceof HttpErrorResponse) {
+        if (error.status >= 400 && error.status <= 415) {
+          this.toastr.error(error.error.message, 'Error');
+        } else {
+          this.toastr.error('Unknown error. Please try again later', 'Error');
+        }
+      } else if (error instanceof TimeoutError) {
+        this.toastr.error('Server timed out. Please try again later', 'Time Out!');
+      } else {
+        this.toastr.error('An unknown error has occured. Please try again later', 'Error');
+      }
     });
   }
 }

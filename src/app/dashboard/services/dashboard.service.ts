@@ -12,6 +12,6 @@ export class DashboardService {
   constructor(private http: HttpClient) { }
 
   fetchOpenBids() {
-    return this.http.get(`${environment.bubaApi}/user/bid/open`).pipe(catchError((error) => throwError(error)));
+    return this.http.get(`${environment.bubaApi}/bid/open`).pipe(catchError((error) => throwError(error)));
   }
 }

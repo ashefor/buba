@@ -3,7 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoadingBarService } from '@ngx-loading-bar/core';
 import { ToastrService } from 'ngx-toastr';
-import { Subscription, TimeoutError } from 'rxjs';
+import { Observable, Subscription, TimeoutError } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { ProfileService } from '../../services/profile.service';
 
@@ -17,8 +17,8 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
   loading: boolean;
   changePasswordSubscription = new Subscription();
   constructor(private fb: FormBuilder,
-    private profileService: ProfileService,
-    private toastr: ToastrService, private loadingBar: LoadingBarService) { }
+              private profileService: ProfileService,
+              private toastr: ToastrService,  private loadingBar: LoadingBarService) { }
 
   ngOnInit(): void {
     this.formInit();

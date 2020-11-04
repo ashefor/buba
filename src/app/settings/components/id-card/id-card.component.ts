@@ -39,7 +39,7 @@ export class IdCardComponent implements OnInit, OnDestroy {
      return;
    }
    const uploadData = new FormData();
-   uploadData.append('file[]', this.selectedFile, this.selectedFile.name);
+   uploadData.append('file', this.selectedFile, this.selectedFile.name);
    console.log(this.selectedFile);
    this.loading = true;
    this.loadingBar.start();

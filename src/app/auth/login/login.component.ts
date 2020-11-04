@@ -62,7 +62,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.loginForm.enable();
       this.auth.storeToken(loggedUser.token);
       this.auth.storeUser(loggedUser.user);
-      // console.log(loggedUser);
+      console.log(loggedUser);
       // this.loginEmitter.emit();
       this.router.navigate(['/dashboard']);
       this.bidService.setWalletDetails(loggedUser.user);

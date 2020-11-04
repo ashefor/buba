@@ -17,6 +17,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   isFetchingBids: boolean;
   storedUserDetails$: Observable<any>;
   userdetails: any;
+  bidHistory: any[];
 
   constructor(private authService: AuthService,
               private bidService: BidService, private toastr: ToastrService, private dashboardService: DashboardService) { }
@@ -60,10 +61,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.isFetchingBids = true;
     this.dashboardService.fetchOpenBids().subscribe((data: any) => {
       this.isFetchingBids = false;
-      // console.log(data);
+      console.log(data);
+      if (data.status === 'success') {
+        this.bidHistory = data.bids_history;
+        console.log(this.bidHistory);
+      }
     }, (error: any) => {
       this.isFetchingBids = false;
-      // console.log(error);
+      console.log(error);
       if (error instanceof HttpErrorResponse) {
         if (error.status === 401) {
           // this.bidService.setCurrentPage(2);
@@ -78,4 +83,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     });
   }
 
+  refreshAccountDetails() {
+    this.fetchUserDetails();
+  }
 }

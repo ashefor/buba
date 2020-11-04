@@ -21,7 +21,6 @@ export class MobileSidenavComponent implements OnInit, AfterViewInit {
       const submenu = accordions[i] as HTMLElement;
       submenu.onclick = (e) => {
         const shouldOpen = submenu.classList.contains('accordion-open');
-        console.log(shouldOpen);
         e.preventDefault();
         closeAllMenus();
 

@@ -3,92 +3,121 @@
     <div class="pageheader">
       <ng-container *ngIf="(storedUserDetails$ | async) as storedUserDetails">
         <h1 class="pageheader__title text--capital">
-            welcome<span>, {{storedUserDetails.firstname}}&nbsp;{{storedUserDetails.lastname}}</span>
-          </h1>
+          welcome<span>, {{storedUserDetails.firstname}}&nbsp;{{storedUserDetails.lastname}}</span>
+        </h1>
       </ng-container>
     </div>
     <div class="pagebody dashboard__body">
       <div class="p-grid">
         <div class="p-col-12 p-md-12 p-lg-4 dashboard__body__left">
-         <div class="p-d-flex p-flex-column p-flex-md-row p-flex-lg-column">
-            <div class="balance p-mr-md-2 p-mr-lg-0">
-                <span class="balance__header text--upper">
-                  balance
-                </span>
-               <ng-container *ngIf="loadingDetails; else loadedBalance">
+          <div class="p-grid p-p-2">
+            <div class="p-col-12 p-md-4 p-lg-12 balance p-mr-md-2 p-mr-lg-0">
+              <span class="balance__header text--upper">
+                balance
+              </span>
+              <ng-container *ngIf="loadingDetails; else loadedBalance">
                 <div class="text--center py-2 loading">
-                    <i class="pi pi-spin pi-spinner"></i>
+                  <i class="pi pi-spin pi-spinner"></i>
                 </div>
-               </ng-container>
-               <ng-template #loadedBalance>
+              </ng-container>
+              <ng-template #loadedBalance>
                 <span class="balance__amount text--700">
-                    {{userdetails?.balance | currency: '₦ '}}
-                  </span>
-               </ng-template>
-              </div>
-              <div class="balance p-ml-md-2 p-ml-lg-0">
-                <span class="balance__header text--upper">
-                  winning balance
+                  {{userdetails?.balance | currency: '₦ '}}
                 </span>
-                <ng-container *ngIf="loadingDetails; else loadedWiningBalance">
-                    <div class="text--center py-2 loading">
-                        <i class="pi pi-spin pi-spinner"></i>
-                    </div>
-                   </ng-container>
-                   <ng-template #loadedWiningBalance>
-                    <span class="balance__amount text--700">
-                        {{userdetails?.winnings_balance | currency: '₦ '}}
-                      </span>
-                   </ng-template>
-              </div>
-         </div>
+              </ng-template>
+            </div>
+            <div class="p-col-12 p-md-4 p-lg-12 balance p-ml-md-2 p-ml-lg-0">
+              <span class="balance__header text--upper">
+                winning balance
+              </span>
+              <ng-container *ngIf="loadingDetails; else loadedWiningBalance">
+                <div class="text--center py-2 loading">
+                  <i class="pi pi-spin pi-spinner"></i>
+                </div>
+              </ng-container>
+              <ng-template #loadedWiningBalance>
+                <span class="balance__amount text--700">
+                  {{userdetails?.winnings_balance | currency: '₦ '}}
+                </span>
+              </ng-template>
+            </div>
+            <div class="p-col-12 p-md-4 p-lg-12 payment p-ml-md-2 p-ml-lg-0">
+              <span class="payment__header text--upper">
+                payment account details
+              </span>
+              <ng-container *ngIf="loadingDetails; else loadedAccountDetails">
+                <div class="text--center loading">
+                  <i class="pi pi-spin pi-spinner"></i>
+                </div>
+              </ng-container>
+              <ng-template #loadedAccountDetails>
+                <div class="p-grid payment__container py-3">
+                  <div class="p-col-12 payment__details">
+                    <span class="payment__bank payment__details__item text--capital">
+                      {{userdetails.payment_bank_name? userdetails.payment_bank_name : 'N/A'}}
+                    </span>
+                    <span class="payment__name payment__details__item text--capital">
+                      {{userdetails.payment_account_name ? userdetails.payment_account_name : 'N/A'}}
+                    </span>
+                    <span class="payment__account payment__details__item text--700 text--capital">
+                      {{userdetails.payment_account_number ? userdetails?.payment_account_number : 'N/A'}}
+                    </span>
+                  </div>
+                  <div class="p-col-12 payment__details__item p-as-center">
+                    <button class="button button--primary text--capital payment__addbutton payment__details__button"
+                      (click)="refreshAccountDetails()">
+                      refresh
+                    </button>
+                  </div>
+                </div>
+              </ng-template>
+            </div>
+          </div>
         </div>
         <div class="p-col-12  p-md-12 p-lg-8 dashboard__body__right">
-          <div class="payment">
-            <span class="payment__header text--upper">
-              payment account details
-            </span>
-           <ng-container *ngIf="loadingDetails; else loadedAccountDetails">
-            <div class="text--center loading">
-                <i class="pi pi-spin pi-spinner"></i>
-            </div>
-           </ng-container>
-           <ng-template #loadedAccountDetails>
-            <div class="p-grid payment__container py-3">
-                <div class="p-col-12 p-md-8 payment__details">
-                  <span class="payment__bank payment__details__item text--capital">
-                    {{userdetails.payment_bank_name? userdetails.payment_bank_name : 'N/A'}}
-                  </span>
-                  <span class="payment__name payment__details__item text--capital">
-                    {{userdetails.payment_account_name ? userdetails.payment_account_name : 'N/A'}}
-                  </span>
-                  <span class="payment__account payment__details__item text--700 text--capital">
-                    {{userdetails.payment_account_number ? userdetails?.payment_account_number : 'N/A'}}
-                  </span>
-                </div>
-                <div class="p-col-12 p-md-4 payment__details__item p-as-center">
-                  <button class="button button--primary text--capital payment__addbutton payment__details__button">
-                    fund account
-                  </button>
-                </div>
-              </div>
-           </ng-template>
-          </div>
           <div class="bids">
             <span class="bids__header text--upper">
               open bid(s)
             </span>
             <div class="bids__details">
-                <span class="bids__bank bids__details__item text--capital">
-                  providus bank
-                </span>
-                <span class="bids__name bids__details__item text--capital">
-                  Fund Wallet for Fe S
-                </span>
-                <span class="bids__account bids__details__item text--700 text--capital">
-                    4000029288
-                </span>
+             <ng-container *ngIf="isFetchingBids; else doneFetchingBids">
+              <div class="text--center py-2 loading">
+                <i class="pi pi-spin pi-spinner"></i>
               </div>
+             </ng-container>
+             <ng-template #doneFetchingBids>
+              <ng-container *ngIf="bidHistory">
+                <ng-container *ngIf="bidHistory.length; else noHistory">
+                  <div *ngFor="let bid of bidHistory.slice(0, 5)" class="bids__open__container">
+                    <div class="bids__open__body">
+                      <div class="p-grid p-nogutter">
+                        <div class="bids__open__item">
+                          <img class="bids__open__image" src="https://via.placeholder.com/150" alt="product">
+                        </div>
+                        <div class="bids__open__item p-col text--left">
+                          <span class="bids__open__text">
+                            iPhone 12
+                          </span>
+                        </div>
+                        <div class="bids__open__item p-col-2 text--right">
+                          amount
+                        </div>
+                      </div>
+                    </div>
+                    <div class="bids__open__footer">
+                      <span class="bids__open__footer__text bids__open__footer__text--left">Ends on: Oct 30th</span>
+                      <a class="bids__open__footer__text bids__open__footer__text--link button button--primary">View</a>
+                    </div>
+                  </div>
+                </ng-container>
+                <ng-template #noHistory>
+                  <div class="text--center bids__open__none">
+                    <p class="bids__open__none__text">No open bids</p>
+                  </div>
+                </ng-template>
+              </ng-container>
+             </ng-template>
+            </div>
           </div>
         </div>
       </div>

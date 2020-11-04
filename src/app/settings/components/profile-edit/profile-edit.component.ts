@@ -3,7 +3,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoadingBarService } from '@ngx-loading-bar/core';
 import { ToastrService } from 'ngx-toastr';
-import { Subscription, TimeoutError } from 'rxjs';
+import { Observable, Subscription, TimeoutError } from 'rxjs';
+import { AuthService } from 'src/app/core/services/auth.service';
 import { states } from 'src/app/states';
 import { ProfileService } from '../../services/profile.service';
 
@@ -18,11 +19,17 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
   profileEditForm: FormGroup;
   loading: boolean;
   profileEditSubscription = new Subscription();
+  userDetails: any;
+  
   constructor(private fb: FormBuilder,
               private profileService: ProfileService,
-              private toastr: ToastrService, private loadingBar: LoadingBarService) { }
+              private toastr: ToastrService, private authService: AuthService, private loadingBar: LoadingBarService) { }
 
   ngOnInit(): void {
+    this.authService.getUser$().subscribe((user: any) => {
+        this.userDetails = user;
+        console.log(this.userDetails);
+    });
     this.formInit();
   }
   ngOnDestroy() {
@@ -32,11 +39,11 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
 
   formInit() {
     this.profileEditForm = this.fb.group({
-      firstname: [null, Validators.required],
-      lastname: [null, Validators.required],
-      address: [null, Validators.required],
-      city: [null, Validators.required],
-      state: [null, Validators.required],
+      firstname: [this.userDetails.firstname, Validators.required],
+      lastname: [this.userDetails.lastname, Validators.required],
+      address: [this.userDetails.address, Validators.required],
+      city: [this.userDetails.city, Validators.required],
+      state: [{name: this.userDetails.state}, Validators.required],
     });
   }
 
@@ -62,7 +69,9 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
       console.log(profileData);
       if (profileData.status === 'success') {
         this.toastr.success('Success', profileData.message);
-        this.profileEditForm.reset();
+        const newUserDetails = {...this.userDetails, ...formvalue};
+        console.log(newUserDetails);
+        this.authService.storeUser(newUserDetails);
       } else {
         this.toastr.error('Error!', profileData.message);
       }
@@ -86,5 +95,6 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
         this.toastr.error('Time Out!', 'Server timeout. Please try again later');
       }
     });
+  
   }
 }
