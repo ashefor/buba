@@ -79,7 +79,8 @@ export class StepperTwoComponent implements OnInit, OnDestroy {
       lastname: [null, [Validators.required]],
       phone_number: [null, [Validators.required]],
       email: [null, [Validators.email, Validators.required]],
-      password: [null, [Validators.required, Validators.minLength(6)]]
+      password: [null, [Validators.required, Validators.minLength(6)]],
+      referred_by: [null]
     });
   }
 

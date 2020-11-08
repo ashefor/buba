@@ -25,8 +25,12 @@ const routes: Routes = [
         loadChildren: () => import('../funding/funding.module').then(m => m.FundingModule)
       },
       {
+        path: 'bids',
+        loadChildren: () => import('../bids/bids.module').then(m => m.BidsModule)
+      },
+      {
         path: 'withdrawals',
-        loadChildren: () => import('../withdrawal/withdrawal.module').then(m=> m.WithdrawalModule)
+        loadChildren: () => import('../withdrawal/withdrawal.module').then(m => m.WithdrawalModule)
       }
     ]
   }

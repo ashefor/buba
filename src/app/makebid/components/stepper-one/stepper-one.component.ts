@@ -144,7 +144,7 @@ export class StepperOneComponent implements OnInit, OnDestroy {
   }
 
   get chanceOfWinning() {
-    const percentage = ((this.quantity / this.bidInfo.bid_list.total_bid_lucky_five) * 100)
+    const percentage = ((this.quantity / this.bidInfo.bid_list.total_bid_lucky_five) * 100);
     return percentage.toFixed(1);
   }
 }

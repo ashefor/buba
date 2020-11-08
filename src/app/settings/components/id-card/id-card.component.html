@@ -34,7 +34,7 @@
         </div>
       </div>
       <div class="p-field form__item">
-        <button (click)="onUpload()" type="button" [disabled]="!selectedFile || loading"
+        <button (click)="onUpload(file)" type="button" [disabled]="!selectedFile || loading"
           class="button button--primary button--raised text--upper">
           <i *ngIf="loading" class="pi pi-spin pi-spinner p-mr-2"></i>
                 {{loading ? 'uploading' : 'upload'}}

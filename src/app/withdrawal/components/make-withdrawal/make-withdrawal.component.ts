@@ -3,7 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoadingBarService } from '@ngx-loading-bar/core';
 import { ToastrService } from 'ngx-toastr';
-import { TimeoutError } from 'rxjs';
+import { Subscription, TimeoutError } from 'rxjs';
 import { WithdrawalService } from '../../services/withdrawal.service';
 
 @Component({
@@ -14,6 +14,7 @@ import { WithdrawalService } from '../../services/withdrawal.service';
 export class MakeWithdrawalComponent implements OnInit, OnDestroy {
   withdrawalForm: FormGroup;
   loading: boolean;
+  makeWithdrawalSubscription: Subscription;
   constructor(private fb: FormBuilder,
               private withdrawalService: WithdrawalService,
               private toastr: ToastrService, private loadingBar: LoadingBarService) { }
@@ -29,7 +30,7 @@ export class MakeWithdrawalComponent implements OnInit, OnDestroy {
   initWithdrawalForm() {
     this.withdrawalForm = this.fb.group({
       amount: [null, [Validators.required, this.confirmValidator]],
-      password: [null, [Validators.required, Validators.minLength(6)]],
+      password: [null, [Validators.required]],
     });
   }
 
@@ -129,7 +130,6 @@ export class MakeWithdrawalComponent implements OnInit, OnDestroy {
         this.withdrawalForm.enable();
         console.log(error);
         if (error instanceof HttpErrorResponse) {
-          this.toastr.error('Error', error.error ? error.error.error : 'An error has occured. Please try again later');
           if (error.status === 400) {
             console.log(error.error);
             const badRequestError = error.error.message;

@@ -112,7 +112,7 @@
                 <ng-container
                   *ngIf="(registerFormControls.phone_number.dirty || registerFormControls.phone_number.touched) && registerFormControls.phone_number.errors">
                   <span *ngIf="registerFormControls.phone_number.errors.required" id="phone_number-help"
-                    class="p-invalid p-my-2 p-d-block">phone_number is
+                    class="p-invalid p-my-2 p-d-block">Phone number is
                     required</span>
                 </ng-container>
               </div>
@@ -143,6 +143,10 @@
                   <span *ngIf="registerFormControls.password.errors.minlength" id="password-help"
                     class="p-invalid p-mb-2 p-d-block p-px-2">Password must be at least characters</span>
                 </ng-container>
+              </div>
+              <div class="p-field">
+                <label for="referred_by">Referral code</label>
+                <input class="p-inputtext-lg" id="referred_by" formControlName="referred_by" type="tel" pInputText>
               </div>
               <div class="p-field p-mt-5">
                 <button type="submit" [disabled]="isRegistering"

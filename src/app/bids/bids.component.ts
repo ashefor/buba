@@ -1,49 +1,46 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { LoadingBarService } from '@ngx-loading-bar/core';
 import { ToastrService } from 'ngx-toastr';
-import { Subscription, TimeoutError } from 'rxjs';
-import { WithdrawalService } from '../../services/withdrawal.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Observable, Subscription, TimeoutError } from 'rxjs';
+import { GetBidsService } from './services/get-bids.service';
 
 @Component({
-  selector: 'app-withdrawal-history',
-  templateUrl: './withdrawal-history.component.html',
-  styleUrls: ['./withdrawal-history.component.scss']
+  selector: 'app-bids',
+  templateUrl: './bids.component.html',
+  styleUrls: ['./bids.component.scss']
 })
-export class WithdrawalHistoryComponent implements OnInit, OnDestroy {
+export class BidsComponent implements OnInit, OnDestroy {
   pagenumber = 1;
   pagesize = 10;
-  withdawalHistory: any[];
+  bidsHistory: any[];
   isFetchingHistory: boolean;
-  withdrawalSubscription: Subscription;
-  constructor(private withdrawalService: WithdrawalService, private toastr: ToastrService, private loadingBar: LoadingBarService) { }
+  bidsHistorySubscription: Subscription;
+  constructor(private bidService: GetBidsService, private loadingBar: LoadingBarService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    this.fetchWithdrawalHistory();
+    this.fetchFundingHistory();
   }
 
   ngOnDestroy() {
     this.loadingBar.stop();
-    this.withdrawalSubscription.unsubscribe();
+    this.bidsHistorySubscription.unsubscribe();
   }
 
-  fetchWithdrawalHistory() {
+  fetchFundingHistory() {
     const pageData = {
       page_number: this.pagenumber,
-      page_size: this.pagesize,
-      search_text: ''
+      page_size: this.pagesize
     };
-    console.log(pageData);
     this.loadingBar.start();
-    this.withdrawalSubscription = this.withdrawalService.fetchWithdrawals(pageData).subscribe((data: any) => {
+    this.bidsHistorySubscription = this.bidService.fetchTransactions().subscribe((data: any) => {
       this.loadingBar.stop();
       console.log(data);
-      if (data.status === 'success') {
-        this.withdawalHistory = data.withdrawals;
-        console.log(this.withdawalHistory);
-      } else {
-        this.toastr.error(data.message);
+      if (data.status === 'successs') {
+        this.bidsHistory = data.transactions;
+        console.log(this.bidsHistory);
       }
+      console.log(this.bidsHistory);
     }, (error: any) => {
       this.loadingBar.stop();
       this.isFetchingHistory = false;

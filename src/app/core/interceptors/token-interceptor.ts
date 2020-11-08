@@ -19,8 +19,17 @@ export class TokenInterceptor implements HttpInterceptor {
             const token = this.service.getToken();
             req = req.clone({
                 setHeaders: {
-                    'Content-Type': 'application/json',
                     Authorization: token
+                }
+            });
+        }
+
+        if (req.url.includes('idcard')) {
+            req.headers.delete('content-type');
+        } else {
+            req = req.clone({
+                setHeaders: {
+                    'Content-Type': 'application/json',
                 }
             });
         }

@@ -3,7 +3,7 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angu
 import { FormGroup } from '@angular/forms';
 import { LoadingBarService } from '@ngx-loading-bar/core';
 import { ToastrService } from 'ngx-toastr';
-import { TimeoutError } from 'rxjs';
+import { Subscription, TimeoutError } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { bidDetails } from '../../models/bid-details';
 import { loggedInUser } from '../../models/logged-user';
@@ -20,13 +20,15 @@ export class StepperThreeComponent implements OnInit, OnDestroy {
   @Input() bidDetails: bidDetails;
   @Input() accountDetails: any;
   processing: boolean;
-  constructor(private loadingBar: LoadingBarService, private bidService: BidService, private authService: AuthService, private toastr: ToastrService) { }
+  confirmPaymentSubscription: Subscription;
+  constructor(private loadingBar: LoadingBarService,
+              private bidService: BidService, private authService: AuthService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
   }
 
   ngOnDestroy() {
-    // console.log('leaving');
+    this.confirmPaymentSubscription.unsubscribe();
     this.loadingBar.stop();
   }
 
@@ -34,10 +36,10 @@ export class StepperThreeComponent implements OnInit, OnDestroy {
     this.stepThreeEmitter.emit(1);
   }
 
-  authenticate() {
+  confirmPayment() {
     this.loadingBar.start();
     this.processing = true;
-    this.authService.getWalletBalance().subscribe((data: loggedInUser) => {
+    this.confirmPaymentSubscription = this.authService.getWalletBalance().subscribe((data: loggedInUser) => {
       this.loadingBar.stop();
       this.processing = false;
       // console.log(data);

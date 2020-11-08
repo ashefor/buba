@@ -34,7 +34,7 @@ export class IdCardComponent implements OnInit, OnDestroy {
     file.value = null;
   }
 
-  onUpload() {
+  onUpload(file: HTMLInputElement) {
    if (!this.selectedFile) {
      return;
    }
@@ -49,6 +49,7 @@ export class IdCardComponent implements OnInit, OnDestroy {
      console.log(idCardData);
      if (idCardData.status === 'success') {
        this.toastr.success('Success', idCardData.message);
+       this.clearFileUpload(file);
      } else {
        this.toastr.error('Error!', idCardData.message);
      }
@@ -57,7 +58,6 @@ export class IdCardComponent implements OnInit, OnDestroy {
      this.loadingBar.stop();
      console.log(error);
      if (error instanceof HttpErrorResponse) {
-       this.toastr.error('Error', error.error ? error.error.error : 'An error has occured. Please try again later');
        if (error.status === 400) {
          console.log(error.error);
          this.badRequestError = error.error.message;

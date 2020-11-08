@@ -9,7 +9,7 @@
     </div>
     <div class="pagebody dashboard__body">
       <div class="p-grid">
-        <div class="p-col-12 p-md-12 p-lg-4 dashboard__body__left">
+        <div class="p-col-12 p-md-12 p-lg-5 p-mr-auto dashboard__body__left">
           <div class="p-grid p-p-2">
             <div class="p-col-12 p-md-4 p-lg-12 balance p-mr-md-2 p-mr-lg-0">
               <span class="balance__header text--upper">
@@ -74,7 +74,7 @@
             </div>
           </div>
         </div>
-        <div class="p-col-12  p-md-12 p-lg-8 dashboard__body__right">
+        <div class="p-col-12  p-md-12 p-lg-6 p-mx-auto dashboard__body__right">
           <div class="bids">
             <span class="bids__header text--upper">
               open bid(s)
@@ -100,14 +100,17 @@
                           </span>
                         </div>
                         <div class="bids__open__item p-col-2 text--right">
-                          amount
+                          <a class="bids__open__footer__text bids__open__footer__text--link button button--wider">View</a>
                         </div>
                       </div>
                     </div>
-                    <div class="bids__open__footer">
+                    <!-- <div class="bids__open__footer">
                       <span class="bids__open__footer__text bids__open__footer__text--left">Ends on: Oct 30th</span>
                       <a class="bids__open__footer__text bids__open__footer__text--link button button--primary">View</a>
-                    </div>
+                    </div> -->
+                  </div>
+                  <div class="bids__open__item p-pt-5">
+                    <a [routerLink]="['/bids']"  class="bids__open__text bids__open__link">See all transactions</a>
                   </div>
                 </ng-container>
                 <ng-template #noHistory>

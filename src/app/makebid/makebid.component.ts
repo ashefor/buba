@@ -1,9 +1,9 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { LoadingBarService } from '@ngx-loading-bar/core';
 import { ToastrService } from 'ngx-toastr';
-import { Observable, TimeoutError } from 'rxjs';
+import { Observable, Subscription, TimeoutError } from 'rxjs';
 import { AuthService } from '../core/services/auth.service';
 import { BidService } from './services/bid.service';
 
@@ -12,7 +12,7 @@ import { BidService } from './services/bid.service';
   templateUrl: './makebid.component.html',
   styleUrls: ['./makebid.component.scss']
 })
-export class MakebidComponent implements OnInit {
+export class MakebidComponent implements OnInit, OnDestroy {
   currentPage$: Observable<number>;
   bidDetails$: Observable<any>;
   accountDetails$: Observable<any>;
@@ -23,6 +23,7 @@ export class MakebidComponent implements OnInit {
   state: false;
   animation = 'animate__slideInRight';
   processing: boolean;
+  fetchBidSubscription: Subscription;
   // tslint:disable-next-line: max-line-length
   constructor(private route: ActivatedRoute, private service: BidService, private loadingBar: LoadingBarService, private auth: AuthService, private toastr: ToastrService, private chref: ChangeDetectorRef) { }
 
@@ -34,6 +35,11 @@ export class MakebidComponent implements OnInit {
       // console.log(params.id);
       this.fetchOneBid(params.id);
     });
+  }
+
+  ngOnDestroy() {
+    this.loadingBar.stop();
+    this.fetchBidSubscription.unsubscribe();
   }
 
   changePage() {
@@ -68,7 +74,7 @@ export class MakebidComponent implements OnInit {
   }
   fetchOneBid(bidId) {
     this.loadingBar.start();
-    this.service.listOneBid(bidId).subscribe((data: any) => {
+    this.fetchBidSubscription = this.service.listOneBid(bidId).subscribe((data: any) => {
       this.loadingBar.stop();
       // console.log(data);
       if (data.status === 'success') {

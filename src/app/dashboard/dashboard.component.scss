@@ -124,7 +124,7 @@
       }
 
       &__container {
-        border-bottom: .1rem solid $color-ash;
+        // border-bottom: .1rem solid $color-ash;
         margin-bottom: .5rem;
         padding: .5rem 0;
 
@@ -145,6 +145,11 @@
         font-size: $font-size-regular;
         display: inline-block;
         color: $color-grey;
+      }
+
+      &__link{
+        color: $color-primary;
+        text-decoration: none;
       }
 
       &__image {
@@ -169,8 +174,10 @@
           }
 
           &--link {
-            // color: $color-primary;
+            color: $color-primary;
+            border: 1px solid $color-primary;
             // text-decoration: underline;
+            border-radius: 1.5rem;
           }
         }
       }

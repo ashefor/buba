@@ -3,7 +3,7 @@ import { LoadingBarService } from '@ngx-loading-bar/core';
 import { ToastrService } from 'ngx-toastr';
 import { FundingService } from './services/funding.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Observable, TimeoutError } from 'rxjs';
+import { Observable, Subscription, TimeoutError } from 'rxjs';
 
 @Component({
   selector: 'app-funding',
@@ -15,6 +15,7 @@ export class FundingComponent implements OnInit, OnDestroy {
   pagesize = 10;
   fundingHistory: any[];
   isFetchingHistory: boolean;
+  fundingHistorySubscription: Subscription;
   constructor(private fundingService: FundingService, private loadingBar: LoadingBarService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
@@ -23,6 +24,7 @@ export class FundingComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.loadingBar.stop();
+    this.fundingHistorySubscription.unsubscribe();
   }
 
   fetchFundingHistory() {
@@ -31,7 +33,7 @@ export class FundingComponent implements OnInit, OnDestroy {
       page_size: this.pagesize
     };
     this.loadingBar.start();
-    this.fundingService.fetchTransactions(pageData).subscribe((data: any) => {
+    this.fundingHistorySubscription = this.fundingService.fetchTransactions(pageData).subscribe((data: any) => {
       this.loadingBar.stop();
       console.log(data);
       if (data.status === 'successs') {

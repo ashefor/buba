@@ -1,0 +1,33 @@
+<div class="bids">
+    <div class="bids__container">
+      <div class="pageheader">
+        <h1 class="pageheader__title text--capital">
+            bids history
+          </h1>
+      </div>
+      <div class="pagebody bids__body">
+        <div class="p-grid">
+            <p-table [value]="bidsHistory" styleClass="p-datatable-lg p-datatable-responsive-demo">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Date Created</th>
+                        <th>Image</th>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Category</th>
+                        <th>Reviews</th>
+                        <th>Status</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-bids>
+                    <tr>
+                        <td>{{bids.created_at | date}}</td>
+                        <td>{{bids.amount |currency: '₦ '}}</td>
+                        <td>{{bids.type}}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+      </div>
+    </div>
+  </div>
