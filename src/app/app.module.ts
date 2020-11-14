@@ -18,7 +18,9 @@ import { TokenInterceptor } from './core/interceptors/token-interceptor';
     BrowserAnimationsModule,
     HttpClientModule,
     LoadingBarModule,
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot({
+      preventDuplicates: true
+    }),
     AppRoutingModule
   ],
   providers: [

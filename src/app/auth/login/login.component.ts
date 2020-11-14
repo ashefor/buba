@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { LoadingBarService } from '@ngx-loading-bar/core';
 import { Subscription } from 'rxjs';
@@ -24,7 +25,9 @@ export class LoginComponent implements OnInit, OnDestroy {
   loginForm: FormGroup;
   loggingIn: boolean;
   loginSubscription = new Subscription();
-  constructor(private fb: FormBuilder, private loadingBar: LoadingBarService, private auth: AuthService, private bidService: BidService, private router: Router) { }
+  constructor(private fb: FormBuilder, private loadingBar: LoadingBarService, private auth: AuthService, private bidService: BidService, private router: Router, private title: Title) {
+    this.title.setTitle('Buba -Account Login');
+   }
 
   ngOnInit(): void {
     this.formInit();

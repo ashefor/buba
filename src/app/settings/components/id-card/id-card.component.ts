@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { LoadingBarService } from '@ngx-loading-bar/core';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription, TimeoutError } from 'rxjs';
@@ -15,7 +16,9 @@ export class IdCardComponent implements OnInit, OnDestroy {
   loading: boolean;
   badRequestError: any;
   addIdCardSubscription = new Subscription();
-  constructor(private profileService: ProfileService, private toastr: ToastrService, private loadingBar: LoadingBarService) { }
+  constructor(private profileService: ProfileService, private toastr: ToastrService, private loadingBar: LoadingBarService, private title: Title) {
+    this.title.setTitle('Buba - Account Add Id');
+   }
 
   ngOnInit(): void {
   }

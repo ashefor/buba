@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Observable, Subscription, TimeoutError } from 'rxjs';
 import { GetBidsService } from './services/get-bids.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-bids',
@@ -16,7 +17,9 @@ export class BidsComponent implements OnInit, OnDestroy {
   bidsHistory: any[];
   isFetchingHistory: boolean;
   bidsHistorySubscription: Subscription;
-  constructor(private bidService: GetBidsService, private loadingBar: LoadingBarService, private toastr: ToastrService) { }
+  constructor(private bidService: GetBidsService, private loadingBar: LoadingBarService, private toastr: ToastrService, private title: Title) {
+    this.title.setTitle('Buba - Account Bids History');
+   }
 
   ngOnInit(): void {
     this.fetchFundingHistory();
@@ -36,11 +39,10 @@ export class BidsComponent implements OnInit, OnDestroy {
     this.bidsHistorySubscription = this.bidService.fetchTransactions().subscribe((data: any) => {
       this.loadingBar.stop();
       console.log(data);
-      if (data.status === 'successs') {
-        this.bidsHistory = data.transactions;
+      if (data.status === 'success') {
+        this.bidsHistory = data.bids_history;
         console.log(this.bidsHistory);
       }
-      console.log(this.bidsHistory);
     }, (error: any) => {
       this.loadingBar.stop();
       this.isFetchingHistory = false;

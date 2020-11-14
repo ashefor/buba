@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { FundingService } from './services/funding.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Observable, Subscription, TimeoutError } from 'rxjs';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-funding',
@@ -16,7 +17,9 @@ export class FundingComponent implements OnInit, OnDestroy {
   fundingHistory: any[];
   isFetchingHistory: boolean;
   fundingHistorySubscription: Subscription;
-  constructor(private fundingService: FundingService, private loadingBar: LoadingBarService, private toastr: ToastrService) { }
+  constructor(private fundingService: FundingService, private loadingBar: LoadingBarService, private toastr: ToastrService, private title: Title) {
+    this.title.setTitle('Buba - Account Funding History');
+   }
 
   ngOnInit(): void {
     this.fetchFundingHistory();

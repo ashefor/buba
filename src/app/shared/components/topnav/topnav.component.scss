@@ -1,7 +1,8 @@
 @import '../../../../styles/abstract/variables';
 
 .topnav {
-  background-color: $color-white;
+  background-color: $color-primary;
+  color: $color-white;
   position: fixed;
   width: 100%;
   top: 0;
@@ -17,7 +18,8 @@
     &__bar {
       width: 30px;
       height: 5px;
-      background-color: $color-grey;
+      // background-color: $color-grey;
+      background-color: $color-white;
       border-radius: 5px;
       margin: 4px 0;
       transition: 0.4s;
@@ -45,7 +47,7 @@
 
 
   &__container {
-    height: 5rem;
+    height: 6rem;
     display: flex;
     -ms-flex-align: center;
     align-items: center;

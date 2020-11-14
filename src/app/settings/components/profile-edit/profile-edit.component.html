@@ -41,18 +41,17 @@
               </ng-container>
             </div>
             <div class="p-fluid p-formgrid p-grid">
-              <div class="p-field p-col-12 p-lg-6">
+              <div class="p-field p-col-12 form__item p-lg-6">
                 <label for="state">State</label>
                 <!-- <input id="state" type="text" class="form__input form__input--lg"> -->
-                <p-dropdown styleClass="bank-dropdown" placeholder="Select state" [filter]="true" [options]="states"
-                  formControlName="state" optionLabel="name" name="bank_name"></p-dropdown>
+                <p-dropdown styleClass="bank-dropdown" placeholder="Select state" [options]="states"
+                  formControlName="state" optionLabel="name" name="state"></p-dropdown>
                 <ng-container
                   *ngIf="(formControls.state.dirty || formControls.state.touched) && formControls.state.errors">
-                  <span *ngIf="formControls.state.errors.required" class="p-invalid p-mb-2 p-d-block p-px-2">Select
-                    state</span>
+                  <span *ngIf="formControls.state.errors.required" class="p-invalid p-mb-2 p-d-block p-px-2">Select state</span>
                 </ng-container>
               </div>
-              <div class="p-field p-col-12 p-lg-6">
+              <div class="p-field p-col-12 form__item p-lg-6">
                 <label for="city">City</label>
                 <input id="city" formControlName="city" type="text" class="form__input form__input--lg">
                 <ng-container

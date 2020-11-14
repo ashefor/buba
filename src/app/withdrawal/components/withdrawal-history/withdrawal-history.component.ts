@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { LoadingBarService } from '@ngx-loading-bar/core';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription, TimeoutError } from 'rxjs';
@@ -16,7 +17,9 @@ export class WithdrawalHistoryComponent implements OnInit, OnDestroy {
   withdawalHistory: any[];
   isFetchingHistory: boolean;
   withdrawalSubscription: Subscription;
-  constructor(private withdrawalService: WithdrawalService, private toastr: ToastrService, private loadingBar: LoadingBarService) { }
+  constructor(private withdrawalService: WithdrawalService, private toastr: ToastrService, private loadingBar: LoadingBarService, private title: Title) {
+    this.title.setTitle('Buba - Account Withdrawal History');
+   }
 
   ngOnInit(): void {
     this.fetchWithdrawalHistory();

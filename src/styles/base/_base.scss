@@ -1,11 +1,12 @@
 /*basic reset*/
-@import url('https://fonts.googleapis.com/css2?family=Baloo+2&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Gayathri&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Sen&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Heebo&display=swap');
 
 @import '../abstract/variables';
+
+@font-face {
+  font-family: myFirstFont;
+  src: url('/assets/fonts/graphik/GraphikRegular.otf');
+}
 
 *,
 *::after,
@@ -18,19 +19,18 @@
 html {
   font-size: 62.5%;
 
-  @media only screen and (max-width: 600px) {
-    font-size: 50%;
-  }
+  // @media only screen and (max-width: 600px) {
+  //   font-size: 87.5%;
+  // }
 
 }
 
 body {
   box-sizing: border-box;
-  // font-family: 'Baloo 2', cursive;
-  // font-family: 'Poppins', sans-serif;
-  font-family: 'Sen', sans-serif;
+  font-family: 'Heebo', sans-serif;
   font-style: normal;
   line-height: 1.2;
+  font-size: 14px;
 }
 
 a {
@@ -57,27 +57,18 @@ p {
 
 input,
 select {
-
   font-family: inherit;
   border-image: none;
   outline: none;
   background: transparent;
-
+  font-size: 16px;
 }
 
-
-label,
-input,
-select {
-
-  // font-size: //TODO;
-
-}
 
 html,
 body {
   background-color: $color-off-black;
-  // margin: 0;
+  margin: 0 auto;
 }
 
 .vh-100 {
@@ -116,31 +107,35 @@ body {
 
 .p-inputnumber {
   width: 100%;
+  font-size: 16px;
 }
 
 .p-sidebar-left {
-  top: 5rem !important;
+  top: 6rem !important;
   width: 30rem !important;
+  height: calc(100vh - 6rem) !important;
+  overflow: auto;
 }
 
 .bank-dropdown.p-dropdown {
-  // background-color: $color-off-black;
-  // border: none;
   padding: .275rem .25rem;
 
   .p-dropdown-label {
-    //   font-size: 1.25rem;
     font-size: 1.4rem;
     color: #000000;
   }
 
   .p-dropdown-items-wrapper {
-    //   font-size: 1.25rem;
-    font-size: 1.4rem;
     color: #000000;
+
+    .p-dropdown-item {
+      padding: 1rem;
+      text-transform: uppercase;
+      font-size: 1.25rem;
+      white-space: pre-wrap;
+    }
+
   }
-
-
 }
 
 .p-datatable-lg .p-datatable-thead {
@@ -151,35 +146,13 @@ body {
   font-size: 1.25rem !important;
 }
 
-@media screen and (max-width: 40rem) {
-  .p-datatable {
-    &.p-datatable-responsive-demo {
-
-      .p-datatable-thead>tr>th,
-      .p-datatable-tfoot>tr>td {
-        display: none !important;
-      }
-
-      .p-datatable-tbody>tr>td {
-        text-align: left;
-        display: block;
-        width: 100%;
-        float: left;
-        clear: left;
-        border: 0 none;
-
-        .p-column-title {
-          padding: .4rem;
-          min-width: 30%;
-          display: inline-block;
-          margin: -.4em 1em -.4em -.4rem;
-          font-weight: bold;
-        }
-
-        &:last-child {
-          border-bottom: 1px solid $color-ash
-        }
-      }
-    }
+.withdrawal_input {
+  .p-inputnumber-input {
+    font-size: 16px !important;
+    padding: .75rem !important;
   }
+}
+
+.p-invalid{
+  font-size: $font-size-semi-small;
 }

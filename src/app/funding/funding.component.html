@@ -1,29 +1,40 @@
 <div class="funding">
-    <div class="funding__container">
-      <div class="pageheader">
-        <h1 class="pageheader__title text--capital">
-            funding history
-          </h1>
-      </div>
-      <div class="pagebody funding__body">
-        <div class="p-grid">
-            <p-table [value]="fundingHistory" styleClass="p-datatable-lg p-datatable-responsive-demo">
-                <ng-template pTemplate="header">
-                    <tr>
-                        <th>Date Created</th>
-                        <th>Amount</th>
-                        <th>Type</th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-funding>
-                    <tr>
-                        <td>{{funding.created_at | date}}</td>
-                        <td>{{funding.amount |currency: '₦ '}}</td>
-                        <td>{{funding.type}}</td>
-                    </tr>
-                </ng-template>
-            </p-table>
+    <div class="card">
+        <div class="card__body">
+            <div class="funding__container">
+                <div class="pageheader">
+                  <h1 class="pageheader__title text--capital">
+                      funding history
+                    </h1>
+                    <span class="pageheader__subtitle text--capital">
+                        total funding history 
+                    </span>
+                </div>
+                <div class="pagebody funding__body">
+                  <div class="p-grid">
+                      <div class="table__container">
+                          <table class="table">
+                            <thead>
+                              <tr>
+                                  <th>S/No</th>
+                                  <th>Transaction Date</th>
+                                  <th>Amount</th>
+                                  <th>Type</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let funding of fundingHistory; let i = index">
+                                <td>{{i + 1}}</td>
+                                <td>{{funding.created_at | date}}</td>
+                                  <td>{{funding.amount |currency: '₦ '}}</td>
+                                  <td>{{funding.type}}</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                  </div>
+                </div>
+              </div>
         </div>
-      </div>
     </div>
   </div>

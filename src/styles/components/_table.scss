@@ -1,0 +1,76 @@
+@import '../abstract/variables';
+
+table {
+  border-collapse: collapse;
+}
+
+.table {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 1rem;
+  background-color: transparent;
+
+  .action__btn {
+    border: 1px solid rgba(0, 0, 0, 0.5);
+  }
+
+  &__bordered {
+    border: 1px solid $color-ash;
+
+    td,
+    th {
+      border-top: 1px solid $color-ash;
+    }
+  }
+
+  &__container {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  thead,
+  .thead {
+    &__dark {
+      th {
+        color: $color-white;
+        background-color: $color-deep-black;
+        border-color: $color-black;
+      }
+    }
+
+
+
+    th {
+      vertical-align: bottom;
+      text-align: left;
+      font-size: $font-size-regular-alt;
+      border: 1px solid #e9ecef;
+      color: #495057;
+      white-space: nowrap;
+      background: #f8f9fa;
+      border-width: 0 0 1px 0;
+      transition: box-shadow 0.2s;
+    }
+  }
+
+  .tbody,
+  tbody {
+    tr {
+      font-size: $font-size-regular;
+      background-color: $color-white;
+    }
+    td{
+      text-align: left;
+    border: 1px solid #e9ecef;
+    border-width: 0 0 1px 0;
+    padding: 1.25rem 1.25rem;
+    }
+  }
+
+  td,
+  th {
+    padding: 1rem;
+    vertical-align: top;
+  }
+}

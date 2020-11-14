@@ -19,10 +19,11 @@
                   <div class="p-field form__item">
                     <label class="form__label text--capital">Amount</label>
                     <!-- <input type="tel" autocomplete="false" id="accountnumber" class="form__input form__input--lg" pKeyFilter="num"> -->
-                    <input type="tel" autocomplete="rando" class="form__input form__input--lg form__input__amount"
+                    <!-- <input type="tel" autocomplete="rando" class="form__input form__input--lg form__input__amount"
                       placeholder="₦" formControlName="amount" readonly="readonly"
                       onfocus="javascript: this.removeAttribute('readonly')" pKeyFilter="money"
-                      (input)="formatLoanAmountInput($event)" onblur="javascript: this.setAttribute('readonly', true)">
+                      (input)="formatLoanAmountInput($event)" onblur="javascript: this.setAttribute('readonly', true)"> -->
+                      <p-inputNumber formControlName="amount" styleClass="withdrawal_input"></p-inputNumber>
                     <ng-container
                       *ngIf="(formControls.amount.dirty || formControls.amount.touched) && formControls.amount.errors">
                       <span *ngIf="formControls.amount.errors.required" id="amount-help"
@@ -39,13 +40,13 @@
                         class="p-invalid p-my-2 p-d-block">Enter your password</span>
                     </ng-container>
                   </div>
-                  <div class="p-field form__item">
                     <ng-container *ngIf="withdrawalForm.errors && withdrawalForm.errors.badRequest">
+                      <div class="p-field form__item">
                       <span class="p-invalid p-my-2 p-d-block">
                         {{withdrawalForm.errors.badRequest}}
                       </span>
+                    </div>
                     </ng-container>
-                  </div>
                   <div class="p-field form__item">
                     <button [disabled]="loading" type="submit" class="button button--raised button--lg button--primary text--capital">
                       <i *ngIf="loading" class="pi pi-spin pi-spinner p-mr-2"></i>

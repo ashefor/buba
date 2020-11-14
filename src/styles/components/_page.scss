@@ -5,11 +5,15 @@
 
     &__title {
       line-height: 1.2;
-      font-size: $font-size-large;
+      font-size: $font-size-medium;
+      color: $color-primary;
 
       @media all and (min-width: 768px) {
         // font-size: $font-size-extra-large;
         font-size: 3rem;
       }
+    }
+    &__subtitle{
+      color: $color-ash;
     }
   }

@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { LoadingBarService } from '@ngx-loading-bar/core';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription, TimeoutError } from 'rxjs';
@@ -17,7 +18,9 @@ export class MakeWithdrawalComponent implements OnInit, OnDestroy {
   makeWithdrawalSubscription: Subscription;
   constructor(private fb: FormBuilder,
               private withdrawalService: WithdrawalService,
-              private toastr: ToastrService, private loadingBar: LoadingBarService) { }
+              private toastr: ToastrService, private loadingBar: LoadingBarService, private title: Title) {
+                this.title.setTitle('Buba - Account New Withdrawal');
+               }
 
   ngOnInit(): void {
     this.initWithdrawalForm();
@@ -29,7 +32,7 @@ export class MakeWithdrawalComponent implements OnInit, OnDestroy {
 
   initWithdrawalForm() {
     this.withdrawalForm = this.fb.group({
-      amount: [null, [Validators.required, this.confirmValidator]],
+      amount: [null, [Validators.required]],
       password: [null, [Validators.required]],
     });
   }
@@ -103,9 +106,9 @@ export class MakeWithdrawalComponent implements OnInit, OnDestroy {
       this.withdrawalForm.controls[i].updateValueAndValidity();
     }
     if (this.withdrawalForm.valid) {
-      console.log(formvalue);
-      const { amount } = formvalue;
-      formvalue.amount = parseFloat(this.unFormat(amount).slice(1, amount.length));
+      // console.log(formvalue);
+      // const { amount } = formvalue;
+      // formvalue.amount = parseFloat(this.unFormat(amount).slice(1, amount.length));
       console.log(formvalue);
       this.loading = true;
       this.loadingBar.start();

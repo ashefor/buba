@@ -1,7 +1,7 @@
 @import '../../styles/abstract/variables';
 
 .main {
-  margin-top: 5rem;
+  margin-top: 6rem;
 
   &__sidebar {
     display: none;
@@ -11,7 +11,7 @@
     @media all and (min-width: 768px) {
       display: block;
       position: fixed;
-      top: 5rem;
+      top: 6rem;
       width: 20rem;
       padding: 4rem 0 4rem .5rem;
     }

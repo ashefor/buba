@@ -5,6 +5,9 @@
         <h1 class="pageheader__title text--capital">
           welcome<span>, {{storedUserDetails.firstname}}&nbsp;{{storedUserDetails.lastname}}</span>
         </h1>
+        <span class="pageheader__subtitle text--capital">
+          account summary
+        </span>
       </ng-container>
     </div>
     <div class="pagebody dashboard__body">
@@ -39,6 +42,11 @@
                 <span class="balance__amount text--700">
                   {{userdetails?.winnings_balance | currency: '₦ '}}
                 </span>
+                <div class="p-mt-2">
+                  <a [routerLink]="['/withdrawals/new']" routerLinkActive="router-link-active"  class="button button--primary text--capital payment__addbutton">
+                withdraw
+                  </a>
+                </div>
               </ng-template>
             </div>
             <div class="p-col-12 p-md-4 p-lg-12 payment p-ml-md-2 p-ml-lg-0">
@@ -51,23 +59,25 @@
                 </div>
               </ng-container>
               <ng-template #loadedAccountDetails>
-                <div class="p-grid payment__container py-3">
-                  <div class="p-col-12 payment__details">
-                    <span class="payment__bank payment__details__item text--capital">
-                      {{userdetails.payment_bank_name? userdetails.payment_bank_name : 'N/A'}}
-                    </span>
-                    <span class="payment__name payment__details__item text--capital">
-                      {{userdetails.payment_account_name ? userdetails.payment_account_name : 'N/A'}}
-                    </span>
-                    <span class="payment__account payment__details__item text--700 text--capital">
-                      {{userdetails.payment_account_number ? userdetails?.payment_account_number : 'N/A'}}
-                    </span>
-                  </div>
-                  <div class="p-col-12 payment__details__item p-as-center">
-                    <button class="button button--primary text--capital payment__addbutton payment__details__button"
-                      (click)="refreshAccountDetails()">
-                      refresh
-                    </button>
+                <div *ngIf="userdetails">
+                  <div class="p-grid payment__container py-3">
+                    <div class="p-col-12 payment__details">
+                      <span class="payment__bank payment__details__item text--capital">
+                        {{userdetails.payment_bank_name? userdetails.payment_bank_name : 'N/A'}}
+                      </span>
+                      <span class="payment__name payment__details__item text--capital">
+                        {{userdetails.payment_account_name ? userdetails.payment_account_name : 'N/A'}}
+                      </span>
+                      <span class="payment__account payment__details__item text--700 text--capital">
+                        {{userdetails.payment_account_number ? userdetails?.payment_account_number : 'N/A'}}
+                      </span>
+                    </div>
+                    <div class="p-col-12 payment__details__item p-as-center">
+                      <button class="button button--primary text--capital payment__addbutton payment__details__button"
+                        (click)="refreshAccountDetails()">
+                        refresh
+                      </button>
+                    </div>
                   </div>
                 </div>
               </ng-template>
@@ -92,16 +102,16 @@
                     <div class="bids__open__body">
                       <div class="p-grid p-nogutter">
                         <div class="bids__open__item">
-                          <img class="bids__open__image" src="https://via.placeholder.com/150" alt="product">
+                          <img class="bids__open__image" [src]="bid.product_image" alt="product">
                         </div>
                         <div class="bids__open__item p-col text--left">
                           <span class="bids__open__text">
-                            iPhone 12
+                            {{bid.product_name}}
                           </span>
                         </div>
-                        <div class="bids__open__item p-col-2 text--right">
-                          <a class="bids__open__footer__text bids__open__footer__text--link button button--wider">View</a>
-                        </div>
+                        <!-- <div class="bids__open__item p-col-2 text--right">
+                          <a class="bids__open__footer__text bids__open__footer__text--link button">View</a>
+                        </div> -->
                       </div>
                     </div>
                     <!-- <div class="bids__open__footer">

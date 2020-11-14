@@ -10,7 +10,7 @@
       </div>
       <div class="topnav__item">
         <a href="" class="logo topnav__item__link topnav__item__logo">
-          <img src="assets/img/logo-red.png" alt="" srcset="">
+          <img src="assets/img/logo-white.png" alt="" srcset="">
         </a>
       </div>
     </div>
@@ -18,7 +18,7 @@
       <ng-container *ngIf="(userDetails$ | async) as userDetails">
         <div class="topnav__item">
           <div class="user">
-            <span class="user__name">{{userDetails.firstname}}&nbsp;{{userDetails.lastname}}</span>
+            <span class="user__name text--bold">{{userDetails.firstname}}&nbsp;{{userDetails.lastname}}</span>
             <span *ngIf="showGoToStoreButton" class="user__balance">{{userDetails.balance | currency : '₦ '}}
               <i (click)="refreshWallet()" class="pi pi-refresh user__balance__refresh"
                 [ngClass]="{'pi-spin': processing}"></i>

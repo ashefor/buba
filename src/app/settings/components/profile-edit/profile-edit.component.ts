@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { LoadingBarService } from '@ngx-loading-bar/core';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, Subscription, TimeoutError } from 'rxjs';
@@ -23,7 +24,9 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
   
   constructor(private fb: FormBuilder,
               private profileService: ProfileService,
-              private toastr: ToastrService, private authService: AuthService, private loadingBar: LoadingBarService) { }
+              private toastr: ToastrService, private authService: AuthService, private loadingBar: LoadingBarService, private title: Title) {
+                this.title.setTitle('Buba - Account Edit Profile');
+               }
 
   ngOnInit(): void {
     this.authService.getUser$().subscribe((user: any) => {
@@ -43,7 +46,7 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
       lastname: [this.userDetails.lastname, Validators.required],
       address: [this.userDetails.address, Validators.required],
       city: [this.userDetails.city, Validators.required],
-      state: [{name: this.userDetails.state}, Validators.required],
+      state: [{name: this.userDetails.state}, [Validators.required, this.confirmValidator]],
     });
   }
 
@@ -51,6 +54,14 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
     return this.profileEditForm.controls;
   }
 
+  confirmValidator = (control: FormControl): { [s: string]: boolean } => {
+    const dropdownValue = control.value;
+    if (!dropdownValue.name) {
+      return { error: true, required: true };
+    }
+    return {};
+  }
+  
   editProfileHandler(formvalue) {
     if (this.profileEditForm.invalid) {
       return;

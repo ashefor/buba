@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { LoadingBarService } from '@ngx-loading-bar/core';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, Subscription, TimeoutError } from 'rxjs';
@@ -18,7 +19,9 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
   changePasswordSubscription = new Subscription();
   constructor(private fb: FormBuilder,
               private profileService: ProfileService,
-              private toastr: ToastrService,  private loadingBar: LoadingBarService) { }
+              private toastr: ToastrService,  private loadingBar: LoadingBarService, private title: Title) { 
+                this.title.setTitle('Buba - Account Change Password');
+              }
 
   ngOnInit(): void {
     this.formInit();

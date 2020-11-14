@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, TimeoutError } from 'rxjs';
 import { AuthService } from '../core/services/auth.service';
@@ -20,7 +21,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
   bidHistory: any[];
 
   constructor(private authService: AuthService,
-              private bidService: BidService, private toastr: ToastrService, private dashboardService: DashboardService) { }
+              private bidService: BidService, private toastr: ToastrService, private dashboardService: DashboardService, private title: Title) {
+                this.title.setTitle('Buba - Account Dashboard');
+               }
 
   ngOnInit(): void {
     this.storedUserDetails$ = this.authService.getUser$();

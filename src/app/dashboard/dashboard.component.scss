@@ -14,9 +14,13 @@
     border: 0;
     border-radius: .75rem;
     flex: 1 1 auto;
-    padding: 2.5rem 2rem;
+    padding: 1.5rem 1.5rem;
     box-shadow: 0 2px 4px 0 rgba(112, 121, 139, .18);
     margin-bottom: 2.5rem;
+
+    @media all and (min-width: 768px) {
+      padding: 2.5rem 2rem;
+    }
 
     &__header {
       display: block;
@@ -46,10 +50,13 @@
     border: 0;
     border-radius: .75rem;
     flex: 1 1 auto;
-    padding: 2.5rem 2rem;
+    padding: 1.5rem 1.5rem;
     box-shadow: 0 2px 4px 0 rgba(112, 121, 139, .18);
     margin-bottom: 2.5rem;
-
+    
+    @media all and (min-width: 768px) {
+      padding: 2.5rem 2rem;
+    }
     &__header {
       display: block;
       font-weight: 700;
@@ -83,9 +90,13 @@
     border: 0;
     border-radius: .75rem;
     flex: 1 1 auto;
-    padding: 2.5rem 2rem;
+    padding: 1.5rem 1.5rem;
     box-shadow: 0 2px 4px 0 rgba(112, 121, 139, .18);
     margin-bottom: 2.5rem;
+
+    @media all and (min-width: 768px) {
+      padding: 2.5rem 2rem;
+    }
 
     &__header {
       display: block;

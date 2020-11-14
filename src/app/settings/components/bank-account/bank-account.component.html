@@ -15,7 +15,7 @@
             <div class="p-field form__item">
               <label for="bankname" class="form__label text--capital">bank name</label>
               <!-- <input type="text" id="bankname" class="form__input form__input--lg"> -->
-              <p-dropdown placeholder="Select bank" styleClass="bank-dropdown" [filter]="true" [options]="banks"
+              <p-dropdown placeholder="Select bank" styleClass="bank-dropdown" [options]="banks"
                 optionLabel="name" name="bank_code" formControlName="bank_code"></p-dropdown>
               <ng-container
                 *ngIf="(formControls.bank_code.dirty || formControls.bank_code.touched) && formControls.bank_code.errors">
@@ -32,13 +32,13 @@
                   class="p-invalid p-mb-2 p-d-block p-px-2">Enter account number</span>
               </ng-container>
             </div>
-            <div class="p-field form__item">
               <ng-container *ngIf="addBankAccountForm.errors && addBankAccountForm.errors.badRequest">
+                <div class="p-field form__item">
                 <span class="p-invalid p-my-2 p-d-block">
                   {{addBankAccountForm.errors.badRequest}}
                 </span>
+              </div>
               </ng-container>
-            </div>
             <div class="p-field form__item">
               <button [disabled]="loading || addBankAccountForm.invalid" type="submit"
                 class="button button--primary button--raised text--upper">
