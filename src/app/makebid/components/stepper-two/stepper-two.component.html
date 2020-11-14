@@ -19,7 +19,7 @@
             <div class="p-fluid">
               <div class="p-field">
                 <label for="email">email</label>
-                <input class="p-inputtext-lg" id="email" formControlName="email" type="text" pInputText>
+                <input  id="email" formControlName="email" type="text" pInputText>
                 <ng-container
                   *ngIf="(formControls.email.dirty || formControls.email.touched) && formControls.email.errors">
                   <span *ngIf="formControls.email.errors.required" id="email-help"
@@ -34,7 +34,7 @@
                   <a class="password-forgot" (click)="toggleFormType(3)">
                     forgot password?
                   </a>
-                  <input class="p-inputtext-lg password-toggle--input" formControlName="password" id="password"
+                  <input class="password-toggle--input" formControlName="password" id="password"
                     [type]="hide ? 'password' : 'text'" pInputText>
                   <span class="password-toggle--button" (click)="hide =! hide">
                     {{hide? 'show' : 'hide'}}
@@ -90,7 +90,7 @@
             <div class="p-fluid">
               <div class="p-field">
                 <label for="firstname">first name</label>
-                <input class="p-inputtext-lg" id="firstname" formControlName="firstname" type="text" pInputText>
+                <input  id="firstname" formControlName="firstname" type="text" pInputText>
                 <ng-container
                   *ngIf="(registerFormControls.firstname.dirty || registerFormControls.firstname.touched) && registerFormControls.firstname.errors">
                   <span *ngIf="registerFormControls.firstname.errors.required" id="firstname-help"
@@ -99,7 +99,7 @@
               </div>
               <div class="p-field">
                 <label for="lastname">last name</label>
-                <input class="p-inputtext-lg" id="lastname" formControlName="lastname" type="text" pInputText>
+                <input  id="lastname" formControlName="lastname" type="text" pInputText>
                 <ng-container
                   *ngIf="(registerFormControls.lastname.dirty || registerFormControls.lastname.touched) && registerFormControls.lastname.errors">
                   <span *ngIf="registerFormControls.lastname.errors.required" id="lastname-help"
@@ -108,7 +108,7 @@
               </div>
               <div class="p-field">
                 <label for="phone_number">phone number</label>
-                <input class="p-inputtext-lg" id="phone_number" formControlName="phone_number" type="tel" pInputText>
+                <input  id="phone_number" formControlName="phone_number" type="tel" pInputText>
                 <ng-container
                   *ngIf="(registerFormControls.phone_number.dirty || registerFormControls.phone_number.touched) && registerFormControls.phone_number.errors">
                   <span *ngIf="registerFormControls.phone_number.errors.required" id="phone_number-help"
@@ -118,7 +118,7 @@
               </div>
               <div class="p-field">
                 <label for="email">email</label>
-                <input class="p-inputtext-lg" id="email" formControlName="email" type="email" pInputText>
+                <input  id="email" formControlName="email" type="email" pInputText>
                 <ng-container
                   *ngIf="(registerFormControls.email.dirty || registerFormControls.email.touched) && registerFormControls.email.errors">
                   <span *ngIf="registerFormControls.email.errors.required" id="email-help"
@@ -130,7 +130,7 @@
               <div class="p-field">
                 <label for="password">password</label>
                 <div class="password-toggle">
-                  <input class="p-inputtext-lg password-toggle--input" formControlName="password" id="password"
+                  <input class="password-toggle--input" formControlName="password" id="password"
                     [type]="hide2 ? 'password' : 'text'" pInputText>
                   <span class="password-toggle--button" (click)="hide2 =! hide2">
                     {{hide2? 'show' : 'hide'}}
@@ -146,7 +146,7 @@
               </div>
               <div class="p-field">
                 <label for="referred_by">Referral code (optional)</label>
-                <input class="p-inputtext-lg" id="referred_by" formControlName="referred_by" type="tel" pInputText>
+                <input  id="referred_by" formControlName="referred_by" type="tel" pInputText>
               </div>
               <div class="p-field p-mt-5">
                 <button type="submit" [disabled]="isRegistering"
@@ -188,7 +188,7 @@
           <div class="p-fluid">
             <div class="p-field">
               <label for="email">email</label>
-              <input class="p-inputtext-lg" id="email" formControlName="email" type="text" pInputText>
+              <input  id="email" formControlName="email" type="text" pInputText>
               <ng-container
                 *ngIf="(resetFormControls.email.dirty || resetFormControls.email.touched) && resetFormControls.email.errors">
                 <span *ngIf="resetFormControls.email.errors.required" id="email-help"

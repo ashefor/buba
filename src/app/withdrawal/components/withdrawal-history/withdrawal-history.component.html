@@ -28,12 +28,23 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr *ngFor="let withdrawal of withdawalHistory; let i = index">
-                          <td>{{i + 1}}</td>
-                          <td>{{withdrawal.created_at | date}}</td>
-                          <td>{{withdrawal.amount |currency: '₦ '}}</td>
-                          <td>{{withdrawal.reference}}</td>
-                        </tr>
+                       <ng-container *ngIf="withdrawalHistory && withdrawalHistory.length">
+                        <tr *ngFor="let withdrawal of withdrawalHistory; let i = index">
+                            <td>{{i + 1}}</td>
+                            <td>{{withdrawal.created_at | date}}</td>
+                            <td>{{withdrawal.amount |currency: '₦ '}}</td>
+                            <td>{{withdrawal.reference}}</td>
+                          </tr>
+                       </ng-container>
+                       <ng-container *ngIf="withdrawalHistory && !withdrawalHistory.length">
+                        <tr>
+                            <td colspan="4">
+                             <p class="p-p-4 text--center text--capital">
+                               no withdrawals yet
+                              </p>
+                            </td>
+                           </tr>
+                       </ng-container>
                       </tbody>
                     </table>
                   </div>

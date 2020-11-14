@@ -14,7 +14,7 @@ import { WithdrawalService } from '../../services/withdrawal.service';
 export class WithdrawalHistoryComponent implements OnInit, OnDestroy {
   pagenumber = 1;
   pagesize = 10;
-  withdawalHistory: any[];
+  withdrawalHistory: any[];
   isFetchingHistory: boolean;
   withdrawalSubscription: Subscription;
   constructor(private withdrawalService: WithdrawalService, private toastr: ToastrService, private loadingBar: LoadingBarService, private title: Title) {
@@ -42,8 +42,8 @@ export class WithdrawalHistoryComponent implements OnInit, OnDestroy {
       this.loadingBar.stop();
       console.log(data);
       if (data.status === 'success') {
-        this.withdawalHistory = data.withdrawals;
-        console.log(this.withdawalHistory);
+        this.withdrawalHistory = data.withdrawals;
+        console.log(this.withdrawalHistory);
       } else {
         this.toastr.error(data.message);
       }

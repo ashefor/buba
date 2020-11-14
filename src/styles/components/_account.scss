@@ -3,8 +3,12 @@
 .account{
     margin: 0 !important;
     // height: 100vh;
-    padding: 6rem 1rem;
+    padding: 4rem 1rem;
     align-items: center;
+
+    @media all and (min-width: 768px) {
+        height: 100vh;
+    }
 
     &__body{
         background-color: $color-white;

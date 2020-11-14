@@ -23,12 +23,23 @@
                               </tr>
                             </thead>
                             <tbody>
-                              <tr *ngFor="let funding of fundingHistory; let i = index">
-                                <td>{{i + 1}}</td>
-                                <td>{{funding.created_at | date}}</td>
-                                  <td>{{funding.amount |currency: '₦ '}}</td>
-                                  <td>{{funding.type}}</td>
-                              </tr>
+                              <ng-container *ngIf="fundingHistory && fundingHistory.length">
+                                <tr *ngFor="let funding of fundingHistory; let i = index">
+                                    <td>{{i + 1}}</td>
+                                    <td>{{funding.created_at | date}}</td>
+                                      <td>{{funding.amount |currency: '₦ '}}</td>
+                                      <td>{{funding.type}}</td>
+                                  </tr>
+                              </ng-container>
+                              <ng-container *ngIf="fundingHistory && !fundingHistory.length">
+                                <tr>
+                                    <td colspan="4">
+                                     <p class="p-p-4 text--center text--capital">
+                                       no funding yet
+                                      </p>
+                                    </td>
+                                   </tr>
+                              </ng-container>
                             </tbody>
                           </table>
                         </div>

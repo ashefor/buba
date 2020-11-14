@@ -56,8 +56,8 @@ export class StepperTwoComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.loadingBar.stop();
-    this.loginSubscription.unsubscribe();
-    this.registerSubscription.unsubscribe();
+    // this.loginSubscription.unsubscribe();
+    // this.registerSubscription.unsubscribe();
   }
   formInit() {
     this.loginForm = this.fb.group({

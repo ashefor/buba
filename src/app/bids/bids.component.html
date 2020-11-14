@@ -25,14 +25,25 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let bids of bidsHistory; let i = index">
-                        <td>{{i + 1}}</td>
-                        <td>{{bids.start_date | date}}</td>
-                        <td>{{bids.end_date | date}}</td>
-                        <td>{{bids.total_bid}}</td>
-                        <td>{{bids.product_name}}</td>
-                        <td class="text--capital">lucky five</td>
-                      </tr>
+                      <ng-container *ngIf="bidsHistory && bidsHistory.length">
+                        <tr *ngFor="let bids of bidsHistory; let i = index">
+                            <td>{{i + 1}}</td>
+                            <td>{{bids.start_date | date}}</td>
+                            <td>{{bids.end_date | date}}</td>
+                            <td>{{bids.total_bid}}</td>
+                            <td>{{bids.product_name}}</td>
+                            <td class="text--capital">lucky five</td>
+                          </tr>
+                      </ng-container>
+                      <ng-container *ngIf="bidsHistory && !bidsHistory.length">
+                        <tr *ngFor="let bids of bidsHistory; let i = index">
+                            <td colspan="6">
+                                <p class="p-p-4 text--center text--capital">
+                                  no bids yet
+                                 </p>
+                               </td>
+                          </tr>
+                      </ng-container>
                     </tbody>
                   </table>
                 </div>
