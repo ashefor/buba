@@ -48,10 +48,10 @@ ngOnDestroy() {
     if (this.addBankAccountForm.invalid) {
       return;
     }
-    console.log(formvalue);
+    // console.log(formvalue);
     const {bank_code} = formvalue;
     formvalue.bank_code = bank_code.bankcode;
-    console.log(formvalue);
+    // console.log(formvalue);
     this.loading = true;
     this.loadingBar.start();
     this.addBankAccountForm.disable();
@@ -59,7 +59,7 @@ ngOnDestroy() {
       this.addBankAccountForm.enable();
       this.loadingBar.stop();
       this.loading = false;
-      console.log(bankData);
+      // console.log(bankData);
       if (bankData.status === 'success') {
         this.toastr.success('Success', bankData.message);
         this.addBankAccountForm.reset();
@@ -70,11 +70,11 @@ ngOnDestroy() {
       this.loading = false;
       this.loadingBar.stop();
       this.addBankAccountForm.enable();
-      console.log(error);
+      // console.log(error);
       if (error instanceof HttpErrorResponse) {
         this.toastr.error('Error', error.error ? error.error.error : 'An error has occured. Please try again later');
         if (error.status === 400) {
-          console.log(error.error);
+          // console.log(error.error);
           const badRequestError = error.error.message;
           this.addBankAccountForm.setErrors({
             badRequest: badRequestError

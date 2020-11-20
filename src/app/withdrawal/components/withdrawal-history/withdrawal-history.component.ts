@@ -17,7 +17,11 @@ export class WithdrawalHistoryComponent implements OnInit, OnDestroy {
   withdrawalHistory: any[];
   isFetchingHistory: boolean;
   withdrawalSubscription: Subscription;
-  constructor(private withdrawalService: WithdrawalService, private toastr: ToastrService, private loadingBar: LoadingBarService, private title: Title) {
+  searchText = '';
+  errorMsg = 'no withdrawals yet';
+  constructor(private withdrawalService: WithdrawalService,
+              private toastr: ToastrService,
+              private loadingBar: LoadingBarService, private title: Title) {
     this.title.setTitle('Buba - Account Withdrawal History');
    }
 
@@ -36,21 +40,21 @@ export class WithdrawalHistoryComponent implements OnInit, OnDestroy {
       page_size: this.pagesize,
       search_text: ''
     };
-    console.log(pageData);
+    // console.log(pageData);
     this.loadingBar.start();
     this.withdrawalSubscription = this.withdrawalService.fetchWithdrawals(pageData).subscribe((data: any) => {
       this.loadingBar.stop();
-      console.log(data);
+      // console.log(data);
       if (data.status === 'success') {
         this.withdrawalHistory = data.withdrawals;
-        console.log(this.withdrawalHistory);
+        // console.log(this.withdrawalHistory);
       } else {
         this.toastr.error(data.message);
       }
     }, (error: any) => {
       this.loadingBar.stop();
       this.isFetchingHistory = false;
-      console.log(error);
+      // console.log(error);
       if (error instanceof HttpErrorResponse) {
         if (error.status >= 400 && error.status <= 415) {
           this.toastr.error(error.error.message, 'Error');
@@ -63,5 +67,57 @@ export class WithdrawalHistoryComponent implements OnInit, OnDestroy {
         this.toastr.error('An unknown error has occured. Please try again later', 'Error');
       }
     });
+  }
+
+  goToAnotherPage() {
+    const pageData = {
+      page_number: this.pagenumber,
+      page_size: this.pagesize,
+      search_text: this.searchText
+    };
+    // console.log(pageData);
+    this.loadingBar.start();
+    this.withdrawalSubscription = this.withdrawalService.fetchWithdrawals(pageData).subscribe((data: any) => {
+      this.loadingBar.stop();
+      // console.log(data);
+      if (data.status === 'success') {
+        this.withdrawalHistory = data.withdrawals;
+        // console.log(this.withdrawalHistory);
+      } else {
+        this.toastr.error(data.message);
+      }
+      if (!this.withdrawalHistory.length) {
+        this.errorMsg = 'no more results';
+      }
+    }, (error: any) => {
+      this.loadingBar.stop();
+      this.isFetchingHistory = false;
+      // console.log(error);
+      if (error instanceof HttpErrorResponse) {
+        if (error.status >= 400 && error.status <= 415) {
+          this.toastr.error(error.error.message, 'Error');
+        } else {
+          this.toastr.error('Unknown error. Please try again later', 'Error');
+        }
+      } else if (error instanceof TimeoutError) {
+        this.toastr.error('Server timed out. Please try again later', 'Time Out!');
+      } else {
+        this.toastr.error('An unknown error has occured. Please try again later', 'Error');
+      }
+    });
+  }
+
+  goPrevious() {
+    if (this.pagenumber === 1) {
+      return;
+    } else {
+      this.pagenumber -= 1;
+      this.goToAnotherPage();
+    }
+  }
+
+  goNext() {
+    this.pagenumber += 1;
+    this.goToAnotherPage();
   }
 }

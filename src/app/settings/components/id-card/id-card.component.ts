@@ -43,13 +43,13 @@ export class IdCardComponent implements OnInit, OnDestroy {
    }
    const uploadData = new FormData();
    uploadData.append('file', this.selectedFile, this.selectedFile.name);
-   console.log(this.selectedFile);
+   // console.log(this.selectedFile);
    this.loading = true;
    this.loadingBar.start();
    this.addIdCardSubscription = this.profileService.uploadIdCardDetails(uploadData).subscribe((idCardData: any) => {
      this.loadingBar.stop();
      this.loading = false;
-     console.log(idCardData);
+     // console.log(idCardData);
      if (idCardData.status === 'success') {
        this.toastr.success('Success', idCardData.message);
        this.clearFileUpload(file);
@@ -59,10 +59,10 @@ export class IdCardComponent implements OnInit, OnDestroy {
    }, (error: any) => {
      this.loading = false;
      this.loadingBar.stop();
-     console.log(error);
+     // console.log(error);
      if (error instanceof HttpErrorResponse) {
        if (error.status === 400) {
-         console.log(error.error);
+         // console.log(error.error);
          this.badRequestError = error.error.message;
        } else {
          this.toastr.error(error.error ? error.error.error : 'An error has occured. Please try again later', 'Error');

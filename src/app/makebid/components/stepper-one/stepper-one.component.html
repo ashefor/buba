@@ -13,6 +13,9 @@
          <span class="bid_info--amount">
            {{(bidInfo.bid_details.price ? bidInfo.bid_details.price : 0) | currency : '₦ '}}
          </span>
+
+         <a (click)="showMoreModal()" class="bid_info--more text--capital">more details</a>
+
          <div class="bid_info_type">
            <div class="bid_info_type-content bid_info_type--left">
              <p class="bid_info_type-content--text">
@@ -53,8 +56,8 @@
                <span class="bid_info_auction--title">Number of bids</span>
              </div>
              <div class="p-col-5">
-               <p-inputNumber inputStyleClass="w-100 bid__number" [(ngModel)]="quantity" mode="decimal" [showButtons]="true"
-                 [min]="1" (onInput)="changeQty($event)">
+               <p-inputNumber inputStyleClass="w-100 bid__number" [(ngModel)]="quantity" mode="decimal"
+                 [showButtons]="true" [min]="1" (onInput)="changeQty($event)">
                </p-inputNumber>
              </div>
              <!-- <div class="p-col-12 winning">
@@ -85,3 +88,19 @@
      </div>
    </div>
  </ng-container>
+
+
+ <p-dialog header="More Details" [(visible)]="showMore" [modal]="true" styleClass="more-details-modal"
+   [baseZIndex]="10000">
+   <div class="modal-content">
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+      magna aliqua.
+      Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+      Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+      sint occaecat
+      cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+   </div>
+   <ng-template pTemplate="footer">
+     <p-button icon="pi pi-check" (click)="showMore=false" label="Close" styleClass="text--regular"></p-button>
+   </ng-template>
+ </p-dialog>

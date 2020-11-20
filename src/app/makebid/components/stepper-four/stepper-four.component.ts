@@ -36,14 +36,14 @@ export class StepperFourComponent implements OnInit, OnDestroy {
     this.loadingBar.start();
     const { bid_id, bid_type, no_of_bid } = this.bidDetails;
     const bidData = { bid_id, bid_type, no_of_bid };
-    // console.log(bidData);
+    // // console.log(bidData);
     this.processing = true;
     this.makeBidSubscription = this.bidService.buyBid(bidData).pipe(tap((bid) => {
-      // console.log(bid);
+      // // console.log(bid);
    }), concatMap(() => this.auth.getWalletBalance())).subscribe((data: any) => {
       this.loadingBar.stop();
       this.processing = false;
-      // console.log(data);
+      // // console.log(data);
       this.auth.storeUser(data.user);
       if (data.status === 'success') {
         this.bidService.setCurrentPage(5);
@@ -53,7 +53,7 @@ export class StepperFourComponent implements OnInit, OnDestroy {
     }, (error: any) => {
       this.loadingBar.stop();
       this.processing = false;
-      // console.log(error);
+      // // console.log(error);
       if (error instanceof HttpErrorResponse) {
         if (error.status === 401) {
           this.bidService.setCurrentPage(2);

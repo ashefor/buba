@@ -106,10 +106,10 @@ export class MakeWithdrawalComponent implements OnInit, OnDestroy {
       this.withdrawalForm.controls[i].updateValueAndValidity();
     }
     if (this.withdrawalForm.valid) {
-      // console.log(formvalue);
+      // // console.log(formvalue);
       // const { amount } = formvalue;
       // formvalue.amount = parseFloat(this.unFormat(amount).slice(1, amount.length));
-      console.log(formvalue);
+      // console.log(formvalue);
       this.loading = true;
       this.loadingBar.start();
       this.withdrawalForm.disable();
@@ -117,7 +117,7 @@ export class MakeWithdrawalComponent implements OnInit, OnDestroy {
         this.withdrawalForm.enable();
         this.loading = false;
         this.loadingBar.stop();
-        console.log(withdrawalData);
+        // console.log(withdrawalData);
         if (withdrawalData.status === 'success') {
           this.toastr.success('Success', withdrawalData.message);
           this.withdrawalForm.reset();
@@ -131,10 +131,10 @@ export class MakeWithdrawalComponent implements OnInit, OnDestroy {
         this.loading = false;
         this.loadingBar.stop();
         this.withdrawalForm.enable();
-        console.log(error);
+        // console.log(error);
         if (error instanceof HttpErrorResponse) {
           if (error.status === 400) {
-            console.log(error.error);
+            // console.log(error.error);
             const badRequestError = error.error.message;
             this.withdrawalForm.setErrors({
               badRequest: badRequestError

@@ -40,7 +40,7 @@
                         <tr>
                             <td colspan="4">
                              <p class="p-p-4 text--center text--capital">
-                               no withdrawals yet
+                               {{errorMsg}}
                               </p>
                             </td>
                            </tr>
@@ -48,6 +48,16 @@
                       </tbody>
                     </table>
                   </div>
+                  <ng-container >
+                    <div class="p-flex text--right">
+                      <button class="button p-mx-1 button--secondary text--capital" (click)="goPrevious()">
+                        previous
+                      </button>
+                      <button class="button p-mx-1 button--secondary text--capital" (click)="goNext()">
+                        next
+                      </button>
+                    </div>
+                  </ng-container>
                 </div>
               </div>
             </div>

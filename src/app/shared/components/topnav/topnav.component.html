@@ -18,15 +18,20 @@
       <ng-container *ngIf="(userDetails$ | async) as userDetails">
         <div class="topnav__item">
           <div class="user">
-            <span class="user__name text--bold">{{userDetails.firstname}}&nbsp;{{userDetails.lastname}}</span>
-            <span *ngIf="showGoToStoreButton" class="user__balance">{{userDetails.balance | currency : '₦ '}}
-              <i (click)="refreshWallet()" class="pi pi-refresh user__balance__refresh"
-                [ngClass]="{'pi-spin': processing}"></i>
+            <span class="user__avi">
+              <img [src]="userDetails.picture" alt="" class="user__avi__image">
             </span>
+            <div class="user__info">
+              <span class="user__name text--bold">{{userDetails.firstname}}&nbsp;{{userDetails.lastname}}</span>
+              <span *ngIf="showGoToStoreButton" class="user__balance">{{userDetails.balance | currency : '₦ '}}
+                <i (click)="refreshWallet()" class="pi pi-refresh user__balance__refresh"
+                  [ngClass]="{'pi-spin': processing}"></i>
+              </span>
+            </div>
           </div>
         </div>
       </ng-container>
-      <div class="topnav__item" *ngIf="showGoToStoreButton">
+      <div class="topnav__item">
         <a href="https://buba.ng" class="topnav__item__button">
           <span class="topnav__item__button__text">Back to store</span>
         </a>

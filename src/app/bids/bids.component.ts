@@ -38,15 +38,15 @@ export class BidsComponent implements OnInit, OnDestroy {
     this.loadingBar.start();
     this.bidsHistorySubscription = this.bidService.fetchTransactions().subscribe((data: any) => {
       this.loadingBar.stop();
-      console.log(data);
+      // console.log(data);
       if (data.status === 'success') {
         this.bidsHistory = data.bids_history;
-        console.log(this.bidsHistory);
+        // console.log(this.bidsHistory);
       }
     }, (error: any) => {
       this.loadingBar.stop();
       this.isFetchingHistory = false;
-      console.log(error);
+      // console.log(error);
       if (error instanceof HttpErrorResponse) {
         if (error.status >= 400 && error.status <= 415) {
           this.toastr.error(error.error.message, 'Error');

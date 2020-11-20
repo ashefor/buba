@@ -146,10 +146,15 @@
 
   .user {
     display: flex;
-    flex-direction: column;
-    margin: 0 1rem;
-    font-size: 1.25rem;
-    text-transform: capitalize;
+    align-items: center;
+
+    &__info {
+      display: flex;
+      flex-direction: column;
+      margin: 0 1rem;
+      font-size: 1.25rem;
+      text-transform: capitalize;
+    }
 
     i {
       font-size: 1.25rem;
@@ -164,6 +169,24 @@
 
       &__refresh {
         cursor: pointer;
+      }
+    }
+
+    &__avi {
+      &__image {
+        display: block;
+        border-radius: 50%;
+        object-fit: cover;
+        object-position: center;
+        margin-right: .8rem;
+        width: 2.4rem;
+        height: 2.4rem;
+
+        @media all and (min-width: 768px) {
+          width: 4.5rem;
+          height: 4.5rem;
+          margin-right: 1rem;
+        }
       }
     }
   }

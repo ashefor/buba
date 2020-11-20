@@ -27,7 +27,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.storedUserDetails$ = this.authService.getUser$();
-    // console.log(this.storedUserDetails$);
+    // // console.log(this.storedUserDetails$);
     this.fetchUserDetails();
     this.fetchOpenBids();
   }
@@ -40,12 +40,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.loadingDetails = true;
     this.authService.getWalletBalance().subscribe((data: loggedInUser) => {
       this.loadingDetails = false;
-      // console.log(data);
+      // // console.log(data);
       this.userdetails = data.user;
       this.bidService.setWalletDetails(data.user);
     }, (error: any) => {
       this.loadingDetails = false;
-      // console.log(error);
+      // // console.log(error);
       if (error instanceof HttpErrorResponse) {
         if (error.status === 401) {
           // this.bidService.setCurrentPage(2);
@@ -64,14 +64,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.isFetchingBids = true;
     this.dashboardService.fetchOpenBids().subscribe((data: any) => {
       this.isFetchingBids = false;
-      console.log(data);
+      // console.log(data);
       if (data.status === 'success') {
         this.bidHistory = data.bids_history;
-        console.log(this.bidHistory);
+        // console.log(this.bidHistory);
       }
     }, (error: any) => {
       this.isFetchingBids = false;
-      console.log(error);
+      // console.log(error);
       if (error instanceof HttpErrorResponse) {
         if (error.status === 401) {
           // this.bidService.setCurrentPage(2);

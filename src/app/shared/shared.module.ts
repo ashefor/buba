@@ -14,6 +14,7 @@ import { SidebarModule } from 'primeng/sidebar';
 import { DropdownModule } from 'primeng/dropdown';
 import { TableModule } from 'primeng/table';
 import { MobileSidenavComponent } from './components/mobile-sidenav/mobile-sidenav.component';
+import { DialogModule } from 'primeng/dialog';
 
 
 
@@ -28,6 +29,7 @@ import { MobileSidenavComponent } from './components/mobile-sidenav/mobile-siden
     ToggleButtonModule,
     DropdownModule,
     ProgressBarModule,
+    DialogModule,
     InputNumberModule,
     KeyFilterModule,
     InputTextModule,
@@ -43,6 +45,7 @@ import { MobileSidenavComponent } from './components/mobile-sidenav/mobile-siden
     DropdownModule,
     TableModule,
     FormsModule,
+    DialogModule,
     TopnavComponent,
     KeyFilterModule,
     SidenavComponent,

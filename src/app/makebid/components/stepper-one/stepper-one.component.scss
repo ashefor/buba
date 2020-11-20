@@ -37,7 +37,9 @@ input[type=number] {
     border-radius: .5rem;
 
     &--heading {
-      font-size: $font-size-regular-alt;
+      // font-size: $font-size-regular-alt;
+      font-weight: bold;
+      font-size: 2rem;
       //   padding: .5rem 0;
         margin: 0 0 .5rem;
       // line-height: 1;
@@ -55,6 +57,14 @@ input[type=number] {
       display: block;
     }
 
+    &--more{
+      text-transform: capitalize;
+      cursor: pointer;
+      text-decoration: underline;
+      // color: $color-primary;
+      display: inline-block;
+      margin-top: 1rem;
+    }
     &_auction {
       //   border-top: solid .075rem $app-background;
       margin: 3rem 0;
@@ -162,3 +172,5 @@ input[type=number] {
     font-size: 1.2rem;
   }
 }
+
+

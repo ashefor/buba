@@ -1,12 +1,8 @@
 /*basic reset*/
 @import url('https://fonts.googleapis.com/css2?family=Heebo&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300&display=swap');
 @import '../abstract/variables';
 
-@font-face {
-  font-family: myFirstFont;
-  src: url('/assets/fonts/graphik/GraphikRegular.otf');
-}
 
 *,
 *::after,
@@ -27,7 +23,8 @@ html {
 
 body {
   box-sizing: border-box;
-  font-family: 'Heebo', sans-serif;
+  // font-family: 'Heebo', sans-serif;
+  font-family: 'Josefin Sans', sans-serif;
   font-style: normal;
   line-height: 1.2;
   font-size: 14px;
@@ -163,4 +160,21 @@ body {
 
 .p-invalid{
   font-size: $font-size-semi-small;
+}
+
+.more-details-modal{
+  width: 90%;
+  .modal-content{
+    font-size: $font-size-regular;
+    line-height: 1.3;
+  }
+  .p-dialog-title {
+    font-size: 1.5rem !important;
+  }
+  .p-dialog-titlebar-icon{
+    font-size: 1.5rem !important;
+  }
+  @media all and (min-width: 768px) {
+    width: 30% 
+  }
 }

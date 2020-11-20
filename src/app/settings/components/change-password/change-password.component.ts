@@ -56,10 +56,10 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
   }
 
   changePasswordHandler(formvalue) {
-    console.log(formvalue);
+    // console.log(formvalue);
     const { new_password, old_password } = formvalue;
     const newFormvalue = { new_password, old_password };
-    console.log(newFormvalue);
+    // console.log(newFormvalue);
     this.loading = true;
     this.loadingBar.start();
     this.changePasswordForm.disable();
@@ -67,7 +67,7 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
       this.changePasswordForm.enable();
       this.loading = false;
       this.loadingBar.stop();
-      console.log(passwordData);
+      // console.log(passwordData);
       if (passwordData.status === 'success') {
         this.toastr.success('Success', passwordData.message);
         this.changePasswordForm.reset();
@@ -78,15 +78,15 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
       this.loading = false;
       this.changePasswordForm.enable();
       this.loadingBar.stop();
-      console.log(error);
+      // console.log(error);
       if (error instanceof HttpErrorResponse) {
         this.toastr.error('Error', error.error ? error.error.error : 'An error has occured. Please try again later');
         if (error.status === 400) {
-          console.log(error.error);
+          // console.log(error.error);
           const badRequestError = error.error.message;
           // Object.keys(this.changePasswordForm.controls).forEach((key) => {
           //   if (badRequestError.data[key]) {
-          //     console.log(badRequestError.data[key]);
+          //     // console.log(badRequestError.data[key]);
           //     this.changePasswordForm.get(key).setErrors({ invalidErr: badRequestError.data[key] });
           //   }
           // });

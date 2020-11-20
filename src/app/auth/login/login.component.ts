@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     const { email, password } = formvalue;
     newFormValue.param = email;
     newFormValue.password = password;
-    // console.log(newFormValue);
+    // // console.log(newFormValue);
     this.loadingBar.start();
     this.loggingIn = true;
     this.loginForm.disable();
@@ -65,7 +65,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.loginForm.enable();
       this.auth.storeToken(loggedUser.token);
       this.auth.storeUser(loggedUser.user);
-      console.log(loggedUser);
+      // console.log(loggedUser);
       // this.loginEmitter.emit();
       this.router.navigate(['/dashboard']);
       this.bidService.setWalletDetails(loggedUser.user);
@@ -73,7 +73,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.loggingIn = false;
       this.loadingBar.stop();
       this.loginForm.enable();
-      // console.log(error);
+      // // console.log(error);
       if (error instanceof HttpErrorResponse) {
         if (error.status === 400) {
           this.loginForm.setErrors({

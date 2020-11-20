@@ -25,6 +25,7 @@ export class StepperOneComponent implements OnInit, OnDestroy {
   offIcon = 'pi pi pi-times';
   bidType1 = true;
   bidType2 = false;
+  showMore: boolean;
 
   @Output() makeBidEmitter = new EventEmitter();
   // tslint:disable-next-line: max-line-length
@@ -37,6 +38,9 @@ export class StepperOneComponent implements OnInit, OnDestroy {
     this.loadingBar.stop();
   }
 
+  showMoreModal() {
+    this.showMore = true;
+  }
   handleBidTypeChange(type, e) {
     if (type === 1) {
       if (e.checked) {
@@ -111,12 +115,12 @@ export class StepperOneComponent implements OnInit, OnDestroy {
       product_name: this.bidInfo.bid_list.product_name,
       product_image: this.bidInfo.bid_list.product_image
     };
-    // console.log(bid);
+    // // console.log(bid);
     this.bidService.setBidDetails(bid);
     this.authService.getWalletBalance().subscribe((data: loggedInUser) => {
       this.loadingBar.stop();
       this.processing = false;
-      // console.log(data);
+      // // console.log(data);
       this.bidService.setWalletDetails(data.user);
       bid.wallet_balance = data.user.balance;
       this.bidService.setBidDetails(bid);
@@ -128,7 +132,7 @@ export class StepperOneComponent implements OnInit, OnDestroy {
     }, (error: any) => {
       this.loadingBar.stop();
       this.processing = false;
-      // console.log(error);
+      // // console.log(error);
       if (error instanceof HttpErrorResponse) {
         if (error.status === 401) {
           // this.bidService.setCurrentPage(2);

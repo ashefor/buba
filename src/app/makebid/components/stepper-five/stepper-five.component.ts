@@ -14,7 +14,7 @@ export class StepperFiveComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    // console.log('leaving');
+    // // console.log('leaving');
     this.loadingbar.stop();
   }
 }
