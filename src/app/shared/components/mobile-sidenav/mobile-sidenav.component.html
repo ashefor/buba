@@ -41,6 +41,11 @@
         <i class="pi pi-user-edit sidenav__item__icon"></i>
         <span class="sidenav__item__text text--capital">edit profile</span>
       </a>
+      <a class="sidenav__item" [routerLink]="['/settings/profile-picture']" routerLinkActive="active"
+      (click)="closeSideBar($event)" #settings1RLA="routerLinkActive">
+      <i class="pi pi-user sidenav__item__icon"></i>
+      <span class="sidenav__item__text text--capital">profile picture</span>
+    </a>
       <a class="sidenav__item" [routerLink]="['/settings/change-password']" routerLinkActive="active"
         (click)="closeSideBar($event)" #settings2RLA="routerLinkActive">
         <i class="pi pi-lock sidenav__item__icon"></i>

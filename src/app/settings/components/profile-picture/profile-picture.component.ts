@@ -7,18 +7,20 @@ import { Subscription, TimeoutError } from 'rxjs';
 import { ProfileService } from '../../services/profile.service';
 
 @Component({
-  selector: 'app-id-card',
-  templateUrl: './id-card.component.html',
-  styleUrls: ['./id-card.component.scss']
+  selector: 'app-profile-picture',
+  templateUrl: './profile-picture.component.html',
+  styleUrls: ['./profile-picture.component.scss']
 })
-export class IdCardComponent implements OnInit, OnDestroy {
+export class ProfilePictureComponent implements OnInit {
   selectedFile: File;
   loading: boolean;
   badRequestError: any;
+  url;
   addIdCardSubscription = new Subscription();
-  constructor(private profileService: ProfileService,
-              private toastr: ToastrService,
-              private loadingBar: LoadingBarService, private title: Title) {
+
+   constructor(private profileService: ProfileService,
+               private toastr: ToastrService,
+               private loadingBar: LoadingBarService, private title: Title) {
     this.title.setTitle('Buba - Account Add Id');
    }
 
@@ -32,6 +34,14 @@ export class IdCardComponent implements OnInit, OnDestroy {
 
   onFileChanged(event) {
     this.selectedFile = event.target.files[0];
+    if (event.target.files && event.target.files[0]) {
+      const reader = new FileReader();
+      reader.readAsDataURL(event.target.files[0]); // read file as data url
+      reader.onload = (e) => { // called once readAsDataURL is completed
+        this.url = e.target.result;
+      };
+    }
+    console.log(this.selectedFile);
   }
 
   clearFileUpload(file: HTMLInputElement) {
@@ -48,7 +58,7 @@ export class IdCardComponent implements OnInit, OnDestroy {
    // console.log(this.selectedFile);
    this.loading = true;
    this.loadingBar.start();
-   this.addIdCardSubscription = this.profileService.uploadIdCardDetails(uploadData).subscribe((idCardData: any) => {
+   this.profileService.changeProfilePicture(uploadData).subscribe((idCardData: any) => {
      this.loadingBar.stop();
      this.loading = false;
      // console.log(idCardData);
@@ -61,7 +71,7 @@ export class IdCardComponent implements OnInit, OnDestroy {
    }, (error: any) => {
      this.loading = false;
      this.loadingBar.stop();
-     // console.log(error);
+     console.log(error);
      if (error instanceof HttpErrorResponse) {
        if (error.status === 400) {
          // console.log(error.error);

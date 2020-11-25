@@ -1,0 +1,16 @@
+@import '../../../../styles/abstract/variables';
+
+.view-upload{
+    width: 12rem;
+    height: 12rem;
+    border-radius: 100%;
+    overflow: hidden;
+    margin: 1rem auto;
+    border: .1rem dashed $color-black;
+    
+    img{
+        width: 100%;
+        height: 100%;
+        vertical-align: middle;
+    }
+}

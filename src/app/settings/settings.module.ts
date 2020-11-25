@@ -8,10 +8,11 @@ import { ChangePasswordComponent } from './components/change-password/change-pas
 import { IdCardComponent } from './components/id-card/id-card.component';
 import { BankAccountComponent } from './components/bank-account/bank-account.component';
 import { SharedModule } from '../shared/shared.module';
+import { ProfilePictureComponent } from './components/profile-picture/profile-picture.component';
 
 
 @NgModule({
-  declarations: [SettingsComponent, ProfileEditComponent, ChangePasswordComponent, IdCardComponent, BankAccountComponent],
+  declarations: [SettingsComponent, ProfileEditComponent, ChangePasswordComponent, IdCardComponent, BankAccountComponent, ProfilePictureComponent],
   imports: [
     CommonModule,
     SharedModule,

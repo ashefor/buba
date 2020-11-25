@@ -1,0 +1,52 @@
+<div>
+  <div class="page__header">
+    <h4 class="page__header__main text--capital">
+      profile picture
+    </h4>
+    <p class="page__header__caption">
+      Change your profile picture
+    </p>
+  </div>
+  <div class="page__content">
+    <div class="account__form text--center">
+      <div class="p-field form__item">
+        <input type="file" hidden #file (input)="onFileChanged($event)" accept="image/png, image/jpg, image/jpeg">
+        <!-- <button class="button text--capital" (click)="file.click()">
+            <i class="pi pi-upload p-mr-2"></i>
+            <span>select file</span>
+          </button> -->
+        <div class="view-upload">
+          <img [src]="url ? url : 'https://www.w3schools.com/howto/img_avatar.png'">
+        </div>
+      </div>
+      <!-- <div class="p-field form__item" *ngIf="selectedFile">
+          <div class="form__upload">
+            <div class="form__upload__item" [ngClass]="{'isDisabled': loading}">
+              <span class="form__upload__item__icon form__upload__item--icon">
+                <i class="pi pi-file"></i>
+              </span>
+              <span class="form__upload__item__text">
+                {{selectedFile.name}}
+              </span>
+              <span class="form__upload__item__icon form__upload__item__icon--right">
+                <button type="button" [disabled]="loading" (click)="clearFileUpload(file)" class="button">
+                  <i class="pi pi-trash"></i>
+                </button>
+              </span>
+            </div>
+          </div>
+        </div> -->
+      <div class="p-field form__item">
+        <button (click)="file.click()" type="button" [disabled]="loading"
+          class="button button--secondary button--raised text--upper p-mx-2">
+          change
+        </button>
+        <button (click)="onUpload(file)" type="button" [disabled]="!selectedFile || loading"
+          class="button button--primary button--raised text--upper p-mx-2">
+          <i *ngIf="loading" class="pi pi-spin pi-spinner p-mr-2"></i>
+          {{loading ? 'saving' : 'save'}}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

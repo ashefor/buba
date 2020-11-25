@@ -33,6 +33,15 @@
     }
   }
 
+  &--secondary {
+    background: $color-deep-black;
+    color: $color-white;
+
+    &[disabled]{
+      background-color: lighten($color: $color-deep-black, $amount: 30);
+    }
+  }
+
   &--wider{
   padding: 0.625rem 1.75rem;
   }

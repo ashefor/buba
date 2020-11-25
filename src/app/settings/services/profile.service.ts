@@ -26,4 +26,8 @@ export class ProfileService {
   uploadIdCardDetails(idCardDetails) {
     return this.http.post(`${environment.bubaApi}/profile/idcard`, idCardDetails).pipe(catchError((error) => throwError(error)));
   }
+
+  changeProfilePicture(idCardDetails) {
+    return this.http.post(`${environment.bubaApi}/profile/picture`, idCardDetails).pipe(catchError((error) => throwError(error)));
+  }
 }
