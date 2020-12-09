@@ -16,7 +16,7 @@
             <span>select file</span>
           </button> -->
         <div class="view-upload">
-          <img [src]="url ? url : 'https://www.w3schools.com/howto/img_avatar.png'">
+          <img [src]="url ? url : 'https://api.buba.ng/pp.png'">
         </div>
       </div>
       <!-- <div class="p-field form__item" *ngIf="selectedFile">
@@ -42,7 +42,7 @@
           change
         </button>
         <button (click)="onUpload(file)" type="button" [disabled]="!selectedFile || loading"
-          class="button button--primary button--raised text--upper p-mx-2">
+          class="button button--secondary button--raised text--upper p-mx-2">
           <i *ngIf="loading" class="pi pi-spin pi-spinner p-mr-2"></i>
           {{loading ? 'saving' : 'save'}}
         </button>

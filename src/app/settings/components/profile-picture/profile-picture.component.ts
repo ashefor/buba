@@ -4,6 +4,7 @@ import { Title } from '@angular/platform-browser';
 import { LoadingBarService } from '@ngx-loading-bar/core';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription, TimeoutError } from 'rxjs';
+import { AuthService } from 'src/app/core/services/auth.service';
 import { ProfileService } from '../../services/profile.service';
 
 @Component({
@@ -11,20 +12,23 @@ import { ProfileService } from '../../services/profile.service';
   templateUrl: './profile-picture.component.html',
   styleUrls: ['./profile-picture.component.scss']
 })
-export class ProfilePictureComponent implements OnInit {
+export class ProfilePictureComponent implements OnInit, OnDestroy {
   selectedFile: File;
   loading: boolean;
   badRequestError: any;
   url;
   addIdCardSubscription = new Subscription();
+  user: any;
 
    constructor(private profileService: ProfileService,
+               private authService: AuthService,
                private toastr: ToastrService,
                private loadingBar: LoadingBarService, private title: Title) {
     this.title.setTitle('Buba - Account Add Id');
    }
 
   ngOnInit(): void {
+    this.authService.getUser$().subscribe((user) => this.user = user);
   }
 
   ngOnDestroy() {
@@ -41,11 +45,12 @@ export class ProfilePictureComponent implements OnInit {
         this.url = e.target.result;
       };
     }
-    console.log(this.selectedFile);
+    // console.log(this.selectedFile);
   }
 
   clearFileUpload(file: HTMLInputElement) {
     this.selectedFile = null;
+    this.url = null;
     file.value = null;
   }
 
@@ -55,23 +60,23 @@ export class ProfilePictureComponent implements OnInit {
    }
    const uploadData = new FormData();
    uploadData.append('file', this.selectedFile, this.selectedFile.name);
-   // console.log(this.selectedFile);
    this.loading = true;
    this.loadingBar.start();
-   this.profileService.changeProfilePicture(uploadData).subscribe((idCardData: any) => {
+   this.profileService.changeProfilePicture(uploadData).subscribe((pictureData: any) => {
      this.loadingBar.stop();
      this.loading = false;
-     // console.log(idCardData);
-     if (idCardData.status === 'success') {
-       this.toastr.success('Success', idCardData.message);
+     // console.log(pictureData);
+     if (pictureData.status === 'success') {
+       this.toastr.success('Success', 'Picture changed successfully');
+       this.user.picture = pictureData.file_name;
+       this.authService.storeUser(this.user);
        this.clearFileUpload(file);
      } else {
-       this.toastr.error('Error!', idCardData.message);
+       this.toastr.error('Error!', pictureData.message);
      }
    }, (error: any) => {
      this.loading = false;
      this.loadingBar.stop();
-     console.log(error);
      if (error instanceof HttpErrorResponse) {
        if (error.status === 400) {
          // console.log(error.error);

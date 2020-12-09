@@ -50,7 +50,7 @@
               </div>
               <div class="p-field p-mt-5">
                 <button type="submit" [disabled]="loggingIn"
-                  class="button button--primary button--raised button--wide text--upper">
+                  class="button button--secondary button--raised button--wide text--upper">
                   <i *ngIf="loggingIn" class="pi pi-spin pi-spinner p-mr-2"></i>
                   {{loggingIn ? 'loggin in..' : 'log in'}}
                 </button>
@@ -63,7 +63,7 @@
               </div>
               <div class="p-field p-mt-3">
                 <button [disabled]="loggingIn" type="button"
-                  class="button button--primary button--raised button--wide text--upper" (click)="toggleFormType(2)">
+                  class="button button--secondary button--raised button--wide text--upper" (click)="toggleFormType(2)">
                   register
                 </button>
               </div>
@@ -150,7 +150,7 @@
               </div>
               <div class="p-field p-mt-5">
                 <button type="submit" [disabled]="isRegistering"
-                  class="button button--primary button--raised button--wide text--upper">
+                  class="button button--secondary button--raised button--wide text--upper">
                   <i *ngIf="isRegistering" class="pi pi-spin pi-spinner p-mr-2"></i>
                   {{isRegistering ? 'registering..' : 'register'}}
                 </button>
@@ -163,7 +163,7 @@
               </div>
               <div class="p-field p-mt-3">
                 <button [disabled]="isRegistering" type="button"
-                  class="button button--primary button--raised button--wide text--upper" (click)="toggleFormType(1)">
+                  class="button button--secondary button--raised button--wide text--upper" (click)="toggleFormType(1)">
                   log in
                 </button>
               </div>
@@ -199,7 +199,7 @@
             </div>
             <div class="p-field p-mt-5">
               <button type="submit" [disabled]="isResetting"
-                class="button button--primary button--raised button--wide text--upper">
+                class="button button--secondary button--raised button--wide text--upper">
                 <i *ngIf="isResetting" class="pi pi-spin pi-spinner p-mr-2"></i>
                 {{isResetting ? 'resetting..' : 'reset'}}
               </button>
@@ -212,7 +212,7 @@
             </div>
             <div class="p-field p-mt-3">
               <button [disabled]="isResetting" type="button" (click)="toggleFormType(1)"
-                class="button button--primary button--raised button--wide text--upper">
+                class="button button--secondary button--raised button--wide text--upper">
                 back to login
               </button>
             </div>
@@ -220,6 +220,11 @@
         </form>
        </div>
       </ng-container>
+      <div class="p-field form__item">
+        <div class="text--center">
+          <a (click)="goBack()" class="form__text text--capital form__link form__link--primary">go back</a> 
+        </div>
+      </div>
     </div>
   </div>
 </div>

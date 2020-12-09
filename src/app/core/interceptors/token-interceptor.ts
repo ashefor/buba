@@ -10,21 +10,25 @@ import { BidService } from 'src/app/makebid/services/bid.service';
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
     constructor(private service: AuthService,
-        private router: Router,
-        private toastr: ToastrService, private bidService: BidService, private activatedRoute: ActivatedRoute) { }
+                private router: Router,
+                private toastr: ToastrService, private bidService: BidService, private activatedRoute: ActivatedRoute) { }
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         // tslint:disable-next-line: no-string-literal
         const routePath = this.activatedRoute.snapshot['_routerState'].url;
         if (this.service.isLoggedIn()) {
             const token = this.service.getToken();
-            req = req.clone({
-                setHeaders: {
-                    Authorization: token
-                }
-            });
+            let request;
+            if (token) {
+                request = req.clone({
+                    setHeaders: {
+                        Authorization: token
+                    }
+                });
+            }
+            req = request;
         }
 
-        if (req.url.includes('idcard')) {
+        if (req.url.includes('idcard') || req.url.includes('profile/picture')) {
             req.headers.delete('content-type');
         } else {
             req = req.clone({

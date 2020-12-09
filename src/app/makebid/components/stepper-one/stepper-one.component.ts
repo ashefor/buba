@@ -72,6 +72,10 @@ export class StepperOneComponent implements OnInit, OnDestroy {
   //   this.makeBidEmitter.emit(2);
   // }
 
+  getTotalBidsAmount(percentage) {
+    // const percent = (percentage /100)
+    return (((percentage / 100) * this.bidInfo.bid_details.price) * this.bidInfo.bid_list.total_bid_lucky_five);
+  }
   changeQty(event) {
     if (event && event.value) {
       this.quantity = event.value;
@@ -122,6 +126,7 @@ export class StepperOneComponent implements OnInit, OnDestroy {
       this.processing = false;
       // // console.log(data);
       this.bidService.setWalletDetails(data.user);
+      this.authService.storeUser(data.user);
       bid.wallet_balance = data.user.balance;
       this.bidService.setBidDetails(bid);
       if (parseFloat(data.user.balance) < parseFloat(bid.total_amount)) {
@@ -132,12 +137,12 @@ export class StepperOneComponent implements OnInit, OnDestroy {
     }, (error: any) => {
       this.loadingBar.stop();
       this.processing = false;
-      // // console.log(error);
+      // console.log(error);
       if (error instanceof HttpErrorResponse) {
         if (error.status === 401) {
           // this.bidService.setCurrentPage(2);
         } else {
-          this.toastr.error('Server error. Please try again later', 'Error');
+          this.toastr.error('An error has occured. Please try again later', 'Error');
         }
       } else if (error instanceof TimeoutError) {
         this.toastr.error('Server timed out. Please try again later', 'Time Out!');

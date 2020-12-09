@@ -21,7 +21,7 @@ export class AuthService {
   }
 
   getToken() {
-    return sessionStorage.getItem('bidbuba-access-token');
+    return sessionStorage.getItem('bidbuba-access-token') || null;
   }
 
   storeUser(user: any) {

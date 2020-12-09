@@ -14,7 +14,7 @@
               <div class="p-grid">
                 <div class="p-col-12 withdrawal__body__new">
                   <a role="button" [routerLink]="['/withdrawals/new']"
-                    class="button button--primary button--raised button--wider button--lg text--capital">new withdrawal</a>
+                    class="button button--secondary button--raised button--wider button--lg text--capital">new withdrawal</a>
                 </div>
                 <div class="p-col-12 withdrawal__body__history">
                   <div class="table__container">
@@ -31,8 +31,8 @@
                        <ng-container *ngIf="withdrawalHistory && withdrawalHistory.length">
                         <tr *ngFor="let withdrawal of withdrawalHistory; let i = index">
                             <td>{{i + 1}}</td>
-                            <td>{{withdrawal.created_at | date}}</td>
-                            <td>{{withdrawal.amount |currency: '₦ '}}</td>
+                            <td>{{withdrawal.created_at}}</td>
+                            <td class="no-wrap">{{withdrawal.amount |currency: '₦ '}}</td>
                             <td>{{withdrawal.reference}}</td>
                           </tr>
                        </ng-container>
@@ -49,7 +49,7 @@
                     </table>
                   </div>
                   <ng-container >
-                    <div class="p-flex text--right">
+                    <div class="p-flex p-mt-3 text--right">
                       <button class="button p-mx-1 button--secondary text--capital" (click)="goPrevious()">
                         previous
                       </button>

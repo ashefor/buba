@@ -13,18 +13,39 @@
          <span class="bid_info--amount">
            {{(bidInfo.bid_details.price ? bidInfo.bid_details.price : 0) | currency : '₦ '}}
          </span>
-
-         <a (click)="showMoreModal()" class="bid_info--more text--capital">more details</a>
-
          <div class="bid_info_type">
            <div class="bid_info_type-content bid_info_type--left">
              <p class="bid_info_type-content--text">
                For complete bids, the top winner takes the item while the total bid amount is shared amongst the other
-               four winners in the following proportion : 25%, 15%, 10%, 6% respectively.
+               four winners in the following proportion : 
+               <span class="p-d-inline-block text--bold">
+                 {{getTotalBidsAmount(25) | currency : '₦ '}}
+               </span>,
+               <span class="p-d-inline-block text--bold">
+                 {{getTotalBidsAmount(15) | currency : '₦ '}}
+               </span>,
+               <span class="p-d-inline-block text--bold">
+                 {{getTotalBidsAmount(10) | currency : '₦ '}}
+               </span> and <span class="p-d-inline-block text--bold">
+                 {{getTotalBidsAmount(6) | currency : '₦ '}}
+               </span> respectively.
                <br>
                <br>
-               For incomplete bids, the total bid amount is shared amongst the five winners in the following proportion
-               : 30%, 10%, 10%, 10%, 10% respectively.
+               For incomplete bids, the total bid amount is shared amongst the five winners in the following proportion :
+               <span class="p-d-inline-block text--bold">
+                 {{getTotalBidsAmount(30) | currency : '₦ '}}
+               </span>,
+               <span class="p-d-inline-block text--bold">
+                 {{getTotalBidsAmount(10) | currency : '₦ '}}
+               </span>,
+               <span class="p-d-inline-block text--bold">
+                 {{getTotalBidsAmount(10) | currency : '₦ '}}
+               </span>,
+               <span class="p-d-inline-block text--bold">
+                 {{getTotalBidsAmount(10) | currency : '₦ '}}
+               </span> and <span class="p-d-inline-block text--bold">
+                 {{getTotalBidsAmount(10) | currency : '₦ '}}
+               </span> respectively.
              </p>
              <!-- <p-toggleButton [(ngModel)]="bidType1" (onChange)="handleBidTypeChange(1, $event)" [onIcon]="onIcon"
                [offIcon]="offIcon"></p-toggleButton> -->
@@ -79,7 +100,7 @@
          </div>
          <div class="p-text-right">
            <button type="button" (click)="makeBid()" [disabled]="processing"
-             class="button button--wider button--noborder button--primary button--raised text--upper">
+             class="button button--wider button--noborder button--secondary button--raised text--upper">
              <i *ngIf="processing" class="pi pi-spin pi-spinner p-mr-2"></i>
              {{processing ? 'please wait' : 'bid'}}
            </button>
@@ -93,12 +114,12 @@
  <p-dialog header="More Details" [(visible)]="showMore" [modal]="true" styleClass="more-details-modal"
    [baseZIndex]="10000">
    <div class="modal-content">
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-      magna aliqua.
-      Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-      Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
-      sint occaecat
-      cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+       magna aliqua.
+       Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+       Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+       sint occaecat
+       cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
    </div>
    <ng-template pTemplate="footer">
      <p-button icon="pi pi-check" (click)="showMore=false" label="Close" styleClass="text--regular"></p-button>

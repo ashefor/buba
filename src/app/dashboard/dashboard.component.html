@@ -43,7 +43,7 @@
                   {{userdetails?.winnings_balance | currency: '₦ '}}
                 </span>
                 <div class="p-mt-2">
-                  <a [routerLink]="['/withdrawals/new']" routerLinkActive="router-link-active"  class="button button--primary text--capital payment__addbutton">
+                  <a [routerLink]="['/withdrawals/new']" routerLinkActive="router-link-active"  class="button button--secondary text--capital payment__addbutton">
                 withdraw
                   </a>
                 </div>
@@ -73,7 +73,7 @@
                       </span>
                     </div>
                     <div class="p-col-12 payment__details__item p-as-center">
-                      <button class="button button--primary text--capital payment__addbutton payment__details__button"
+                      <button class="button button--secondary text--capital payment__addbutton payment__details__button"
                         (click)="refreshAccountDetails()">
                         refresh
                       </button>
@@ -116,7 +116,7 @@
                     </div>
                     <!-- <div class="bids__open__footer">
                       <span class="bids__open__footer__text bids__open__footer__text--left">Ends on: Oct 30th</span>
-                      <a class="bids__open__footer__text bids__open__footer__text--link button button--primary">View</a>
+                      <a class="bids__open__footer__text bids__open__footer__text--link button button--secondary">View</a>
                     </div> -->
                   </div>
                   <div class="bids__open__item p-pt-5">

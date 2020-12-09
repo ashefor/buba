@@ -32,6 +32,12 @@
         &__logo{
             display: inline-block;
             margin-bottom: 2rem;
+
+            img{
+                width: 100%;
+
+                max-width: 15rem;
+            }
         }
 
         &__title{

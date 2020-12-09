@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoadingBarService } from '@ngx-loading-bar/core';
+import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { concatMap, mergeMap, tap } from 'rxjs/operators';
 import { AuthService } from 'src/app/core/services/auth.service';
@@ -35,6 +36,7 @@ export class StepperTwoComponent implements OnInit, OnDestroy {
   @Input() animation: any;
   @Input() bidDetails: bidDetails;
   @Output() loginEmitter = new EventEmitter();
+  @Output() goBackEmitter = new EventEmitter();
   hide = true;
   hide2 = true;
   authType = 1;
@@ -46,7 +48,7 @@ export class StepperTwoComponent implements OnInit, OnDestroy {
   isRegistering: boolean;
   isResetting: boolean;
   registerSubscription = new Subscription();
-  constructor(private fb: FormBuilder, private loadingBar: LoadingBarService, private auth: AuthService, private bidService: BidService) { }
+  constructor(private fb: FormBuilder, private loadingBar: LoadingBarService, private auth: AuthService, private bidService: BidService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.formInit();
@@ -150,6 +152,11 @@ export class StepperTwoComponent implements OnInit, OnDestroy {
   }
 
   register(formvalue: registerFormType) {
+    // tslint:disable-next-line: forin
+    for (const i in this.registerForm.controls) {
+      this.registerForm.controls[i].markAsDirty();
+      this.registerForm.controls[i].updateValueAndValidity();
+    }
     if (this.registerForm.invalid) {
       return;
     }
@@ -158,6 +165,7 @@ export class StepperTwoComponent implements OnInit, OnDestroy {
     this.isRegistering = true;
     this.registerForm.disable();
     this.registerSubscription = this.auth.register(formvalue).pipe(tap((data: loggedInUser) => {
+      // console.log(data);
       this.auth.storeToken(data.token);
      }), concatMap(() => this.auth.createPaymentAccount()), concatMap(() => this.auth.getWalletBalance())).subscribe((newUser: any) => {
       this.loadingBar.stop();
@@ -186,6 +194,8 @@ export class StepperTwoComponent implements OnInit, OnDestroy {
           this.registerForm.setErrors({
             unAuthorized: error.error.message
           });
+        } else {
+          this.toastr.error('Please try again', 'Server Error');
         }
       }
     });
@@ -193,5 +203,9 @@ export class StepperTwoComponent implements OnInit, OnDestroy {
 
   reset(formvalue) {
 
+  }
+
+  goBack() {
+    this.goBackEmitter.emit(1);
   }
 }

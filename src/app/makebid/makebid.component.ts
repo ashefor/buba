@@ -79,7 +79,7 @@ export class MakebidComponent implements OnInit, OnDestroy {
     this.loadingBar.start();
     this.fetchBidSubscription = this.service.listOneBid(bidId).subscribe((data: any) => {
       this.loadingBar.stop();
-      console.log(data);
+      // console.log(data);
       if (data.status === 'success') {
         this.bidInfo = data;
         this.bidList = data.bid_list;

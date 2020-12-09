@@ -1,6 +1,5 @@
 /*basic reset*/
-@import url('https://fonts.googleapis.com/css2?family=Heebo&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Yantramanav&display=swap');
 @import '../abstract/variables';
 
 
@@ -24,7 +23,7 @@ html {
 body {
   box-sizing: border-box;
   // font-family: 'Heebo', sans-serif;
-  font-family: 'Josefin Sans', sans-serif;
+  font-family: 'Yantramanav', sans-serif;
   font-style: normal;
   line-height: 1.2;
   font-size: 14px;
@@ -33,6 +32,7 @@ body {
 a {
   // color: inherit !important;
   transition: all .2s ease-out;
+  cursor: pointer;
 
   &:hover {
     // text-decoration: none !important;
@@ -91,13 +91,13 @@ body {
 
 .p-inputnumber-button-up,
 .p-inputnumber-button-down {
-  background-color: $color-primary !important;
+  background-color: $color-secondary !important;
   border: none !important;
 
 }
 
 .p-togglebutton.p-button.p-highlight {
-  background-color: $color-primary !important;
+  background-color: $color-secondary !important;
   color: white !important;
   border: none;
 }
@@ -123,11 +123,15 @@ body {
 }
 
 .bank-dropdown.p-dropdown {
-  padding: .275rem .25rem;
+  // padding: .275rem .25rem;
+  // padding: 0.475rem 0.25rem;
+  height: 4.5rem;
 
   .p-dropdown-label {
     font-size: 1.4rem;
     color: #000000;
+    align-items: center;
+    display: flex;
   }
 
   .p-dropdown-items-wrapper {
@@ -177,4 +181,8 @@ body {
   @media all and (min-width: 768px) {
     width: 30% 
   }
+}
+
+.no-wrap{
+  white-space: nowrap;
 }

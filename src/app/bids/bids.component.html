@@ -28,8 +28,8 @@
                       <ng-container *ngIf="bidsHistory && bidsHistory.length">
                         <tr *ngFor="let bids of bidsHistory; let i = index">
                             <td>{{i + 1}}</td>
-                            <td>{{bids.start_date | date}}</td>
-                            <td>{{bids.end_date | date}}</td>
+                            <td>{{bids.start_date}}</td>
+                            <td>{{bids.end_date}}</td>
                             <td>{{bids.total_bid}}</td>
                             <td>{{bids.product_name}}</td>
                             <td class="text--capital">lucky five</td>

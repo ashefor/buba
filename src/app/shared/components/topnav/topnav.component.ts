@@ -14,6 +14,7 @@ import { loggedInUser } from 'src/app/makebid/models/logged-user';
 })
 export class TopnavComponent implements OnInit {
   userDetails$: Observable<any>;
+  imgBase = 'https://api.buba.ng/app/api/uploads/';
   processing: boolean;
   currentUrl: string[];
   showMobileNav =  false;

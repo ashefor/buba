@@ -9,7 +9,7 @@
   outline: none;
   background-color: inherit;
   color: inherit;
-  padding: 0.625rem 1.25rem;
+  padding: 0.875rem 1.25rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -29,21 +29,23 @@
     color: $color-white;
 
     &[disabled]{
-      background-color: lighten($color: $color-primary, $amount: 30);
+      // background-color: lighten($color: $color-primary, $amount: 30);
+      opacity: .65;
     }
   }
 
   &--secondary {
-    background: $color-deep-black;
+    background: $color-secondary;
     color: $color-white;
 
     &[disabled]{
-      background-color: lighten($color: $color-deep-black, $amount: 30);
+      // background-color: lighten($color: $color-secondary, $amount: 30);
+      opacity: .65;
     }
   }
 
   &--wider{
-  padding: 0.625rem 1.75rem;
+  padding: 0.875rem 1.75rem;
   }
 
   &--sm {

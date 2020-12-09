@@ -105,7 +105,7 @@ input[type=number] {
       border-radius: .5rem;
       position: relative;
       margin: 1rem 0;
-      background-color: lighten($color: $color-primary, $amount: 30);
+      background-color: lighten($color: $color-primary, $amount: 65);
 
       &-content {
         display: flex;
@@ -170,6 +170,12 @@ input[type=number] {
   &__percent{
     color: $color-primary;
     font-size: 1.2rem;
+  }
+}
+
+img{
+  &:empty{
+    content: 'empty';
   }
 }
 

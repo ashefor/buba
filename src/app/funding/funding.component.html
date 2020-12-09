@@ -26,8 +26,8 @@
                               <ng-container *ngIf="fundingHistory && fundingHistory.length">
                                 <tr *ngFor="let funding of fundingHistory; let i = index">
                                     <td>{{i + 1}}</td>
-                                    <td>{{funding.created_at | date}}</td>
-                                      <td>{{funding.amount |currency: '₦ '}}</td>
+                                    <td>{{funding.created_at}}</td>
+                                      <td class="no-wrap">{{funding.amount |currency: '₦ '}}</td>
                                       <td>{{funding.type}}</td>
                                   </tr>
                               </ng-container>
@@ -44,7 +44,7 @@
                           </table>
                         </div>
                         <ng-container >
-                          <div class="p-flex p-ml-auto text--right">
+                          <div class="p-flex p-mt-3 p-ml-auto text--right">
                             <button class="button p-mx-1 button--secondary text--capital" (click)="goPrevious()">
                               previous
                             </button>

@@ -70,7 +70,7 @@
             </div>
             <div class="p-field form__item">
               <button [disabled]="loading || profileEditForm.invalid" type="submit"
-                class="button button--primary button--raised text--upper">
+                class="button button--secondary button--raised text--upper">
                 <i *ngIf="loading" class="pi pi-spin pi-spinner p-mr-2"></i>
                 {{loading ? 'saving' : 'save changes'}}
               </button>

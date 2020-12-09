@@ -9,8 +9,8 @@
         </div>
       </div>
       <div class="topnav__item">
-        <a href="" class="logo topnav__item__link topnav__item__logo">
-          <img src="assets/img/logo-white.png" alt="" srcset="">
+        <a href="" class="p-d-inline-block logo topnav__item__link topnav__item__logo">
+          <img src="assets/img/buba-secondary.png" alt="" srcset="">
         </a>
       </div>
     </div>
@@ -19,7 +19,7 @@
         <div class="topnav__item">
           <div class="user">
             <span class="user__avi">
-              <img [src]="userDetails.picture" alt="" class="user__avi__image">
+              <img [src]="imgBase+userDetails.picture" alt="" class="user__avi__image">
             </span>
             <div class="user__info">
               <span class="user__name text--bold">{{userDetails.firstname}}&nbsp;{{userDetails.lastname}}</span>
