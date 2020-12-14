@@ -47,7 +47,7 @@
             </ng-container>
             </div>
             <div class="p-field form__item text--right">
-              <a [routerLink]="['/reset-password']" class="text--capital form__link">forgot password?</a>
+              <a [routerLink]="['/reset-password']" class="text--capital form__link form__link--primary">forgot password?</a>
             </div>
             <div class="p-field form__item">
                 <button type="submit" [disabled]="loggingIn"
@@ -56,10 +56,10 @@
                 {{loggingIn ? 'loggin in..' : 'log in'}}
               </button>
             </div>
-            <!-- <div class="p-field form__item">
+            <div class="p-field form__item">
               <p class="form__text text--center">Don't have an account? <a [routerLink]="['/register']"
                   class="text--capital form__link form__link--primary">Register</a> </p>
-            </div> -->
+            </div>
           </div>
         </form>
       </div>
