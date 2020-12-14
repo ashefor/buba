@@ -19,6 +19,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   storedUserDetails$: Observable<any>;
   userdetails: any;
   bidHistory: any[];
+  isCreating: boolean;
+  badRequestError: any;
 
   constructor(private authService: AuthService,
               private bidService: BidService, private toastr: ToastrService, private dashboardService: DashboardService, private title: Title) {
@@ -34,6 +36,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.loadingDetails = false;
+    this.isCreating = false;
   }
 
   fetchUserDetails() {
@@ -88,5 +91,25 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   refreshAccountDetails() {
     this.fetchUserDetails();
+  }
+
+  createPaymentAccount() {
+    this.isCreating = true;
+    this.badRequestError = null;
+    this.authService.createPaymentAccount().subscribe((data: any) => {
+      this.isCreating = false;
+      location.reload();
+    },  (error: any) => {
+      this.isCreating = false;
+      if (error instanceof HttpErrorResponse) {
+        if (error.status === 400) {
+          this.badRequestError = error.error.message
+        } else if (error.status === 401) {
+          this.badRequestError = error.error.message
+        } else {
+          this.toastr.error('Please try again', 'Server Error');
+        }
+      }
+    })
   }
 }

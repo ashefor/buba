@@ -59,7 +59,7 @@
                 </div>
               </ng-container>
               <ng-template #loadedAccountDetails>
-                <div *ngIf="userdetails">
+                <div *ngIf="userdetails && userdetails.payment_bank_name; else noAccountDetails">
                   <div class="p-grid payment__container py-3">
                     <div class="p-col-12 payment__details">
                       <span class="payment__bank payment__details__item text--capital">
@@ -80,6 +80,16 @@
                     </div>
                   </div>
                 </div>
+                <ng-template #noAccountDetails>
+                  <div class="text--center loading">
+                    <p *ngIf="badRequestError" class="text--regular text--danger p-mb-2">{{badRequestError}}</p>
+                    <p class="text--regular">No Payment Account Found</p>
+                    <button [disabled]="isCreating" class="button button--sm button--secondary text--capital payment__addbutton payment__details__button"
+                    (click)="createPaymentAccount()">
+                    {{isCreating ? 'Creating..' : 'Create One'}}
+                  </button>
+                  </div>
+                </ng-template>
               </ng-template>
             </div>
           </div>

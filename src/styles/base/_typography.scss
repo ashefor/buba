@@ -43,20 +43,28 @@ button {
   }
 
   &--upper{
-    text-transform: uppercase;
+    text-transform: uppercase !important;
   }
 
   &--capital{
-    text-transform: capitalize;
+    text-transform: capitalize !important;
   }
 
   &--lower{
-    text-transform: lowercase;
+    text-transform: lowercase !important;
+  }
+
+  &--underline{
+    text-decoration: underline !important;
   }
 
   //   colours
   &--primary {
     color: $color-primary !important;
+  }
+
+  &--secondary {
+    color: $color-secondary !important;
   }
 
   &--green {

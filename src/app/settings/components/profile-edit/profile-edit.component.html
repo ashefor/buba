@@ -13,7 +13,7 @@
         <form [formGroup]="profileEditForm" (ngSubmit)="editProfileHandler(profileEditForm.value)">
           <div class="p-fluid">
             <div class="p-field form__item">
-              <label for="firstname">First Name</label>
+              <label for="firstname" class="form__label">First Name</label>
               <input id="firstname" formControlName="firstname" type="text" class="form__input form__input--lg">
               <ng-container
                 *ngIf="(formControls.firstname.dirty || formControls.firstname.touched) && formControls.firstname.errors">
@@ -22,7 +22,7 @@
               </ng-container>
             </div>
             <div class="p-field form__item">
-              <label for="lastname">Last Name</label>
+              <label for="lastname" class="form__label">Last Name</label>
               <input id="lastname" type="text" formControlName="lastname" class="form__input form__input--lg">
               <ng-container
                 *ngIf="(formControls.lastname.dirty || formControls.lastname.touched) && formControls.lastname.errors">
@@ -31,7 +31,7 @@
               </ng-container>
             </div>
             <div class="p-field form__item">
-              <label for="address">Address</label>
+              <label for="address" class="form__label">Address</label>
               <textarea id="address" type="text" formControlName="address" rows="2" class="form__input form__textarea"
                 autoResize="autoResize"></textarea>
               <ng-container
@@ -42,7 +42,7 @@
             </div>
             <div class="p-fluid p-formgrid p-grid">
               <div class="p-field p-col-12 form__item p-lg-6">
-                <label for="state">State</label>
+                <label for="state" class="form__label">State</label>
                 <!-- <input id="state" type="text" class="form__input form__input--lg"> -->
                 <p-dropdown styleClass="bank-dropdown" placeholder="Select state" [options]="states"
                   formControlName="state" optionLabel="name" name="state"></p-dropdown>
@@ -52,7 +52,7 @@
                 </ng-container>
               </div>
               <div class="p-field p-col-12 form__item p-lg-6">
-                <label for="city">City</label>
+                <label for="city" class="form__label">City</label>
                 <input id="city" formControlName="city" type="text" class="form__input form__input--lg">
                 <ng-container
                   *ngIf="(formControls.city.dirty || formControls.city.touched) && formControls.city.errors">
