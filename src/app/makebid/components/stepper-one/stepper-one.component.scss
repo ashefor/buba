@@ -130,7 +130,7 @@ input[type=number] {
         }
 
         &--text {
-          font-size: $font-size-small;
+          font-size: 1.25rem;
           line-height: 1.1;
           margin: 0 0 1rem;
         }
@@ -173,11 +173,6 @@ input[type=number] {
   }
 }
 
-img{
-  &:empty{
-    content: 'empty';
-  }
-}
 
 .howto{
   &__heading{
