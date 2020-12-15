@@ -32,7 +32,7 @@
             </div>
             <div class="p-field form__item">
               <label for="address" class="form__label">Address</label>
-              <textarea id="address" type="text" formControlName="address" rows="2" class="form__input form__textarea"
+              <textarea id="address" type="text" formControlName="address" rows="2" class="form__input form__textarea form__textarea--lg"
                 autoResize="autoResize"></textarea>
               <ng-container
                 *ngIf="(formControls.address.dirty || formControls.address.touched) && formControls.address.errors">
@@ -44,8 +44,17 @@
               <div class="p-field p-col-12 form__item p-lg-6">
                 <label for="state" class="form__label">State</label>
                 <!-- <input id="state" type="text" class="form__input form__input--lg"> -->
-                <p-dropdown styleClass="bank-dropdown" placeholder="Select state" [options]="states"
-                  formControlName="state" optionLabel="name" name="state"></p-dropdown>
+                <!-- <p-dropdown styleClass="bank-dropdown" placeholder="Select state" [options]="states"
+                  formControlName="state" optionLabel="name" name="state"></p-dropdown> -->
+                 <div class="select">
+                  <select formControlName="state" class="form__input form__input--lg">
+                    <option value="" selected disabled>Select State</option>
+                    <option *ngFor="let state of states" [value]="state.name">{{state.name}}</option>
+                  </select>
+                  <span class="select__icon">
+                    <i class="pi pi-sort"></i>
+                  </span>
+                 </div>
                 <ng-container
                   *ngIf="(formControls.state.dirty || formControls.state.touched) && formControls.state.errors">
                   <span *ngIf="formControls.state.errors.required" class="p-invalid p-mb-2 p-d-block p-px-2">Select state</span>

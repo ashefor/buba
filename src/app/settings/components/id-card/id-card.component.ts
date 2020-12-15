@@ -19,7 +19,7 @@ export class IdCardComponent implements OnInit, OnDestroy {
   constructor(private profileService: ProfileService,
               private toastr: ToastrService,
               private loadingBar: LoadingBarService, private title: Title) {
-    this.title.setTitle('Buba - Account Add Id');
+    this.title.setTitle('Buba - Account Id Card');
    }
 
   ngOnInit(): void {

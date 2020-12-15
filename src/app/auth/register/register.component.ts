@@ -32,7 +32,7 @@ export class RegisterComponent implements OnInit {
   hide2 = true;
   registerSubscription = new Subscription();
   constructor(private fb: FormBuilder, private toastr: ToastrService, private bidService: BidService, private loadingBar: LoadingBarService, private auth: AuthService, private router: Router, private title: Title) {
-    this.title.setTitle('Buba -Account Register');
+    this.title.setTitle('Buba - Account Register');
    }
 
   ngOnInit(): void {

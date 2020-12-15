@@ -16,7 +16,8 @@
             <span>select file</span>
           </button> -->
         <div class="view-upload">
-          <img [src]="url ? url : 'https://api.buba.ng/pp.png'">
+          <img [hidden]="imgHasLoaded" src="assets/img/pp.png">
+          <img [hidden]="!imgHasLoaded" [src]="url ? url : 'https://api.buba.ng/app/api/uploads/pp.png'" (load)="hasLoaded($event)" (error)="imgOnError()">
         </div>
       </div>
       <!-- <div class="p-field form__item" *ngIf="selectedFile">

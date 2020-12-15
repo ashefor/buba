@@ -13,6 +13,10 @@
          <span class="bid_info--amount">
            {{(bidInfo.bid_details.price ? bidInfo.bid_details.price : 0) | currency : '₦ '}}
          </span>
+
+         <a class="text--primary text--underline p-d-block text--regular text--capital p-d-block p-mt-2 p-py-2" (click)="showHowToModal()">
+           how it works
+         </a>
          <div class="bid_info_type">
            <div class="bid_info_type-content bid_info_type--left">
              <p class="bid_info_type-content--text">
@@ -68,11 +72,6 @@
                  [showButtons]="true" [min]="1" (onInput)="changeQty($event)">
                </p-inputNumber>
              </div>
-             <!-- <div class="p-col-12 winning">
-              <span class="winning__item text--bold">
-                Chances of winning: <span class="winning__percent">{{chanceOfWinning}}%</span>
-            </span>
-            </div> -->
            </div>
            <div class="p-grid">
              <div class="p-col-7">
@@ -97,3 +96,63 @@
    </div>
  </ng-container>
 
+
+ <p-dialog header="How It Works" [(visible)]="howToModal" [modal]="true" styleClass="more-details-modal"
+   [baseZIndex]="10000">
+   <div class="modal-content">
+     <div class="howto">
+      <p class="text--regular">
+        Buba is Nigeria’s largest e-commerce platform that allows you easy access to a wide range of quality products
+        including but not limited to electronics, mobile phones, Play stations, computers, fashion, kitchen utensils, and
+        cash prices from trusted and premium brands with as low as <strong>₦50</strong>. Every product has an allocated
+        number of bid slot and a closing bid time, each bid slot is sold for <strong>N50</strong>.
+      </p>
+      <br>
+      <p class="text--regular">
+        At the close of every deal time, if the total number of bid slot available was bought, we have a completed bid
+        and if the total number of bid slot sold for that item is not equal to the total number of slots, we have an
+        incomplete bid.
+      </p>
+      <br>
+      <p class="text--regular">
+        When the bid is completed, five winners are selected, the top winner announced takes the prized item while the
+        total bid amount is shared amongst the other four winners in the following proportion: 25%, 15%, 10%, 6%
+        respectively. However, for incomplete bids, five winners are also selected, and the total bid amount is shared
+        amongst the five winners in the following proportion: 30%, 10%, 10%, 10%, 10% respectively.
+      </p>
+      <br>
+      <p class="text--regular">
+        The more bid slots you buy for an item, the higher your chance of winning!
+      </p>
+      <br>
+      <br>
+      <div>
+        <h4 class="howto__heading">
+          How to Bid
+        </h4>
+        <ol class="howto__instructions">
+          <li class="text--regular">
+            Search or select the item you want in order to view the product description page.
+          </li>
+          <li class="text--regular">
+            Select the <strong>‘bid now’</strong> option to proceed to the bid checkout page
+          </li>
+          <li class="text--regular">
+            On the bid checkout page, provide the number of bid you want to buy and proceed.
+          </li>
+          <li class="text--regular">
+            If you are a new user, you will be asked to create an account and given the option to fund your wallet.
+            However, if you are an existing user, you will be asked to login to finalize your bid.
+          </li>
+          <li class="text--regular">
+            After the closing time for the bid elapse, your win status is communicated with you via email and SMS to
+            your registered phone number.
+          </li>
+        </ol>
+      </div>
+     </div>
+   </div>
+   <ng-template pTemplate="footer">
+     <p-button icon="pi pi-check" (click)="howToModal=false" label="Okay" styleClass="text--regular"></p-button>
+   </ng-template>
+ </p-dialog>

@@ -46,7 +46,7 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
       lastname: [this.userDetails.lastname, Validators.required],
       address: [this.userDetails.address, Validators.required],
       city: [this.userDetails.city, Validators.required],
-      state: [{name: this.userDetails.state}, [Validators.required, this.confirmValidator]],
+      state: [this.userDetails.state, Validators.required],
     });
   }
 
@@ -67,8 +67,8 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
       return;
     }
     // console.log(formvalue);
-    const { state } = formvalue;
-    formvalue.state = state.name;
+    // const { state } = formvalue;
+    // formvalue.state = state.name;
     // console.log(formvalue);
     this.loading = true;
     this.loadingBar.start();

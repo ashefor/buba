@@ -36,10 +36,10 @@
                           </tr>
                       </ng-container>
                       <ng-container *ngIf="bidsHistory && !bidsHistory.length">
-                        <tr *ngFor="let bids of bidsHistory; let i = index">
+                        <tr>
                             <td colspan="6">
                                 <p class="p-p-4 text--center text--capital">
-                                  no bids yet
+                                  {{errorMsg}}
                                  </p>
                                </td>
                           </tr>
@@ -47,6 +47,16 @@
                     </tbody>
                   </table>
                 </div>
+                <ng-container >
+                  <div class="p-flex p-mt-3 p-ml-auto text--right">
+                    <button class="button p-mx-1 button--secondary text--capital" (click)="goPrevious()">
+                      previous
+                    </button>
+                    <button class="button p-mx-1 button--secondary text--capital" (click)="goNext()">
+                      next
+                    </button>
+                  </div>
+                </ng-container>
               </div>
             </div>
           </div>

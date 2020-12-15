@@ -45,7 +45,7 @@ export class TokenInterceptor implements HttpInterceptor {
                     this.router.navigate(['/login']);
                 }
                 this.service.clearSessionStorage().then(() => this.service.storeUser(null));
-                this.toastr.error('Please sign in to continue', 'Unauthorised!');
+                // this.toastr.error('Please sign in to continue', 'Unauthorised!');
                 return throwError(error);
             } else {
                 return throwError(error);

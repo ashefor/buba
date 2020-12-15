@@ -25,7 +25,7 @@ export class StepperOneComponent implements OnInit, OnDestroy {
   offIcon = 'pi pi pi-times';
   bidType1 = true;
   bidType2 = false;
-  showMore: boolean;
+  howToModal: boolean;
 
   @Output() makeBidEmitter = new EventEmitter();
   // tslint:disable-next-line: max-line-length
@@ -38,8 +38,8 @@ export class StepperOneComponent implements OnInit, OnDestroy {
     this.loadingBar.stop();
   }
 
-  showMoreModal() {
-    this.showMore = true;
+  showHowToModal() {
+    this.howToModal = true;
   }
   handleBidTypeChange(type, e) {
     if (type === 1) {

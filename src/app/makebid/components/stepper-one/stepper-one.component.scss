@@ -179,4 +179,21 @@ img{
   }
 }
 
+.howto{
+  &__heading{
+    font-size: $font-size-medium;
+  }
+
+  &__instructions{
+    padding-left: 3rem;
+    padding-right: 2rem;
+    margin: 1.5rem 0;
+
+    li{
+      margin: .25rem 0;
+      padding: .5rem;
+    }
+  }
+}
+
 

@@ -53,12 +53,12 @@ p {
 }
 
 input,
-select {
+select, textarea {
   font-family: inherit;
   border-image: none;
   outline: none;
   background: transparent;
-  font-size: 16px;
+  font-size: $font-size-regular;
 }
 
 
@@ -84,7 +84,9 @@ body {
 .w-100 {
   width: 100%;
 }
-
+.toast-container{
+  font-size: $font-size-regular;
+}
 .p-progressbar-value {
   background-color: $color-primary !important;
 }
@@ -114,7 +116,14 @@ body {
 .bid__number.p-inputtext{
   font-size: 1.25rem !important;
 }
+.p-sidebar{
+  height: calc(100vh - 6rem) !important;
 
+  &-content{
+    height: 100%;
+    // overflow: auto !important;
+  }
+}
 .p-sidebar-left {
   top: 6rem !important;
   width: 30rem !important;
@@ -179,7 +188,7 @@ body {
     font-size: 1.5rem !important;
   }
   @media all and (min-width: 768px) {
-    width: 30% 
+    width: 75% 
   }
 }
 

@@ -15,8 +15,17 @@
             <div class="p-field form__item">
               <label for="bankname" class="form__label text--capital">bank name</label>
               <!-- <input type="text" id="bankname" class="form__input form__input--lg"> -->
-              <p-dropdown placeholder="Select bank" styleClass="bank-dropdown" [options]="banks"
-                optionLabel="name" name="bank_code" formControlName="bank_code"></p-dropdown>
+              <!-- <p-dropdown placeholder="Select bank" styleClass="bank-dropdown" [options]="banks"
+                optionLabel="name" name="bank_code" formControlName="bank_code"></p-dropdown> -->
+               <div class="select">
+                <select formControlName="bank_code" class="form__input form__input--lg">
+                  <option [value]="null" selected disabled>Select Bank</option>
+                  <option *ngFor="let bank of banks" [value]="bank.bankcode">{{bank.name}}</option>
+                </select>
+                <span class="select__icon">
+                  <i class="pi pi-sort"></i>
+                </span>
+               </div>
               <ng-container
                 *ngIf="(formControls.bank_code.dirty || formControls.bank_code.touched) && formControls.bank_code.errors">
                 <span *ngIf="formControls.bank_code.errors.required" class="p-invalid p-mb-2 p-d-block p-px-2">Select

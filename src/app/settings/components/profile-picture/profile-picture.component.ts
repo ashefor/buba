@@ -19,16 +19,21 @@ export class ProfilePictureComponent implements OnInit, OnDestroy {
   url;
   addIdCardSubscription = new Subscription();
   user: any;
+  imgHasLoaded = false;
 
    constructor(private profileService: ProfileService,
                private authService: AuthService,
                private toastr: ToastrService,
                private loadingBar: LoadingBarService, private title: Title) {
-    this.title.setTitle('Buba - Account Add Id');
+    this.title.setTitle('Buba - Account Profile Picture');
    }
 
   ngOnInit(): void {
-    this.authService.getUser$().subscribe((user) => this.user = user);
+    this.authService.getUser$().subscribe((user) => {
+      this.user = user;
+      this.url = `https://api.buba.ng/app/api/uploads/${user?.picture}`;
+      console.log(this.url)
+    });
   }
 
   ngOnDestroy() {
@@ -48,6 +53,13 @@ export class ProfilePictureComponent implements OnInit, OnDestroy {
     // console.log(this.selectedFile);
   }
 
+  hasLoaded(event) {
+    this.imgHasLoaded = true;
+  }
+
+  imgOnError() {
+    this.url = 'https://api.buba.ng/app/api/uploads/pp.png'
+  }
   clearFileUpload(file: HTMLInputElement) {
     this.selectedFile = null;
     this.url = null;
@@ -70,7 +82,7 @@ export class ProfilePictureComponent implements OnInit, OnDestroy {
        this.toastr.success('Success', 'Picture changed successfully');
        this.user.picture = pictureData.file_name;
        this.authService.storeUser(this.user);
-       this.clearFileUpload(file);
+      //  this.clearFileUpload(file);
      } else {
        this.toastr.error('Error!', pictureData.message);
      }

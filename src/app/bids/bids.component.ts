@@ -17,12 +17,13 @@ export class BidsComponent implements OnInit, OnDestroy {
   bidsHistory: any[];
   isFetchingHistory: boolean;
   bidsHistorySubscription: Subscription;
+  errorMsg = 'no bids yet';
   constructor(private bidService: GetBidsService, private loadingBar: LoadingBarService, private toastr: ToastrService, private title: Title) {
     this.title.setTitle('Buba - Account Bids History');
    }
 
   ngOnInit(): void {
-    this.fetchFundingHistory();
+    this.fetchBidsHistory();
   }
 
   ngOnDestroy() {
@@ -30,7 +31,7 @@ export class BidsComponent implements OnInit, OnDestroy {
     this.bidsHistorySubscription.unsubscribe();
   }
 
-  fetchFundingHistory() {
+  fetchBidsHistory() {
     const pageData = {
       page_number: this.pagenumber,
       page_size: this.pagesize
@@ -59,5 +60,54 @@ export class BidsComponent implements OnInit, OnDestroy {
         this.toastr.error('An unknown error has occured. Please try again later', 'Error');
       }
     });
+  }
+
+  goToAnotherPage() {
+    const pageData = {
+      page_number: this.pagenumber,
+      page_size: this.pagesize,
+    };
+    this.loadingBar.start();
+    this.bidsHistorySubscription = this.bidService.fetchTransactions().subscribe((data: any) => {
+      this.loadingBar.stop();
+      // console.log(data);
+      if (data.status === 'successs') {
+        this.bidsHistory = data.bids_history;;
+        // console.log(this.fundingHistory);
+      }
+      // console.log(this.fundingHistory);
+      if (!this.bidsHistory.length) {
+        this.errorMsg = 'no more results';
+      }
+    }, (error: any) => {
+      this.loadingBar.stop();
+      this.isFetchingHistory = false;
+      // console.log(error);
+      if (error instanceof HttpErrorResponse) {
+        if (error.status >= 400 && error.status <= 415) {
+          this.toastr.error(error.error.message, 'Error');
+        } else {
+          this.toastr.error('Unknown error. Please try again later', 'Error');
+        }
+      } else if (error instanceof TimeoutError) {
+        this.toastr.error('Server timed out. Please try again later', 'Time Out!');
+      } else {
+        this.toastr.error('An unknown error has occured. Please try again later', 'Error');
+      }
+    });
+  }
+
+  goPrevious() {
+    if (this.pagenumber === 1) {
+      return;
+    } else {
+      this.pagenumber -= 1;
+      this.goToAnotherPage();
+    }
+  }
+
+  goNext() {
+    this.pagenumber += 1;
+    this.goToAnotherPage();
   }
 }

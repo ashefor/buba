@@ -2,6 +2,8 @@
 
 .sidenav {
   padding: 2rem 0 3rem 0;
+  height: 100%;
+  overflow: auto !important;
 
   @media all and (min-width: 768px) {
     padding-top: 0;

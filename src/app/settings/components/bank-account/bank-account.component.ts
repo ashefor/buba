@@ -6,6 +6,7 @@ import { LoadingBarService } from '@ngx-loading-bar/core';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription, TimeoutError } from 'rxjs';
 import { banks } from 'src/app/banks';
+import { AuthService } from 'src/app/core/services/auth.service';
 import { ProfileService } from '../../services/profile.service';
 
 @Component({
@@ -19,24 +20,30 @@ export class BankAccountComponent implements OnInit, OnDestroy {
   addBankAccountForm: FormGroup;
   loading: boolean;
   addBankAccountSubscription = new Subscription();
+  userDetails: any;
+
   constructor(private fb: FormBuilder,
-              private profileService: ProfileService,
-              private toastr: ToastrService, private loadingBar: LoadingBarService, private title: Title) {
-                this.title.setTitle('Buba - Account Bank Details');
-               }
+    private profileService: ProfileService,
+    private toastr: ToastrService, private authService: AuthService, private loadingBar: LoadingBarService, private title: Title) {
+    this.title.setTitle('Buba - Account Bank Details');
+  }
 
   ngOnInit(): void {
+    this.authService.getUser$().subscribe((user: any) => {
+      this.userDetails = user;
+      // console.log(this.userDetails);
+  });
     this.formInit();
   }
-ngOnDestroy() {
-  this.loadingBar.stop();
-  this.addBankAccountSubscription.unsubscribe();
-}
+  ngOnDestroy() {
+    this.loadingBar.stop();
+    this.addBankAccountSubscription.unsubscribe();
+  }
 
   formInit() {
     this.addBankAccountForm = this.fb.group({
-      bank_code: [null, Validators.required],
-      account_number: [null, Validators.required],
+      bank_code: [this.userDetails.bank_code, Validators.required],
+      account_number: [this.userDetails.account_number, Validators.required],
     });
   }
 
@@ -49,8 +56,8 @@ ngOnDestroy() {
       return;
     }
     // console.log(formvalue);
-    const {bank_code} = formvalue;
-    formvalue.bank_code = bank_code.bankcode;
+    // const {bank_code} = formvalue;
+    // formvalue.bank_code = bank_code.bankcode;
     // console.log(formvalue);
     this.loading = true;
     this.loadingBar.start();
@@ -72,7 +79,6 @@ ngOnDestroy() {
       this.addBankAccountForm.enable();
       // console.log(error);
       if (error instanceof HttpErrorResponse) {
-        this.toastr.error('Error', error.error ? error.error.error : 'An error has occured. Please try again later');
         if (error.status === 400) {
           // console.log(error.error);
           const badRequestError = error.error.message;
@@ -80,10 +86,10 @@ ngOnDestroy() {
             badRequest: badRequestError
           });
         } else {
-          this.toastr.error(error.error ? error.error.error : 'An error has occured. Please try again later', 'Error');
+          this.toastr.error(error.error ? error.error.message : 'An error has occured. Please try again later');
         }
       } else if (error instanceof TimeoutError) {
-        this.toastr.error('Time Out!', 'Server timeout. Please try again later');
+        this.toastr.error('Server timeout. Please try again later');
       }
     });
   }

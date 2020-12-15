@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-forgot-password',
@@ -10,7 +11,9 @@ export class ForgotPasswordComponent implements OnInit {
   forgotPasswordForm: FormGroup;
   resetting: boolean;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private title: Title) { 
+    this.title.setTitle('Buba - Account Reset Password');
+  }
 
   ngOnInit(): void {
     this.formInit()

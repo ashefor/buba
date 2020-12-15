@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   loggingIn: boolean;
   loginSubscription = new Subscription();
   constructor(private fb: FormBuilder, private loadingBar: LoadingBarService, private auth: AuthService, private bidService: BidService, private router: Router, private title: Title) {
-    this.title.setTitle('Buba -Account Login');
+    this.title.setTitle('Buba - Account Login');
    }
 
   ngOnInit(): void {
