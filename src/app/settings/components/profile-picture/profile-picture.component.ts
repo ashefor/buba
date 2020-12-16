@@ -32,7 +32,6 @@ export class ProfilePictureComponent implements OnInit, OnDestroy {
     this.authService.getUser$().subscribe((user) => {
       this.user = user;
       this.url = `https://api.buba.ng/app/api/uploads/${user?.picture}`;
-      console.log(this.url)
     });
   }
 
@@ -50,7 +49,6 @@ export class ProfilePictureComponent implements OnInit, OnDestroy {
         this.url = e.target.result;
       };
     }
-    // console.log(this.selectedFile);
   }
 
   hasLoaded(event) {
@@ -77,12 +75,10 @@ export class ProfilePictureComponent implements OnInit, OnDestroy {
    this.profileService.changeProfilePicture(uploadData).subscribe((pictureData: any) => {
      this.loadingBar.stop();
      this.loading = false;
-     // console.log(pictureData);
      if (pictureData.status === 'success') {
        this.toastr.success('Success', 'Picture changed successfully');
        this.user.picture = pictureData.file_name;
        this.authService.storeUser(this.user);
-      //  this.clearFileUpload(file);
      } else {
        this.toastr.error('Error!', pictureData.message);
      }
@@ -91,7 +87,6 @@ export class ProfilePictureComponent implements OnInit, OnDestroy {
      this.loadingBar.stop();
      if (error instanceof HttpErrorResponse) {
        if (error.status === 400) {
-         // console.log(error.error);
          this.badRequestError = error.error.message;
        } else {
          this.toastr.error(error.error ? error.error.error : 'An error has occured. Please try again later', 'Error');

@@ -14,9 +14,9 @@
 html {
   font-size: 62.5%;
 
-  @media only screen and (max-width: 600px) {
-    font-size: 50%;
-  }
+  // @media only screen and (max-width: 600px) {
+  //   font-size: 50%;
+  // }
 
 }
 
@@ -114,7 +114,7 @@ body {
 }
 
 .bid__number.p-inputtext{
-  font-size: 1.25rem !important;
+  font-size: 1.8rem !important;
 }
 .p-sidebar{
   height: calc(100vh - 6rem) !important;

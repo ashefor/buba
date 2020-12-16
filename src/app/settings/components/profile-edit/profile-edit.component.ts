@@ -31,7 +31,6 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.authService.getUser$().subscribe((user: any) => {
         this.userDetails = user;
-        // console.log(this.userDetails);
     });
     this.formInit();
   }
@@ -66,10 +65,6 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
     if (this.profileEditForm.invalid) {
       return;
     }
-    // console.log(formvalue);
-    // const { state } = formvalue;
-    // formvalue.state = state.name;
-    // console.log(formvalue);
     this.loading = true;
     this.loadingBar.start();
     this.profileEditForm.disable();
@@ -77,11 +72,9 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
       this.profileEditForm.enable();
       this.loading = false;
       this.loadingBar.stop();
-      // console.log(profileData);
       if (profileData.status === 'success') {
         this.toastr.success('Success', profileData.message);
         const newUserDetails = {...this.userDetails, ...formvalue};
-        // console.log(newUserDetails);
         this.authService.storeUser(newUserDetails);
       } else {
         this.toastr.error('Error!', profileData.message);
@@ -90,11 +83,9 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
       this.loading = false;
       this.loadingBar.stop();
       this.profileEditForm.enable();
-      // console.log(error);
       if (error instanceof HttpErrorResponse) {
         this.toastr.error('Error', error.error ? error.error.error : 'An error has occured. Please try again later');
         if (error.status === 400) {
-          // console.log(error.error);
           const badRequestError = error.error.message;
           this.profileEditForm.setErrors({
             badRequest: badRequestError

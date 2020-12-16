@@ -31,7 +31,7 @@
                        <ng-container *ngIf="withdrawalHistory && withdrawalHistory.length">
                         <tr *ngFor="let withdrawal of withdrawalHistory; let i = index">
                             <td>{{i + 1}}</td>
-                            <td>{{withdrawal.created_at}}</td>
+                            <td>{{withdrawal.created_at | customeDate: "MMM DD, YYYY. h:mm:ss a"}}</td>
                             <td class="no-wrap">{{withdrawal.amount |currency: '₦ '}}</td>
                             <td>{{withdrawal.reference}}</td>
                           </tr>

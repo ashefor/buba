@@ -23,6 +23,7 @@
     "@ngx-loading-bar/core": "^4.2.0",
     "angular-animations": "^0.11.0",
     "animate.css": "^4.1.1",
+    "moment": "^2.29.1",
     "ngx-toastr": "^13.1.0",
     "primeflex": "^2.0.0",
     "primeicons": "^4.0.0",

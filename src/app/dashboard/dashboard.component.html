@@ -108,26 +108,43 @@
              <ng-template #doneFetchingBids>
               <ng-container *ngIf="bidHistory">
                 <ng-container *ngIf="bidHistory.length; else noHistory">
-                  <div *ngFor="let bid of bidHistory.slice(0, 5)" class="bids__open__container">
-                    <div class="bids__open__body">
-                      <div class="p-grid p-nogutter">
-                        <div class="bids__open__item">
-                          <img class="bids__open__image" [src]="bid.product_image" alt="product">
+                  <div>
+                    <div *ngFor="let bid of bidHistory.slice(0, 5)" class="bids__open__container">
+                      <div class="bids__open__body">
+                        <div class="p-grid p-nogutter">
+                          <div class="p-col-2">
+                            <div class="bids__open__item">
+                              <img class="bids__open__image" [src]="bid.product_image" alt="product">
+                            </div>
+                          </div>
+                          <div class="p-col-10">
+                            <div class="p-grid">
+                             <div class="p-col-12">
+                              <div class="bids__open__item p-col text--left">
+                                <span class="bids__open__text text--medium text--bold">
+                                  {{bid.product_name}}
+                                </span>
+                              </div>
+                             </div>
+                              <div class="p-col-12">
+                                <div class="bids__open__item p-col text--left">
+                                  <span class="bids__open__text">
+                                    {{bid.total_bid}} ticket{{bid.total_bid > 1 ? 's' : ''}}
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <!-- <div class="bids__open__item p-col-2 text--right">
+                            <a class="bids__open__footer__text bids__open__footer__text--link button">View</a>
+                          </div> -->
                         </div>
-                        <div class="bids__open__item p-col text--left">
-                          <span class="bids__open__text">
-                            {{bid.product_name}}
-                          </span>
-                        </div>
-                        <!-- <div class="bids__open__item p-col-2 text--right">
-                          <a class="bids__open__footer__text bids__open__footer__text--link button">View</a>
-                        </div> -->
                       </div>
+                      <!-- <div class="bids__open__footer">
+                        <span class="bids__open__footer__text bids__open__footer__text--left">Ends on: Oct 30th</span>
+                        <a class="bids__open__footer__text bids__open__footer__text--link button button--secondary">View</a>
+                      </div> -->
                     </div>
-                    <!-- <div class="bids__open__footer">
-                      <span class="bids__open__footer__text bids__open__footer__text--left">Ends on: Oct 30th</span>
-                      <a class="bids__open__footer__text bids__open__footer__text--link button button--secondary">View</a>
-                    </div> -->
                   </div>
                   <div class="bids__open__item p-pt-5">
                     <a [routerLink]="['/bids']"  class="bids__open__text bids__open__link">See all transactions</a>

@@ -40,21 +40,17 @@ export class WithdrawalHistoryComponent implements OnInit, OnDestroy {
       page_size: this.pagesize,
       search_text: ''
     };
-    // console.log(pageData);
     this.loadingBar.start();
     this.withdrawalSubscription = this.withdrawalService.fetchWithdrawals(pageData).subscribe((data: any) => {
       this.loadingBar.stop();
-      // console.log(data);
       if (data.status === 'success') {
         this.withdrawalHistory = data.withdrawals;
-        // console.log(this.withdrawalHistory);
       } else {
         this.toastr.error(data.message);
       }
     }, (error: any) => {
       this.loadingBar.stop();
       this.isFetchingHistory = false;
-      // console.log(error);
       if (error instanceof HttpErrorResponse) {
         if (error.status >= 400 && error.status <= 415) {
           this.toastr.error(error.error.message, 'Error');
@@ -75,14 +71,11 @@ export class WithdrawalHistoryComponent implements OnInit, OnDestroy {
       page_size: this.pagesize,
       search_text: this.searchText
     };
-    // console.log(pageData);
     this.loadingBar.start();
     this.withdrawalSubscription = this.withdrawalService.fetchWithdrawals(pageData).subscribe((data: any) => {
       this.loadingBar.stop();
-      // console.log(data);
       if (data.status === 'success') {
         this.withdrawalHistory = data.withdrawals;
-        // console.log(this.withdrawalHistory);
       } else {
         this.toastr.error(data.message);
       }
@@ -92,7 +85,6 @@ export class WithdrawalHistoryComponent implements OnInit, OnDestroy {
     }, (error: any) => {
       this.loadingBar.stop();
       this.isFetchingHistory = false;
-      // console.log(error);
       if (error instanceof HttpErrorResponse) {
         if (error.status >= 400 && error.status <= 415) {
           this.toastr.error(error.error.message, 'Error');

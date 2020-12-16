@@ -43,14 +43,11 @@ export class TopnavComponent implements OnInit {
     this.processing = true;
     this.authService.getWalletBalance().subscribe((data: loggedInUser) => {
       this.processing = false;
-      // console.log(data);
       this.authService.storeUser(data.user);
     }, (error: any) => {
       this.processing = false;
-      // console.log(error);
       if (error instanceof HttpErrorResponse) {
         if (error.status === 401) {
-          // this.bidService.setCurrentPage(2);
         } else {
           this.toastr.error('Server error. Please try again later', 'Error');
         }

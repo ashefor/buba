@@ -51,11 +51,17 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   logIn(formvalue) {
+    for (const i in this.loginForm.controls) {
+      this.loginForm.controls[i].markAsDirty();
+      this.loginForm.controls[i].updateValueAndValidity();
+    }
+    if (this.loginForm.invalid) {
+      return;
+    }
     const newFormValue = {} as loginFormType;
     const { email, password } = formvalue;
     newFormValue.param = email;
     newFormValue.password = password;
-    // // console.log(newFormValue);
     this.loadingBar.start();
     this.loggingIn = true;
     this.loginForm.disable();
@@ -65,15 +71,12 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.loginForm.enable();
       this.auth.storeToken(loggedUser.token);
       this.auth.storeUser(loggedUser.user);
-      // console.log(loggedUser);
-      // this.loginEmitter.emit();
       this.bidService.setWalletDetails(loggedUser.user);
       this.router.navigate(['/dashboard']);
     }, (error: any) => {
       this.loggingIn = false;
       this.loadingBar.stop();
       this.loginForm.enable();
-      // // console.log(error);
       if (error instanceof HttpErrorResponse) {
         if (error.status === 400) {
           this.loginForm.setErrors({

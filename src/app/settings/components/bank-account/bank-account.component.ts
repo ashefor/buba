@@ -31,7 +31,6 @@ export class BankAccountComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.authService.getUser$().subscribe((user: any) => {
       this.userDetails = user;
-      // console.log(this.userDetails);
   });
     this.formInit();
   }
@@ -55,10 +54,6 @@ export class BankAccountComponent implements OnInit, OnDestroy {
     if (this.addBankAccountForm.invalid) {
       return;
     }
-    // console.log(formvalue);
-    // const {bank_code} = formvalue;
-    // formvalue.bank_code = bank_code.bankcode;
-    // console.log(formvalue);
     this.loading = true;
     this.loadingBar.start();
     this.addBankAccountForm.disable();
@@ -66,7 +61,6 @@ export class BankAccountComponent implements OnInit, OnDestroy {
       this.addBankAccountForm.enable();
       this.loadingBar.stop();
       this.loading = false;
-      // console.log(bankData);
       if (bankData.status === 'success') {
         this.toastr.success('Success', bankData.message);
         this.addBankAccountForm.reset();
@@ -77,10 +71,8 @@ export class BankAccountComponent implements OnInit, OnDestroy {
       this.loading = false;
       this.loadingBar.stop();
       this.addBankAccountForm.enable();
-      // console.log(error);
       if (error instanceof HttpErrorResponse) {
         if (error.status === 400) {
-          // console.log(error.error);
           const badRequestError = error.error.message;
           this.addBankAccountForm.setErrors({
             badRequest: badRequestError

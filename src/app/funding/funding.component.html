@@ -26,7 +26,7 @@
                               <ng-container *ngIf="fundingHistory && fundingHistory.length">
                                 <tr *ngFor="let funding of fundingHistory; let i = index">
                                     <td>{{i + 1}}</td>
-                                    <td>{{funding.created_at}}</td>
+                                    <td>{{funding.created_at | customeDate: "MMM DD, YYYY. h:mm:ss a"}}</td>
                                       <td class="no-wrap">{{funding.amount |currency: '₦ '}}</td>
                                       <td>{{funding.type}}</td>
                                   </tr>

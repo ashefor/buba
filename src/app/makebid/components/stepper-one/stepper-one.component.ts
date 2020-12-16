@@ -119,12 +119,10 @@ export class StepperOneComponent implements OnInit, OnDestroy {
       product_name: this.bidInfo.bid_list.product_name,
       product_image: this.bidInfo.bid_list.product_image
     };
-    // // console.log(bid);
     this.bidService.setBidDetails(bid);
     this.authService.getWalletBalance().subscribe((data: loggedInUser) => {
       this.loadingBar.stop();
       this.processing = false;
-      // // console.log(data);
       this.bidService.setWalletDetails(data.user);
       this.authService.storeUser(data.user);
       bid.wallet_balance = data.user.balance;
@@ -137,7 +135,6 @@ export class StepperOneComponent implements OnInit, OnDestroy {
     }, (error: any) => {
       this.loadingBar.stop();
       this.processing = false;
-      // console.log(error);
       if (error instanceof HttpErrorResponse) {
         if (error.status === 401) {
           // this.bidService.setCurrentPage(2);

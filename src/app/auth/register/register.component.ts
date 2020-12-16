@@ -76,26 +76,22 @@ export class RegisterComponent implements OnInit {
     if (this.registerForm.invalid) {
       return;
     }
-    // // console.log(formvalue);
     this.loadingBar.start();
     this.isRegistering = true;
     this.registerForm.disable();
-    this.registerSubscription = this.auth.register(formvalue).subscribe((newUser: any) => {
+    this.registerSubscription = this.auth.register(formvalue).pipe(tap((data: loggedInUser) => {
+      this.auth.storeToken(data.token);
+    }), concatMap(()=> this.auth.createPaymentAccount())).subscribe((newUser: any) => {
       this.loadingBar.stop();
       this.isRegistering = false;
       this.registerForm.enable();
       this.auth.storeUser(newUser.user);
-      this.auth.storeToken(newUser.token);
-      this.auth.storeUser(newUser.user);
-      // console.log(newUser);
-      // this.loginEmitter.emit();
       this.bidService.setWalletDetails(newUser.user);
       this.router.navigate(['/dashboard']);
     }, (error: any) => {
       this.isRegistering = false;
       this.loadingBar.stop();
       this.registerForm.enable();
-      // // console.log(error);
       if (error instanceof HttpErrorResponse) {
         if (error.status === 400) {
           this.registerForm.setErrors({

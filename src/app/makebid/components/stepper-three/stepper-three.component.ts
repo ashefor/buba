@@ -42,18 +42,16 @@ export class StepperThreeComponent implements OnInit, OnDestroy {
     this.confirmPaymentSubscription = this.authService.getWalletBalance().subscribe((data: loggedInUser) => {
       this.loadingBar.stop();
       this.processing = false;
-      // // console.log(data);
       this.bidService.setWalletDetails(data.user);
       this.authService.storeUser(data.user);
       if (parseFloat(data.user.balance) > parseFloat(this.bidDetails.total_amount)) {
-        this.bidService.setCurrentPage(4);
+        return this.bidService.setCurrentPage(4);
       } else {
         this.toastr.info('Payment has not reflected yet. Please hold on');
       }
     }, (error: any) => {
       this.loadingBar.stop();
       this.processing = false;
-      // // console.log(error);
       if (error instanceof HttpErrorResponse) {
         if (error.status === 401) {
           this.bidService.setCurrentPage(2);

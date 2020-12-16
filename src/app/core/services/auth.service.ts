@@ -12,10 +12,20 @@ export class AuthService {
   urlModule = 'auth';
   redirectUrl: string;
   currentPage: number;
-  user = sessionStorage.getItem('bidbuba-user');
-  userObject$  = new BehaviorSubject<any>(JSON.parse(this.user) || null);
-  constructor(private http: HttpClient, private router: Router) { }
+  user: any;
+  userObject$ = new BehaviorSubject<any>(this.getUserObject$());
+  constructor(private http: HttpClient, private router: Router) {
 
+  }
+
+  public getUserObject$() {
+    const userData = sessionStorage.getItem('bidbuba-user')
+    if (userData !== 'undefined' || userData !== undefined || userData !== null) {
+      return JSON.parse(userData);
+    } else {
+      return null;
+    }
+  }
   storeToken(token: string) {
     return sessionStorage.setItem('bidbuba-access-token', token);
   }
@@ -48,7 +58,9 @@ export class AuthService {
   login(user) {
     return this.http.post(`${environment.bubaApi}/user/account/login`, user).pipe(catchError((error) => throwError(error)));
   }
-
+  resetAccount(user) {
+    return this.http.post(`${environment.bubaApi}/user/account/reset`, user).pipe(catchError((error) => throwError(error)));
+  }
   register(newUser) {
     return this.http.post(`${environment.bubaApi}/user/account/create`, newUser).pipe(catchError((error) => throwError(error)));
   }

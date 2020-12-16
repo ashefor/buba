@@ -139,9 +139,9 @@
         margin-bottom: .5rem;
         padding: .5rem 0;
 
-        &:last-of-type {
-          border-bottom: none;
-        }
+       &:not(:last-child) {
+        border-bottom: .1rem solid #aeaeb34d;
+       }
       }
 
       &__item {

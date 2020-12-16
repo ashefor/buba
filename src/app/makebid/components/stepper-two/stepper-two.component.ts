@@ -48,6 +48,7 @@ export class StepperTwoComponent implements OnInit, OnDestroy {
   isRegistering: boolean;
   isResetting: boolean;
   registerSubscription = new Subscription();
+  showResetForm = true;
   constructor(private fb: FormBuilder, private loadingBar: LoadingBarService, private auth: AuthService, private bidService: BidService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
@@ -86,6 +87,10 @@ export class StepperTwoComponent implements OnInit, OnDestroy {
     });
   }
 
+  get resetEmail() {
+    return this.resetForm.get('email').value;
+  }
+
   get formControls() {
     return this.loginForm.controls;
   }
@@ -95,10 +100,14 @@ export class StepperTwoComponent implements OnInit, OnDestroy {
   }
 
   get resetFormControls() {
-    return this.registerForm.controls;
+    return this.resetForm.controls;
   }
 
   logIn(formvalue) {
+    for (const i in this.loginForm.controls) {
+      this.loginForm.controls[i].markAsDirty();
+      this.loginForm.controls[i].updateValueAndValidity();
+    }
     if (this.loginForm.invalid) {
       return;
     }
@@ -106,7 +115,6 @@ export class StepperTwoComponent implements OnInit, OnDestroy {
     const { email, password } = formvalue;
     newFormValue.param = email;
     newFormValue.password = password;
-    // // console.log(newFormValue);
     this.loadingBar.start();
     this.loggingIn = true;
     this.loginForm.disable();
@@ -116,13 +124,9 @@ export class StepperTwoComponent implements OnInit, OnDestroy {
       this.loginForm.enable();
       this.auth.storeToken(loggedUser.token);
       this.auth.storeUser(loggedUser.user);
-      // this.loginEmitter.emit();
-      // // console.log(loggedUser);
-      // // console.log(this.bidDetails);
       this.bidDetails.wallet_balance = loggedUser.user.balance;
       this.bidService.setBidDetails(this.bidDetails);
       this.bidService.setWalletDetails(loggedUser.user);
-      // // console.log(this.bidDetails);
       if (parseFloat(loggedUser.user.balance) < parseFloat(this.bidDetails.total_amount)) {
         this.bidService.setCurrentPage(3);
       } else {
@@ -132,7 +136,6 @@ export class StepperTwoComponent implements OnInit, OnDestroy {
       this.loggingIn = false;
       this.loadingBar.stop();
       this.loginForm.enable();
-      // // console.log(error);
       if (error instanceof HttpErrorResponse) {
         if (error.status === 400) {
           this.loginForm.setErrors({
@@ -160,31 +163,23 @@ export class StepperTwoComponent implements OnInit, OnDestroy {
     if (this.registerForm.invalid) {
       return;
     }
-    // // console.log(formvalue);
     this.loadingBar.start();
     this.isRegistering = true;
     this.registerForm.disable();
     this.registerSubscription = this.auth.register(formvalue).pipe(tap((data: loggedInUser) => {
-      // console.log(data);
       this.auth.storeToken(data.token);
      }), concatMap(() => this.auth.createPaymentAccount()), concatMap(() => this.auth.getWalletBalance())).subscribe((newUser: any) => {
       this.loadingBar.stop();
       this.isRegistering = false;
       this.registerForm.enable();
       this.auth.storeUser(newUser.user);
-      // this.auth.storeToken(newUser.token);
-      // this.loginEmitter.emit();
-      // // console.log(newUser);
-      // this.bidDetails.wallet_balance = newUser.user.balance;
       this.bidService.setBidDetails(this.bidDetails);
       this.bidService.setWalletDetails(newUser.user);
-      // // console.log(this.bidDetails);
       this.bidService.setCurrentPage(3);
     }, (error: any) => {
       this.isRegistering = false;
       this.loadingBar.stop();
       this.registerForm.enable();
-      // // console.log(error);
       if (error instanceof HttpErrorResponse) {
         if (error.status === 400) {
           this.registerForm.setErrors({
@@ -202,9 +197,43 @@ export class StepperTwoComponent implements OnInit, OnDestroy {
   }
 
   reset(formvalue) {
-
+    for (const i in this.resetForm.controls) {
+      this.resetForm.controls[i].markAsDirty();
+      this.resetForm.controls[i].updateValueAndValidity();
+    }
+    if (this.resetForm.invalid) {
+      return;
+    }
+    this.loadingBar.start();
+    this.isResetting = true;
+    this.resetForm.disable();
+    this.auth.resetAccount(formvalue).subscribe((data: any) => {
+      this.loadingBar.stop();
+      this.isResetting = false;
+      this.showResetForm = false;
+      this.resetForm.enable();
+    }, (error: any) => {
+      this.isResetting = false;
+      this.loadingBar.stop();
+      this.resetForm.enable();
+      if (error instanceof HttpErrorResponse) {
+        if (error.status === 400) {
+          this.resetForm.setErrors({
+            badRequest: error.error.message
+          });
+        } else if (error.status === 401) {
+          this.resetForm.setErrors({
+            unAuthorized: error.error.message
+          });
+        }
+      }
+    })
   }
 
+  displayResetForm() {
+    this.resetForm.reset();
+    this.showResetForm = true;
+  }
   goBack() {
     this.goBackEmitter.emit(1);
   }

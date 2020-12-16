@@ -4,10 +4,10 @@
         <div class="bids__container">
             <div class="pageheader">
               <h1 class="pageheader__title text--capital">
-                bids history
+                bids
               </h1>
               <span class="pageheader__subtitle text--capital">
-                  your bid history
+                  your current bids
               </span>
             </div>
             <div class="pagebody bids__body">
@@ -28,10 +28,10 @@
                       <ng-container *ngIf="bidsHistory && bidsHistory.length">
                         <tr *ngFor="let bids of bidsHistory; let i = index">
                             <td>{{i + 1}}</td>
-                            <td>{{bids.start_date}}</td>
-                            <td>{{bids.end_date}}</td>
-                            <td>{{bids.total_bid}}</td>
-                            <td>{{bids.product_name}}</td>
+                            <td>{{bids.start_date | customeDate: "MMM DD, YYYY. h:mm:ss a"}}</td>
+                            <td>{{bids.end_date | customeDate: "MMM DD, YYYY. h:mm:ss a"}}</td>
+                            <td>{{bids.total_bid ? bids.total_bid : '1'}}</td>
+                            <td>{{bids.product_name ? bids.product_name : 'Null'}}</td>
                             <td class="text--capital">lucky five</td>
                           </tr>
                       </ng-container>

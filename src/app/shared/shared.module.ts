@@ -15,11 +15,12 @@ import { DropdownModule } from 'primeng/dropdown';
 import { TableModule } from 'primeng/table';
 import { MobileSidenavComponent } from './components/mobile-sidenav/mobile-sidenav.component';
 import { DialogModule } from 'primeng/dialog';
+import { CustomeDatePipe } from '../core/pipes/custome-date.pipe';
 
 
 
 @NgModule({
-  declarations: [SidenavComponent, TopnavComponent, MobileSidenavComponent],
+  declarations: [SidenavComponent, TopnavComponent, MobileSidenavComponent, CustomeDatePipe],
   imports: [
     CommonModule,
     ButtonModule,
@@ -49,6 +50,7 @@ import { DialogModule } from 'primeng/dialog';
     TopnavComponent,
     KeyFilterModule,
     SidenavComponent,
+    CustomeDatePipe,
     MobileSidenavComponent,
     InputTextModule,
     SidebarModule,
