@@ -5,6 +5,7 @@ import { Title } from '@angular/platform-browser';
 import { LoadingBarService } from '@ngx-loading-bar/core';
 import { ToastrService } from 'ngx-toastr';
 import { TimeoutError } from 'rxjs';
+import { BidService } from 'src/app/makebid/services/bid.service';
 import { WithdrawalService } from 'src/app/withdrawal/services/withdrawal.service';
 
 @Component({
@@ -15,8 +16,9 @@ import { WithdrawalService } from 'src/app/withdrawal/services/withdrawal.servic
 export class BidStatusComponent implements OnInit, OnDestroy {
   bidStatusForm: FormGroup;
   loading: boolean;
+  ticketDetails: any;
   constructor(private fb: FormBuilder,
-    private withdrawalService: WithdrawalService,
+    private bidService: BidService,
     private toastr: ToastrService, private loadingBar: LoadingBarService, private title: Title) { }
 
   ngOnInit(): void {
@@ -25,7 +27,7 @@ export class BidStatusComponent implements OnInit, OnDestroy {
 
   initStatusForm() {
     this.bidStatusForm = this.fb.group({
-      bid_id: [null, [Validators.required]],
+      ticket_id: [null, [Validators.required]],
     });
   }
   ngOnDestroy() {
@@ -44,17 +46,19 @@ export class BidStatusComponent implements OnInit, OnDestroy {
     }
     if (this.bidStatusForm.valid) {
       this.loading = true;
+      this.ticketDetails = null;
       this.loadingBar.start();
       this.bidStatusForm.disable();
-      this.withdrawalService.makeWithdrawal(formvalue).subscribe((withdrawalData: any) => {
+      this.bidService.checkBidStatus(formvalue).subscribe((bidData: any) => {
         this.bidStatusForm.enable();
         this.loading = false;
         this.loadingBar.stop();
-        if (withdrawalData.status === 'success') {
-          this.toastr.success('Success', withdrawalData.message);
-          this.bidStatusForm.reset();
+        if (bidData.status === 'success') {
+          // this.toastr.success('Success', bidData.message);
+          // this.bidStatusForm.reset();
+          this.ticketDetails = bidData.ticket;
         } else {
-          const badRequestError = withdrawalData.message;
+          const badRequestError = bidData.message;
           this.bidStatusForm.setErrors({
             badRequest: badRequestError
           });

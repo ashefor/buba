@@ -54,4 +54,8 @@ export class BidService {
   buyBid(bid) {
     return this.http.post(`${environment.bubaApi}/bid/buy`, bid).pipe(catchError(error => throwError(error)));
   }
+  
+  checkBidStatus(bid) {
+    return this.http.post(`${environment.bubaApi}/bids/check`, bid).pipe(catchError(error => throwError(error)));
+  }
 }
