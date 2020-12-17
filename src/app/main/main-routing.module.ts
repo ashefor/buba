@@ -31,6 +31,10 @@ const routes: Routes = [
         loadChildren: () => import('../bids/bids.module').then(m => m.BidsModule)
       },
       {
+        path: 'bid/status',
+        loadChildren: () => import('../bids/bid-status/bid-status.module').then(m => m.BidStatusModule)
+      },
+      {
         path: 'withdrawals',
         loadChildren: () => import('../withdrawal/withdrawal.module').then(m => m.WithdrawalModule)
       }

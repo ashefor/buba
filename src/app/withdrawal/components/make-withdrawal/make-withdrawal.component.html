@@ -18,11 +18,6 @@
                 <div class="p-fluid">
                   <div class="p-field form__item">
                     <label class="form__label text--capital">Amount</label>
-                    <!-- <input type="tel" autocomplete="false" id="accountnumber" class="form__input form__input--lg" pKeyFilter="num"> -->
-                    <!-- <input type="tel" autocomplete="rando" class="form__input form__input--lg form__input__amount"
-                      placeholder="₦" formControlName="amount" readonly="readonly"
-                      onfocus="javascript: this.removeAttribute('readonly')" pKeyFilter="money"
-                      (input)="formatLoanAmountInput($event)" onblur="javascript: this.setAttribute('readonly', true)"> -->
                       <p-inputNumber formControlName="amount" styleClass="withdrawal_input"></p-inputNumber>
                     <ng-container
                       *ngIf="(formControls.amount.dirty || formControls.amount.touched) && formControls.amount.errors">

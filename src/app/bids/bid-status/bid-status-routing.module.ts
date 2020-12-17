@@ -1,16 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { BidStatusComponent } from './bid-status/bid-status.component';
-import { BidsComponent } from './bids.component';
+import { BidStatusComponent } from './bid-status.component';
 
 
 const routes: Routes = [
   {
     path: '',
-    component: BidsComponent
-  },
-  {
-    path: 'status',
     component: BidStatusComponent
   }
 ];
@@ -19,4 +14,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class BidsRoutingModule { }
+export class BidStatusRoutingModule { }

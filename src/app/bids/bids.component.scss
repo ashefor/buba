@@ -1,1 +1,14 @@
 @import '../../styles/abstract/variables';
+
+
+.bids {
+    &__body {
+          &__status{
+              text-align: left;
+  
+              @media all and (min-width: 600px) {
+                  text-align: right;
+              }
+          }
+    }
+  }

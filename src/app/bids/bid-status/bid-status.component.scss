@@ -1,0 +1,18 @@
+@import '../../../styles/abstract/variables';
+
+.bidstatus{
+    &__nav{
+        margin-bottom: 1rem;
+
+        &__text{
+            font-size: $font-size-regular;
+            color: $color-ash;
+            text-transform: capitalize;
+        }
+    }
+
+    .input__num{
+        font-size: 1.4rem !important;
+    padding: .75rem !important;
+    }
+}

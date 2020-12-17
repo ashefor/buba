@@ -116,18 +116,18 @@ body {
 .bid__number.p-inputtext{
   font-size: 1.8rem !important;
 }
-.p-sidebar{
-  height: calc(100vh - 6rem) !important;
+// .p-sidebar{
+//   height: calc(100vh - 6rem) !important;
 
-  &-content{
-    height: 100%;
-    // overflow: auto !important;
-  }
-}
+//   &-content{
+//     height: 100%;
+//     // overflow: auto !important;
+//   }
+// }
 .p-sidebar-left {
-  top: 6rem !important;
+  padding-top: 6rem;
   width: 30rem !important;
-  height: calc(100vh - 6rem) !important;
+  // height: calc(100vh - 6rem) !important;
   overflow: auto;
 }
 

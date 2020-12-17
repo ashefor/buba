@@ -15,7 +15,6 @@ import { WithdrawalService } from '../../services/withdrawal.service';
 export class MakeWithdrawalComponent implements OnInit, OnDestroy {
   withdrawalForm: FormGroup;
   loading: boolean;
-  makeWithdrawalSubscription: Subscription;
   constructor(private fb: FormBuilder,
               private withdrawalService: WithdrawalService,
               private toastr: ToastrService, private loadingBar: LoadingBarService, private title: Title) {

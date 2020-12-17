@@ -8,10 +8,23 @@
       <i class="pi pi-money-bill sidenav__item__icon"></i>
       <span class="sidenav__item__text text--capital">funding</span>
     </a>
-    <a class="sidenav__item" [routerLink]="['/bids']" routerLinkActive="active" (click)="closeSideBar($event)">
+    <a class="accordion sidenav__item" [ngClass]="{'active': bids1RLA.isActive || bids2RLA.isActive}">
       <i class="pi pi-ticket sidenav__item__icon"></i>
       <span class="sidenav__item__text text--capital">bids</span>
+      <i class="pi pi-angle-right iconRight"></i>
     </a>
+    <div class="sidenav__mobilenav">
+      <a class="sidenav__item" [routerLink]="['/bids']" routerLinkActive="active"
+        (click)="closeSideBar($event)" #bids1RLA="routerLinkActive">
+        <i class="pi pi-list sidenav__item__icon"></i>
+        <span class="sidenav__item__text text--capital">Open Bids</span>
+      </a>
+      <a class="sidenav__item" [routerLink]="['/bid/status']" routerLinkActive="active"
+      (click)="closeSideBar($event)" #bids2RLA="routerLinkActive">
+      <i class="pi pi-ticket sidenav__item__icon"></i>
+      <span class="sidenav__item__text text--capital">Status</span>
+    </a>
+    </div>
     <a class="accordion sidenav__item" [ngClass]="{'active': withdrawals1RLA.isActive || withdrawals2RLA.isActive}">
       <i class="pi pi-money-bill sidenav__item__icon"></i>
       <span class="sidenav__item__text text--capital">withdrawals</span>
