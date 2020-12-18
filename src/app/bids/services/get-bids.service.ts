@@ -14,4 +14,8 @@ export class GetBidsService {
   fetchTransactions() {
     return this.http.get(`${environment.bubaApi}/bid/history`).pipe(catchError((error) => throwError(error)));
   }
+
+  fetchOpenBids() {
+    return this.http.get(`${environment.bubaApi}/bid/open`).pipe(catchError((error) => throwError(error)));
+  }
 }

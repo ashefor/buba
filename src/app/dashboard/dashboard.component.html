@@ -94,7 +94,27 @@
             </div>
           </div>
         </div>
+        
         <div class="p-col-12  p-md-12 p-lg-6 p-mx-auto dashboard__body__right">
+          <div class="referral">
+            <span class="referral__header text--upper">
+              referral details
+            </span>
+            <ng-container *ngIf="loadingDetails; else showReferral">
+              <div class="text--center loading">
+                <i class="pi pi-spin pi-spinner"></i>
+              </div>
+            </ng-container>
+            <ng-template #showReferral>
+              <div class="p-grid referral__container py-3">
+                <div class="p-col-12 referral__details">
+                  <span class="referral__bank referral__details__item text--capital">
+                   Code: <strong>{{userdetails.referral_code? userdetails.referral_code : 'N/A'}}</strong>
+                  </span>
+                </div>
+              </div>
+            </ng-template>
+          </div>
           <div class="bids">
             <span class="bids__header text--upper">
               open bid(s)
@@ -129,7 +149,7 @@
                               <div class="p-col-12">
                                 <div class="bids__open__item p-col text--left">
                                   <span class="bids__open__text">
-                                    {{bid.total_bid}} ticket{{bid.total_bid > 1 ? 's' : ''}}
+                                    {{bid.number_of_slot}} slot{{bid.number_of_slot > 1 ? 's' : ''}}
                                   </span>
                                 </div>
                               </div>

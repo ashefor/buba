@@ -37,7 +37,7 @@ export class BidsComponent implements OnInit, OnDestroy {
       page_size: this.pagesize
     };
     this.loadingBar.start();
-    this.bidsHistorySubscription = this.bidService.fetchTransactions().subscribe((data: any) => {
+    this.bidsHistorySubscription = this.bidService.fetchOpenBids().subscribe((data: any) => {
       this.loadingBar.stop();
       if (data.status === 'success') {
         this.bidsHistory = data.bids_history;

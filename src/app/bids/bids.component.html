@@ -22,22 +22,20 @@
                       <thead>
                         <tr>
                           <th>S/No</th>
-                          <th>Start Date</th>
                           <th>End Date</th>
                           <th>No of Bids</th>
                           <th>Product Name</th>
-                          <th>Category</th>
+                          <th>Ticket ID</th>
                         </tr>
                       </thead>
                       <tbody>
                         <ng-container *ngIf="bidsHistory && bidsHistory.length">
                           <tr *ngFor="let bids of bidsHistory; let i = index">
                               <td>{{i + 1}}</td>
-                              <td>{{bids.start_date | customeDate: "MMM DD, YYYY. h:mm:ss a"}}</td>
                               <td>{{bids.end_date | customeDate: "MMM DD, YYYY. h:mm:ss a"}}</td>
                               <td>{{bids.total_bid ? bids.total_bid : '1'}}</td>
                               <td>{{bids.product_name ? bids.product_name : 'Null'}}</td>
-                              <td class="text--capital">lucky five</td>
+                              <td class="text--capital">{{bids.ticket_id}}</td>
                             </tr>
                         </ng-container>
                         <ng-container *ngIf="bidsHistory && !bidsHistory.length">

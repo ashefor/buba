@@ -43,6 +43,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.authService.getWalletBalance().subscribe((data: loggedInUser) => {
       this.loadingDetails = false;
       this.userdetails = data.user;
+      console.log(data);
       this.bidService.setWalletDetails(data.user);
     }, (error: any) => {
       this.loadingDetails = false;
