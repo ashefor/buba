@@ -18,7 +18,9 @@
                 <div class="p-fluid">
                   <div class="p-field form__item">
                     <label class="form__label text--capital">Amount</label>
-                      <p-inputNumber formControlName="amount" styleClass="withdrawal_input"></p-inputNumber>
+                      <!-- <p-inputNumber formControlName="amount" styleClass="withdrawal_input"></p-inputNumber> -->
+                      <input autocomplete="new-password" type="number" formControlName="amount"
+                      id="confirmpassword" class="form__input form__input--lg">
                     <ng-container
                       *ngIf="(formControls.amount.dirty || formControls.amount.touched) && formControls.amount.errors">
                       <span *ngIf="formControls.amount.errors.required" id="amount-help"
