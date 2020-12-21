@@ -14,12 +14,12 @@
       <i class="pi pi-angle-right iconRight"></i>
     </a>
     <div class="sidenav__mobilenav">
-      <a class="sidenav__item" [routerLink]="['/bids']" routerLinkActive="active"
+      <a class="sidenav__item" [routerLink]="['/bids']"  [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active"
         (click)="closeSideBar($event)" #bids1RLA="routerLinkActive">
         <i class="pi pi-list sidenav__item__icon"></i>
         <span class="sidenav__item__text text--capital">Open Bids</span>
       </a>
-      <a class="sidenav__item" [routerLink]="['/bid/status']" routerLinkActive="active"
+      <a class="sidenav__item" [routerLink]="['/bids/status']" routerLinkActive="active"
       (click)="closeSideBar($event)" #bids2RLA="routerLinkActive">
       <i class="pi pi-ticket sidenav__item__icon"></i>
       <span class="sidenav__item__text text--capital">Check Bid Status</span>

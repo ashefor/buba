@@ -31,7 +31,7 @@ const routes: Routes = [
         loadChildren: () => import('../bids/bids.module').then(m => m.BidsModule)
       },
       {
-        path: 'bid/status',
+        path: 'bids/status',
         loadChildren: () => import('../bids/bid-status/bid-status.module').then(m => m.BidStatusModule)
       },
       {
