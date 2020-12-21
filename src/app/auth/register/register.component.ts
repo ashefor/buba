@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { LoadingBarService } from '@ngx-loading-bar/core';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
@@ -31,12 +31,15 @@ export class RegisterComponent implements OnInit {
   isRegistering: boolean;
   hide2 = true;
   registerSubscription = new Subscription();
-  constructor(private fb: FormBuilder, private toastr: ToastrService, private bidService: BidService, private loadingBar: LoadingBarService, private auth: AuthService, private router: Router, private title: Title) {
+  constructor(private fb: FormBuilder, private toastr: ToastrService, private bidService: BidService, private loadingBar: LoadingBarService, private auth: AuthService, private router: Router, private title: Title, private activatedRoute: ActivatedRoute) {
     this.title.setTitle('Buba - Account Register');
    }
 
   ngOnInit(): void {
     this.registerFormInit();
+    this.activatedRoute.queryParams.subscribe((param: Params) => {
+      this.registerForm.patchValue({referred_by : param.referred_by})
+    })
   }
 
   registerFormInit() {

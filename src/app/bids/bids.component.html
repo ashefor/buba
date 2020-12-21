@@ -23,7 +23,7 @@
                         <tr>
                           <th>S/No</th>
                           <th>End Date</th>
-                          <th>No of Bids</th>
+                          <th>No of Slots</th>
                           <th>Product Name</th>
                           <th>Ticket ID</th>
                         </tr>
@@ -33,7 +33,7 @@
                           <tr *ngFor="let bids of bidsHistory; let i = index">
                               <td>{{i + 1}}</td>
                               <td>{{bids.end_date | customeDate: "MMM DD, YYYY. h:mm:ss a"}}</td>
-                              <td>{{bids.total_bid ? bids.total_bid : '1'}}</td>
+                              <td>{{bids.number_of_slot ? bids.number_of_slot : '1'}}</td>
                               <td>{{bids.product_name ? bids.product_name : 'Null'}}</td>
                               <td class="text--capital">{{bids.ticket_id}}</td>
                             </tr>

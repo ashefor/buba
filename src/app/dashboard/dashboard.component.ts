@@ -21,6 +21,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   bidHistory: any[];
   isCreating: boolean;
   badRequestError: any;
+  text = 'Sign up on @bubang now with https://account.buba.ng/register?reffered_by=fola to enjoy more with less'
 
   constructor(private authService: AuthService,
               private bidService: BidService, private toastr: ToastrService, private dashboardService: DashboardService, private title: Title) {
@@ -38,12 +39,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.isCreating = false;
   }
 
+  getURL(){
+    return `https://twitter.com/intent/tweet?source=tweetbutton&text=${this.text}`
+ }
   fetchUserDetails() {
     this.loadingDetails = true;
     this.authService.getWalletBalance().subscribe((data: loggedInUser) => {
       this.loadingDetails = false;
       this.userdetails = data.user;
-      console.log(data);
       this.bidService.setWalletDetails(data.user);
     }, (error: any) => {
       this.loadingDetails = false;
@@ -106,5 +109,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
         }
       }
     })
+  }
+
+  copyTextToClipBoard(inputElement: HTMLInputElement) {
+    inputElement.focus();
+    inputElement.select();
+    document.execCommand('copy');
+    inputElement.setSelectionRange(0, inputElement.value.length)
+    this.toastr.info('Copied to clipboard')
   }
 }

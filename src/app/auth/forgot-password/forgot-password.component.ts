@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { LoadingBarService } from '@ngx-loading-bar/core';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { BidService } from 'src/app/makebid/services/bid.service';

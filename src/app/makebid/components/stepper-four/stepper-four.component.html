@@ -13,7 +13,7 @@
         {{bidDetails.bid_price | currency : '₦ '}}
       </span>
       <div class="bid_info_auction">
-        <div class="p-grid">
+        <!-- <div class="p-grid">
           <div class="p-col-7">
             <span class="bid_info_auction--title">bid type</span>
           </div>
@@ -22,7 +22,7 @@
               {{bidDetails.bid_type === '1' ? 'lucky five': 'lucky one'}}
             </span>
           </div>
-        </div>
+        </div> -->
         <div class="p-grid">
           <div class="p-col-7">
             <span class="bid_info_auction--title">Number of bids</span>
@@ -35,7 +35,7 @@
         </div>
         <div class="p-grid">
           <div class="p-col-7">
-            <span class="bid_info_auction--title">amount</span>
+            <span class="bid_info_auction--title">total amount</span>
           </div>
           <div class="p-col-5">
             <span class="bid_info_auction--subdetails">
@@ -55,13 +55,13 @@
         </div>
       </div>
       <div class="p-grid">
-        <div class="p-col-6 p-text-left">
+        <div class="p-col-5 p-text-left">
           <button type="button" [disabled]="processing" (click)="goBack()"
             class="button button--wide button--noborder button--secondary button--raised text--upper">
             go back
           </button>
         </div>
-        <div class="p-col-6 p-text-right">
+        <div class="p-col-7 p-text-right">
           <button type="button" (click)="makeBid()" [disabled]="processing"
             class="button button--wide button--noborder button--secondary button--raised text--upper">
             <i *ngIf="processing" class="pi pi-spin pi-spinner p-mr-2"></i>

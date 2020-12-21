@@ -38,6 +38,16 @@
     &__amount{
       font-weight: 700;
     }
+    &:enabled:hover{
+      border-color: #5A5A5A;
+    }
+
+    &:focus{
+      outline: 0 none;
+    outline-offset: 0;
+    box-shadow: 0 0 0 0.1rem #919090;
+    border-color: rgba(90, 90, 90, .5);
+    }
   }
 
   &__textarea {
