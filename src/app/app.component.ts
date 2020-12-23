@@ -11,12 +11,14 @@ export class AppComponent implements OnInit {
   title = 'More For Less - Buba';
   constructor(private primengConfig: PrimeNGConfig, private meta: Meta) {
     this.meta.addTags([
-      { name: 'keywords', content: 'Buba, Bid, Auction, PS4, PS5, Iphone, iphone, iPhone 12, wig, hair, bone straight', },
-      { name: 'description', content: 'Welcome to your Buba Account Dashboard' },
-      { name: 'twitter:card', content: 'summary_large_image' },
-      { name: 'twitter:site', content: '@bubang' },
-      {name: 'twitter:title', content: 'Buba Account'},
-      {name: 'twitter:description', content: 'Create your Buba account to enjoy More for Less!'},
+      { name: "keywords", content: "Buba, Bid, Auction, PS4, PS5, Iphone, iphone, iPhone 12, wig, hair, bone straight", },
+      { name: "description", content: "Welcome to your Buba Account Dashboard" },
+      { name: "twitter:card", content: "summary" },
+      {meta:'property="og:type"', content:"website"},
+      { name: "twitter:domain", content: "account.buba.ng" },
+      { name: "twitter:site", content: "@michaelashefor" },
+      {name: "twitter:title", content: "Buba Account"},
+      {name: "twitter:description", content: "Create your Buba account to enjoy More for Less!"},
     ], true)
   }
 
