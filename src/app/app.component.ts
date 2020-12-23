@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Meta } from '@angular/platform-browser';
 import { PrimeNGConfig } from 'primeng/api';
 
 @Component({
@@ -7,9 +8,16 @@ import { PrimeNGConfig } from 'primeng/api';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'buba-bid';
-  constructor(private primengConfig: PrimeNGConfig) {
-
+  title = 'More For Less - Buba';
+  constructor(private primengConfig: PrimeNGConfig, private meta: Meta) {
+    this.meta.addTags([
+      { name: 'keywords', content: 'Buba, Bid, Auction, PS4, PS5, Iphone, iphone, iPhone 12, wig, hair, bone straight', },
+      { name: 'description', content: 'Welcome to your Buba Account Dashboard' },
+      { name: 'twitter:card', content: 'summary_large_image' },
+      { name: 'twitter:site', content: '@bubang' },
+      {name: 'twitter:title', content: 'Buba Account'},
+      {name: 'twitter:description', content: 'Create your Buba account to enjoy More for Less!'},
+    ], true)
   }
 
   ngOnInit() {

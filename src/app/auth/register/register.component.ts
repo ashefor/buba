@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Title } from '@angular/platform-browser';
+import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { LoadingBarService } from '@ngx-loading-bar/core';
 import { ToastrService } from 'ngx-toastr';
@@ -31,8 +31,16 @@ export class RegisterComponent implements OnInit {
   isRegistering: boolean;
   hide2 = true;
   registerSubscription = new Subscription();
-  constructor(private fb: FormBuilder, private toastr: ToastrService, private bidService: BidService, private loadingBar: LoadingBarService, private auth: AuthService, private router: Router, private title: Title, private activatedRoute: ActivatedRoute) {
+  constructor(private fb: FormBuilder, private toastr: ToastrService, private bidService: BidService, private loadingBar: LoadingBarService, private auth: AuthService, private router: Router, private title: Title, private activatedRoute: ActivatedRoute, private meta: Meta) {
     this.title.setTitle('Buba - Account Register');
+    this.meta.addTags([
+      { name: 'keywords', content: 'Buba, Bid, Auction, PS4, PS5, Iphone, iphone, iPhone 12, wig, hair, bone straight', },
+      { name: 'description', content: 'Create your Buba account to enjoy More for Less!' },
+      { name: 'twitter:card', content: 'summary_large_image' },
+      { name: 'twitter:site', content: '@bubang' },
+      {name: 'twitter:title', content: 'Buba Account Sign Up'},
+      {name: 'twitter:description', content: 'Create your Buba account with my referral code to enjoy More for Less!'},
+    ], true)
    }
 
   ngOnInit(): void {
