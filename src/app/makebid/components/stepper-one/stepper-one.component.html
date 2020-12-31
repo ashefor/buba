@@ -60,7 +60,7 @@
          <div class="bid_info_auction">
            <div class="p-field">
              <label>bid status</label>
-             <p-progressBar [value]="getBidProgressValue()" [showValue]="false" [style]="{'height': '6px'}">
+             <p-progressBar [value]="getBidProgressValue(bidInfo.bid_details.start_date, bidInfo.bid_details.end_date)" [showValue]="false" [style]="{'height': '6px'}">
              </p-progressBar>
            </div>
            <div class="p-grid">

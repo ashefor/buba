@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { LoadingBarService } from '@ngx-loading-bar/core';
 import { ToastrService } from 'ngx-toastr';
 import { TimeoutError } from 'rxjs';
@@ -11,7 +11,8 @@ import { BidService } from '../../services/bid.service';
 @Component({
   selector: 'app-stepper-one',
   templateUrl: './stepper-one.component.html',
-  styleUrls: ['./stepper-one.component.scss']
+  styleUrls: ['./stepper-one.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class StepperOneComponent implements OnInit, OnDestroy {
   @Input() error: any;
@@ -29,7 +30,7 @@ export class StepperOneComponent implements OnInit, OnDestroy {
 
   @Output() makeBidEmitter = new EventEmitter();
   // tslint:disable-next-line: max-line-length
-  constructor(private authService: AuthService, private loadingBar: LoadingBarService, private bidService: BidService, private toastr: ToastrService) { }
+  constructor(private authService: AuthService, private loadingBar: LoadingBarService, private bidService: BidService, private toastr: ToastrService, private chref: ChangeDetectorRef) { }
 
   ngOnInit(): void {
   }
@@ -97,12 +98,20 @@ export class StepperOneComponent implements OnInit, OnDestroy {
   //   }
   // }
 
-  getBidProgressValue() {
-    if (this.bidType1) {
-      return ((this.bidInfo.bids_lucky_five / this.bidInfo.bid_list.total_bid_lucky_five) * 100);
-    } else {
-      return ((this.bidInfo.bids_lucky_one / this.bidInfo.bid_list.total_bid_lucky_one) * 100);
-    }
+  getBidProgressValue(start, end) {
+    const endDate = new Date(end)
+    const startDate = new Date(start)
+    const nowDate = new Date(Date.now());
+    // console.log(startDate.getTime(), endDate.getTime())
+    // if (this.bidType1) {
+    //   return ((this.bidInfo.bids_lucky_five / this.bidInfo.bid_list.total_bid_lucky_five) * 100);
+    // } else {
+    //   return ((this.bidInfo.bids_lucky_one / this.bidInfo.bid_list.total_bid_lucky_one) * 100);
+    // }
+    const now = Math.abs(nowDate.getTime() - startDate.getTime()) / 3600000;
+    const difference = Math.abs(endDate.getTime() - startDate.getTime()) / 3600000;
+
+    return ((Math.abs(now) / Math.abs(difference)) * 100)
   }
 
   makeBid() {
