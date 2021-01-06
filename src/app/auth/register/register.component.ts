@@ -26,29 +26,44 @@ interface registerFormType {
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-  
+
   registerForm: FormGroup;
   isRegistering: boolean;
   hide2 = true;
   registerSubscription = new Subscription();
   constructor(private fb: FormBuilder, private toastr: ToastrService, private bidService: BidService, private loadingBar: LoadingBarService, private auth: AuthService, private router: Router, private title: Title, private activatedRoute: ActivatedRoute, private meta: Meta) {
     this.title.setTitle('Buba - Account Register');
-    this.meta.addTags([
-      { name: "keywords", content: "Buba, Bid, Auction, PS4, PS5, Iphone, iphone, iPhone 12, wig, hair, bone straight", },
-      { name: "description", content: "Create your Buba account to enjoy More for Less!" },
+    this.meta.updateTag(
+      { name: "description", content: "Use my link to create your Buba account to enjoy More for Less!" }
+    )
+    this.meta.updateTag(
+      { name: "twitter:url", content: "https://account.buba.ng/register" }
+    )
+    this.meta.updateTag(
+      { name: "twitter:card", content: "summary" }
+    )
+    this.meta.updateTag(
+      { name: "twitter:description", content: "Use my link to create your Buba account to enjoy More for Less!" }
+    )
+    this.meta.updateTag(
       { name: "twitter:card", content: "summary" },
-      {meta:'property="og:type"', content:"website"},
-      { name: "twitter:site", content: "@michaelashefor" },
-      { name: "twitter:url", content: "https://account.buba.ng/register" },
-      {name: "twitter:title", content: "Buba Account Sign Up"},
-      {name: "twitter:description", content: "Create your Buba account with my referral code to enjoy More for Less!"},
-    ], true)
-   }
+      `name='twitter:card'`
+    )
+    this.meta.updateTag(
+      {meta:'property="og:title"', content:"Buba | Account Register"},
+    )
+  }
 
   ngOnInit(): void {
+    this.meta.updateTag(
+      {meta:'property="og:title"', content:"Buba | Account Register"},
+    )
+    this.meta.updateTag(
+      { name: "twitter:description", content: "Use my link to create your Buba account to enjoy More for Less!" }
+    )
     this.registerFormInit();
     this.activatedRoute.queryParams.subscribe((param: Params) => {
-      this.registerForm.patchValue({referred_by : param.referred_by})
+      this.registerForm.patchValue({ referred_by: param.referred_by })
     })
   }
 
@@ -94,7 +109,7 @@ export class RegisterComponent implements OnInit {
     this.registerForm.disable();
     this.registerSubscription = this.auth.register(formvalue).pipe(tap((data: loggedInUser) => {
       this.auth.storeToken(data.token);
-    }), concatMap(()=> this.auth.createPaymentAccount())).subscribe((newUser: any) => {
+    }), concatMap(() => this.auth.createPaymentAccount())).subscribe((newUser: any) => {
       this.loadingBar.stop();
       this.isRegistering = false;
       this.registerForm.enable();
