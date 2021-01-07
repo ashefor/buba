@@ -33,6 +33,15 @@
       opacity: .65;
     }
   }
+  &--tertiary {
+    background: $color-tertiary;
+    color: $color-white;
+
+    &[disabled]{
+      // background-color: lighten($color: $color-primary, $amount: 30);
+      opacity: .65;
+    }
+  }
 
   &--secondary {
     background: $color-secondary;

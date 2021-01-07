@@ -35,6 +35,12 @@
       height: 4.5rem;
     }
 
+    &--sm {
+      font-size: $font-size-semi-small;
+      // padding: .75rem;
+      height: 3rem;
+    }
+
     &__amount{
       font-weight: 700;
     }

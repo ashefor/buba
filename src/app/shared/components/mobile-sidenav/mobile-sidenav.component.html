@@ -16,7 +16,7 @@
     <div class="sidenav__mobilenav">
       <a class="sidenav__item" [routerLink]="['/bids']"  [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active"
         (click)="closeSideBar($event)" #bids1RLA="routerLinkActive">
-        <i class="pi pi-list sidenav__item__icon"></i>
+        <i class="pi pi-th-large sidenav__item__icon"></i>
         <span class="sidenav__item__text text--capital">Open Bids</span>
       </a>
       <a class="sidenav__item" [routerLink]="['/bids/status']" routerLinkActive="active"
@@ -38,7 +38,7 @@
         </a>
         <a class="sidenav__item" [routerLink]="['/withdrawals/history']" routerLinkActive="active"
         (click)="closeSideBar($event)" #withdrawals2RLA="routerLinkActive">
-        <i class="pi pi-list sidenav__item__icon"></i>
+        <i class="pi pi-th-large sidenav__item__icon"></i>
         <span class="sidenav__item__text text--capital">history</span>
       </a>
       </div>

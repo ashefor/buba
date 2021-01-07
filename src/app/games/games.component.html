@@ -1,0 +1,105 @@
+<section class="games_container">
+  <!-- <div class="card">
+        <div class="card__body">
+            <div class="p-grid p-jc-center">
+                <div class="p-col-10 p-sm-8 p-md-6 p-lg-6">
+                    <div class="p-d-flex p-jc-evenly">
+                        <span class="lottery-numbers lottery-numbers--selected p-d-flex" *ngFor="let item of selectedNumbers">
+                            {{item}}
+                        </span>
+                    </div>
+                    <div class="lottery">
+                      <button class="lottery-numbers" *ngFor="let number of allLotteryNumbers" (click)="addToSlip(number)">
+                        {{number}}
+                      </button>
+                    </div>
+                    <button class="button p-mt-3 button--primary button--wide" (click)="hideSidebar =! hideSidebar">
+                        Place now
+                    </button>
+                </div>
+                <div class="p-col-6">
+                    hints
+                </div>
+                <div class="p-col-4" [hidden]="hideSidebar">
+                    <div class="p-grid">
+                        <div >
+                            <div >
+                                <div class="p-d-flex p-jc-evenly">
+                                    <span class="lottery-numbers p-d-flex" *ngFor="let item of selectedNumbers">
+                                        {{item}}
+                                    </span>
+                                </div>
+                                <button class="button button--primary button--wide">
+                                    Place now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+  <div class="card">
+    <div class="card__body p-d-flex p-flex-column">
+      <div class="lottery_container" [ngClass]="{'show-slip': showBetSlip}">
+        <div class="lottery_wrapper">
+          <div class="lottery">
+            <button class="lottery-numbers" *ngFor="let number of allLotteryNumbers"
+              [ngClass]="{'selected': getBackgroundColor(number)}" (click)="addToSlip(number)">
+              {{number}}
+            </button>
+          </div>
+          <details class="hints_container">
+            <summary>Hints</summary>
+            <ul class="hints">
+              <li>
+                Don't cheat
+              </li>
+              <li>
+                Have sense
+              </li>
+              <li>
+                That's all
+              </li>
+            </ul>
+          </details>
+          <button [disabled]="selectedNumbers.length < 6" class="button p-mt-3 button--tertiary button--sm button--wide"
+            (click)="showSideBar()">
+            Create game slip
+          </button>
+        </div>
+        <div class="game_slip" [ngClass]="{'cssClasses': miniBar}">
+          <div *ngFor="let children of selectedNumbersContainer; let i = index;" class="game_ticket">
+            <div class="text--right p-mb-2">
+                <button pButton pRipple type="button" (click)="removeFromSlip(i)" icon="pi pi-times" class="p-button-rounded p-button-danger p-button-outlined p-button-sm"></button>
+            </div>
+            <div class="p-d-flex p-jc-between p-mb-2 p-py-2">
+              <span class="game_ticket_num" *ngFor="let item of children">
+                {{item}}
+              </span>
+            </div>
+            <div class="p-grid p-ai-center p-mt-2 border-top">
+              <div class="p-col-5">
+                <span class="text--semi-small">Stake:</span>
+              </div>
+              <div class="p-col-7">
+                <input type="number" maxlength="20" min="50" name="stake" [(ngModel)]="stake_amount[i]" (ngModelChange)="changeAmt(i, $event)" class="form__input form__input--sm" placeholder="0.00" step="50">
+              </div>
+            </div>
+          </div>
+          <div class="p-grid p-ai-center p-jc-between p-px-1 p-my-2 p-py-2">
+            <span class="text--semi-small p-d-inline-block p-pr-1">Number of Bets</span>
+            <span class="text--semi-small p-d-inline-block p-pl-1">{{selectedNumbersContainer.length}}</span>
+          </div>
+          <div class="p-grid p-ai-center p-jc-between p-px-1 p-my-2 p-py-2">
+            <span class="text--semi-small p-d-inline-block p-pr-1">Total</span>
+            <span class="text--semi-small p-d-inline-block p-pl-1">{{(totalStakeAmount ? totalStakeAmount : 0) | currency : '₦'}}</span>
+          </div>
+          <button class="button p-mt-3 button--tertiary button--sm button--wide" (click)="playGames()">
+            Play game 
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
