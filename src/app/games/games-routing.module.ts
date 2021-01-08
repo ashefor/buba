@@ -1,13 +1,28 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { DailySpecialComponent } from './daily-special/daily-special.component';
 import { GamesComponent } from './games.component';
+import { QuickPlayComponent } from './quick-play/quick-play.component';
+import { StatusComponent } from './status/status.component';
 
 
 const routes: Routes = [
-  {
-    path: '',
-    component: GamesComponent
-  }
+   {
+        path: '',
+        redirectTo: 'daily-special'
+      },
+      {
+        path: 'daily-special',
+        component: DailySpecialComponent
+      },
+      // {
+      //   path:'quick-play',
+      //   component: QuickPlayComponent
+      // },
+      {
+        path: 'status',
+        component: StatusComponent
+      }
 ];
 
 @NgModule({

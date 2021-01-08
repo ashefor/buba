@@ -1,0 +1,86 @@
+<div class="bidstatus">
+  <div class="bidstatus__container">
+    <div class="bidstatus__nav p-d-none p-d-md-block">
+      <a class="bidstatus__nav__text" [routerLink]="['/games']">back to games</a>
+    </div>
+    <div class="pageheader">
+      <h1 class="pageheader__title text--capital">
+        ticket status
+      </h1>
+    </div>
+    <div class="pagebody bidstatus__body">
+      <div class="p-grid">
+        <div class="p-col-12 p-sm-9 p-md-7 p-lg-6 p-mr-auto bidstatus__body__form">
+          <div class="card">
+            <div class="card__body">
+              <div class="p-mb-3">
+                <form autocomplete="nope" novalidate [formGroup]="ticketStatusForm"
+                  (ngSubmit)="checkTicketStatus(ticketStatusForm.value)">
+                  <div class="p-fluid">
+                    <div class="p-field form__item">
+                      <label class="form__label text--capital">ticket ID</label>
+                      <input type="text" formControlName="ticket_id" class="form__input form__input--lg">
+                      <ng-container
+                        *ngIf="(formControls.ticket_id.dirty || formControls.ticket_id.touched) && formControls.ticket_id.errors">
+                        <span *ngIf="formControls.ticket_id.errors.required" class="p-invalid p-my-2 p-d-block">Enter
+                          Ticket ID</span>
+                      </ng-container>
+                    </div>
+                    <ng-container *ngIf="ticketStatusForm.errors && ticketStatusForm.errors.badRequest">
+                      <div class="p-field form__item">
+                        <span class="p-invalid p-my-2 p-d-block">
+                          {{ticketStatusForm.errors.badRequest}}
+                        </span>
+                      </div>
+                    </ng-container>
+                    <div class="p-field form__item">
+                      <button [disabled]="loading" type="submit"
+                        class="button button--raised button--lg button--secondary text--capital">
+                        <i *ngIf="loading" class="pi pi-spin pi-spinner p-mr-2"></i>
+                        {{loading ? 'processing' : 'check status'}}
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <ng-container *ngIf="ticketDetails">
+                <div class="p-mt-5">
+                    <div *ngFor="let tickets of ticketDetails.ticket_details; let i = index;"
+                    class="game_ticket game_ticket--status">
+                    <div class="p-d-flex p-jc-between p-mb-1 p-pt-2 p-pb-3 border-bottom">
+                      <span class="game_ticket_num">
+                        {{tickets.L_1}}
+                      </span>
+                      <span class="game_ticket_num">
+                        {{tickets.L_2}}
+                      </span>
+                      <span class="game_ticket_num">
+                        {{tickets.L_3}}
+                      </span>
+                      <span class="game_ticket_num">
+                        {{tickets.L_4}}
+                      </span>
+                      <span class="game_ticket_num">
+                        {{tickets.L_5}}
+                      </span>
+                    </div>
+                    <div class="p-d-flex p-ai-center p-jc-between p-px-1 p-py-2">
+                      <span class="text--semi-small p-d-inline-block p-pr-1 text--600 text--grey">Total Stake</span>
+                      <span
+                        class="text--semi-small p-d-inline-block p-pl-1 text--600 text--grey">{{(tickets ? tickets.stake : 0) | currency : '₦'}}</span>
+                    </div>
+                    <div class="p-d-flex p-ai-center p-jc-between p-px-1 p-py-2">
+                        <span class="text--semi-small p-d-inline-block p-pr-1 text--600 text--grey">Winnings</span>
+                        <span
+                          class="text--semi-small p-d-inline-block p-pl-1 text--600 text--grey">{{(tickets ? tickets.winnings : 0) | currency : '₦'}}</span>
+                      </div>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

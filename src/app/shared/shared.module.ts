@@ -16,8 +16,8 @@ import { TableModule } from 'primeng/table';
 import { MobileSidenavComponent } from './components/mobile-sidenav/mobile-sidenav.component';
 import { DialogModule } from 'primeng/dialog';
 import { CustomeDatePipe } from '../core/pipes/custome-date.pipe';
-import {MessageModule} from 'primeng/message';
-import {MessagesModule} from 'primeng/messages';
+import { MessageModule } from 'primeng/message';
+import { MessagesModule } from 'primeng/messages';
 
 
 

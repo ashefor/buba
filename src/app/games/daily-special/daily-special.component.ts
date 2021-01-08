@@ -3,19 +3,20 @@ import { Component, OnInit } from '@angular/core';
 import { LoadingBarService } from '@ngx-loading-bar/core';
 import { ToastrService } from 'ngx-toastr';
 import { TimeoutError } from 'rxjs';
-import { hints } from './models/hints';
-import { GamesService } from './services/games.service';
+import { GamesService } from '../services/games.service';
 
 @Component({
-  selector: 'app-games',
-  templateUrl: './games.component.html',
-  styleUrls: ['./games.component.scss']
+  selector: 'app-daily-special',
+  templateUrl: './daily-special.component.html',
+  styleUrls: ['./daily-special.component.scss']
 })
-export class GamesComponent implements OnInit {
+export class DailySpecialComponent implements OnInit {
   alllottoNumbers: any[] = [];
   showBetSlip = false;
   selectedNumbersContainer: any[] = [];
   miniBar = false;
+  displayPosition = false;
+  position = 'left'
   stake_amount: any[] = [];
   selectedNumbers: any[] = [];
   lottoData: any;
@@ -24,7 +25,7 @@ export class GamesComponent implements OnInit {
   buyingTickets: boolean;
   loadingDetails: boolean;
   openSide: boolean;
-
+  ticketData: any;
   constructor(private service: GamesService, private toastr: ToastrService, private loadingBar: LoadingBarService) { }
 
   ngOnInit(): void {
@@ -47,14 +48,14 @@ export class GamesComponent implements OnInit {
       this.loadingDetails = false;
       if (error instanceof HttpErrorResponse) {
         if (error.status >= 400 && error.status <= 415) {
-          this.toastr.error(error.error.message, 'Error');
+          this.toastr.error(error.error.message);
         } else {
-          this.toastr.error('Unknown error. Please try again later', 'Error');
+          this.toastr.error('Unknown error. Please try again later');
         }
       } else if (error instanceof TimeoutError) {
         this.toastr.error('Server timed out. Please try again later', 'Time Out!');
       } else {
-        this.toastr.error('An unknown error has occured. Please try again later', 'Error');
+        this.toastr.error('An unknown error has occured. Please try again later');
       }
     })
 
@@ -75,7 +76,7 @@ export class GamesComponent implements OnInit {
   addToSlip() {
     const newSelectedNumbers = [...this.selectedNumbers]
     this.selectedNumbersContainer.push(newSelectedNumbers);
-    this.stake_amount.push(50);
+    this.stake_amount.push(100);
     this.selectedNumbers = [];
   }
 
@@ -146,11 +147,22 @@ export class GamesComponent implements OnInit {
       tickets: tickets
     }
     this.buyingTickets = true;
+    // this.ticketData = {
+    //       // ticket_id: data.ticket_id,
+    //       tickets: tickets
+    //     };
+    //     console.log(this.ticketData);
+    //     this.displayPosition = true;
     this.service.buyTickets(ticketsObj).subscribe((data: any) => {
       this.loadingBar.stop();
       this.buyingTickets = false;
       if (data.status === 'success') {
-        this.toastr.success(data.message ? data.message : 'Ticket Saved')
+        this.ticketData = {
+          ticket_id: data.ticket_id,
+          tickets: tickets
+        };
+        this.displayPosition = true;
+        // this.toastr.success(data.message ? data.message : 'Ticket Saved')
         setTimeout(() => {
           this.miniBar = false;
           this.showBetSlip = false;
@@ -158,20 +170,22 @@ export class GamesComponent implements OnInit {
         this.selectedNumbersContainer = [];
         this.stake_amount = [];
         this.selectedNumbers = [];
+      } else {
+        this.toastr.error(data.message)
       }
     }, (error: any) => {
       this.buyingTickets = false;
       this.loadingBar.stop();
       if (error instanceof HttpErrorResponse) {
         if (error.status >= 400 && error.status <= 415) {
-          this.toastr.error(error.error.message, 'Error');
+          this.toastr.error(error.error.message);
         } else {
-          this.toastr.error('Unknown error. Please try again later', 'Error');
+          this.toastr.error('Unknown error. Please try again later');
         }
       } else if (error instanceof TimeoutError) {
         this.toastr.error('Server timed out. Please try again later', 'Time Out!');
       } else {
-        this.toastr.error('An unknown error has occured. Please try again later', 'Error');
+        this.toastr.error('An unknown error has occured. Please try again later');
       }
     })
   }
@@ -195,7 +209,7 @@ export class GamesComponent implements OnInit {
       if (number === 2) {
         return 'prime_count'
       } else {
-        for (let i = 2; i <= integer; i++) { //note that we are working now with the square root
+        for (let i = 2; i <= integer; i++) {
           if (integer % i === 0) {
             break
           }
@@ -204,4 +218,5 @@ export class GamesComponent implements OnInit {
       }
     }
   }
+
 }

@@ -21,6 +21,12 @@
     width: 100%;
   }
 
+  &[disabled]{
+    // background-color: lighten($color: $color-primary, $amount: 30);
+    opacity: .65;
+    cursor: not-allowed;
+  }
+
   &--noborder{
     border: none !important;
   }

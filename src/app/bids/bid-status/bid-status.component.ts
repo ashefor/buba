@@ -19,7 +19,9 @@ export class BidStatusComponent implements OnInit, OnDestroy {
   ticketDetails: any;
   constructor(private fb: FormBuilder,
     private bidService: BidService,
-    private toastr: ToastrService, private loadingBar: LoadingBarService, private title: Title) { }
+    private toastr: ToastrService, private loadingBar: LoadingBarService, private title: Title) {
+      this.title.setTitle('Buba | Bid Status')
+     }
 
   ngOnInit(): void {
     this.initStatusForm()

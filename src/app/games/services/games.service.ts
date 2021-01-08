@@ -19,4 +19,8 @@ export class GamesService {
   buyTickets(tickets) {
     return this.http.post(`${environment.bubaApi}/daily_special/buy`, tickets).pipe(catchError((error) => throwError(error)));
   }
+
+  checkTicketStatus(bid) {
+    return this.http.post(`${environment.bubaApi}/ticket/check`, bid).pipe(catchError(error => throwError(error)));
+  }
 }
