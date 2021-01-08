@@ -37,7 +37,6 @@ export class GamesComponent implements OnInit {
     this.service.fetchGameSession().subscribe((data: any) => {
       this.loadingBar.stop();
       this.loadingDetails = false;
-      console.log(data);
       if (data.status === 'success') {
         this.lotteryData = data;
         this.allHints = data.hints;
@@ -126,11 +125,6 @@ export class GamesComponent implements OnInit {
     this.selectedNumbersContainer.splice(index, 1);
     this.stake_amount.splice(index, 1);
     if (this.selectedNumbersContainer.length === 0) {
-      // this.stake_amount = [];
-      // this.miniBar = false;
-      // setTimeout(() => {
-      //   this.showBetSlip = false;
-      // }, 100);
       this.clearGameSlip();
     }
   }
@@ -151,21 +145,16 @@ export class GamesComponent implements OnInit {
       session_id: this.allHints.session_id,
       tickets: tickets
     }
-    // console.log(ticketsObj)
     this.buyingTickets = true;
     this.service.buyTickets(ticketsObj).subscribe((data: any) => {
       this.loadingBar.stop();
       this.buyingTickets = false;
-      console.log(data);
       if (data.status === 'success') {
         this.toastr.success(data.message ? data.message: 'Ticket Saved')
         setTimeout(() => {
           this.miniBar = false;
           this.showBetSlip = false;
         }, 100);
-        // setTimeout(() => {
-        //   this.showBetSlip = false;
-        // }, 100);
         this.selectedNumbersContainer = [];
         this.stake_amount = [];
         this.selectedNumbers = [];

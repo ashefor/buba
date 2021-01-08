@@ -1,19 +1,14 @@
 <section class="games_container">
   <div class="card">
     <div class="card__body p-d-flex p-flex-column">
-      <div class="pageheader p-mb-0">
+      <!-- <div class="pageheader p-mb-0">
         <h1 class="pageheader__title text--capital">
           daily special
         </h1>
-        <!-- <span class="pageheader__subtitle text--capital">
-                  daily special 
-              </span> -->
-      </div>
+      </div> -->
       <ng-container *ngIf="loadingDetails else doneLoading">
         <div class="text--center py-2 pseudo">
-          <!-- <i class="pi pi-spin pi-spinner"></i> -->
           <div class="lds-hourglass"></div>
-          <!-- <span class="p-d-block text--regular p-mt-2">Please wait...</span> -->
         </div>
       </ng-container>
       <ng-template #doneLoading>
