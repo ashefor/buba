@@ -113,7 +113,7 @@ export class MakeWithdrawalComponent implements OnInit, OnDestroy {
         this.loading = false;
         this.loadingBar.stop();
         if (withdrawalData.status === 'success') {
-          this.toastr.success('Success', withdrawalData.message);
+          this.toastr.success(withdrawalData.message);
           this.withdrawalForm.reset();
         } else {
           const badRequestError = withdrawalData.message;

@@ -42,7 +42,7 @@ export class FundingComponent implements OnInit, OnDestroy {
     this.loadingBar.start();
     this.fundingHistorySubscription = this.fundingService.fetchTransactions(pageData).subscribe((data: any) => {
       this.loadingBar.stop();
-      if (data.status === 'successs') {
+      if (data.status === 'successs' || data.status === 'success' ) {
         this.fundingHistory = data.transactions;
       }
     }, (error: any) => {
