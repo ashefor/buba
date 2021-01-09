@@ -77,6 +77,7 @@ html,
 body {
   background-color: $color-off-black;
   margin: 0 auto;
+  min-height: 100vh;
 }
 
 .vh-100 {
@@ -226,7 +227,11 @@ body {
   }
 
   .p-dialog-header {
-    padding: 1 1.5rem !important
+    padding: 1 1.5rem !important;
+
+    &-icons{
+      margin-left: auto;
+    }
   }
 
   .p-dialog-title {

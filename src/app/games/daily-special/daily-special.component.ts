@@ -147,19 +147,13 @@ export class DailySpecialComponent implements OnInit {
       tickets: tickets
     }
     this.buyingTickets = true;
-    // this.ticketData = {
-    //       // ticket_id: data.ticket_id,
-    //       tickets: tickets
-    //     };
-    //     console.log(this.ticketData);
-    //     this.displayPosition = true;
     this.service.buyTickets(ticketsObj).subscribe((data: any) => {
       this.loadingBar.stop();
       this.buyingTickets = false;
       if (data.status === 'success') {
         this.ticketData = {
           ticket_id: data.ticket_id,
-          tickets: tickets
+          total_amt: tickets.reduce((acc, {amount}) => acc + amount, 0)
         };
         this.displayPosition = true;
         // this.toastr.success(data.message ? data.message : 'Ticket Saved')

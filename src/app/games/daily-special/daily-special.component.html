@@ -165,42 +165,33 @@
   </div>
 </section>
 
-<p-dialog header="View Slip" [(visible)]="displayPosition" styleClass="ticket-details-modal"
+<p-dialog [(visible)]="displayPosition" styleClass="ticket-details-modal"
   [modal]="true" [style]="{width: '35rem'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
   <div class="modal-content p-px-3" *ngIf="ticketData">
     <div class="howto">
-        <div class="p-mb-4 border-bottom p-pb-3 p-mt-3">
-            <p class="text--semi-small text--center p-mb-2"><i style="font-size: 1.4rem" class="pi pi-check text--green text--600"></i> Ticket Saved</p>
-            <p class="text--semi-small text--center">Use the ticket ID below to monitor this ticket status <a [routerLink]="['/games/status']" [queryParams]="{ticket_id: ticketData.ticket_id}" class="text--primary">here</a></p>
-        </div>
-        <div class="p-d-flex p-jc-between p-mb-4">
-            <span class="text--regular p-d-inline-block">Ticket ID</span>
-            <span class="text--regular p-d-inline-block text--600">{{ticketData.ticket_id}}</span>
-        </div>
-        <div *ngFor="let tickets of ticketData.tickets; let i = index;"
-        class="game_ticket game_ticket--status">
-        <div class="p-d-flex p-jc-between p-mb-1 p-pt-2 p-pb-3 border-bottom">
-          <span class="game_ticket_num">
-            {{tickets.L_1}}
-          </span>
-          <span class="game_ticket_num">
-            {{tickets.L_2}}
-          </span>
-          <span class="game_ticket_num">
-            {{tickets.L_3}}
-          </span>
-          <span class="game_ticket_num">
-            {{tickets.L_4}}
-          </span>
-          <span class="game_ticket_num">
-            {{tickets.L_5}}
-          </span>
+        <div class="game_ticket game_ticket--status">
+          <div class="p-mb-4 text--center">
+            <span class="ticket-details-icon">
+              <i style="font-size: 1.4rem" class="pi pi-check"></i>
+            </span>
+              <p class="text--medium text--center p-mb-2 text--600">Ticket Successful</p>
+              <!-- <p class="text--semi-small text--center">Use the ticket ID below to monitor this ticket status <a [routerLink]="['/games/status']" [queryParams]="{ticket_id: ticketData.ticket_id}" class="text--primary">here</a></p> -->
+          </div>
+        <div class="p-d-flex p-ai-center p-jc-between p-px-1 p-py-2">
+          <span class="text--regular p-d-inline-block p-pr-1 text--grey">Total Stake</span>
+          <span
+            class="text--regular p-d-inline-block p-pl-1 text--600 text--grey">{{(ticketData ? ticketData.total_amt : 0) | currency : '₦'}}</span>
         </div>
         <div class="p-d-flex p-ai-center p-jc-between p-px-1 p-py-2">
-          <span class="text--semi-small p-d-inline-block p-pr-1 text--600 text--grey">Potential Win</span>
+          <span class="text--regular p-d-inline-block p-pr-1 text--grey">Total Potential Win</span>
           <span
-            class="text--semi-small p-d-inline-block p-pl-1 text--600 text--grey">{{(tickets ? tickets.amount * 15 : 0) | currency : '₦'}}</span>
+            class="text--regular p-d-inline-block p-pl-1 text--600 text--grey">{{(ticketData ? ticketData.total_amt * 15 : 0) | currency : '₦'}}</span>
         </div>
+        <div class="p-d-flex p-jc-between p-mb-3 p-py-2">
+          <span class="text--regular p-d-inline-block">Ticket ID</span>
+          <span class="text--regular p-d-inline-block text--600">{{ticketData.ticket_id}}</span>
+      </div>
+      <a [routerLink]="['/games/status']" [queryParams]="{ticket_id: ticketData.ticket_id}" class="text--secondary text--regular text--center text--capital p-d-block" style="text-decoration: none;">Check ticket status </a>
       </div>
       <br>
     </div>

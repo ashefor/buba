@@ -213,8 +213,9 @@
     margin-bottom: 1.5rem;
 
     &--status{
-        border: 1px solid #f9f9f9;
-    box-shadow: 0 2px 4px 0 rgba(112, 121, 139, .18);
+        // border: 1px solid #f9f9f9;
+        padding: 0 3rem;
+    // box-shadow: 0 2px 4px 0 rgba(112, 121, 139, .18);
     }
 
     &_num {
@@ -351,4 +352,21 @@
 .three_count {
   background: #252525;
   color: #252525;
+}
+
+.ticket{
+  &-details{
+    &-icon{
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: $color-green;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 50%;
+      color: $color-white;
+      margin-bottom: 1rem;
+    }
+  }
 }
