@@ -26,6 +26,7 @@ export class DailySpecialComponent implements OnInit {
   loadingDetails: boolean;
   openSide: boolean;
   ticketData: any;
+  disablePlayButton: boolean;
   constructor(private service: GamesService, private toastr: ToastrService, private loadingBar: LoadingBarService) { }
 
   ngOnInit(): void {
@@ -35,7 +36,7 @@ export class DailySpecialComponent implements OnInit {
   fetchGameSession() {
     this.loadingBar.start();
     this.loadingDetails = true;
-    this.service.fetchGameSession().subscribe((data: any) => {
+    this.service.fetchDailySpecialSession().subscribe((data: any) => {
       this.loadingBar.stop();
       this.loadingDetails = false;
       if (data.status === 'success') {
@@ -130,9 +131,6 @@ export class DailySpecialComponent implements OnInit {
     }
   }
 
-  changeAmt(index, event) {
-  }
-
   buyTickets() {
     const tickets = [];
     this.selectedNumbersContainer.forEach((parentitem: [], itemindex) => {
@@ -213,4 +211,11 @@ export class DailySpecialComponent implements OnInit {
     }
   }
 
+  changeAmount(event) {
+    if (event < 100) {
+      this.disablePlayButton = true;
+    } else {
+     this.disablePlayButton = false;
+    }
+   }
 }

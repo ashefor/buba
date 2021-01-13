@@ -9,16 +9,16 @@ import { StatusComponent } from './status/status.component';
 const routes: Routes = [
    {
         path: '',
-        redirectTo: 'daily-special'
+        redirectTo: 'quick-play'
       },
       {
         path: 'daily-special',
         component: DailySpecialComponent
       },
-      // {
-      //   path:'quick-play',
-      //   component: QuickPlayComponent
-      // },
+      {
+        path:'quick-play',
+        component: QuickPlayComponent
+      },
       {
         path: 'status',
         component: StatusComponent

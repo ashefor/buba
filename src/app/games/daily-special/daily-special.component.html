@@ -35,7 +35,7 @@
               <div class="lotto">
                 <button class="lotto-ball" *ngFor="let number of alllottoNumbers"
                   [ngClass]="{'selected': getBackgroundColor(number)}" (click)="selectNumber(number)"
-                  [class]="getHintBackgroundColor(number)">
+                  [class]="getHintBackgroundColor(number)" [attr.data-number]="number">
                   <span class="lotto-ball-text">
                     {{number}}
                   </span>
@@ -107,7 +107,7 @@
                         class="p-button-rounded p-button-text p-button-danger p-button-outlined p-button-sm"></button>
                     </div>
                     <div class="p-d-flex p-jc-between p-mb-2 p-py-2">
-                      <span class="game_ticket_num" *ngFor="let item of children">
+                      <span class="game_ticket_num" *ngFor="let item of children" [attr.data-selected]="item" >
                         {{item}}
                       </span>
                     </div>
@@ -116,12 +116,11 @@
                         <span class="text--semi-small text--grey">Stake:</span>
                       </div>
                       <div class="p-col-7">
-                        <input type="number" maxlength="20" min="100" name="stake" [(ngModel)]="stake_amount[i]"
-                          (ngModelChange)="changeAmt(i, $event)" class="form__input form__input--sm" placeholder="0.00"
+                        <input type="number" maxlength="20" min="100" name="stake" (ngModelChange)="changeAmount($event)" [(ngModel)]="stake_amount[i]" class="form__input form__input--sm" placeholder="0.00"
                           step="100">
                       </div>
                     </div>
-                    <small class="text--small text--tertiary text--right p-d-block">Minimum is ₦100.00</small>
+                    <p *ngIf="stake_amount[i] < 100" class="text--right text--danger text--tiny">Please enter a value no less than 100</p>
                     <div class="p-d-flex p-ai-center p-jc-between p-px-1 p-my-2 p-py-2">
                       <span class="text--semi-small p-d-inline-block p-pr-1 text--600 text--grey">Total Winnings</span>
                       <span
@@ -138,7 +137,7 @@
                     <span
                       class="text--semi-small p-d-inline-block p-pl-1 text--600 text--grey">{{(totalStakeAmount ? totalStakeAmount : 0) | currency : '₦'}}</span>
                   </div>
-                  <button type="button" [disabled]="buyingTickets"
+                  <button type="button" [disabled]="buyingTickets || disablePlayButton"
                     class="button p-mt-3 button--tertiary button--sm button--wide" (click)="buyTickets()">
                     <i *ngIf="buyingTickets" class="pi pi-spin pi-spinner p-mr-2"></i>
                     {{buyingTickets ? 'Please wait..' : 'Play game'}}

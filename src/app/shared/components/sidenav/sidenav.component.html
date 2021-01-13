@@ -4,17 +4,17 @@
       <i class="pi pi-info-circle sidenav__item__icon"></i>
       <span class="sidenav__item__text text--capital">dashboard</span>
     </a>
-    <a class="accordion sidenav__item" [ngClass]="{'active': games2RLA.isActive || games3RLA.isActive}">
+    <a class="accordion sidenav__item" [ngClass]="{'active': games1RLA.isActive || games2RLA.isActive || games3RLA.isActive}">
       <i class="pi pi-play sidenav__item__icon"></i>
       <span class="sidenav__item__text text--capital">games</span>
       <i class="pi pi-angle-right iconRight"></i>
     </a>
     <div class="sidenav__mobilenav">
-      <!-- <a class="sidenav__item" [routerLink]="['/games/quick-play']" routerLinkActive="active"
+      <a class="sidenav__item" [routerLink]="['/games/quick-play']" routerLinkActive="active"
         #games1RLA="routerLinkActive">
-        <i class="pi pi-th-large sidenav__item__icon"></i>
+        <i class="pi pi-play sidenav__item__icon"></i>
         <span class="sidenav__item__text text--capital">Quick Play</span>
-      </a> -->
+      </a>
       <a class="sidenav__item" [routerLink]="['/games/daily-special']" routerLinkActive="active"
       #games2RLA="routerLinkActive">
       <i class="pi pi-play sidenav__item__icon"></i>

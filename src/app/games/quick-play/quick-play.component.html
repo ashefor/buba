@@ -1,1 +1,260 @@
-<p>quick-play works!</p>
+<section class="games_container">
+  <div class="card">
+    <div class="card__body p-d-flex p-flex-column">
+      <div class="pageheader p-mb-0">
+        <h1 class="pageheader__title text--capital">
+          quick play
+        </h1>
+      </div>
+      <ng-container *ngIf="loadingDetails else doneLoading">
+        <div class="text--center py-2 pseudo">
+          <div class="lds-hourglass"></div>
+        </div>
+      </ng-container>
+      <ng-template #doneLoading>
+        <ng-container *ngIf="lottoData; else noData">
+          <div class="lotto_container" [ngClass]="{'show-slip': showBetSlip}">
+            <p-messages class="lotto_how" severity="info" [closable]="false">
+              <ng-template pTemplate>
+                <div>
+                  <h5 class="text--medium">How to play</h5>
+                  <br>
+                  <br>
+                  <p class="text--semi-small text--grey text--500">Select one number from each row</p>
+                  <br>
+                  <p class="text--semi-small text--grey text--500">
+                    If you choose the correct set of numbers, the amount staked will be multiplied by <strong class="text--600">120</strong> to give you your winning lot.
+                  </p>
+                </div>
+              </ng-template>
+            </p-messages>
+            <div class="lotto_wrapper">
+              <div class="lotto">
+                <div class="text--center">
+                  <span class="text--regular-alt text--600 p-d-inline-block p-mb-2">A</span>
+                  <div class="p-d-flex p-flex-column p-ai-center border p-px-1 radius">
+                    <button class="lotto-ball" *ngFor="let number of arrayOne"
+                    [attr.data-number]="number.value"
+                      [ngClass]="{'selected': getBackgroundColor(number)}" (click)="selectNumber(number)">
+                      <span class="lotto-ball-text">
+                        {{number.label}}
+                      </span>
+                    </button>
+                  </div>
+                </div>
+                <div class="text--center">
+                  <span class="text--regular-alt text--600 p-d-inline-block p-mb-2">B</span>
+                  <div class="p-d-flex p-flex-column p-ai-center border p-px-1 radius">
+                    <button class="lotto-ball" *ngFor="let number of arrayTwo"
+                    [attr.data-number]="number.value"
+                      [ngClass]="{'selected': getBackgroundColor(number)}" (click)="selectNumber(number)">
+                      <span class="lotto-ball-text">
+                        {{number.label}}
+                      </span>
+                    </button>
+                  </div>
+                </div>
+                <div class="text--center">
+                  <span class="text--regular-alt text--600 p-d-inline-block p-mb-2">C</span>
+                  <div class="p-d-flex p-flex-column p-ai-center border p-px-1 radius">
+                    <button class="lotto-ball" *ngFor="let number of arrayThree"
+                    [attr.data-number]="number.value"
+                      [ngClass]="{'selected': getBackgroundColor(number)}" (click)="selectNumber(number)">
+                      <span class="lotto-ball-text">
+                        {{number.label}}
+                      </span>
+                    </button>
+                  </div>
+                </div>
+                <div class="text--center">
+                  <span class="text--regular-alt text--600 p-d-inline-block p-mb-2">D</span>
+                  <div class="p-d-flex p-flex-column p-ai-center border p-px-1 radius">
+                    <button class="lotto-ball" *ngFor="let number of arrayFour"
+                    [attr.data-number]="number.value"
+                      [ngClass]="{'selected': getBackgroundColor(number)}" (click)="selectNumber(number)">
+                      <span class="lotto-ball-text">
+                        {{number.label}}
+                      </span>
+                    </button>
+                  </div>
+                </div>
+                <div class="text--center">
+                  <span class="text--regular-alt text--600 p-d-inline-block p-mb-2">E</span>
+                  <div class="p-d-flex p-flex-column p-ai-center border p-px-1 radius">
+                    <button class="lotto-ball" *ngFor="let number of arrayFive"
+                    [attr.data-number]="number.value"
+                      [ngClass]="{'selected': getBackgroundColor(number)}" (click)="selectNumber(number)">
+                      <span class="lotto-ball-text">
+                        {{number.label}}
+                      </span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="lotto p-ai-center p-mt-3 p-mb-2 p-py-2">
+                <span class="game_ticket_num" [ngClass]="{'game_ticket_num--selected': item}"
+                  *ngFor="let item of selectedNumbers">
+                  {{item ? item.label : '?'}}
+                </span>
+              </div>
+              <!-- <details class="hints_container">
+                  <summary>Hints</summary>
+                  <ul class="hints">
+                    <li *ngIf="allHints.five_count && allHints.five_count != 0">
+                      <span class="text--secondary text--bold">{{allHints.five_count}}</span>
+                      number{{allHints.five_count > 1 ? 's' : ''}} in
+                      brown divisible by 5
+                    </li>
+                    <li *ngIf="allHints.odd_count && allHints.odd_count != 0">
+                      <span class="text--secondary text--bold">{{allHints.odd_count}}</span> odd numbers
+                    </li>
+                    <li *ngIf="allHints.prime_count && allHints.prime_count != 0">
+                      <span class="text--secondary text--bold">{{allHints.prime_count}}</span> prime
+                      number{{allHints.prime_count > 1 ? 's' : ''}} in blue
+                    </li>
+                    <li *ngIf="allHints.seven_count && allHints.seven_count != 0">
+                      <span class="text--secondary text--bold">{{allHints.seven_count}}</span>
+                      number{{allHints.seven_count > 1 ? 's' : ''}} in
+                      purple divisible by 7
+                    </li>
+                    <li *ngIf="allHints.three_count && allHints.three_count != 0">
+                      <span class="text--secondary text--bold">{{allHints.three_count}}</span>
+                      number{{allHints.three_count > 1 ? 's' : ''}} in
+                      black divisible by 3
+                    </li>
+                    <li *ngIf="allHints.two_count && allHints.two_count != 0">
+                      <span class="text--secondary text--bold">{{allHints.two_count}}</span>
+                      number{{allHints.two_count > 1 ? 's' : ''}} in
+                      green divisible by 2
+                    </li>
+                  </ul>
+                </details> -->
+              <button [disabled]="disableAddButton || selectedNumbers.length < 5"
+                class="button p-mt-3 button--primary button--sm button--wide" (click)="addToSlip()">
+                Add to Game Slip
+              </button>
+              <button class="button p-mt-3 button--primary button--sm button--wide" (click)="showSideBar()">
+                Open Game Slip
+                <sup>
+                  <span class="p-d-inline-block slip-count">
+                    {{selectedNumbersContainer.length}}
+                  </span>
+                </sup>
+              </button>
+            </div>
+            <div class="game_slip" [ngClass]="{'ticket-slip': miniBar}">
+              <!-- <button title="Close Slip" pButton pRipple type="button" icon="pi pi-times"
+                      class="p-button-rounded p-button-secondary p-button-outlined close-slip"  [ngClass]="{'open': openSide}" (click)="clearGameSlip()"></button> -->
+              <button title="Close Slip" pButton pRipple type="button" icon="pi pi-angle-double-right"
+                class="p-button-rounded p-button-secondary p-button-outlined close-slip" [ngClass]="{'open': openSide}"
+                (click)="closeSideBar()"></button>
+
+              <div class="text--right p-mb-2" *ngIf="selectedNumbersContainer.length">
+                <button (click)="clearGameSlip()" pButton pRipple type="button" label="Clear Slip"
+                  class="p-button-outlined p-button-danger p-button-sm"></button>
+              </div>
+              <div class="game_slip_container">
+                <ng-container *ngIf="selectedNumbersContainer.length">
+                  <div *ngFor="let children of selectedNumbersContainer; let i = index;"
+                    class="game_ticket animate__animated animate__faster" [ngClass]="animation">
+                    <div class="text--right p-mb-2">
+                      <button title="Remove Ticket" pButton pRipple type="button" (click)="removeFromSlip(i)"
+                        icon="pi pi-trash"
+                        class="p-button-rounded p-button-text p-button-danger p-button-outlined p-button-sm"></button>
+                    </div>
+                    <div class="p-d-flex p-jc-between p-mb-2 p-py-2">
+                      <span class="game_ticket_num game_ticket_num--selected" [attr.data-selected]="item" *ngFor="let item of children">
+                        {{item}}
+                      </span>
+                    </div>
+                    <div class="p-grid p-ai-center p-mt-2 border-top">
+                      <div class="p-col-5">
+                        <span class="text--semi-small text--grey">Stake:</span>
+                      </div>
+                      <div class="p-col-7">
+                        <input type="number" maxlength="20" min="100" name="stake" (ngModelChange)="changeAmount($event)" [(ngModel)]="stake_amount[i]"
+                          class="form__input form__input--sm" placeholder="min 100.00" step="100">
+                      </div>
+                    </div>
+                    <p *ngIf="stake_amount[i] < 100" class="text--right text--danger text--tiny">Please enter a value no less than 100</p>
+                    <!-- <small class="text--small text--tertiary text--right p-d-block">Minimum is ₦100.00</small> -->
+                    <div class="p-d-flex p-ai-center p-jc-between p-px-1 p-my-2 p-py-2">
+                      <span class="text--semi-small p-d-inline-block p-pr-1 text--600 text--grey">Total Winnings</span>
+                      <span
+                        class="text--semi-small p-d-inline-block p-pl-1 text--600 text--grey">{{(stake_amount[i] ? stake_amount[i] * 120 : 0) | currency : '₦'}}</span>
+                    </div>
+                  </div>
+                  <div class="p-d-flex p-ai-center p-jc-between p-px-1 p-my-2 p-py-2">
+                    <span class="text--semi-small p-d-inline-block p-pr-1 text--600 text--grey">Number of Bets:</span>
+                    <span
+                      class="text--semi-small p-d-inline-block p-pl-1 text--600 text--grey">{{selectedNumbersContainer.length}}</span>
+                  </div>
+                  <div class="p-d-flex p-ai-center p-jc-between p-px-1 p-my-2 p-py-2">
+                    <span class="text--semi-small p-d-inline-block p-pr-1 text--600 text--grey">Total Stake:</span>
+                    <span
+                      class="text--semi-small p-d-inline-block p-pl-1 text--600 text--grey">{{(totalStakeAmount ? totalStakeAmount : 0) | currency : '₦'}}</span>
+                  </div>
+                  <button type="button" [disabled]="buyingTickets || disablePlayButton"
+                    class="button p-mt-3 button--tertiary button--sm button--wide" (click)="buyTickets()">
+                    <i *ngIf="buyingTickets" class="pi pi-spin pi-spinner p-mr-2"></i>
+                    {{buyingTickets ? 'Please wait..' : 'Play game'}}
+                  </button>
+                </ng-container>
+                <ng-container *ngIf="!selectedNumbersContainer.length">
+                  <div class="game_ticket">
+                    <span class="text--semi-small text--grey p-d-block text--center text--600">No tickets</span>
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        <ng-template #noData>
+          <div class="pseudo">
+            <p class="text--medium text--center">
+              No games found. Please come back later
+            </p>
+          </div>
+        </ng-template>
+      </ng-template>
+    </div>
+  </div>
+</section>
+
+<p-dialog [(visible)]="displayPosition" styleClass="ticket-details-modal" [modal]="true" [style]="{width: '35rem'}"
+  [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+  <div class="modal-content p-px-3 p-mt-2" *ngIf="ticketData">
+    <div class="howto">
+      <div class="game_ticket game_ticket--status">
+        <div class="p-mb-4 text--center">
+          <span class="ticket-details-icon">
+            <i style="font-size: 1.4rem" class="pi pi-check"></i>
+          </span>
+          <p class="text--medium text--center p-mb-2 text--600">Ticket Successful</p>
+          <!-- <p class="text--semi-small text--center">Use the ticket ID below to monitor this ticket status <a [routerLink]="['/games/status']" [queryParams]="{ticket_id: ticketData.ticket_id}" class="text--primary">here</a></p> -->
+        </div>
+        <div class="p-d-flex p-ai-center p-jc-between p-px-1 p-py-2">
+          <span class="text--regular p-d-inline-block p-pr-1 text--grey">Total Stake</span>
+          <span
+            class="text--regular p-d-inline-block p-pl-1 text--600 text--grey">{{(ticketData ? ticketData.total_amt : 0) | currency : '₦'}}</span>
+        </div>
+        <div class="p-d-flex p-ai-center p-jc-between p-px-1 p-py-2">
+          <span class="text--regular p-d-inline-block p-pr-1 text--grey">Total Potential Win</span>
+          <span
+            class="text--regular p-d-inline-block p-pl-1 text--600 text--grey">{{(ticketData ? ticketData.total_amt * 120 : 0) | currency : '₦'}}</span>
+        </div>
+        <div class="p-d-flex p-jc-between p-mb-3 p-py-2">
+          <span class="text--regular p-d-inline-block">Ticket ID</span>
+          <span class="text--regular p-d-inline-block text--600">{{ticketData.ticket_id}}</span>
+        </div>
+        <a [routerLink]="['/games/status']" [queryParams]="{ticket_id: ticketData.ticket_id}"
+          class="text--secondary text--regular text--center text--capital p-d-block"
+          style="text-decoration: none;">Check ticket status </a>
+      </div>
+      <br>
+    </div>
+  </div>
+  <!-- <ng-template pTemplate="footer">
+      <p-button icon="pi pi-check" (click)="displayPosition=false" label="Ok" styleClass="p-button-text p-button-lg"></p-button>
+    </ng-template> -->
+</p-dialog>

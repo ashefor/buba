@@ -12,12 +12,20 @@ export class GamesService {
 
   constructor(private http: HttpClient) { }
 
-  fetchGameSession() {
+  fetchDailySpecialSession() {
     return this.http.get(`${environment.bubaApi}/daily_special/list`).pipe(catchError((error) => throwError(error)));
+  }
+
+  fetchQuickPlaySession() {
+    return this.http.get(`${environment.bubaApi}/quick/session/list`).pipe(catchError((error) => throwError(error)));
   }
 
   buyTickets(tickets) {
     return this.http.post(`${environment.bubaApi}/daily_special/buy`, tickets).pipe(catchError((error) => throwError(error)));
+  }
+
+  buyQuickPlayTickets(tickets) {
+    return this.http.post(`${environment.bubaApi}/quick/buy`, tickets).pipe(catchError((error) => throwError(error)));
   }
 
   checkTicketStatus(bid) {

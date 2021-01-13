@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { ToastrModule } from 'ngx-toastr';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -8,6 +8,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoadingBarModule } from '@ngx-loading-bar/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TokenInterceptor } from './core/interceptors/token-interceptor';
+import { ChunkLoadErrorHandler } from './core/services/error-handler';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,9 @@ import { TokenInterceptor } from './core/interceptors/token-interceptor';
   providers: [
     {
       provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true
+    },
+    {
+      provide: ErrorHandler, useClass: ChunkLoadErrorHandler
     }
   ],
   bootstrap: [AppComponent]

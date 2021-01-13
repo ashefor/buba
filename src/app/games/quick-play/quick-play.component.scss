@@ -14,15 +14,16 @@
 .lotto {
   //   column-count: 4;
   display: grid;
-  grid-template: repeat(2, 1fr) / repeat(5, 1fr);
+  grid-template-columns: repeat(5, 1fr);
+  place-items: center;
   gap: 1.25rem;
 
   @media all and (min-width: 768px) {
-    grid-template: repeat(2, 1fr) / repeat(3, 1fr);
+    grid-template-columns: repeat(5, 1fr);
   }
 
   @media all and (min-width: 992px) {
-    grid-template: repeat(2, 1fr) / repeat(5, 1fr);
+    grid-template-columns: repeat(5, 1fr);
   }
 
   &-ball {
@@ -38,8 +39,8 @@
     color: $color-white;
     font-weight: 700;
     border-radius: 100%;
-    width: 3.5rem;
-    height: 3.5rem;
+    width: 3rem;
+    height: 3rem;
     // margin-right: 0.125rem;
     // margin-bottom: 1rem;
     // margin-top: .25rem;
@@ -47,19 +48,21 @@
     // background: linear-gradient($color-secondary, #383838);
     // background: linear-gradient( rgba(255, 153, 35, 1), rgba(168, 130, 221, 1)) center center / cover no-repeat;
     // background: linear-gradient(270deg, rgba(255, 153, 35, 1) 45%, rgba(168, 130, 221, 1) 100%);
-    background-image: url('../../../assets/img/pattern.png');
+    background-image: url('../../../assets/img/bg.png');
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
     cursor: pointer;
+    margin: .75rem 0;
     transition: all .2s ease;
 
     &-text {
-      background: $color-white;
-      color: inherit;
-      border-radius: 50%;
-      width: 2.25rem;
-      height: 2.25rem;
+      // background: $color-white;
+      // color: inherit;
+      color: $color-white;
+      // border-radius: 50%;
+      // width: 2.25rem;
+      // height: 2.25rem;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -133,15 +136,16 @@
   }
 
   @media all and (min-width: 768px) {
-    padding-right: 24rem;
+    // padding-right: 24rem;
+    padding-right: 0;
   }
 
-  @media all and (min-width: 820px) {
+  @media all and (min-width: 850px) {
     padding-right: 25.75rem;
   }
 
   @media all and (min-width: 992px) {
-    padding-right: 35rem;
+    padding-right: 30rem;
   }
 
   @media all and (min-width: 1200px) {
@@ -187,6 +191,21 @@
     }
 
     @media all and (min-width: 768px) {
+      width: 25rem;
+      position: fixed;
+      padding: 7rem 1rem 2rem 1rem;
+    bottom: 0;
+    top: 0;
+    right: 0;
+    }
+
+    
+    @media all and (min-width: 850px) {
+      position: absolute;
+      height: 100%;
+      top: 0;
+      right: 0;
+      padding: 1rem;
       width: 22rem;
     }
 
@@ -214,7 +233,7 @@
 
     &_num {
       font-size: $font-size-semi-small;
-      background: $color-primary;
+      background: #9aa9ba;
       color: $color-white;
       display: flex;
       align-items: center;
@@ -225,6 +244,11 @@
       padding: .15rem;
       border: 1px solid $color-primary;
       border-radius: 1rem;
+
+      &--selected{
+        background: $color-primary !important;
+        color: $color-white !important;
+      }
 
       &_container {
         border-bottom: 1px solid #f9f9f9;
@@ -354,4 +378,21 @@
   // color: #2FCBE9;
   background: #252525;
   color: #252525;
+}
+
+.ticket{
+  &-details{
+    &-icon{
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: $color-green;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 50%;
+      color: $color-white;
+      margin-bottom: 1rem;
+    }
+  }
 }
