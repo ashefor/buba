@@ -31,6 +31,9 @@
                 </div>
               </ng-template>
             </p-messages>
+            <div class="p-text-center text--small">
+              <p>Current session ends on <span class="text--bold">{{lottoData.numbers.end_date | customeDate: "MMM DD, YYYY. h:mm:ss a"}}</span></p>
+            </div>
             <div class="lotto_wrapper">
               <div class="lotto">
                 <button class="lotto-ball" *ngFor="let number of alllottoNumbers"

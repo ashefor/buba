@@ -115,7 +115,11 @@ export class RegisterComponent implements OnInit {
       this.registerForm.enable();
       this.auth.storeUser(newUser.user);
       this.bidService.setWalletDetails(newUser.user);
-      this.router.navigate(['/dashboard']);
+      if(this.auth.redirectUrl) {
+        this.router.navigateByUrl(this.auth.redirectUrl)
+      } else {
+        this.router.navigate(['/dashboard']);
+      }
     }, (error: any) => {
       this.isRegistering = false;
       this.loadingBar.stop();
