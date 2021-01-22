@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DailySpecialComponent } from './daily-special/daily-special.component';
 import { GamesComponent } from './games.component';
+import { HistoryComponent } from './history/history.component';
 import { QuickPlayComponent } from './quick-play/quick-play.component';
 import { StatusComponent } from './status/status.component';
 
@@ -16,12 +17,16 @@ const routes: Routes = [
         component: DailySpecialComponent
       },
       {
-        path:'quick-play',
+        path: 'quick-play',
         component: QuickPlayComponent
       },
       {
         path: 'status',
         component: StatusComponent
+      },
+      {
+        path: 'history',
+        component: HistoryComponent
       }
 ];
 

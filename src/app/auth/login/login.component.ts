@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { LoadingBarService } from '@ngx-loading-bar/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { RouterService } from 'src/app/core/services/router.service';
 import { loggedInUser } from 'src/app/makebid/models/logged-user';
 import { BidService } from 'src/app/makebid/services/bid.service';
 
@@ -24,12 +25,14 @@ export class LoginComponent implements OnInit, OnDestroy {
   hide = true;
   loginForm: FormGroup;
   loggingIn: boolean;
+  returnUrl: any;
   loginSubscription = new Subscription();
-  constructor(private fb: FormBuilder, private loadingBar: LoadingBarService, private auth: AuthService, private bidService: BidService, private router: Router, private title: Title) {
+  constructor(private fb: FormBuilder, private loadingBar: LoadingBarService, private auth: AuthService, private bidService: BidService, private router: Router, private title: Title, private routerServices: RouterService) {
     this.title.setTitle('Buba - Account Login');
-   }
+  }
 
   ngOnInit(): void {
+    this.returnUrl = this.routerServices.getPreviousUrl();
     this.formInit();
   }
 
@@ -51,6 +54,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   logIn(formvalue) {
+    // tslint:disable-next-line: forin
     for (const i in this.loginForm.controls) {
       this.loginForm.controls[i].markAsDirty();
       this.loginForm.controls[i].updateValueAndValidity();
@@ -72,10 +76,21 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.auth.storeToken(loggedUser.token);
       this.auth.storeUser(loggedUser.user);
       this.bidService.setWalletDetails(loggedUser.user);
-      if(this.auth.redirectUrl) {
-        this.router.navigateByUrl(this.auth.redirectUrl);
+      if (loggedUser.login_status === 0) {
+        if (this.auth.redirectUrl) {
+          this.router.navigateByUrl(this.auth.redirectUrl);
+        } else if (this.routerServices.getRouteStatus() === 1) {
+          if (this.returnUrl && this.returnUrl.length) {
+            this.router.navigateByUrl(this.returnUrl);
+          } else {
+            this.router.navigate(['/dashboard']);
+          }
+        } else {
+          this.router.navigate(['/dashboard']);
+        }
       } else {
-        this.router.navigate(['/dashboard']);
+        // this.auth.storeLoginStatus(true);
+        this.router.navigate(['/payment-account']);
       }
     }, (error: any) => {
       this.loggingIn = false;

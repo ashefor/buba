@@ -1,50 +1,105 @@
-<div class="sidenav">
-  <div class="sidenav__container">
-    <a class="sidenav__item" [routerLink]="['/dashboard']" routerLinkActive="active">
-      <i class="pi pi-info-circle sidenav__item__icon"></i>
-      <span class="sidenav__item__text text--capital">dashboard</span>
-    </a>
-    <a class="accordion sidenav__item" [ngClass]="{'active': games1RLA.isActive || games2RLA.isActive || games3RLA.isActive}">
-      <i class="pi pi-play sidenav__item__icon"></i>
-      <span class="sidenav__item__text text--capital">games</span>
-      <i class="pi pi-angle-right iconRight"></i>
-    </a>
-    <div class="sidenav__mobilenav">
-      <a class="sidenav__item" [routerLink]="['/games/quick-play']" routerLinkActive="active"
-        #games1RLA="routerLinkActive">
-        <i class="pi pi-play sidenav__item__icon"></i>
-        <span class="sidenav__item__text text--capital">Quick Play</span>
+<ng-container *ngIf="authService.isLoggedIn()">
+  <div class="sidenav">
+    <div class="sidenav__container">
+      <a class="sidenav__item" [routerLink]="['/dashboard']" routerLinkActive="active">
+        <i class="pi pi-info-circle sidenav__item__icon"></i>
+        <span class="sidenav__item__text text--capital">dashboard</span>
       </a>
-      <a class="sidenav__item" [routerLink]="['/games/daily-special']" routerLinkActive="active"
-      #games2RLA="routerLinkActive">
-      <i class="pi pi-play sidenav__item__icon"></i>
-      <span class="sidenav__item__text text--capital">Daily Special</span>
-    </a>
-    <a class="sidenav__item" [routerLink]="['/games/status']" routerLinkActive="active"
-      #games3RLA="routerLinkActive">
-      <i class="pi pi-ticket sidenav__item__icon"></i>
-      <span class="sidenav__item__text text--capital">Ticket Status</span>
-    </a>
-    </div>
-    <a class="sidenav__item" [routerLink]="['/funding']" routerLinkActive="active">
-      <i class="pi pi-money-bill sidenav__item__icon"></i>
-      <span class="sidenav__item__text text--capital">funding</span>
-    </a>
-    <a class="sidenav__item" [routerLink]="['/bids']" routerLinkActive="active">
-      <i class="pi pi-ticket sidenav__item__icon"></i>
-      <span class="sidenav__item__text text--capital">bids</span>
-    </a>
-    <a class="sidenav__item" [routerLink]="['/withdrawals']" routerLinkActive="active">
-      <i class="pi pi-money-bill sidenav__item__icon"></i>
-      <span class="sidenav__item__text text--capital">withdrawals</span>
-    </a>
-    <a class="sidenav__item" [routerLink]="['/settings']" routerLinkActive="active">
-      <i class="pi pi-cog sidenav__item__icon"></i>
-      <span class="sidenav__item__text text--capital">settings</span>
-    </a>
-    <div class="sidenav__item logout" (click)="logOut()">
-      <i class="pi pi-sign-out sidenav__item__icon"></i>
-      <span class="sidenav__item__text text--capital">log out</span>
+      <a class="accordion sidenav__item" [ngClass]="{'active': games1RLA.isActive || games2RLA.isActive || games3RLA.isActive || games4RLA.isActive}">
+        <i class="pi pi-play sidenav__item__icon"></i>
+        <span class="sidenav__item__text text--capital">games</span>
+        <i class="pi pi-angle-right iconRight"></i>
+      </a>
+      <div class="sidenav__mobilenav">
+        <a class="sidenav__item" [routerLink]="['/games/quick-play']" routerLinkActive="active"
+          #games1RLA="routerLinkActive">
+          <i class="pi pi-play sidenav__item__icon"></i>
+          <span class="sidenav__item__text text--capital">Quick Play</span>
+        </a>
+        <a class="sidenav__item" [routerLink]="['/games/daily-special']" routerLinkActive="active"
+        #games2RLA="routerLinkActive">
+        <i class="pi pi-play sidenav__item__icon"></i>
+        <span class="sidenav__item__text text--capital">Daily Special</span>
+      </a>
+      <a class="sidenav__item" [routerLink]="['/games/history']" routerLinkActive="active"
+        #games3RLA="routerLinkActive">
+        <i class="pi pi-ticket sidenav__item__icon"></i>
+        <span class="sidenav__item__text text--capital">History</span>
+      </a>
+      <a class="sidenav__item" [routerLink]="['/games/status']" routerLinkActive="active"
+        #games4RLA="routerLinkActive">
+        <i class="pi pi-ticket sidenav__item__icon"></i>
+        <span class="sidenav__item__text text--capital">Ticket Status</span>
+      </a>
+      </div>
+      <a class="sidenav__item" [routerLink]="['/funding']" routerLinkActive="active">
+        <i class="pi pi-money-bill sidenav__item__icon"></i>
+        <span class="sidenav__item__text text--capital">funding</span>
+      </a>
+      <ng-container>
+        <a class="accordion sidenav__item" [ngClass]="{'active': bids1RLA.isActive || bids2RLA.isActive || bids3RLA.isActive}">
+          <i class="pi pi-ticket sidenav__item__icon"></i>
+          <span class="sidenav__item__text text--capital">bids</span>
+          <i class="pi pi-angle-right iconRight"></i>
+        </a>
+        <div class="sidenav__mobilenav">
+          <a class="sidenav__item" [routerLink]="['/bids/open']" routerLinkActive="active"
+            #bids1RLA="routerLinkActive">
+            <i class="pi pi-play sidenav__item__icon"></i>
+            <span class="sidenav__item__text text--capital">Open Bids</span>
+          </a>
+          <a class="sidenav__item" [routerLink]="['/bids/history']" routerLinkActive="active"
+          #bids2RLA="routerLinkActive">
+          <i class="pi pi-play sidenav__item__icon"></i>
+          <span class="sidenav__item__text text--capital">Bids History</span>
+        </a>
+        <a class="sidenav__item" [routerLink]="['/bids/status']" routerLinkActive="active"
+          #bids3RLA="routerLinkActive">
+          <i class="pi pi-ticket sidenav__item__icon"></i>
+          <span class="sidenav__item__text text--capital">Bid Status</span>
+        </a>
+        </div>
+      </ng-container>
+      <a class="sidenav__item" [routerLink]="['/withdrawals']" routerLinkActive="active">
+        <i class="pi pi-money-bill sidenav__item__icon"></i>
+        <span class="sidenav__item__text text--capital">withdrawals</span>
+      </a>
+      <a class="sidenav__item" [routerLink]="['/settings']" routerLinkActive="active">
+        <i class="pi pi-cog sidenav__item__icon"></i>
+        <span class="sidenav__item__text text--capital">settings</span>
+      </a>
+      <div class="sidenav__item logout" (click)="logOut()">
+        <i class="pi pi-sign-out sidenav__item__icon"></i>
+        <span class="sidenav__item__text text--capital">log out</span>
+      </div>
     </div>
   </div>
-</div>
+</ng-container>
+
+<ng-container *ngIf="!authService.isLoggedIn()">
+  <div class="sidenav">
+    <div class="sidenav__container">
+      <a class="sidenav__item" [routerLink]="['/dashboard']" routerLinkActive="active">
+        <i class="pi pi-info-circle sidenav__item__icon"></i>
+        <span class="sidenav__item__text text--capital">dashboard</span>
+      </a>
+      <a class="accordion sidenav__item" [ngClass]="{'active': games1RLA.isActive || games2RLA.isActive, 'accordion-open': shouldOpenMenu}">
+        <i class="pi pi-play sidenav__item__icon"></i>
+        <span class="sidenav__item__text text--capital">games</span>
+        <i class="pi pi-angle-right iconRight"></i>
+      </a>
+      <div class="sidenav__mobilenav" [ngClass]="{'submenu-show': shouldOpenMenu}">
+        <a class="sidenav__item" [routerLink]="['/games/quick-play']" routerLinkActive="active"
+          #games1RLA="routerLinkActive">
+          <i class="pi pi-play sidenav__item__icon"></i>
+          <span class="sidenav__item__text text--capital">Quick Play</span>
+        </a>
+        <a class="sidenav__item" [routerLink]="['/games/daily-special']" routerLinkActive="active"
+        #games2RLA="routerLinkActive">
+        <i class="pi pi-play sidenav__item__icon"></i>
+        <span class="sidenav__item__text text--capital">Daily Special</span>
+      </a>
+      </div>
+    </div>
+  </div>
+</ng-container>

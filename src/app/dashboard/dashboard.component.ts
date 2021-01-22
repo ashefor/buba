@@ -1,6 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
+import { LoadingBarService } from '@ngx-loading-bar/core';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, TimeoutError } from 'rxjs';
 import { AuthService } from '../core/services/auth.service';
@@ -18,20 +20,37 @@ export class DashboardComponent implements OnInit, OnDestroy {
   isFetchingBids: boolean;
   storedUserDetails$: Observable<any>;
   userdetails: any;
+  displayPosition: boolean;
   bidHistory: any[];
   isCreating: boolean;
+  isTransferring: boolean;
   badRequestError: any;
+  transferFundsForm: FormGroup;
   text = 'Sign up on @bubang now with https://account.buba.ng/register?reffered_by=fola to enjoy more with less'
 
   constructor(private authService: AuthService,
-              private bidService: BidService, private toastr: ToastrService, private dashboardService: DashboardService, private title: Title) {
-                this.title.setTitle('Buba - Account Dashboard');
-               }
+    private bidService: BidService,
+    private toastr: ToastrService,
+    private dashboardService: DashboardService, private title: Title, private fb: FormBuilder,
+    private loadingBar: LoadingBarService) {
+    this.title.setTitle('Buba - Account Dashboard');
+  }
 
   ngOnInit(): void {
     this.storedUserDetails$ = this.authService.getUser$();
     this.fetchUserDetails();
     this.fetchOpenBids();
+    this.formInit();
+  }
+
+  formInit() {
+    this.transferFundsForm = this.fb.group({
+      amount: [null, Validators.required],
+    });
+  }
+
+  get formControls() {
+    return this.transferFundsForm.controls;
   }
 
   ngOnDestroy() {
@@ -39,9 +58,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.isCreating = false;
   }
 
-  getURL(){
-    return `https://twitter.com/intent/tweet?source=tweetbutton&text=${this.text}`
- }
+  openTransferModal() {
+    this.displayPosition = true;
+  }
+  resetModal() {
+    this.transferFundsForm.reset();
+  }
+
   fetchUserDetails() {
     this.loadingDetails = true;
     this.authService.getWalletBalance().subscribe((data: loggedInUser) => {
@@ -97,25 +120,61 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.authService.createPaymentAccount().subscribe((data: any) => {
       this.isCreating = false;
       location.reload();
-    },  (error: any) => {
+    }, (error: any) => {
       this.isCreating = false;
       if (error instanceof HttpErrorResponse) {
         if (error.status === 400) {
-          this.badRequestError = error.error.message
+          this.badRequestError = error.error.message;
         } else if (error.status === 401) {
-          this.badRequestError = error.error.message
+          this.badRequestError = error.error.message;
         } else {
           this.toastr.error('Please try again', 'Server Error');
         }
       }
-    })
+    });
   }
 
   copyTextToClipBoard(inputElement: HTMLInputElement) {
     inputElement.focus();
     inputElement.select();
     document.execCommand('copy');
-    inputElement.setSelectionRange(0, inputElement.value.length)
-    this.toastr.info('Copied to clipboard')
+    inputElement.setSelectionRange(0, inputElement.value.length);
+    this.toastr.info('Copied to clipboard');
+  }
+
+  transferFunds(formValue) {
+    // tslint:disable-next-line: forin
+    for (const i in this.transferFundsForm.controls) {
+      this.transferFundsForm.controls[i].markAsDirty();
+      this.transferFundsForm.controls[i].updateValueAndValidity();
+    }
+    if (this.transferFundsForm.invalid) {
+      return;
+    }
+    this.isTransferring = true;
+    this.loadingBar.start();
+    this.authService.transferFundsToWallet(formValue).subscribe((data: any) => {
+      this.loadingBar.stop();
+      this.isTransferring = false;
+      this.toastr.success(data.message);
+      this.displayPosition = false;
+      this.refreshAccountDetails();
+      this.transferFundsForm.reset();
+    }, (error: any) => {
+      this.isTransferring = false;
+      this.loadingBar.stop();
+      if (error instanceof HttpErrorResponse) {
+        if (error.status === 400) {
+          const badRequestError = error.error.message;
+          this.transferFundsForm.setErrors({
+            badRequest: badRequestError
+          });
+        } else {
+          this.toastr.error(error.error ? error.error.message : 'An error has occured. Please try again later');
+        }
+      } else if (error instanceof TimeoutError) {
+        this.toastr.error('Server timeout. Please try again later');
+      }
+    });
   }
 }

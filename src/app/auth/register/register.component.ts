@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Params, Router } from '@angular/router';
@@ -18,6 +18,7 @@ interface registerFormType {
   password: string;
   email: string;
   phone_number: string;
+  referred_by: string;
 }
 
 @Component({
@@ -25,8 +26,7 @@ interface registerFormType {
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent implements OnInit {
-
+export class RegisterComponent implements OnInit, OnDestroy {
   registerForm: FormGroup;
   isRegistering: boolean;
   hide2 = true;
@@ -66,12 +66,15 @@ export class RegisterComponent implements OnInit {
       this.registerForm.patchValue({ referred_by: param.referred_by })
     })
   }
-
+  ngOnDestroy() {
+    this.loadingBar.stop();
+    this.registerSubscription.unsubscribe();
+  }
   registerFormInit() {
     this.registerForm = this.fb.group({
       firstname: [null, [Validators.required]],
       lastname: [null, [Validators.required]],
-      phone_number: [null, [Validators.required]],
+      phone_number: [null, [Validators.required, Validators.pattern("(0)[0-9 ]{10}")]],
       email: [null, [Validators.email, Validators.required]],
       password: [null, [Validators.required, Validators.minLength(6)]],
       confirmpassword: [null, [this.confirmValidator]],
@@ -107,19 +110,17 @@ export class RegisterComponent implements OnInit {
     this.loadingBar.start();
     this.isRegistering = true;
     this.registerForm.disable();
-    this.registerSubscription = this.auth.register(formvalue).pipe(tap((data: loggedInUser) => {
-      this.auth.storeToken(data.token);
-    }), concatMap(() => this.auth.createPaymentAccount())).subscribe((newUser: any) => {
+    const {referred_by} = formvalue;
+    const newRefCode = referred_by ? referred_by : '';
+    formvalue.referred_by = newRefCode;
+    this.registerSubscription = this.auth.register(formvalue).subscribe((newUser: any) => {
+      this.auth.storeToken(newUser.token);
       this.loadingBar.stop();
       this.isRegistering = false;
       this.registerForm.enable();
       this.auth.storeUser(newUser.user);
       this.bidService.setWalletDetails(newUser.user);
-      if(this.auth.redirectUrl) {
-        this.router.navigateByUrl(this.auth.redirectUrl)
-      } else {
-        this.router.navigate(['/dashboard']);
-      }
+      this.router.navigate(['/payment-account']);
     }, (error: any) => {
       this.isRegistering = false;
       this.loadingBar.stop();

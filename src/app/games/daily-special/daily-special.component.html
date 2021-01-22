@@ -1,10 +1,33 @@
 <section class="games_container">
   <div class="card">
     <div class="card__body p-d-flex p-flex-column">
-      <div class="pageheader p-mb-0">
+      <div class="p-d-none p-d-md-inline-flex pageheader p-mb-0">
         <h1 class="pageheader__title text--capital">
           daily special
         </h1>
+      </div>
+      <div class="p-d-md-none">
+        <div class="pageheader p-mb-0">
+          <h1 class="pageheader__title text--upper">
+            games
+          </h1>
+        </div>
+        <div class="p-grid p-ai-center p-mt-2">
+          <div class="p-col-4">
+            <h4 class="text--regular-alt text--primary">Type</h4>
+          </div>
+          <div class="p-col-8">
+            <div class="select">
+              <select class="form__input" (change)="changeGames($event)">
+                <option value="games/quick-play">Quick Play</option>
+                <option value="games/daily-special" selected>Daily Special</option>
+              </select>
+              <span class="select__icon">
+                <i class="pi pi-angle-down"></i>
+              </span>
+             </div>
+          </div>
+        </div>
       </div>
       <ng-container *ngIf="loadingDetails else doneLoading">
         <div class="text--center py-2 pseudo">

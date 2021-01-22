@@ -1,0 +1,46 @@
+<form [formGroup]="addBankAccountForm" (ngSubmit)="addBankAccountHandler(addBankAccountForm.value)">
+    <div class="p-fluid">
+      <div class="p-field form__item">
+        <label for="bankname" class="form__label text--capital">bank name</label>
+         <div class="select">
+          <select formControlName='bank_code' class="form__input form__input--lg">
+            <option [value]="null" selected disabled>Select Bank</option>
+            <option *ngFor="let bank of banks" [value]="bank.bankcode">{{bank.name}}</option>
+          </select>
+          <span class="select__icon">
+            <i class="pi pi-angle-down"></i>
+          </span>
+         </div>
+         <ng-container
+         *ngIf="(formControls.bank_code.dirty || formControls.bank_code.touched) && formControls.bank_code.errors">
+         <span *ngIf="formControls.bank_code.errors.required" class="p-invalid p-mb-2 p-d-block p-px-2">Select
+           Bank</span>
+       </ng-container>
+      </div>
+      <div class="p-field form__item">
+        <label for="accountnumber" class="form__label text--capital">account number</label>
+        <input type="text" class="form__input form__input--lg" formControlName='account_number' pKeyFilter="num">
+        <ng-container
+        *ngIf="(formControls.account_number.dirty || formControls.account_number.touched) && formControls.account_number.errors">
+        <span *ngIf="formControls.account_number.errors.required"
+          class="p-invalid p-mb-2 p-d-block p-px-2">Enter account number</span>
+      </ng-container>
+      </div>
+        <ng-container *ngIf="addBankAccountForm.errors && addBankAccountForm.errors.badRequest">
+          <div class="p-field form__item">
+          <span class="p-invalid p-my-2 p-d-block">
+            {{addBankAccountForm.errors.badRequest}}
+          </span>
+        </div>
+        </ng-container>
+      <div class="p-field form__item">
+        <button [disabled]="loading" type="submit"
+          class="button button--secondary button--raised text--capital">
+          <i *ngIf="loading" class="pi pi-spin pi-spinner p-mr-2"></i>
+          {{loading ? 'please wait' : 'add bank account'}}
+        </button>
+      </div>
+    </div>
+  </form>
+
+  

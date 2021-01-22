@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { LoadingBarService } from '@ngx-loading-bar/core';
 import { ToastrService } from 'ngx-toastr';
 import { TimeoutError } from 'rxjs';
@@ -23,7 +24,7 @@ export class QuickPlayComponent implements OnInit {
   selectedNumbersContainer: any[] = [];
   miniBar = false;
   displayPosition = false;
-  position = 'left'
+  // tslint:disable-next-line: variable-name
   stake_amount: any[] = [];
   selectedNumbers = [...resetArray];
   lottoData: any;
@@ -35,7 +36,8 @@ export class QuickPlayComponent implements OnInit {
   ticketData: any;
   disablePlayButton: boolean;
 
-  constructor(private service: GamesService, private toastr: ToastrService, private loadingBar: LoadingBarService) { }
+  constructor(private service: GamesService,
+              private toastr: ToastrService, private loadingBar: LoadingBarService, private router: Router) { }
 
   ngOnInit(): void {
     this.fetchGameSession();
@@ -64,13 +66,13 @@ export class QuickPlayComponent implements OnInit {
       } else {
         this.toastr.error('An unknown error has occured. Please try again later');
       }
-    })
+    });
 
   }
-  selectNumber(number) {
-    const {value, label, index} = number;
-    this.selectedNumbers[index] = number;
-    const foundIndex = this.selectedNumbers.findIndex(num => num === number);
+  selectNumber(selectedNumber) {
+    const {value, label, index} = selectedNumber;
+    this.selectedNumbers[index] = selectedNumber;
+    const foundIndex = this.selectedNumbers.findIndex(num => num === selectedNumber);
   }
 
   addToSlip() {
@@ -109,7 +111,8 @@ export class QuickPlayComponent implements OnInit {
     }, 400);
   }
 
-  getBackgroundColor(number) {
+  // tslint:disable-next-line: variable-name
+  getBackgroundColor(number: any) {
     const foundIndex = this.selectedNumbers.findIndex(num => num === number);
     if (foundIndex === -1) {
       if (this.selectedNumbers.length === 5) {
@@ -135,14 +138,14 @@ export class QuickPlayComponent implements OnInit {
     this.selectedNumbersContainer.forEach((parentitem: [], itemindex) => {
       const newObj = {} as any;
       parentitem.forEach((item, index) => {
-        newObj[`L_${index + 1}`] = item
-      })
+        newObj[`L_${index + 1}`] = item;
+      });
       tickets.push({ ...newObj, amount: this.stake_amount[itemindex] });
-    })
+    });
     const ticketsObj = {
       session_id: this.lottoData.session_id,
-      tickets: tickets
-    }
+      tickets
+    };
     this.buyingTickets = true;
     this.service.buyQuickPlayTickets(ticketsObj).subscribe((data: any) => {
       this.loadingBar.stop();
@@ -178,7 +181,7 @@ export class QuickPlayComponent implements OnInit {
       } else {
         this.toastr.error('An unknown error has occured. Please try again later');
       }
-    })
+    });
   }
 
   get totalStakeAmount() {
@@ -195,5 +198,12 @@ export class QuickPlayComponent implements OnInit {
    } else {
     this.disablePlayButton = false;
    }
+  }
+
+  changeGames(event) {
+    const url = event.target.value;
+    if (url.length) {
+      this.router.navigateByUrl(url);
+    }
   }
 }

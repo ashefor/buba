@@ -31,4 +31,8 @@ export class GamesService {
   checkTicketStatus(bid) {
     return this.http.post(`${environment.bubaApi}/ticket/check`, bid).pipe(catchError(error => throwError(error)));
   }
+
+  fetchAllGamesHistory(pageDetails) {
+    return this.http.post(`${environment.bubaApi}/games/history`, pageDetails).pipe(catchError((error) => throwError(error)));
+  }
 }

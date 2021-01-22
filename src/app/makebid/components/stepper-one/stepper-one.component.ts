@@ -99,8 +99,8 @@ export class StepperOneComponent implements OnInit, OnDestroy {
   // }
 
   getBidProgressValue(start, end) {
-    const endDate = new Date(end)
-    const startDate = new Date(start)
+    const endDate = new Date(end);
+    const startDate = new Date(start);
     const nowDate = new Date(Date.now());
     // console.log(startDate.getTime(), endDate.getTime())
     // if (this.bidType1) {

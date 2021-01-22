@@ -1,0 +1,91 @@
+<div class="bids">
+    <div class="card">
+      <div class="card__body">
+        <div class="bids__container">
+          <div class="pageheader">
+            <h1 class="pageheader__title text--capital">
+              bids history
+            </h1>
+            <span class="pageheader__subtitle text--capital">
+              all your bids history
+            </span>
+          </div>
+          <div class="pagebody bids__body">
+            <div class="p-grid">
+              <!-- <div class="p-col-12 bids__body__status">
+                <a role="button" [routerLink]="['/bids/status']"
+                  class="button button--secondary button--raised button--wider button--lg text--capital">check bid
+                  status</a>
+              </div> -->
+              <div class="p-col-12">
+                <div class="table__container">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>S/No</th>
+                        <th>Bid Status</th>
+                        <th>Date Created</th>
+                        <th>Product Name</th>
+                        <th>Ticket ID</th>
+                        <th>No of Slots</th>
+                        <th>Ticket Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <ng-container *ngIf="bidsHistory && bidsHistory.length">
+                        <tr *ngFor="let bids of bidsHistory; let i = index">
+                          <td>{{i + 1}}</td>
+                          <td>
+                            <span *ngIf="bids.bid_status == '0'" class="p-tag p-tag-info">Incomplete</span>
+                            <span *ngIf="bids.bid_status == '1'" class="p-tag p-tag-success">Complete</span>
+                          </td>
+                          <td>{{bids.date_created | customeDate: "MMM DD, YYYY. h:mm:ss a"}}</td>
+                          <td>{{bids.product_name ? bids.product_name : 'Null'}}</td>
+                          <td>{{bids.ticket_id ? bids.ticket_id : 'N/A'}}</td>
+                          <td>{{bids.no_of_slot ? bids.no_of_slot : '1'}}</td>
+                         <ng-container *ngIf="bids.status == '0'">
+                            <td>
+                                <span class="text--capital">open</span>
+                            </td>
+                         </ng-container>
+                         <ng-container *ngIf="bids.status == '1'">
+                            <td *ngIf="bids.win_status == '0'" >
+                                <span class="text--capital text--danger">loss</span>
+                            </td>
+                            <td *ngIf="bids.win_status == '1'" class="text--capital">
+                                <span>Won</span> 
+                                <i class="pi pi-star text--green p-ml-2"></i>
+                            </td>
+                         </ng-container>
+                        </tr>
+                      </ng-container>
+                      <ng-container *ngIf="bidsHistory && !bidsHistory.length">
+                        <tr>
+                          <td colspan="6">
+                            <p class="p-p-4 text--center text--capital">
+                              {{errorMsg}}
+                            </p>
+                          </td>
+                        </tr>
+                      </ng-container>
+                    </tbody>
+                  </table>
+                </div>
+                <ng-container>
+                  <div class="p-flex p-mt-3 p-ml-auto text--right">
+                    <button class="button p-mx-1 button--secondary text--capital" (click)="goPrevious()">
+                      previous
+                    </button>
+                    <button class="button p-mx-1 button--secondary text--capital" (click)="goNext()">
+                      next
+                    </button>
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

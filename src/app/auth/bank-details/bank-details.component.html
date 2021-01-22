@@ -1,0 +1,17 @@
+<div class="account p-grid">
+    <div class="p-col-12 p-md-7 p-lg-4 p-mx-auto account__container">
+      <div class="account__head">
+        <a class="account__head__logo">
+          <img src="assets/img/buba-secondary.png" alt="buba">
+        </a>
+        <h1 class="account__head__title text--capital">add bank details</h1>
+      </div>
+      <div class="account__body">
+        <div class="account__form">
+            <p class="text--regular-alt p-mb-5 text--center">Please provide account details to receive winnings</p>
+            <app-add-bank-details [loading]="loading" (addBankEmitter)="addBankAccountHandler($event)"></app-add-bank-details>
+        </div>
+      </div>
+    </div>
+  </div>
+  

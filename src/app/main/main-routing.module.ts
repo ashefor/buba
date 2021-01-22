@@ -8,7 +8,6 @@ const routes: Routes = [
   {
     path: '',
     component: MainComponent,
-    canActivate: [AuthGuard],
     children: [
       {
         path: '',
@@ -16,10 +15,12 @@ const routes: Routes = [
       },
       {
         path: 'dashboard',
+        canActivate: [AuthGuard],
         loadChildren: () => import('../dashboard/dashboard.module').then(m => m.DashboardModule)
       },
       {
         path: 'settings',
+        canActivate: [AuthGuard],
         loadChildren: () => import('../settings/settings.module').then(m => m.SettingsModule)
       },
       {
@@ -28,18 +29,17 @@ const routes: Routes = [
       },
       {
         path: 'funding',
+        canActivate: [AuthGuard],
         loadChildren: () => import('../funding/funding.module').then(m => m.FundingModule)
       },
       {
         path: 'bids',
+        canActivate: [AuthGuard],
         loadChildren: () => import('../bids/bids.module').then(m => m.BidsModule)
       },
       {
-        path: 'bids/status',
-        loadChildren: () => import('../bids/bid-status/bid-status.module').then(m => m.BidStatusModule)
-      },
-      {
         path: 'withdrawals',
+        canActivate: [AuthGuard],
         loadChildren: () => import('../withdrawal/withdrawal.module').then(m => m.WithdrawalModule)
       }
     ]

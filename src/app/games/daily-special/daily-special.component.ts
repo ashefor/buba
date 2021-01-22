@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { LoadingBarService } from '@ngx-loading-bar/core';
 import { ToastrService } from 'ngx-toastr';
 import { TimeoutError } from 'rxjs';
@@ -27,7 +28,9 @@ export class DailySpecialComponent implements OnInit {
   openSide: boolean;
   ticketData: any;
   disablePlayButton: boolean;
-  constructor(private service: GamesService, private toastr: ToastrService, private loadingBar: LoadingBarService) { }
+  constructor(private service: GamesService,
+              private toastr: ToastrService,
+              private loadingBar: LoadingBarService, private router: Router) { }
 
   ngOnInit(): void {
     this.fetchGameSession();
@@ -218,4 +221,11 @@ export class DailySpecialComponent implements OnInit {
      this.disablePlayButton = false;
     }
    }
+
+   changeGames(event) {
+    const url = event.target.value;
+    if (url.length) {
+      this.router.navigateByUrl(url);
+    }
+  }
 }

@@ -4,4 +4,5 @@ export interface loggedInUser {
     status: string;
     token: string;
     user: any;
+    login_status: number;
 }

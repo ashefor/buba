@@ -8,8 +8,10 @@ import { AuthService } from 'src/app/core/services/auth.service';
   styleUrls: ['./sidenav.component.scss']
 })
 export class SidenavComponent implements OnInit {
-  // @Output() closeSideBarEmitter = new EventEmitter();
-  constructor(private authService: AuthService, private router: Router) { }
+  shouldOpenMenu: boolean;
+  constructor(public authService: AuthService, private router: Router) {
+    this.shouldOpenMenu = router.url.includes('games');
+  }
 
   ngOnInit(): void {
   }

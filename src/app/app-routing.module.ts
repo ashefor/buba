@@ -14,7 +14,15 @@ const routes: Routes = [
   },
   {
     path: 'reset-password',
-    loadChildren: () =>  import('./auth/forgot-password/forgot-password.module').then(m => m.ForgotPasswordModule)
+    loadChildren: () => import('./auth/forgot-password/forgot-password.module').then(m => m.ForgotPasswordModule)
+  },
+  {
+    path: 'payment-account',
+    loadChildren: () => import('./auth/payment-account/payment-account.module').then(m => m.PaymentAccountModule)
+  },
+  {
+    path: 'bank-details',
+    loadChildren: () => import('./auth/bank-details/bank-details.module').then(m => m.BankDetailsModule)
   },
   {
     path: '',

@@ -39,12 +39,24 @@ export class AuthService {
     return this.userObject$.next(user);
   }
 
+  storeLoginStatus(status: boolean) {
+    return sessionStorage.setItem('bidbuba-user-status', JSON.stringify(status));
+  }
+
+  getLoginStatus() {
+    return sessionStorage.getItem('bidbuba-user-status') || null;
+  }
+
   getUser$() {
     return this.userObject$.asObservable();
   }
 
   isLoggedIn() {
     return !!this.getToken();
+  }
+
+  hasCompletedSetup() {
+    return !!this.getLoginStatus();
   }
 
   async clearSessionStorage() {
@@ -67,5 +79,13 @@ export class AuthService {
 
   createPaymentAccount() {
     return this.http.get(`${environment.bubaApi}/user/account/payment/create`).pipe(catchError((error) => throwError(error)));
+  }
+
+  addBankAccountDetails(bankAccountDetails) {
+    return this.http.post(`${environment.bubaApi}/user/account/add`, bankAccountDetails).pipe(catchError((error) => throwError(error)));
+  }
+
+  transferFundsToWallet(amount) {
+    return this.http.post(`${environment.bubaApi}/funding/transfer`, amount).pipe(catchError((error) => throwError(error)));
   }
 }

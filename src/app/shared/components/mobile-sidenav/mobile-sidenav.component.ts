@@ -9,7 +9,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 })
 export class MobileSidenavComponent implements OnInit, AfterViewInit {
   @Output() closeSideBarEmitter = new EventEmitter();
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(public authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
   }

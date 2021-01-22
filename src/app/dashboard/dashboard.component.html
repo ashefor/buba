@@ -43,10 +43,12 @@
                   {{userdetails?.winnings_balance | currency: '₦ '}}
                 </span>
                 <div class="p-mt-2">
-                  <a [routerLink]="['/withdrawals/new']" routerLinkActive="router-link-active"
-                    class="button button--secondary text--capital payment__addbutton">
+                  <a [routerLink]="['/withdrawals/new']" class="button button--secondary text--capital payment__addbutton">
                     withdraw
                   </a>
+                  <button (click)="openTransferModal()" class="p-ml-2 button button--secondary text--capital payment__addbutton">
+                  transfer to wallet
+                  </button>
                 </div>
               </ng-template>
             </div>
@@ -64,7 +66,7 @@
                   <div class="p-grid payment__container py-3">
                     <div class="p-col-12 payment__details">
                       <span class="payment__bank payment__details__item text--capital">
-                        {{userdetails.payment_bank_name? userdetails.payment_bank_name : 'N/A'}}
+                        {{userdetails.payment_bank_name? userdetails.payment_bank_name : 'Providus Bank'}}
                       </span>
                       <span class="payment__name payment__details__item text--capital">
                         {{userdetails.payment_account_name ? userdetails.payment_account_name : 'N/A'}}
@@ -110,7 +112,6 @@
             <ng-template #showReferral>
               <div class="p-grid referral__container py-3">
                 <div class="p-col-12 referral__details">
-                 
                   <span class="referral__bank referral__details__item text--capital">
                     Code: <strong>{{userdetails.referral_code? userdetails.referral_code : 'N/A'}}</strong>
                   </span>
@@ -120,14 +121,9 @@
                         </textarea>
                      </div>
                       <div class="p-col-2">
-                        <!-- <a class="button button p-mx-2" [href]="getURL()" target="_blank">
-                          <i class="pi pi-twitter" style="font-size: 1.5rem"></i>
-                        </a> -->
                         <button class="button button p-mx-2" (click)="copyTextToClipBoard(inputElement)">
                           <i class="pi pi-copy" style="font-size: 1.5rem"></i>
                         </button>
-                        <!-- <a href="whatsapp://send?text=www.google.com" data-text="Take a look at this awesome website:" class="wa_btn wa_btn_s" target="_blank">Share1</a> -->
-  
                       </div>
                    </div>
                 </div>
@@ -203,3 +199,39 @@
     </div>
   </div>
 </div>
+
+
+
+<p-dialog [(visible)]="displayPosition" styleClass="transfer-modal" [modal]="true" [style]="{width: '35rem'}"
+  [baseZIndex]="10000" [draggable]="false" [resizable]="false" (onHide)="resetModal()">
+  <div class="modal-content p-px-1 p-mt-2">
+    <h4 class="text--regular text--center p-mb-5">Enter how amount to transfer to wallet</h4>
+    <form [formGroup]="transferFundsForm" (ngSubmit)="transferFunds(transferFundsForm.value)">
+      <div class="p-fluid">
+        <div class="p-field form__item">
+          <label for="amount" class="form__label text--capital">amount</label>
+          <input type="text" class="form__input form__input--lg" formControlName='amount' pKeyFilter="num">
+          <ng-container
+          *ngIf="(formControls.amount.dirty || formControls.amount.touched) && formControls.amount.errors">
+          <span *ngIf="formControls.amount.errors.required"
+            class="p-invalid p-mb-2 p-d-block p-px-2">Enter amount</span>
+        </ng-container>
+        </div>
+          <ng-container *ngIf="transferFundsForm.errors && transferFundsForm.errors.badRequest">
+            <div class="p-field form__item">
+            <span class="p-invalid p-my-2 p-d-block">
+              {{transferFundsForm.errors.badRequest}}
+            </span>
+          </div>
+          </ng-container>
+        <div class="p-field form__item">
+          <button [disabled]="isTransferring" type="submit"
+            class="button button--secondary button--raised text--capital button--wide">
+            <i *ngIf="isTransferring" class="pi pi-spin pi-spinner p-mr-2"></i>
+            {{isTransferring ? 'please wait' : 'transfer'}}
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</p-dialog>

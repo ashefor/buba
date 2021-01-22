@@ -1,0 +1,159 @@
+<div class="bids">
+  <div class="card">
+    <div class="card__body">
+      <div class="bids__container">
+        <div class="pageheader">
+          <h1 class="pageheader__title text--capital">
+            games history
+          </h1>
+          <span class="pageheader__subtitle text--capital">
+            all your games history
+          </span>
+        </div>
+        <div class="pagebody bids__body">
+          <div class="p-grid">
+            <div class="p-col-12">
+              <div class="table__container">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>S/No</th>
+                      <th>Action</th>
+                      <th>Date Created</th>
+                      <th>Stake</th>
+                      <th>Game Type</th>
+                      <th>Game ID</th>
+                      <th>Game Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <ng-container *ngIf="gamesHistory && gamesHistory.length">
+                      <tr *ngFor="let bid of gamesHistory; let i = index">
+                        <td>{{i + 1}}</td>
+                        <td>
+                          <button (click)="showMore(bid)" pButton pRipple type="button" label="View"
+                            class="p-button-help p-button-sm"></button>
+                        </td>
+                        <td>{{bid.game.created_at | customeDate: "MMM DD, YYYY. h:mm:ss a"}}</td>
+                        <td>{{bid.game.stake | currency: '₦'}}</td>
+                        <td>{{bid.game.type == 2 ? "Quick Play" : 'Daily Special'}}</td>
+                        <td>{{bid.game.ticket_id ? bid.game.ticket_id : 'N/A'}}</td>
+                        <ng-container *ngIf="bid.game.status == '0'">
+                          <td>
+                            <span class="text--capital">Pending</span>
+                          </td>
+                        </ng-container>
+                        <ng-container *ngIf="bid.game.status == '1'">
+                          <td *ngIf="bid.game.win_status == '1'" class="text--capital">
+                            <span>{{bid.game.winnings | currency : '₦'}}</span>
+                            <i class="pi pi-star text--green p-ml-2"></i>
+                          </td>
+                        </ng-container>
+                        <ng-container *ngIf="bid.game.status == '2'">
+                          <td>
+                            <span class="text--capital text--danger">loss</span>
+                          </td>
+                        </ng-container>
+                      </tr>
+                    </ng-container>
+                    <ng-container *ngIf="gamesHistory && !gamesHistory.length">
+                      <tr>
+                        <td colspan="6">
+                          <p class="p-p-4 text--center text--capital">
+                            {{errorMsg}}
+                          </p>
+                        </td>
+                      </tr>
+                    </ng-container>
+                  </tbody>
+                </table>
+              </div>
+              <ng-container>
+                <div class="p-flex p-mt-3 p-ml-auto text--right">
+                  <button class="button p-mx-1 button--secondary text--capital" (click)="goPrevious()">
+                    previous
+                  </button>
+                  <button class="button p-mx-1 button--secondary text--capital" (click)="goNext()">
+                    next
+                  </button>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<p-dialog [(visible)]="displayPosition" styleClass="ticket-details-modal" [modal]="true" [style]="{width: '35rem'}"
+  [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+  <div class="modal-content p-px-1 p-mt-2" *ngIf="gameData">
+    <div class="howto">
+      <div class="game_ticket game_ticket--status">
+        <div *ngIf="gameData.game.status == '2'" class="p-mb-4 text--center text--danger">
+          <span class="ticket-details-icon">
+            <i style="font-size: 1.6rem" class="pi pi-times-circle"></i>
+          </span>
+          <p class="text--medium text--center p-mb-2 text--600">Game Lost</p>
+        </div>
+
+        <div *ngIf="gameData.game.status == '1'" class="p-mb-4 text--center text--primary">
+          <span class="ticket-details-icon">
+            <i style="font-size: 1.6rem" class="pi pi-star"></i>
+          </span>
+          <p class="text--medium text--center p-mb-2 text--600">Congratulations!</p>
+        </div>
+
+
+        <div *ngIf="gameData.game.status == '0'" class="p-mb-4 text--center text--green">
+          <span class="ticket-details-icon">
+            <i style="font-size: 1.6rem" class="pi pi-clock"></i>
+          </span>
+          <p class="text--medium text--center p-mb-2 text--600">Game Pending</p>
+        </div>
+
+        <div class="p-d-flex p-ai-center p-jc-between p-px-1 p-py-2 p-mb-1">
+          <span class="text--regular p-d-inline-block p-pr-1 text--grey">Your Selection:</span>
+          <div class="p-d-inline-flex p-pl-1">
+            <span
+              class="p-mx-1 text--600 text--regular game_ticket_num" [ngStyle]="{'background': gameData.game.status == '2' ? '#ff4d4f' : gameData.game.status == '1' ?  '#6FCF97' : '#03027f'}"><strong>{{gameData.game.L_1}}</strong></span>
+            <span
+              class="p-mx-1 text--600 text--regular game_ticket_num" [ngStyle]="{'background': gameData.game.status == '2' ? '#ff4d4f' : gameData.game.status == '1' ?  '#6FCF97' : '#03027f'}"><strong>{{gameData.game.L_2}}</strong></span>
+            <span
+              class="p-mx-1 text--600 text--regular game_ticket_num" [ngStyle]="{'background': gameData.game.status == '2' ? '#ff4d4f' : gameData.game.status == '1' ?  '#6FCF97' : '#03027f'}"><strong>{{gameData.game.L_3}}</strong></span>
+            <span
+              class="p-mx-1 text--600 text--regular game_ticket_num" [ngStyle]="{'background': gameData.game.status == '2' ? '#ff4d4f' : gameData.game.status == '1' ?  '#6FCF97' : '#03027f'}"><strong>{{gameData.game.L_4}}</strong></span>
+            <span
+              class="p-mx-1 text--600 text--regular game_ticket_num" [ngStyle]="{'background': gameData.game.status == '2' ? '#ff4d4f' : gameData.game.status == '1' ?  '#6FCF97' : '#03027f'}"><strong>{{gameData.game.L_5}}</strong></span>
+          </div>
+        </div>
+        <div class="p-d-flex p-ai-center p-jc-between p-px-1 p-py-2 p-mb-1">
+          <span class="text--regular p-d-inline-block p-pr-1 text--grey">Game Type:</span>
+          <span class="text--regular p-d-inline-block p-pl-1 text--600 text--grey">
+            <td>
+                <strong>{{gameData.game.type == 2 ? "Quick Play" : 'Daily Special'}}</strong>
+            </td>
+          </span>
+        </div>
+        <div class="p-d-flex p-ai-center p-jc-between p-px-1 p-py-2">
+          <span class="text--regular p-d-inline-block p-pr-1 text--grey">Winning Selection:</span>
+          <div class="p-d-inline-flex p-pl-1">
+            <span
+              class="p-mx-1 text--600 text--regular game_ticket_num" [ngStyle]="{'background': gameData.game.status == '2' ? '#ff4d4f' : gameData.game.status == '1' ?  '#6FCF97' : '#03027f'}"><strong>{{gameData.winning_number.L_1}}</strong></span>
+            <span
+              class="p-mx-1 text--600 text--regular game_ticket_num" [ngStyle]="{'background': gameData.game.status == '2' ? '#ff4d4f' : gameData.game.status == '1' ?  '#6FCF97' : '#03027f'}"><strong>{{gameData.winning_number.L_2}}</strong></span>
+            <span
+              class="p-mx-1 text--600 text--regular game_ticket_num" [ngStyle]="{'background': gameData.game.status == '2' ? '#ff4d4f' : gameData.game.status == '1' ?  '#6FCF97' : '#03027f'}"><strong>{{gameData.winning_number.L_3}}</strong></span>
+            <span
+              class="p-mx-1 text--600 text--regular game_ticket_num" [ngStyle]="{'background': gameData.game.status == '2' ? '#ff4d4f' : gameData.game.status == '1' ?  '#6FCF97' : '#03027f'}"><strong>{{gameData.winning_number.L_4}}</strong></span>
+            <span
+              class="p-mx-1 text--600 text--regular game_ticket_num" [ngStyle]="{'background': gameData.game.status == '2' ? '#ff4d4f' : gameData.game.status == '1' ?  '#6FCF97' : '#03027f'}"><strong>{{gameData.winning_number.L_5}}</strong></span>
+          </div>
+        </div>
+      </div>
+      <br>
+    </div>
+  </div>
+</p-dialog>

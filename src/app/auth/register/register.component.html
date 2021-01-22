@@ -1,14 +1,14 @@
 <div class="account p-grid">
   <div class="p-col-12 p-sm-9 p-md-10 p-lg-6 p-mx-auto account__container">
     <div class="account__head">
-      <a href="" class="account__head__logo">
+      <a class="account__head__logo">
         <img src="assets/img/buba-secondary.png" alt="buba">
       </a>
       <h1 class="account__head__title">Create your account</h1>
     </div>
     <div class="account__body">
       <div class="account__form">
-        <form  (ngSubmit)="register(registerForm.value)" [formGroup]="registerForm">
+        <form autocomplete="off" (ngSubmit)="register(registerForm.value)" [formGroup]="registerForm">
           <ng-container *ngIf="registerForm.errors">
             <span *ngIf="registerForm.errors.badRequest"
               class="p-invalid p-my-2 p-d-block p-text-center text--semi-small">
@@ -62,11 +62,13 @@
                   <span *ngIf="registerFormControls.phone_number.errors.required" id="phone_number-help"
                     class="p-invalid p-my-2 p-d-block">Phone number is
                     required</span>
+                    <span *ngIf="registerFormControls.phone_number.errors.pattern" id="phone_number-help"
+                    class="p-invalid p-my-2 p-d-block">Invalid phone number</span>
                 </ng-container>
               </div>
               <div class="p-field p-col-12 p-md-6 form__item">
                 <label for="referred_by" class="form__label text--capital">referral code(optional)</label>
-                <input type="tel" formControlName="referred_by" id="referred_by" class="form__input form__input--lg">
+                <input type="tel" autocomplete="none" formControlName="referred_by" id="referred_by" class="form__input form__input--lg">
               </div>
             </div>
             <div class="p-fluid p-formgrid p-grid">

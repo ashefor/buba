@@ -11,11 +11,11 @@ export class GetBidsService {
 
   constructor(private http: HttpClient) { }
 
-  fetchTransactions() {
-    return this.http.get(`${environment.bubaApi}/bid/history`).pipe(catchError((error) => throwError(error)));
-  }
-
   fetchOpenBids() {
     return this.http.get(`${environment.bubaApi}/bid/open`).pipe(catchError((error) => throwError(error)));
+  }
+
+  fetchAllBidHistory(pageDetails) {
+    return this.http.post(`${environment.bubaApi}/bid/history`, pageDetails).pipe(catchError((error) => throwError(error)));
   }
 }

@@ -1,0 +1,37 @@
+@import '../../../styles/abstract/variables';
+
+.game {
+    &_ticket {
+      position: relative;
+      background-color: $color-white;
+      padding: 1rem;
+      border-radius: .5rem;
+      margin-bottom: 1.5rem;
+  
+      &--status{
+          // border: 1px solid #f9f9f9;
+          padding: 0 1rem;
+      // box-shadow: 0 2px 4px 0 rgba(112, 121, 139, .18);
+      }
+  
+      &_num {
+        font-size: $font-size-semi-small;
+        background: inherit;
+        color: $color-white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 2.5rem;
+        height: 2.5rem;
+        font-weight: 700;
+        padding: .15rem;
+        border: none;
+        border-radius: 1rem;
+  
+        &_container {
+          border-bottom: 1px solid #f9f9f9;
+        }
+      }
+    }
+  
+  }

@@ -18,11 +18,13 @@ import { DialogModule } from 'primeng/dialog';
 import { CustomeDatePipe } from '../core/pipes/custome-date.pipe';
 import { MessageModule } from 'primeng/message';
 import { MessagesModule } from 'primeng/messages';
+import {TooltipModule} from 'primeng/tooltip';
+import { AddBankDetailsComponent } from './components/add-bank-details/add-bank-details.component';
 
 
 
 @NgModule({
-  declarations: [SidenavComponent, TopnavComponent, MobileSidenavComponent, CustomeDatePipe],
+  declarations: [SidenavComponent, TopnavComponent, MobileSidenavComponent, CustomeDatePipe, AddBankDetailsComponent],
   imports: [
     CommonModule,
     ButtonModule,
@@ -30,6 +32,7 @@ import { MessagesModule } from 'primeng/messages';
     ReactiveFormsModule,
     FormsModule,
     TableModule,
+    TooltipModule,
     ToggleButtonModule,
     DropdownModule,
     ProgressBarModule,
@@ -47,6 +50,7 @@ import { MessagesModule } from 'primeng/messages';
     ToggleButtonModule,
     ReactiveFormsModule,
     DropdownModule,
+    TooltipModule,
     MessagesModule,
     TableModule,
     FormsModule,
@@ -58,6 +62,7 @@ import { MessagesModule } from 'primeng/messages';
     MobileSidenavComponent,
     InputTextModule,
     SidebarModule,
+    AddBankDetailsComponent,
     RouterModule
   ]
 })
