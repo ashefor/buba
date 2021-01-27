@@ -4,7 +4,7 @@
       <a class="account__head__logo">
         <img src="assets/img/buba-secondary.png" alt="buba">
       </a>
-      <h1 class="account__head__title text--capital">create payment account</h1>
+      <h1 class="account__head__title text--capital">generate payment account for funding</h1>
     </div>
     <div class="account__body">
       <div class="account__form">
@@ -18,7 +18,7 @@
           <button type="submit" [disabled]="isCreating" (click)="createPaymentAccount()"
             class="button button--secondary button--raised button--wide text--capital">
             <i *ngIf="isCreating" class="pi pi-spin pi-spinner p-mr-2"></i>
-            {{isCreating ? 'creating..' : 'Create Account'}}
+            {{isCreating ? 'generating...' : 'generate payment account'}}
           </button>
         </ng-container>
         <ng-container *ngIf="currentPage === 2">

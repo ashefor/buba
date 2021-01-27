@@ -139,14 +139,14 @@ export class DailySpecialComponent implements OnInit {
     this.selectedNumbersContainer.forEach((parentitem: [], itemindex) => {
       const newObj = {} as any;
       parentitem.forEach((item, index) => {
-        newObj[`L_${index + 1}`] = item
-      })
+        newObj[`L_${index + 1}`] = item;
+      });
       tickets.push({ ...newObj, amount: this.stake_amount[itemindex] });
-    })
+    });
     const ticketsObj = {
       session_id: this.allHints.session_id,
-      tickets: tickets
-    }
+      tickets
+    };
     this.buyingTickets = true;
     this.service.buyTickets(ticketsObj).subscribe((data: any) => {
       this.loadingBar.stop();
