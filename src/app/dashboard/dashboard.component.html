@@ -29,6 +29,61 @@
                 </span>
               </ng-template>
             </div>
+            <div class="p-col-12 p-md-4 p-lg-12 payment p-ml-md-2 p-ml-lg-0">
+              <span class="payment__header text--upper">
+                payment account details
+              </span>
+              <ng-container *ngIf="loadingDetails; else loadedAccountDetails">
+                <div class="text--center loading">
+                  <i class="pi pi-spin pi-spinner"></i>
+                </div>
+              </ng-container>
+              <ng-template #loadedAccountDetails>
+                <div *ngIf="userdetails && userdetails.payment_bank_name; else noAccountDetails">
+                  <div class="p-grid payment__container py-3">
+                    <div class="p-col-12 payment__details">
+                      <div>
+                        <span class="payment__bank payment__details__item text--capital">bank name: </span>
+                      <strong class="p-ml-1 payment__bank payment__details__item text--capital">
+                        {{userdetails.payment_bank_name? userdetails.payment_bank_name : 'Providus Bank'}}
+                      </strong>
+                      </div>
+                     <div>
+                       <span class="payment__name payment__details__item text--capital">
+                        account name:
+                       </span>
+                      <strong class="p-ml-1 payment__name payment__details__item text--capital">
+                        {{userdetails.payment_account_name ? userdetails.payment_account_name : 'N/A'}}
+                      </strong>
+                     </div>
+                     <div>
+                       <span class="payment__name payment__details__item text--capital">account number:</span>
+                       <strong class="p-ml-1 payment__account payment__details__item text--700 text--capital">
+                        {{userdetails.payment_account_number ? userdetails?.payment_account_number : 'N/A'}}
+                      </strong>
+                     </div>
+                    </div>
+                    <div class="p-col-12 payment__details__item p-as-center">
+                      <button class="button button--secondary text--capital payment__addbutton payment__details__button"
+                        (click)="refreshAccountDetails()">
+                        refresh
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <ng-template #noAccountDetails>
+                  <div class="text--center loading">
+                    <p *ngIf="badRequestError" class="text--regular text--danger p-mb-2">{{badRequestError}}</p>
+                    <p class="text--regular">No Payment Account Found</p>
+                    <button [disabled]="isCreating"
+                      class="button button--sm button--secondary text--capital payment__addbutton payment__details__button"
+                      (click)="createPaymentAccount()">
+                      {{isCreating ? 'Creating..' : 'Create One'}}
+                    </button>
+                  </div>
+                </ng-template>
+              </ng-template>
+            </div>
             <div class="p-col-12 p-md-4 p-lg-12 balance p-ml-md-2 p-ml-lg-0">
               <span class="balance__header text--upper">
                 winning balance
@@ -50,50 +105,6 @@
                   transfer to wallet
                   </button>
                 </div>
-              </ng-template>
-            </div>
-            <div class="p-col-12 p-md-4 p-lg-12 payment p-ml-md-2 p-ml-lg-0">
-              <span class="payment__header text--upper">
-                payment account details
-              </span>
-              <ng-container *ngIf="loadingDetails; else loadedAccountDetails">
-                <div class="text--center loading">
-                  <i class="pi pi-spin pi-spinner"></i>
-                </div>
-              </ng-container>
-              <ng-template #loadedAccountDetails>
-                <div *ngIf="userdetails && userdetails.payment_bank_name; else noAccountDetails">
-                  <div class="p-grid payment__container py-3">
-                    <div class="p-col-12 payment__details">
-                      <span class="payment__bank payment__details__item text--capital">
-                        {{userdetails.payment_bank_name? userdetails.payment_bank_name : 'Providus Bank'}}
-                      </span>
-                      <span class="payment__name payment__details__item text--capital">
-                        {{userdetails.payment_account_name ? userdetails.payment_account_name : 'N/A'}}
-                      </span>
-                      <span class="payment__account payment__details__item text--700 text--capital">
-                        {{userdetails.payment_account_number ? userdetails?.payment_account_number : 'N/A'}}
-                      </span>
-                    </div>
-                    <div class="p-col-12 payment__details__item p-as-center">
-                      <button class="button button--secondary text--capital payment__addbutton payment__details__button"
-                        (click)="refreshAccountDetails()">
-                        refresh
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                <ng-template #noAccountDetails>
-                  <div class="text--center loading">
-                    <p *ngIf="badRequestError" class="text--regular text--danger p-mb-2">{{badRequestError}}</p>
-                    <p class="text--regular">No Payment Account Found</p>
-                    <button [disabled]="isCreating"
-                      class="button button--sm button--secondary text--capital payment__addbutton payment__details__button"
-                      (click)="createPaymentAccount()">
-                      {{isCreating ? 'Creating..' : 'Create One'}}
-                    </button>
-                  </div>
-                </ng-template>
               </ng-template>
             </div>
           </div>

@@ -1,12 +1,10 @@
 <div class="p-grid animate__animated animate__faster" [ngClass]="animation">
-  <div class="p-col-10 p-md-8 p-lg-6 p-mx-auto">
+  <div class="p-col-10 p-md-9 p-lg-8 p-mx-auto">
     <p class="text--regular text--danger text--capital p-mb-3 text--center">insufficient balance</p>
-    <!-- <p class="text--regular p-mb-6">Please make a transfer to the details below to continue</p> -->
     <p-messages severity="info">
       <ng-template pTemplate>
-
         <div class="text--regular">
-          Kindly make a bank transfer to the account details below.
+          Your current balance is <strong>{{accountDetails.balance | currency : '₦'}}</strong>, kindly make a bank transfer to the account details below to fund your Buba account in order to be able to buy bids or play games.
           <br>
           <br>
           Note that payments are set to reflect automatically.
@@ -16,6 +14,8 @@
         </div>
       </ng-template>
     </p-messages>
+  </div>
+  <div class="p-col-10 p-md-8 p-lg-6 p-mx-auto">
     <div class="p-fluid">
       <div class="p-grid">
         <div class="p-field p-col-5">
@@ -64,7 +64,7 @@
           <button type="button" [disabled]="processing" (click)="confirmPayment()"
             class="button button--secondary button--raised button--wide text--upper">
             <i *ngIf="processing" class="pi pi-spin pi-spinner p-mr-2"></i>
-            {{processing ? 'please wait' : 'proceed'}}
+            {{processing ? 'please wait' : 'confirm payment'}}
           </button>
         </div>
       </div>

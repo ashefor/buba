@@ -45,7 +45,9 @@
     position: relative;
     min-width: 0;
     // word-wrap: break-word;
-    background-color: $color-white;
+    // background-color: $color-white;
+    // background-color: $color-primary;
+    background-color: lighten($color: $color-primary, $amount: 65);
     background-clip: border-box;
     border: 0;
     border-radius: .75rem;
@@ -67,8 +69,8 @@
 
     &__details {
       &__item {
-        display: block;
-        font-size: $font-size-medium;
+        display: inline-block;
+        font-size: $font-size-regular;
         line-height: 1.5;
         color: $color-grey;
       }

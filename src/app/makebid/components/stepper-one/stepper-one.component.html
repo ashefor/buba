@@ -35,6 +35,9 @@
              <label>bid status</label>
              <p-progressBar [value]="getBidProgressValue(bidInfo.bid_details.start_date, bidInfo.bid_details.end_date)" [showValue]="false" [style]="{'height': '6px'}">
              </p-progressBar>
+             <div class="p-mt-2 p-mb-1 text--right" *ngIf="bidInfo.slot_left">
+               <span class="p-d-inline-block text--small text--tertiary">{{bidInfo?.slot_left.toLocaleString()}} slots left</span>
+             </div>
            </div>
            <div class="p-grid">
              <div class="p-col-7">
