@@ -25,13 +25,13 @@ const routes: Routes = [
     loadChildren: () => import('./auth/bank-details/bank-details.module').then(m => m.BankDetailsModule)
   },
   {
+    path: 'process_bid',
+    loadChildren: () => import('./makebid/makebid.module').then(m => m.MakebidModule)
+  },
+  {
     path: '',
     loadChildren: () => import('./main/main.module').then(m => m.MainModule)
   },
-  {
-    path: 'process_bid',
-    loadChildren: () => import('./makebid/makebid.module').then(m => m.MakebidModule)
-  }
 ];
 
 @NgModule({

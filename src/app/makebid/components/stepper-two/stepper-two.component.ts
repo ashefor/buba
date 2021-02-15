@@ -80,7 +80,7 @@ export class StepperTwoComponent implements OnInit, OnDestroy {
     this.registerForm = this.fb.group({
       firstname: [null, [Validators.required]],
       lastname: [null, [Validators.required]],
-      phone_number: [null, [Validators.required]],
+      phone_number: [null, [Validators.required, Validators.pattern("(0)[0-9 ]{10}")]],
       email: [null, [Validators.email, Validators.required]],
       password: [null, [Validators.required, Validators.minLength(6)]],
       referred_by: [null]

@@ -16,7 +16,7 @@
           <div class="p-grid p-p-2">
             <div class="p-col-12 p-md-4 p-lg-12 balance p-mr-md-2 p-mr-lg-0">
               <span class="balance__header text--upper">
-                balance
+                wallet
               </span>
               <ng-container *ngIf="loadingDetails; else loadedBalance">
                 <div class="text--center py-2 loading">
@@ -45,7 +45,7 @@
                       <div>
                         <span class="payment__bank payment__details__item text--capital">bank name: </span>
                       <strong class="p-ml-1 payment__bank payment__details__item text--capital">
-                        {{userdetails.payment_bank_name? userdetails.payment_bank_name : 'Providus Bank'}}
+                        {{userdetails.payment_bank_name? userdetails.payment_bank_name : 'Sterling Bank'}}
                       </strong>
                       </div>
                      <div>

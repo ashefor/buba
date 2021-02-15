@@ -29,6 +29,7 @@ export class StepperOneComponent implements OnInit, OnDestroy {
   howToModal: boolean;
 
   @Output() makeBidEmitter = new EventEmitter();
+  maxError: boolean;
   // tslint:disable-next-line: max-line-length
   constructor(private authService: AuthService, private loadingBar: LoadingBarService, private bidService: BidService, private toastr: ToastrService, private chref: ChangeDetectorRef) { }
 
@@ -80,8 +81,14 @@ export class StepperOneComponent implements OnInit, OnDestroy {
   changeQty(event) {
     if (event && event.value) {
       this.quantity = event.value;
+      if (this.quantity > this.bidInfo?.slot_left) {
+        this.maxError = true;
+      } else {
+        this.maxError = false;
+      }
     } else {
       this.quantity = 1;
+      this.maxError = false;
     }
     this.totalAmount = parseFloat(this.bidInfo.bid_details.price) * this.quantity;
   }

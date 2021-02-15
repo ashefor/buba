@@ -114,6 +114,8 @@
                   <span *ngIf="registerFormControls.phone_number.errors.required" id="phone_number-help"
                     class="p-invalid p-my-2 p-d-block">Phone number is
                     required</span>
+                    <span *ngIf="registerFormControls.phone_number.errors.pattern" id="phone_number-help"
+                    class="p-invalid p-my-2 p-d-block">Invalid phone number</span>
                 </ng-container>
               </div>
               <div class="p-field">
