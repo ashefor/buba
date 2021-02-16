@@ -59,6 +59,7 @@ export class MakebidComponent implements OnInit, OnDestroy {
 
   logUserIn(user) {
   }
+  
   fetchOneBid(bidId) {
     this.loadingBar.start();
     this.fetchBidSubscription = this.service.listOneBid(bidId).subscribe((data: any) => {

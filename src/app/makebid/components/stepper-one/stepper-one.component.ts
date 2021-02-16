@@ -90,31 +90,15 @@ export class StepperOneComponent implements OnInit, OnDestroy {
       this.quantity = 1;
       this.maxError = false;
     }
-    this.totalAmount = parseFloat(this.bidInfo.bid_details.price) * this.quantity;
+    this.totalAmount = parseFloat(this.bidInfo.bid_list.bid_prize) * this.quantity;
   }
 
-  // increaseQty() {
-  //   this.quantity++;
-  // }
-
-  // decreaseQty() {
-  //   if (this.quantity > 1) {
-  //     this.quantity--;
-  //   } else {
-  //     return;
-  //   }
-  // }
+ 
 
   getBidProgressValue(start, end) {
     const endDate = new Date(end);
     const startDate = new Date(start);
     const nowDate = new Date(Date.now());
-    // console.log(startDate.getTime(), endDate.getTime())
-    // if (this.bidType1) {
-    //   return ((this.bidInfo.bids_lucky_five / this.bidInfo.bid_list.total_bid_lucky_five) * 100);
-    // } else {
-    //   return ((this.bidInfo.bids_lucky_one / this.bidInfo.bid_list.total_bid_lucky_one) * 100);
-    // }
     const now = Math.abs(nowDate.getTime() - startDate.getTime()) / 3600000;
     const difference = Math.abs(endDate.getTime() - startDate.getTime()) / 3600000;
 
@@ -130,8 +114,8 @@ export class StepperOneComponent implements OnInit, OnDestroy {
       // bid_type: this.bidType1 ? '1' : '2',
       bid_type: '5',
       // tslint:disable-next-line: max-line-length
-      total_amount: this.totalAmount ? this.totalAmount.toString() : (parseFloat(this.bidInfo.bid_details.price) * this.quantity).toString(),
-      bid_price: this.bidInfo.bid_details.price,
+      total_amount: this.totalAmount ? this.totalAmount.toString() : (parseFloat(this.bidInfo.bid_list.bid_prize) * this.quantity).toString(),
+      bid_price: this.bidInfo.bid_list.bid_prize,
       product_name: this.bidInfo.bid_list.product_name,
       product_image: this.bidInfo.bid_list.product_image
     };
