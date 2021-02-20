@@ -16,7 +16,7 @@ export class RouterService {
         this.previousUrl = this.currentUrl;
         this.currentUrl = event.url;
       }
-    })
+    });
   }
 
   public getPreviousUrl() {

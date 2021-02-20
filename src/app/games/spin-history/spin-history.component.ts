@@ -1,49 +1,51 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { LoadingBarService } from '@ngx-loading-bar/core';
 import { ToastrService } from 'ngx-toastr';
-import { HttpErrorResponse } from '@angular/common/http';
-import { Observable, Subscription, TimeoutError } from 'rxjs';
-import { Title } from '@angular/platform-browser';
+import { Subscription, TimeoutError } from 'rxjs';
 import { GamesService } from '../services/games.service';
 
 @Component({
-  selector: 'app-history',
-  templateUrl: './history.component.html',
-  styleUrls: ['./history.component.scss']
+  selector: 'app-spin-history',
+  templateUrl: './spin-history.component.html',
+  styleUrls: ['./spin-history.component.scss']
 })
-export class HistoryComponent implements OnInit, OnDestroy {
+export class SpinHistoryComponent implements OnInit, OnDestroy {
+
   pagenumber = 1;
   pagesize = 10;
-  gamesHistory: any[];
+  spinHistory: any[];
   isFetchingHistory: boolean;
-  gamesHistorySubscription: Subscription;
-  errorMsg = 'no bids yet';
+  spinHistorySubscription: Subscription;
+  errorMsg = 'no spin yet';
   displayPosition: boolean;
   gameData: any;
   constructor(private gamesService: GamesService,
               private loadingBar: LoadingBarService,
               private toastr: ToastrService, private title: Title) {
-    this.title.setTitle('Buba - Account Games History');
+    this.title.setTitle('Buba - Account Spin History');
    }
 
   ngOnInit(): void {
-    this.fetchGamesHistory();
+    this.fetchSpinHistory();
   }
 
   ngOnDestroy() {
     this.loadingBar.stop();
   }
 
-  fetchGamesHistory() {
+  fetchSpinHistory() {
     const pageData = {
       page_number: this.pagenumber,
-      page_size: this.pagesize
+      page_size: this.pagesize,
+      search_text: ''
     };
     this.loadingBar.start();
-    this.gamesHistorySubscription = this.gamesService.fetchAllGamesHistory(pageData).subscribe((data: any) => {
+    this.spinHistorySubscription = this.gamesService.fetchAllSpinHistory(pageData).subscribe((data: any) => {
       this.loadingBar.stop();
       if (data.status === 'success') {
-        this.gamesHistory = data.game_history;
+        this.spinHistory = data.spins;
       }
     }, (error: any) => {
       this.loadingBar.stop();
@@ -66,14 +68,15 @@ export class HistoryComponent implements OnInit, OnDestroy {
     const pageData = {
       page_number: this.pagenumber,
       page_size: this.pagesize,
+      search_text: ''
     };
     this.loadingBar.start();
-    this.gamesHistorySubscription = this.gamesService.fetchAllGamesHistory(pageData).subscribe((data: any) => {
+    this.spinHistorySubscription = this.gamesService.fetchAllSpinHistory(pageData).subscribe((data: any) => {
       this.loadingBar.stop();
       if (data.status === 'success') {
-        this.gamesHistory = data.game_history;
+        this.spinHistory = data.game_history;
       }
-      if (!this.gamesHistory.length) {
+      if (!this.spinHistory.length) {
         this.errorMsg = 'no more results';
       }
     }, (error: any) => {

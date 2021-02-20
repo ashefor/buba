@@ -29,7 +29,6 @@ export class BidHistoryComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.loadingBar.stop();
-    this.bidsHistorySubscription.unsubscribe();
   }
 
   fetchBidsHistory() {

@@ -19,7 +19,7 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
   state: any = null;
   profileEditForm: FormGroup;
   loading: boolean;
-  profileEditSubscription = new Subscription();
+  profileEditSubscription: Subscription;
   userDetails: any;
   
   constructor(private fb: FormBuilder,
@@ -36,7 +36,6 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy() {
     this.loadingBar.stop();
-    this.profileEditSubscription.unsubscribe();
   }
 
   formInit() {

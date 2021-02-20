@@ -14,10 +14,6 @@ const routes: Routes = [
     component: SettingsComponent,
     children: [
       {
-        path: '',
-        redirectTo: 'profile-edit'
-      },
-      {
         path: 'profile-edit',
         component: ProfileEditComponent
       },
@@ -36,7 +32,12 @@ const routes: Routes = [
       {
         path: 'bank-account',
         component: BankAccountComponent
-      }
+      },
+      {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'profile-edit'
+      },
     ]
   }
 ];

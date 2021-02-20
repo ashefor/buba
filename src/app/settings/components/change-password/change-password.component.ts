@@ -16,7 +16,7 @@ import { ProfileService } from '../../services/profile.service';
 export class ChangePasswordComponent implements OnInit, OnDestroy {
   changePasswordForm: FormGroup;
   loading: boolean;
-  changePasswordSubscription = new Subscription();
+  changePasswordSubscription: Subscription;
   constructor(private fb: FormBuilder,
               private profileService: ProfileService,
               private toastr: ToastrService,  private loadingBar: LoadingBarService, private title: Title) { 
@@ -29,7 +29,6 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.loadingBar.stop();
-    this.changePasswordSubscription.unsubscribe();
   }
   formInit() {
     this.changePasswordForm = this.fb.group({

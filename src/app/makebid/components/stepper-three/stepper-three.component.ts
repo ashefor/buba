@@ -28,7 +28,6 @@ export class StepperThreeComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    // this.confirmPaymentSubscription.unsubscribe();
     this.loadingBar.stop();
   }
 

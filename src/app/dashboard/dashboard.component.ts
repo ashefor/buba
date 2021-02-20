@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { LoadingBarService } from '@ngx-loading-bar/core';
 import { ToastrService } from 'ngx-toastr';
-import { Observable, TimeoutError } from 'rxjs';
+import { Observable, Subscription, TimeoutError } from 'rxjs';
 import { AuthService } from '../core/services/auth.service';
 import { loggedInUser } from '../makebid/models/logged-user';
 import { BidService } from '../makebid/services/bid.service';
@@ -26,7 +26,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
   isTransferring: boolean;
   badRequestError: any;
   transferFundsForm: FormGroup;
+  userDetailSubscription: Subscription;
+  openBidsSubscription: Subscription;
+  createAccountSubscription: Subscription;
   text = 'Sign up on @bubang now with https://account.buba.ng/register?reffered_by=fola to enjoy more with less'
+  transferSubscription: Subscription;
 
   constructor(private authService: AuthService,
     private bidService: BidService,
@@ -67,7 +71,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   fetchUserDetails() {
     this.loadingDetails = true;
-    this.authService.getWalletBalance().subscribe((data: loggedInUser) => {
+    this.userDetailSubscription = this.authService.getWalletBalance().subscribe((data: loggedInUser) => {
       this.loadingDetails = false;
       this.userdetails = data.user;
       this.bidService.setWalletDetails(data.user);
@@ -89,7 +93,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   fetchOpenBids() {
     this.isFetchingBids = true;
-    this.dashboardService.fetchOpenBids().subscribe((data: any) => {
+    this.openBidsSubscription = this.dashboardService.fetchOpenBids().subscribe((data: any) => {
       this.isFetchingBids = false;
       if (data.status === 'success') {
         this.bidHistory = data.bids_history;
@@ -117,7 +121,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   createPaymentAccount() {
     this.isCreating = true;
     this.badRequestError = null;
-    this.authService.createPaymentAccount().subscribe((data: any) => {
+    this.createAccountSubscription = this.authService.createPaymentAccount().subscribe((data: any) => {
       this.isCreating = false;
       location.reload();
     }, (error: any) => {
@@ -153,7 +157,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }
     this.isTransferring = true;
     this.loadingBar.start();
-    this.authService.transferFundsToWallet(formValue).subscribe((data: any) => {
+    this.transferSubscription = this.authService.transferFundsToWallet(formValue).subscribe((data: any) => {
       this.loadingBar.stop();
       this.isTransferring = false;
       this.toastr.success(data.message);

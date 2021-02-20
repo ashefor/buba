@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { LoadingBarService } from '@ngx-loading-bar/core';
 import { ToastrService } from 'ngx-toastr';
-import { TimeoutError } from 'rxjs';
+import { Subscription, TimeoutError } from 'rxjs';
 import { BidService } from 'src/app/makebid/services/bid.service';
 import { WithdrawalService } from 'src/app/withdrawal/services/withdrawal.service';
 
@@ -17,6 +17,7 @@ export class BidStatusComponent implements OnInit, OnDestroy {
   bidStatusForm: FormGroup;
   loading: boolean;
   ticketDetails: any;
+  bidSubscription: Subscription;
   constructor(private fb: FormBuilder,
     private bidService: BidService,
     private toastr: ToastrService, private loadingBar: LoadingBarService, private title: Title) {
@@ -24,7 +25,7 @@ export class BidStatusComponent implements OnInit, OnDestroy {
      }
 
   ngOnInit(): void {
-    this.initStatusForm()
+    this.initStatusForm();
   }
 
   initStatusForm() {
@@ -51,7 +52,7 @@ export class BidStatusComponent implements OnInit, OnDestroy {
       this.ticketDetails = null;
       this.loadingBar.start();
       this.bidStatusForm.disable();
-      this.bidService.checkBidStatus(formvalue).subscribe((bidData: any) => {
+      this.bidSubscription = this.bidService.checkBidStatus(formvalue).subscribe((bidData: any) => {
         this.bidStatusForm.enable();
         this.loading = false;
         this.loadingBar.stop();

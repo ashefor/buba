@@ -41,7 +41,6 @@ export class MakebidComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.loadingBar.stop();
-    this.fetchBidSubscription.unsubscribe();
   }
 
   changePage() {
@@ -59,7 +58,7 @@ export class MakebidComponent implements OnInit, OnDestroy {
 
   logUserIn(user) {
   }
-  
+
   fetchOneBid(bidId) {
     this.loadingBar.start();
     this.fetchBidSubscription = this.service.listOneBid(bidId).subscribe((data: any) => {

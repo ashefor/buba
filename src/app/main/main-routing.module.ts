@@ -10,10 +10,6 @@ const routes: Routes = [
     component: MainComponent,
     children: [
       {
-        path: '',
-        redirectTo: 'dashboard'
-      },
-      {
         path: 'dashboard',
         canActivate: [AuthGuard],
         loadChildren: () => import('../dashboard/dashboard.module').then(m => m.DashboardModule)
@@ -41,7 +37,12 @@ const routes: Routes = [
         path: 'withdrawals',
         canActivate: [AuthGuard],
         loadChildren: () => import('../withdrawal/withdrawal.module').then(m => m.WithdrawalModule)
-      }
+      },
+      {
+        path: '',
+        redirectTo: 'dashboard',
+        pathMatch: 'full'
+      },
     ]
   }
 ];

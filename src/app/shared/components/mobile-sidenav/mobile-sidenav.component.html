@@ -6,7 +6,7 @@
         <span class="sidenav__item__text text--capital">dashboard</span>
       </a>
       <a class="accordion sidenav__item"
-        [ngClass]="{'active': games1RLA.isActive || games2RLA.isActive || games3RLA.isActive || games4RLA.isActive}">
+        [ngClass]="{'active': games1RLA.isActive || games2RLA.isActive || games3RLA.isActive || games4RLA.isActive|| games5RLA.isActive || games6RLA.isActive}">
         <i class="pi pi-play sidenav__item__icon"></i>
         <span class="sidenav__item__text text--capital">games</span>
         <i class="pi pi-angle-right iconRight"></i>
@@ -22,12 +22,22 @@
           <i class="pi pi-play sidenav__item__icon"></i>
           <span class="sidenav__item__text text--capital">Daily Special</span>
         </a>
-        <a class="sidenav__item" [routerLink]="['/games/history']" routerLinkActive="active" #games3RLA="routerLinkActive"
+        <a class="sidenav__item" [routerLink]="['/games/raffle']" routerLinkActive="active"
+          #games3RLA="routerLinkActive" (click)="closeSideBar($event)">
+          <i class="pi pi-play sidenav__item__icon"></i>
+          <span class="sidenav__item__text text--capital">Buba Spin</span>
+        </a>
+        <a class="sidenav__item" [routerLink]="['/games/spin-history']" routerLinkActive="active" #games4RLA="routerLinkActive"
+          (click)="closeSideBar($event)">
+          <i class="pi pi-ticket sidenav__item__icon"></i>
+          <span class="sidenav__item__text text--capital">Spin History</span>
+        </a>
+        <a class="sidenav__item" [routerLink]="['/games/history']" routerLinkActive="active" #games5RLA="routerLinkActive"
           (click)="closeSideBar($event)">
           <i class="pi pi-ticket sidenav__item__icon"></i>
           <span class="sidenav__item__text text--capital">History</span>
         </a>
-        <a class="sidenav__item" [routerLink]="['/games/status']" routerLinkActive="active" #games4RLA="routerLinkActive"
+        <a class="sidenav__item" [routerLink]="['/games/status']" routerLinkActive="active" #games6RLA="routerLinkActive"
           (click)="closeSideBar($event)">
           <i class="pi pi-ticket sidenav__item__icon"></i>
           <span class="sidenav__item__text text--capital">Ticket Status</span>

@@ -28,7 +28,6 @@ export class StepperFourComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    // this.makeBidSubscription.unsubscribe();
     this.loadingBar.stop();
   }
 

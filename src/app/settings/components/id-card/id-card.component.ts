@@ -15,7 +15,7 @@ export class IdCardComponent implements OnInit, OnDestroy {
   selectedFile: File;
   loading: boolean;
   badRequestError: any;
-  addIdCardSubscription = new Subscription();
+  addIdCardSubscription: Subscription;
   constructor(private profileService: ProfileService,
               private toastr: ToastrService,
               private loadingBar: LoadingBarService, private title: Title) {
@@ -27,7 +27,6 @@ export class IdCardComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.loadingBar.stop();
-    this.addIdCardSubscription.unsubscribe();
   }
 
   onFileChanged(event) {

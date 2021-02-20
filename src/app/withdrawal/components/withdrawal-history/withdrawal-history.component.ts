@@ -31,7 +31,6 @@ export class WithdrawalHistoryComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.loadingBar.stop();
-    this.withdrawalSubscription.unsubscribe();
   }
 
   fetchWithdrawalHistory() {

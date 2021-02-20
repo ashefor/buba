@@ -19,7 +19,7 @@ export class BankAccountComponent implements OnInit, OnDestroy {
   // tslint:disable-next-line: variable-name
   addBankAccountForm: FormGroup;
   loading: boolean;
-  addBankAccountSubscription = new Subscription();
+  addBankAccountSubscription: Subscription;
   userDetails: any;
 
   constructor(private fb: FormBuilder,
@@ -36,7 +36,6 @@ export class BankAccountComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy() {
     this.loadingBar.stop();
-    this.addBankAccountSubscription.unsubscribe();
   }
 
   formInit() {

@@ -40,14 +40,14 @@ export class StepperTwoComponent implements OnInit, OnDestroy {
   hide = true;
   hide2 = true;
   authType = 1;
-  loginSubscription = new Subscription();
+  loginSubscription: Subscription;
   loginForm: FormGroup;
   registerForm: FormGroup;
   resetForm: FormGroup;
   loggingIn: boolean;
   isRegistering: boolean;
   isResetting: boolean;
-  registerSubscription = new Subscription();
+  registerSubscription: Subscription;
   showResetForm = true;
   constructor(private fb: FormBuilder, private loadingBar: LoadingBarService, private auth: AuthService, private bidService: BidService, private toastr: ToastrService) { }
 
@@ -59,8 +59,6 @@ export class StepperTwoComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.loadingBar.stop();
-    // this.loginSubscription.unsubscribe();
-    // this.registerSubscription.unsubscribe();
   }
   formInit() {
     this.loginForm = this.fb.group({

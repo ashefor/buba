@@ -93,9 +93,9 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.router.navigate(['/payment-account']);
       }
     }, (error: any) => {
-      this.loggingIn = false;
       this.loadingBar.stop();
       this.loginForm.enable();
+      this.loggingIn = false;
       if (error instanceof HttpErrorResponse) {
         if (error.status === 400) {
           this.loginForm.setErrors({

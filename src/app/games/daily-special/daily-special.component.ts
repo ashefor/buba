@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { LoadingBarService } from '@ngx-loading-bar/core';
 import { ToastrService } from 'ngx-toastr';
@@ -30,7 +31,9 @@ export class DailySpecialComponent implements OnInit {
   disablePlayButton: boolean;
   constructor(private service: GamesService,
               private toastr: ToastrService,
-              private loadingBar: LoadingBarService, private router: Router) { }
+              private loadingBar: LoadingBarService, private router: Router, private title: Title) {
+                this.title.setTitle('Buba - Games | Daily Special');
+               }
 
   ngOnInit(): void {
     this.fetchGameSession();

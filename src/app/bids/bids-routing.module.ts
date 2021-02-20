@@ -10,10 +10,6 @@ const routes: Routes = [
     component: BidsComponent,
     children: [
       {
-        path: '',
-        redirectTo: 'open'
-      },
-      {
         path: 'status',
         loadChildren: () => import('../bids/bid-status/bid-status.module').then(m => m.BidStatusModule)
       },
@@ -24,7 +20,12 @@ const routes: Routes = [
       {
         path: 'history',
         loadChildren: () => import('../bids/bid-history/bid-history.module').then(m => m.BidHistoryModule)
-      }
+      },
+      {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'open'
+      },
     ]
   }
 ];

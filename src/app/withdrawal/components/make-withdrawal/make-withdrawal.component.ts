@@ -15,6 +15,7 @@ import { WithdrawalService } from '../../services/withdrawal.service';
 export class MakeWithdrawalComponent implements OnInit, OnDestroy {
   withdrawalForm: FormGroup;
   loading: boolean;
+  withdrawSubscription: Subscription;
   constructor(private fb: FormBuilder,
               private withdrawalService: WithdrawalService,
               private toastr: ToastrService, private loadingBar: LoadingBarService, private title: Title) {
@@ -108,7 +109,7 @@ export class MakeWithdrawalComponent implements OnInit, OnDestroy {
       this.loading = true;
       this.loadingBar.start();
       this.withdrawalForm.disable();
-      this.withdrawalService.makeWithdrawal(formvalue).subscribe((withdrawalData: any) => {
+      this.withdrawSubscription = this.withdrawalService.makeWithdrawal(formvalue).subscribe((withdrawalData: any) => {
         this.withdrawalForm.enable();
         this.loading = false;
         this.loadingBar.stop();

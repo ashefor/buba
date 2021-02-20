@@ -7,8 +7,8 @@ import * as moment from 'moment';
 export class CustomeDatePipe implements PipeTransform {
 
   transform(value: any, format: string): any {
-    if(value) {
-      return moment(value).format(format)
+    if (value) {
+      return moment(value).format(format);
     }
   }
 

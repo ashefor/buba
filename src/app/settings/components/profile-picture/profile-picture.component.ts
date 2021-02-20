@@ -17,7 +17,7 @@ export class ProfilePictureComponent implements OnInit, OnDestroy {
   loading: boolean;
   badRequestError: any;
   url;
-  addIdCardSubscription = new Subscription();
+  addIdCardSubscription: Subscription;
   user: any;
   imgHasLoaded = false;
 
@@ -37,7 +37,6 @@ export class ProfilePictureComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.loadingBar.stop();
-    this.addIdCardSubscription.unsubscribe();
   }
 
   onFileChanged(event) {

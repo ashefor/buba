@@ -31,7 +31,6 @@ export class FundingComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.loadingBar.stop();
-    this.fundingHistorySubscription.unsubscribe();
   }
 
   fetchFundingHistory() {

@@ -53,7 +53,7 @@ export class TokenInterceptor implements HttpInterceptor {
                 }
                 this.service.clearSessionStorage().then(() => this.service.storeUser(null));
                 // this.toastr.error('Please sign in to continue', 'Unauthorised!');
-                return EMPTY;
+                return throwError(error);
             } else {
                 return throwError(error);
             }

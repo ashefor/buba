@@ -4,14 +4,12 @@ import { DailySpecialComponent } from './daily-special/daily-special.component';
 import { GamesComponent } from './games.component';
 import { HistoryComponent } from './history/history.component';
 import { QuickPlayComponent } from './quick-play/quick-play.component';
+import { RaffleDrawComponent } from './raffle-draw/raffle-draw.component';
+import { SpinHistoryComponent } from './spin-history/spin-history.component';
 import { StatusComponent } from './status/status.component';
 
 
 const routes: Routes = [
-   {
-        path: '',
-        redirectTo: 'quick-play'
-      },
       {
         path: 'daily-special',
         component: DailySpecialComponent
@@ -27,7 +25,20 @@ const routes: Routes = [
       {
         path: 'history',
         component: HistoryComponent
-      }
+      },
+      {
+        path: 'raffle',
+        component: RaffleDrawComponent
+      },
+      {
+        path: 'spin-history',
+        component: SpinHistoryComponent
+      },
+      {
+        path: '',
+        pathMatch: '',
+        redirectTo: 'quick-play'
+      },
 ];
 
 @NgModule({
