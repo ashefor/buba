@@ -18,27 +18,34 @@
                     <thead>
                       <tr>
                         <th>S/No</th>
+                        <th>Status</th>
                         <th>Product Name</th>
                         <th>Date Created</th>
                         <th>Stake</th>
-                        <th>Win Status</th>
+                        <th>Winnings</th>
                       </tr>
                     </thead>
                     <tbody>
                       <ng-container *ngIf="spinHistory && spinHistory.length">
                         <tr *ngFor="let spin of spinHistory; let i = index">
-                          <td>{{i + 1}}</td>
+                          <td>{{i + 1}}</td> 
+                          <td>
+                            <span *ngIf="spin.status == 1" class="p-tag p-tag-success">Won</span>
+                            <span *ngIf="spin.status == 0" class="p-tag p-tag-danger">Loss</span>
+                            <span *ngIf="spin.status == 2" class="p-tag p-tag-info">Cash</span>
+                            <span *ngIf="spin.status == 3" class="p-tag p-tag-info">Cash Back</span>
+                          </td>
                           <td>
                             {{spin.product_name}}
                           </td>
                           <td>{{spin.updated_at | customeDate: "MMM DD, YYYY. h:mm:ss a"}}</td>
                           <td>{{spin.stake_amount | currency: '₦'}}</td>
                           <td>
-                            <span *ngIf="spin.win_category !== 'CASH'">
-                                {{spin.win_value}}
+                            <span *ngIf="spin.win_category != '1'">
+                              {{spin.win_value | currency: '₦'}}
                               </span>
-                              <span *ngIf="spin.win_category === 'CASH'">
-                                {{spin.win_value | currency: '₦'}}
+                              <span *ngIf="spin.status == '1'">
+                                {{spin.win_value}}
                               </span>
                           </td>
                         </tr>

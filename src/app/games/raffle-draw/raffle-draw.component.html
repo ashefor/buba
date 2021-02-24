@@ -3,7 +3,7 @@
     <div class="card__body p-d-flex p-flex-column">
       <div class="p-d-md-inline-flex pageheader p-mb-0">
         <h1 class="pageheader__title text--capital">
-          buba spin
+          buba wheel
         </h1>
       </div>
       <ng-container *ngIf="loadingDetails else doneLoading">
@@ -34,38 +34,41 @@
             </div>
             <div class="p-col-12 p-md-7 p-lg-6 p-mx-auto">
               <div class="p-mb-4 p-mt-3">
-               <div class="p-d-none p-d-sm-block">
-                     <p-dropdown [resetFilterOnHide]="true" (onChange)="selectItem($event, raffle)" [options]="entries" styleClass="product-dropdown"
-                  [(ngModel)]="selectedEntry" optionLabel="product_name" [filter]="true"
-                  [showClear]="true" placeholder="Select an Item">
-                  <ng-template pTemplate="selectedItem">
-                    <div class="entry-item p-d-flex p-ai-center" *ngIf="selectedEntry">
-                      <img [src]="selectedEntry.product_image" width="30" class="p-mr-2" />
-                      <div>{{selectedEntry.product_name}}</div>
-                    </div>
-                  </ng-template>
-                  <ng-template pTemplate="item" let-entry>
-                    <div class="entry-item p-d-flex p-ai-center">
-                      <img [src]="entry.value.product_image" width="30" class="p-mr-2" />
-                      <div class="text--regular">{{entry.value.product_name}}</div>
-                    </div>
-                  </ng-template>
-                </p-dropdown>
-               </div>
-               <div class="p-d-sm-none">
-                <div class="select">
-                    <select [(ngModel)]="selectedEntry" (ngModelChange)="showMe($event, raffle)" class="form__input form__input--lg">
-                      <option [value]="null" disabled>Select Item</option>
-                      <option *ngFor="let entry of entries" [ngValue]="entry">{{entry.product_name}}</option>
+                <div class="p-d-none p-d-sm-block">
+                  <p-dropdown [resetFilterOnHide]="true" (onChange)="selectItem($event, raffle)" [options]="entries"
+                    styleClass="product-dropdown" [(ngModel)]="selectedEntry" optionLabel="product_name" [filter]="true"
+                    [showClear]="true" placeholder="Select what to win">
+                    <ng-template pTemplate="selectedItem">
+                      <div class="entry-item p-d-flex p-ai-center" *ngIf="selectedEntry">
+                        <img [src]="selectedEntry.product_image" width="30" class="p-mr-2" />
+                        <div>Win {{selectedEntry.product_name}}</div>
+                      </div>
+                    </ng-template>
+                    <ng-template pTemplate="item" let-entry>
+                      <div class="entry-item p-d-flex p-ai-center">
+                        <img [src]="entry.value.product_image" width="30" class="p-mr-2" />
+                        <div class="text--regular">{{entry.value.product_name}}</div>
+                      </div>
+                    </ng-template>
+                  </p-dropdown>
+                </div>
+                <div class="p-d-sm-none">
+                  <div class="select">
+                    <select [(ngModel)]="selectedEntry" (ngModelChange)="selectMobile($event, raffle)"
+                      class="form__input form__input--lg">
+                      <option [value]="null" disabled>Select what to win</option>
+                      <option *ngFor="let entry of entries" [ngValue]="entry">Win {{entry.product_name}}</option>
                     </select>
                     <span class="select__icon">
                       <i class="pi pi-sort"></i>
                     </span>
-                   </div>
-               </div>  
-            </div>
-              <div class="text--center raffle_draw">
+                  </div>
+                </div>
+              </div>
+              
+              <div class="text--center">
                 <span class="spinner spinner-indicator"></span>
+              <div class="raffle_draw">
                 <ul class="raffle_container" #raffle>
                   <li>
                     <div class="loss raffle_item">
@@ -97,6 +100,12 @@
                       <p>
                         <strong>10%</strong>
                       </p>
+                      <p>
+                        Cash
+                      </p>
+                      <p>
+                        Back
+                      </p>
                       <i class="pi pi-check"></i>
                     </div>
                   </li>
@@ -126,10 +135,7 @@
                         <strong>20%</strong>
                       </p>
                       <p>
-                        Cash
-                      </p>
-                      <p>
-                        Back
+                        Winnings
                       </p>
                     </div>
                   </li>
@@ -141,9 +147,6 @@
                     </div>
                   </li>
                 </ul>
-                <!-- <div class="p-mb-4">
-                        <input type="number" id="email" readonly [value]="selectedEntry?.stake_amount" class="form__input form__input--sm">
-                    </div> -->
                 <ng-container *ngIf="!showExtraBtns">
                   <button [disabled]="isSpinning || !selectedEntry" class="button p-mx-2 button--primary"
                     (click)="startSpin(raffle)">Spin {{selectedEntry?.stake_amount | currency : '₦'}} </button>
@@ -154,6 +157,7 @@
                   <button [disabled]="isSpinning" class="button p-mx-2 button--tertiary"
                     (click)="resetSpinner(raffle)">Reset</button>
                 </ng-container>
+              </div>
               </div>
             </div>
           </div>

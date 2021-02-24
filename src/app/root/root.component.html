@@ -1,0 +1,216 @@
+<section class="root_container">
+  <div class="card">
+    <div class="card__body p-d-flex p-flex-column">
+      <div class="p-d-md-inline-flex pageheader p-mb-0">
+        <h1 class="pageheader__title text--capital">
+          buba wheel
+        </h1>
+      </div>
+      <ng-container *ngIf="loadingDetails else doneLoading">
+        <div class="text--center py-2 pseudo">
+          <div class="lds-hourglass"></div>
+        </div>
+      </ng-container>
+      <ng-template #doneLoading>
+        <ng-container *ngIf="spinData; else noData">
+          <div class="p-grid">
+            <div class="p-col-12">
+              <p-messages severity="info">
+                <ng-template pTemplate>
+                  <div class="text--regular">
+                    <strong>How it Works</strong>
+                    <br>
+                    <p>
+                      BUBA WHEEL – this wheel of fortune has various options including but not limited to Cash Prizes,
+                      amazing products, and unbelievable deals. With one spin, you could become a millionaire, get a
+                      chance to try again, or win exciting prizes.
+                      Each product spin has different stakes and guarantees you a 50% chance of winning.
+                    </p>
+                    <br>
+                    You are now one spin away from changing your life forever!!
+                  </div>
+                </ng-template>
+              </p-messages>
+            </div>
+            <div class="spin_wrapper w-100">
+              <div class="p-col-12 p-md-7 p-mx-auto p-lg-6">
+                <div class="p-mb-4 p-mt-3">
+                  <div class="p-d-none p-d-sm-block">
+                    <p-dropdown (ngModelChange)="resetBid()" [resetFilterOnHide]="true" [options]="entries"
+                      styleClass="product-dropdown" [(ngModel)]="selectedEntry" optionLabel="product_name"
+                      [filter]="true" [showClear]="true" placeholder="Select an item to win">
+                      <ng-template pTemplate="selectedItem">
+                        <div class="entry-item p-d-flex p-ai-center" *ngIf="selectedEntry">
+                          <img [src]="selectedEntry.product_image" width="30" class="p-mr-2" />
+                          <div>{{selectedEntry.product_name}}</div>
+                        </div>
+                      </ng-template>
+                      <ng-template pTemplate="item" let-entry>
+                        <div class="entry-item p-d-flex p-ai-center">
+                          <img [src]="entry.value.product_image" width="30" class="p-mr-2" />
+                          <div class="text--regular">Win {{entry.value.product_name}}</div>
+                        </div>
+                      </ng-template>
+                    </p-dropdown>
+                  </div>
+                  <div class="p-d-sm-none">
+                    <div class="select game_select">
+                      <select (ngModelChange)="resetBid()" [(ngModel)]="selectedEntry"
+                        class="form__input form__input--lg">
+                        <option [value]="null" disabled>Select an item to win</option>
+                        <option *ngFor="let entry of entries" [ngValue]="entry">Win {{entry.product_name}}</option>
+                      </select>
+                      <span class="select__icon">
+                        <i class="pi pi-sort"></i>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="p-mt-3 p-d-flex p-ai-center p-jc-center" *ngIf="selectedEntry && !showStepper">
+                    <button (click)="startSpinProcess()" [disabled]="!selectedEntry"
+                      class="button p-mr-2 button--secondary">Spin with
+                      {{selectedEntry?.stake_amount | currency : '₦'}} </button>
+                    <button (click)="startBidProcess()" [disabled]="!selectedEntry"
+                      class="button p-ml-2 button--secondary">Bid for
+                      {{selectedEntry?.bid_list.bid_prize | currency : '₦'}}
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="showStepper">
+                <ng-container *ngIf="showBidStepper">
+                  <div class="stepper">
+                    <div class="stepper-indicator"
+                      [ngClass]="{'stepper-indicator--completed': (currentPage$ | async)  > 1, 'stepper-indicator--current': (currentPage$ | async)  === 1}">
+                      <i class="pi pi-check"></i>
+                      <span>1</span>
+                    </div>
+                    <span class="stepper-spacer stepper-spacer_bid"
+                      [ngClass]="{'stepper-spacer--completed': (currentPage$ | async)  > 1}">
+
+                    </span>
+                    <div class="stepper-indicator"
+                      [ngClass]="{'stepper-indicator--completed': (currentPage$ | async)  > 2, 'stepper-indicator--current': (currentPage$ | async)  === 2}">
+                      <i class="pi pi-check"></i>
+                      <span>2</span>
+                    </div>
+                    <span class="stepper-spacer stepper-spacer_bid"
+                      [ngClass]="{'stepper-spacer--completed': (currentPage$ | async)  > 2}">
+
+                    </span>
+                    <div class="stepper-indicator"
+                      [ngClass]="{'stepper-indicator--completed': (currentPage$ | async)  > 3, 'stepper-indicator--current': (currentPage$ | async)  === 3}">
+                      <i class="pi pi-check"></i>
+                      <span>3</span>
+                    </div>
+                    <span class="stepper-spacer stepper-spacer_bid"
+                      [ngClass]="{'stepper-spacer--completed': (currentPage$ | async)  > 3}">
+
+                    </span>
+                    <div class="stepper-indicator"
+                      [ngClass]="{'stepper-indicator--completed': (currentPage$ | async)  > 4, 'stepper-indicator--current': (currentPage$ | async)  === 4}">
+                      <i class="pi pi-check"></i>
+                      <span>4</span>
+                    </div>
+                    <span class="stepper-spacer stepper-spacer_bid"
+                      [ngClass]="{'stepper-spacer--completed': (currentPage$ | async)  > 4}">
+
+                    </span>
+                    <div class="stepper-indicator"
+                      [ngClass]="{'stepper-indicator--completed': (currentPage$ | async)  === 5}">
+                      <i class="pi pi-check"></i>
+                      <span>5</span>
+                    </div>
+                  </div>
+                  <div class="stepper-content">
+                    <div [ngSwitch]="(currentPage$ | async)">
+                      <div class="w-100">
+                        <ng-container *ngSwitchCase="1">
+                          <app-stepper-one [animation]="animation" [bidInfo]="selectedEntry" [error]="fetchBidErrors">
+                          </app-stepper-one>
+                        </ng-container>
+                        <ng-container *ngSwitchCase="2">
+                          <app-stepper-two [gameType]="gameType" [animation]="animation" (goBackEmitter)="handleGoback($event)"
+                            [bidDetails]="(bidDetails$ | async)"></app-stepper-two>
+                        </ng-container>
+                        <ng-container *ngSwitchCase="3">
+                          <app-stepper-three [gameType]="gameType" [accountDetails]="(accountDetails$ | async)"
+                            (stepThreeEmitter)="handleGoback($event)" [bidDetails]="(bidDetails$ | async)"
+                            [animation]="animation"></app-stepper-three>
+                        </ng-container>
+                        <ng-container *ngSwitchCase="4">
+                          <app-stepper-four [gameType]="gameType" [bidDetails]="(bidDetails$ | async)"
+                            (stepFourEmitter)="handleGoback($event)" [accountDetails]="(accountDetails$ | async)"
+                            [animation]="animation"></app-stepper-four>
+                        </ng-container>
+                        <ng-container *ngSwitchCase="5">
+                          <app-stepper-five [animation]="animation"></app-stepper-five>
+                        </ng-container>
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+                <ng-container *ngIf="!showBidStepper">
+                  <div class="stepper">
+                    <div class="stepper-indicator"
+                      [ngClass]="{'stepper-indicator--completed': (currentPage$ | async)  > 1, 'stepper-indicator--current': (currentPage$ | async)  === 1}">
+                      <i class="pi pi-check"></i>
+                      <span>1</span>
+                    </div>
+                    <span class="stepper-spacer stepper-spacer_spin"
+                      [ngClass]="{'stepper-spacer--completed': (currentPage$ | async)  > 1}">
+
+                    </span>
+                    <div class="stepper-indicator"
+                      [ngClass]="{'stepper-indicator--completed': (currentPage$ | async)  > 2, 'stepper-indicator--current': (currentPage$ | async)  === 2}">
+                      <i class="pi pi-check"></i>
+                      <span>2</span>
+                    </div>
+                    <span class="stepper-spacer stepper-spacer_spin"
+                      [ngClass]="{'stepper-spacer--completed': (currentPage$ | async)  > 2}">
+
+                    </span>
+                    <div class="stepper-indicator"
+                      [ngClass]="{'stepper-indicator--completed': (currentPage$ | async)  === 3}">
+                      <i class="pi pi-check"></i>
+                      <span>3</span>
+                    </div>
+                  </div>
+                  <div class="stepper-content">
+                    <div [ngSwitch]="(currentPage$ | async)">
+                      <div class="w-100">
+                        <ng-container *ngSwitchCase="1">
+                          <app-stepper-two [gameType]="gameType" [animation]="animation" (goBackEmitter)="handleGoback($event)"
+                            [bidDetails]="(bidDetails$ | async)"></app-stepper-two>
+                        </ng-container>
+                        <ng-container *ngSwitchCase="2">
+                          <app-stepper-three [gameType]="gameType" [selectedEntry]="selectedEntry"
+                            (stepThreeEmitter)="handleGoback($event)" [bidDetails]="(bidDetails$ | async)"
+                            [animation]="animation"></app-stepper-three>
+                        </ng-container>
+                        <ng-container *ngSwitchCase="3">
+                          <app-stepper-four [gameType]="gameType" [selectedEntry]="selectedEntry"
+                            (stepFourEmitter)="handleGoback($event)" [accountDetails]="(accountDetails$ | async)"
+                            [animation]="animation"></app-stepper-four>
+                        </ng-container>
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+                <div class="p-mt-2">
+                    <button (click)="resetBid()" class="button button--secondary">Go back</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        <ng-template #noData>
+          <div class="pseudo">
+            <p class="text--medium text--center">
+              No games found. Please come back later
+            </p>
+          </div>
+        </ng-template>
+      </ng-template>
+    </div>
+  </div>
+</section>

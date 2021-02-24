@@ -3,7 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { LoadingBarService } from '@ngx-loading-bar/core';
 import { ToastrService } from 'ngx-toastr';
-import { Subscription, TimeoutError } from 'rxjs';
+import { EMPTY, Subscription, TimeoutError } from 'rxjs';
 import { WithdrawalService } from '../../services/withdrawal.service';
 
 @Component({
@@ -51,8 +51,10 @@ export class WithdrawalHistoryComponent implements OnInit, OnDestroy {
       this.loadingBar.stop();
       this.isFetchingHistory = false;
       if (error instanceof HttpErrorResponse) {
-        if (error.status >= 400 && error.status <= 415) {
-          this.toastr.error(error.error.message, 'Error');
+        if (error.status === 401) {
+          return EMPTY;
+        } else if (error.status === 400) {
+          this.toastr.error(error.error.message);
         } else {
           this.toastr.error('Unknown error. Please try again later', 'Error');
         }
@@ -85,8 +87,10 @@ export class WithdrawalHistoryComponent implements OnInit, OnDestroy {
       this.loadingBar.stop();
       this.isFetchingHistory = false;
       if (error instanceof HttpErrorResponse) {
-        if (error.status >= 400 && error.status <= 415) {
-          this.toastr.error(error.error.message, 'Error');
+        if (error.status === 401) {
+          return EMPTY;
+        } else if (error.status === 400) {
+          this.toastr.error(error.error.message);
         } else {
           this.toastr.error('Unknown error. Please try again later', 'Error');
         }

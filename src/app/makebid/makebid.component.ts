@@ -25,6 +25,7 @@ export class MakebidComponent implements OnInit, OnDestroy {
   animation = 'animate__slideInRight';
   processing: boolean;
   fetchBidSubscription: Subscription;
+  gameType = 'bid';
   // tslint:disable-next-line: max-line-length
   constructor(private route: ActivatedRoute, private service: BidService, private loadingBar: LoadingBarService, private auth: AuthService, private toastr: ToastrService, private chref: ChangeDetectorRef, private title: Title) {
     this.title.setTitle('Buba - Complete Bid');

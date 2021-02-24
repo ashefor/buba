@@ -15,13 +15,7 @@ export class SidenavComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  changeRoute(route) {
-    console.log(route)
-    this.router.navigateByUrl(route)
-  }
-  // closeSideBar(action) {
-  //   this.closeSideBarEmitter.emit(action);
-  // }
+
   logOut() {
     this.authService.clearSessionStorage().then(() => {
       this.authService.storeUser(null);

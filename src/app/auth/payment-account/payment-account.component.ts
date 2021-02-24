@@ -47,6 +47,9 @@ export class PaymentAccountComponent implements OnInit, OnDestroy {
         if (error.status === 400) {
           this.errorMessage = error.error.message;
           this.toastr.error(error.error.message);
+          if (this.errorMessage === 'You can not reserve two accounts with the same reference') {
+            this.router.navigate(['/dashboard']);
+          }
         } else if (error.status === 401) {
           this.errorMessage = error.error.message;
         } else {
@@ -65,7 +68,7 @@ export class PaymentAccountComponent implements OnInit, OnDestroy {
       this.bidService.setWalletDetails(data.user);
       this.auth.storeUser(data.user);
       if (parseFloat(data.user.balance) > 0) {
-        this.router.navigate(['/bank-details']);
+        this.router.navigate(['/dashboard']);
       } else {
         this.toastr.info('Payment has not reflected yet. Please hold on');
       }

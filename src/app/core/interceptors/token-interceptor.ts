@@ -12,7 +12,9 @@ import { RouterService } from '../services/router.service';
 export class TokenInterceptor implements HttpInterceptor {
     constructor(private service: AuthService,
                 private router: Router,
-                private toastr: ToastrService, private bidService: BidService, private activatedRoute: ActivatedRoute, private routeStatus: RouterService) { }
+                private toastr: ToastrService,
+                private bidService: BidService, private activatedRoute: ActivatedRoute,
+                private routeStatus: RouterService) { }
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         // tslint:disable-next-line: no-string-literal
         const routePath = this.activatedRoute.snapshot['_routerState'].url;
@@ -40,9 +42,16 @@ export class TokenInterceptor implements HttpInterceptor {
         }
         return next.handle(req).pipe(catchError(error => {
             if (error instanceof HttpErrorResponse && error.status === 401) {
-                this.toastr.error('Authorization Failed! Please login to continue');
+                this.toastr.error('Authorization failed! Please login to continue');
+                this.service.clearSessionStorage().then(() => this.service.storeUser(null));
                 if (routePath.toLowerCase().includes('process_bid')) {
                     this.bidService.setCurrentPage(2);
+                } else if (routePath.toLowerCase().includes('landing')) {
+                   if (this.routeStatus.getRouteStatus() === 4) {
+                    this.bidService.setCurrentPage(1);
+                   } else {
+                    this.bidService.setCurrentPage(2);
+                   }
                 } else {
                     if (this.router.url.includes('bank-details')) {
                         this.routeStatus.setRouteStatus(0);
@@ -51,10 +60,10 @@ export class TokenInterceptor implements HttpInterceptor {
                     }
                     this.router.navigate(['/login']);
                 }
-                this.service.clearSessionStorage().then(() => this.service.storeUser(null));
                 // this.toastr.error('Please sign in to continue', 'Unauthorised!');
                 return throwError(error);
-            } else {
+            }
+            else {
                 return throwError(error);
             }
         }));

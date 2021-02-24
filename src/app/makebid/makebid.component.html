@@ -38,34 +38,41 @@
               <span class="stepper-spacer" [ngClass]="{'stepper-spacer--completed': (currentPage$ | async)  > 4}">
 
               </span>
-              <div class="stepper-indicator" [ngClass]="{'stepper-indicator--completed': (currentPage$ | async)  === 5}">
+              <div class="stepper-indicator"
+                [ngClass]="{'stepper-indicator--completed': (currentPage$ | async)  === 5}">
                 <i class="pi pi-check"></i>
                 <span>5</span>
               </div>
             </div>
-              <ng-container *ngIf="fetchBidErrors; else noError">
-                <div class="text--center error">
-                  <div class="error__item">
-                    <p class="text--capital error__item--text">Sorry, Bid {{fetchBidErrors}}</p>
-                  <a href="http://buba.ng" role="button" class="button button--secondary error__item--link">back to store</a>
-                  </div>
+            <ng-container *ngIf="fetchBidErrors; else noError">
+              <div class="text--center error">
+                <div class="error__item">
+                  <p class="text--capital error__item--text">Sorry, Bid {{fetchBidErrors}}</p>
+                  <a href="http://buba.ng" role="button" class="button button--secondary error__item--link">back to
+                    store</a>
                 </div>
-              </ng-container>
-              <ng-template #noError>
-                <div class="stepper-content">
+              </div>
+            </ng-container>
+            <ng-template #noError>
+              <div class="stepper-content">
                 <div [ngSwitch]="(currentPage$ | async)">
                   <div class="w-100">
                     <ng-container *ngSwitchCase="1">
-                      <app-stepper-one [animation]="animation" [bidInfo]="bidInfo" [error]="fetchBidErrors"></app-stepper-one>
+                      <app-stepper-one [animation]="animation" [bidInfo]="bidInfo" [error]="fetchBidErrors">
+                      </app-stepper-one>
                     </ng-container>
                     <ng-container *ngSwitchCase="2">
-                      <app-stepper-two [animation]="animation" (goBackEmitter)="handleGoback($event)" [bidDetails]="(bidDetails$ | async)" (loginEmitter)="logUserIn($event)"></app-stepper-two>
+                      <app-stepper-two [gameType]="gameType" [animation]="animation" (goBackEmitter)="handleGoback($event)"
+                        [bidDetails]="(bidDetails$ | async)" (loginEmitter)="logUserIn($event)"></app-stepper-two>
                     </ng-container>
                     <ng-container *ngSwitchCase="3">
-                      <app-stepper-three [accountDetails]="(accountDetails$ | async)" (stepThreeEmitter)="handleGoback($event)"  [bidDetails]="(bidDetails$ | async)" [animation]="animation"></app-stepper-three>
+                      <app-stepper-three [gameType]="gameType" [accountDetails]="(accountDetails$ | async)"
+                        (stepThreeEmitter)="handleGoback($event)" [bidDetails]="(bidDetails$ | async)"
+                        [animation]="animation"></app-stepper-three>
                     </ng-container>
                     <ng-container *ngSwitchCase="4">
-                      <app-stepper-four [bidDetails]="(bidDetails$ | async)" (stepFourEmitter)="handleGoback($event)" [accountDetails]="(accountDetails$ | async)" [animation]="animation"></app-stepper-four>
+                      <app-stepper-four [gameType]="gameType" [bidDetails]="(bidDetails$ | async)" (stepFourEmitter)="handleGoback($event)"
+                        [accountDetails]="(accountDetails$ | async)" [animation]="animation"></app-stepper-four>
                     </ng-container>
                     <ng-container *ngSwitchCase="5">
                       <app-stepper-five [animation]="animation"></app-stepper-five>
@@ -73,7 +80,7 @@
                   </div>
                 </div>
               </div>
-              </ng-template>
+            </ng-template>
           </div>
         </div>
       </div>

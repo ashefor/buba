@@ -5,7 +5,7 @@ import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { LoadingBarService } from '@ngx-loading-bar/core';
 import { ToastrService } from 'ngx-toastr';
-import { Subscription, TimeoutError } from 'rxjs';
+import { EMPTY, Subscription, TimeoutError } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { RouterService } from 'src/app/core/services/router.service';
 import { BidService } from 'src/app/makebid/services/bid.service';
@@ -37,7 +37,7 @@ export class BankDetailsComponent implements OnInit {
         this.addBankAccountForm.reset();
         if (this.auth.redirectUrl) {
           this.router.navigateByUrl(this.auth.redirectUrl);
-        } else if (this.routerService.getRouteStatus() === 1) {
+        } else if (this.routerService.getRouteStatus() === 0) {
           if (this.returnUrl && this.returnUrl.length) {
             this.router.navigateByUrl(this.returnUrl);
           } else {
@@ -51,7 +51,9 @@ export class BankDetailsComponent implements OnInit {
       this.loading = false;
       this.loadingBar.stop();
       if (error instanceof HttpErrorResponse) {
-        if (error.status === 400) {
+        if (error.status === 401) {
+          return EMPTY;
+        } else if (error.status === 400) {
           const badRequestError = error.error.message;
           this.addBankAccountForm.setErrors({
             badRequest: badRequestError

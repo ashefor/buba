@@ -23,8 +23,9 @@ export class BankAccountComponent implements OnInit, OnDestroy {
   userDetails: any;
 
   constructor(private fb: FormBuilder,
-    private profileService: ProfileService,
-    private toastr: ToastrService, private authService: AuthService, private loadingBar: LoadingBarService, private title: Title) {
+              private profileService: ProfileService,
+              private toastr: ToastrService,
+              private authService: AuthService, private loadingBar: LoadingBarService, private title: Title) {
     this.title.setTitle('Buba - Account Bank Details');
   }
 
@@ -61,8 +62,9 @@ export class BankAccountComponent implements OnInit, OnDestroy {
       this.loadingBar.stop();
       this.loading = false;
       if (bankData.status === 'success') {
+        const newuser = {...this.userDetails, bank_code: formvalue.bank_code, account_number: formvalue.account_number};
         this.toastr.success('Success', bankData.message);
-        this.addBankAccountForm.reset();
+        this.authService.storeUser(newuser);
       } else {
         this.toastr.error('Error!', bankData.message);
       }

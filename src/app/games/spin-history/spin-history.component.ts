@@ -3,7 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { LoadingBarService } from '@ngx-loading-bar/core';
 import { ToastrService } from 'ngx-toastr';
-import { Subscription, TimeoutError } from 'rxjs';
+import { EMPTY, Subscription, TimeoutError } from 'rxjs';
 import { GamesService } from '../services/games.service';
 
 @Component({
@@ -51,8 +51,10 @@ export class SpinHistoryComponent implements OnInit, OnDestroy {
       this.loadingBar.stop();
       this.isFetchingHistory = false;
       if (error instanceof HttpErrorResponse) {
-        if (error.status >= 400 && error.status <= 415) {
-          this.toastr.error(error.error.message, 'Error');
+        if (error.status === 401) {
+          return EMPTY;
+        } else if (error.status === 400) {
+          this.toastr.error(error.error.message);
         } else {
           this.toastr.error('Unknown error. Please try again later', 'Error');
         }
@@ -74,7 +76,7 @@ export class SpinHistoryComponent implements OnInit, OnDestroy {
     this.spinHistorySubscription = this.gamesService.fetchAllSpinHistory(pageData).subscribe((data: any) => {
       this.loadingBar.stop();
       if (data.status === 'success') {
-        this.spinHistory = data.game_history;
+        this.spinHistory = data.spins;
       }
       if (!this.spinHistory.length) {
         this.errorMsg = 'no more results';
@@ -83,8 +85,10 @@ export class SpinHistoryComponent implements OnInit, OnDestroy {
       this.loadingBar.stop();
       this.isFetchingHistory = false;
       if (error instanceof HttpErrorResponse) {
-        if (error.status >= 400 && error.status <= 415) {
-          this.toastr.error(error.error.message, 'Error');
+        if (error.status === 401) {
+          return EMPTY;
+        } else if (error.status === 400) {
+          this.toastr.error(error.error.message);
         } else {
           this.toastr.error('Unknown error. Please try again later', 'Error');
         }

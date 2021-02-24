@@ -27,7 +27,7 @@ const routes: Routes = [
         component: HistoryComponent
       },
       {
-        path: 'raffle',
+        path: 'wheel',
         component: RaffleDrawComponent
       },
       {

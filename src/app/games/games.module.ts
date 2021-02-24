@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, CurrencyPipe } from '@angular/common';
 
 import { GamesRoutingModule } from './games-routing.module';
 import { GamesComponent } from './games.component';
@@ -13,11 +13,13 @@ import { SpinHistoryComponent } from './spin-history/spin-history.component';
 
 
 @NgModule({
-  declarations: [GamesComponent, DailySpecialComponent, QuickPlayComponent, StatusComponent, HistoryComponent, RaffleDrawComponent, SpinHistoryComponent],
+  declarations: [GamesComponent,
+    DailySpecialComponent, QuickPlayComponent, StatusComponent, HistoryComponent, RaffleDrawComponent, SpinHistoryComponent],
   imports: [
     CommonModule,
     SharedModule,
     GamesRoutingModule
-  ]
+  ],
+  providers: [CurrencyPipe]
 })
 export class GamesModule { }

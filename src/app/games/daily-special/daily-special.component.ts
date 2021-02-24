@@ -4,7 +4,7 @@ import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { LoadingBarService } from '@ngx-loading-bar/core';
 import { ToastrService } from 'ngx-toastr';
-import { TimeoutError } from 'rxjs';
+import { EMPTY, TimeoutError } from 'rxjs';
 import { GamesService } from '../services/games.service';
 
 @Component({
@@ -54,7 +54,9 @@ export class DailySpecialComponent implements OnInit {
       this.loadingBar.stop();
       this.loadingDetails = false;
       if (error instanceof HttpErrorResponse) {
-        if (error.status >= 400 && error.status <= 415) {
+        if (error.status === 401) {
+          return EMPTY;
+        } else if (error.status === 400) {
           this.toastr.error(error.error.message);
         } else {
           this.toastr.error('Unknown error. Please try again later');
@@ -169,13 +171,15 @@ export class DailySpecialComponent implements OnInit {
         this.stake_amount = [];
         this.selectedNumbers = [];
       } else {
-        this.toastr.error(data.message)
+        this.toastr.error(data.message);
       }
     }, (error: any) => {
       this.buyingTickets = false;
       this.loadingBar.stop();
       if (error instanceof HttpErrorResponse) {
-        if (error.status >= 400 && error.status <= 415) {
+        if (error.status === 401) {
+          return EMPTY;
+        } else if (error.status === 400) {
           this.toastr.error(error.error.message);
         } else {
           this.toastr.error('Unknown error. Please try again later');

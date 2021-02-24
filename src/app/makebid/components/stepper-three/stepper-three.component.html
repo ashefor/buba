@@ -1,73 +1,153 @@
-<div class="p-grid animate__animated animate__faster" [ngClass]="animation">
-  <div class="p-col-10 p-md-9 p-lg-8 p-mx-auto">
-    <p class="text--regular text--danger text--capital p-mb-3 text--center">insufficient balance</p>
-    <p-messages severity="info">
-      <ng-template pTemplate>
-        <div class="text--regular">
-          Your current balance is <strong>{{accountDetails.balance | currency : '₦'}}</strong>, kindly make a bank transfer to the account details below to fund your Buba account in order to be able to buy bids or play games.
-          <br>
-          <br>
-          Note that payments are set to reflect automatically.
-          <br>
-          <br>
-          For further clarifications/assistance, you can call Moji on <strong>+234-906-632-7164.</strong>
+<ng-container *ngIf="gameType=== 'bid'">
+  <div class="p-grid animate__animated animate__faster" [ngClass]="animation">
+    <div class="p-col-10 p-md-9 p-lg-8 p-mx-auto">
+      <p class="text--regular text--danger text--capital p-mb-3 text--center">insufficient balance</p>
+      <p-messages severity="info">
+        <ng-template pTemplate>
+          <div class="text--regular">
+            Your current balance is <strong>{{accountDetails.balance | currency : '₦'}}</strong>, kindly make a bank transfer to the account details below to fund your Buba account in order to be able to buy bids or play games.
+            <br>
+            <br>
+            Note that payments are set to reflect automatically within 15 minutes.
+            <br>
+            <br>
+            For further clarifications/assistance, you can call Moji on <strong>+234-906-632-7164.</strong>
+          </div>
+        </ng-template>
+      </p-messages>
+    </div>
+    <div class="p-col-10 p-md-8 p-lg-6 p-mx-auto">
+      <div class="p-fluid">
+        <div class="p-grid">
+          <div class="p-field p-col-5">
+            <span class="text--semi-small text--upper account-title text--bold">
+              bank name
+            </span>
+          </div>
+          <div class="p-field p-col-7">
+            <span class="text--regular-alt text--upper account-subtitle">
+              {{accountDetails.payment_bank_name}}
+            </span>
+          </div>
         </div>
-      </ng-template>
-    </p-messages>
-  </div>
-  <div class="p-col-10 p-md-8 p-lg-6 p-mx-auto">
-    <div class="p-fluid">
-      <div class="p-grid">
-        <div class="p-field p-col-5">
-          <span class="text--semi-small text--upper account-title text--bold">
-            bank name
-          </span>
+        <div class="p-grid">
+          <div class="p-field p-col-5">
+            <span class="text--semi-small text--upper account-title text--bold">
+              account name
+            </span>
+          </div>
+          <div class="p-field p-col-7">
+            <span class="text--regular-alt text--upper account-subtitle">
+              {{accountDetails.payment_account_name}}
+            </span>
+          </div>
         </div>
-        <div class="p-field p-col-7">
-          <span class="text--regular-alt text--upper account-subtitle">
-            {{accountDetails.payment_bank_name}}
-          </span>
+        <div class="p-grid">
+          <div class="p-field p-col-5">
+            <span class="text--semi-small text--upper account-title text--bold">
+              account number
+            </span>
+          </div>
+          <div class="p-field p-col-7">
+            <span class="text--regular-alt text--upper account-subtitle">
+              {{accountDetails.payment_account_number}}
+            </span>
+          </div>
         </div>
-      </div>
-      <div class="p-grid">
-        <div class="p-field p-col-5">
-          <span class="text--semi-small text--upper account-title text--bold">
-            account name
-          </span>
-        </div>
-        <div class="p-field p-col-7">
-          <span class="text--regular-alt text--upper account-subtitle">
-            {{accountDetails.payment_account_name}}
-          </span>
-        </div>
-      </div>
-      <div class="p-grid">
-        <div class="p-field p-col-5">
-          <span class="text--semi-small text--upper account-title text--bold">
-            account number
-          </span>
-        </div>
-        <div class="p-field p-col-7">
-          <span class="text--regular-alt text--upper account-subtitle">
-            {{accountDetails.payment_account_number}}
-          </span>
-        </div>
-      </div>
-      <div class="p-grid p-field p-mt-5">
-        <div class="p-col-5 p-text-left">
-          <button type="button" [disabled]="processing" (click)="goBack()"
-            class="button button--secondary button--raised button--wide text--upper">
-            go back
-          </button>
-        </div>
-        <div class="p-col-7 p-text-right">
-          <button type="button" [disabled]="processing" (click)="confirmPayment()"
-            class="button button--secondary button--raised button--wide text--upper">
-            <i *ngIf="processing" class="pi pi-spin pi-spinner p-mr-2"></i>
-            {{processing ? 'please wait' : 'confirm payment'}}
-          </button>
+        <div class="p-grid p-field p-mt-5">
+          <div class="p-col-5 p-text-left">
+            <button type="button" [disabled]="processing" (click)="goBack()"
+              class="button button--secondary button--raised button--wide text--upper">
+              go back
+            </button>
+          </div>
+          <div class="p-col-7 p-text-right">
+            <button type="button" [disabled]="processing" (click)="confirmPayment()"
+              class="button button--secondary button--raised button--wide text--upper">
+              <i *ngIf="processing" class="pi pi-spin pi-spinner p-mr-2"></i>
+              {{processing ? 'please wait' : 'confirm payment'}}
+            </button>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+</ng-container>
+
+<ng-container *ngIf="gameType==='spin'">
+  <div class="p-grid animate__animated animate__faster" [ngClass]="animation">
+    <ng-container *ngIf="userDetails$ | async as userDetails"> 
+      <div class="p-col-10 p-md-9 p-lg-8 p-mx-auto">
+        <p class="text--regular text--danger text--capital p-mb-3 text--center">insufficient balance</p>
+        <p-messages severity="info">
+          <ng-template pTemplate>
+            <div class="text--regular">
+              Your current balance is <strong>{{userDetails.balance | currency : '₦'}}</strong>, kindly make a bank transfer to the account details below to fund your Buba account in order to be able to buy bids or play games.
+              <br>
+              <br>
+              Note that payments are set to reflect automatically within 15 minutes.
+              <br>
+              <br>
+              For further clarifications/assistance, you can call Moji on <strong>+234-906-632-7164.</strong>
+            </div>
+          </ng-template>
+        </p-messages>
+      </div>
+      <div class="p-col-10 p-md-8 p-lg-6 p-mx-auto">
+        <div class="p-fluid">
+          <div class="p-grid">
+            <div class="p-field p-col-5">
+              <span class="text--semi-small text--upper account-title text--bold">
+                bank name
+              </span>
+            </div>
+            <div class="p-field p-col-7">
+              <span class="text--regular-alt text--upper account-subtitle">
+                {{userDetails.payment_bank_name}}
+              </span>
+            </div>
+          </div>
+          <div class="p-grid">
+            <div class="p-field p-col-5">
+              <span class="text--semi-small text--upper account-title text--bold">
+                account name
+              </span>
+            </div>
+            <div class="p-field p-col-7">
+              <span class="text--regular-alt text--upper account-subtitle">
+                {{userDetails.payment_account_name}}
+              </span>
+            </div>
+          </div>
+          <div class="p-grid">
+            <div class="p-field p-col-5">
+              <span class="text--semi-small text--upper account-title text--bold">
+                account number
+              </span>
+            </div>
+            <div class="p-field p-col-7">
+              <span class="text--regular-alt text--upper account-subtitle">
+                {{userDetails.payment_account_number}}
+              </span>
+            </div>
+          </div>
+          <div class="p-grid p-field p-mt-5">
+            <!-- <div class="p-col-5 p-text-left">
+              <button type="button" [disabled]="processing" (click)="goBack()"
+                class="button button--secondary button--raised button--wide text--upper">
+                go back
+              </button>
+            </div> -->
+            <div class="p-col-7 p-text-right p-mx-auto">
+              <button type="button" [disabled]="processing" (click)="confirmSpinPayment()"
+                class="button button--secondary button--raised button--wide text--upper">
+                <i *ngIf="processing" class="pi pi-spin pi-spinner p-mr-2"></i>
+                {{processing ? 'please wait' : 'confirm payment'}}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</ng-container>

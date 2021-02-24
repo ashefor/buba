@@ -19,7 +19,7 @@
                 optionLabel="name" name="bank_code" formControlName="bank_code"></p-dropdown> -->
                <div class="select">
                 <select formControlName="bank_code" class="form__input form__input--lg">
-                  <option [value]="null" selected disabled>Select Bank</option>
+                  <option [value]="''" selected disabled>Select Bank</option>
                   <option *ngFor="let bank of banks" [value]="bank.bankcode">{{bank.name}}</option>
                 </select>
                 <span class="select__icon">

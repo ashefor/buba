@@ -27,7 +27,10 @@ export class LoginComponent implements OnInit, OnDestroy {
   loggingIn: boolean;
   returnUrl: any;
   loginSubscription = new Subscription();
-  constructor(private fb: FormBuilder, private loadingBar: LoadingBarService, private auth: AuthService, private bidService: BidService, private router: Router, private title: Title, private routerServices: RouterService) {
+  constructor(private fb: FormBuilder,
+              private loadingBar: LoadingBarService,
+              private auth: AuthService,
+              private bidService: BidService, private router: Router, private title: Title, private routerServices: RouterService) {
     this.title.setTitle('Buba - Account Login');
   }
 
@@ -44,8 +47,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.loginForm = this.fb.group({
       email: [null, [Validators.email, Validators.required]],
       password: [null, [Validators.required, Validators.minLength(6)]]
-    }, {
-      updateOn: 'blur'
     });
   }
 

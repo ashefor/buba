@@ -39,6 +39,10 @@ const routes: Routes = [
         loadChildren: () => import('../withdrawal/withdrawal.module').then(m => m.WithdrawalModule)
       },
       {
+        path: 'landing',
+        loadChildren: () => import('../root/root.module').then(m => m.RootModule)
+      },
+      {
         path: '',
         redirectTo: 'dashboard',
         pathMatch: 'full'

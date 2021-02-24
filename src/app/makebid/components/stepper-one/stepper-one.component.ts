@@ -12,7 +12,7 @@ import { BidService } from '../../services/bid.service';
   selector: 'app-stepper-one',
   templateUrl: './stepper-one.component.html',
   styleUrls: ['./stepper-one.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class StepperOneComponent implements OnInit, OnDestroy {
   @Input() error: any;

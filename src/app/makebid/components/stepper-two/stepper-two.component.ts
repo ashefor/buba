@@ -37,6 +37,8 @@ export class StepperTwoComponent implements OnInit, OnDestroy {
   @Input() bidDetails: bidDetails;
   @Output() loginEmitter = new EventEmitter();
   @Output() goBackEmitter = new EventEmitter();
+  @Input() gameType: string;
+
   hide = true;
   hide2 = true;
   authType = 1;
@@ -49,7 +51,10 @@ export class StepperTwoComponent implements OnInit, OnDestroy {
   isResetting: boolean;
   registerSubscription: Subscription;
   showResetForm = true;
-  constructor(private fb: FormBuilder, private loadingBar: LoadingBarService, private auth: AuthService, private bidService: BidService, private toastr: ToastrService) { }
+  constructor(private fb: FormBuilder,
+    private loadingBar: LoadingBarService,
+    private auth: AuthService,
+    private bidService: BidService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.formInit();
@@ -78,7 +83,7 @@ export class StepperTwoComponent implements OnInit, OnDestroy {
     this.registerForm = this.fb.group({
       firstname: [null, [Validators.required]],
       lastname: [null, [Validators.required]],
-      phone_number: [null, [Validators.required, Validators.pattern("(0)[0-9 ]{10}")]],
+      phone_number: [null, [Validators.required, Validators.pattern('(0)[0-9 ]{10}')]],
       email: [null, [Validators.email, Validators.required]],
       password: [null, [Validators.required, Validators.minLength(6)]],
       referred_by: [null]
@@ -102,10 +107,11 @@ export class StepperTwoComponent implements OnInit, OnDestroy {
   }
 
   logIn(formvalue) {
-    for (const i in this.loginForm.controls) {
-      this.loginForm.controls[i].markAsDirty();
-      this.loginForm.controls[i].updateValueAndValidity();
-    }
+    Object.keys(this.loginForm.controls).forEach(key => {
+      this.loginForm.controls[key].markAsDirty();
+      this.loginForm.controls[key].updateValueAndValidity();
+    });
+
     if (this.loginForm.invalid) {
       return;
     }
@@ -116,19 +122,23 @@ export class StepperTwoComponent implements OnInit, OnDestroy {
     this.loadingBar.start();
     this.loggingIn = true;
     this.loginForm.disable();
-    this.loginSubscription = this.auth.login(newFormValue).subscribe((loggedUser: loggedInUser) => {
+    this.auth.login(newFormValue).subscribe((loggedUser: loggedInUser) => {
       this.loadingBar.stop();
       this.loggingIn = false;
       this.loginForm.enable();
       this.auth.storeToken(loggedUser.token);
       this.auth.storeUser(loggedUser.user);
-      this.bidDetails.wallet_balance = loggedUser.user.balance;
-      this.bidService.setBidDetails(this.bidDetails);
       this.bidService.setWalletDetails(loggedUser.user);
-      if (parseFloat(loggedUser.user.balance) < parseFloat(this.bidDetails.total_amount)) {
-        this.bidService.setCurrentPage(3);
+      if (this.gameType === 'spin') {
+        return this.bidService.setCurrentPage(3);
       } else {
-        this.bidService.setCurrentPage(4);
+        this.bidDetails.wallet_balance = loggedUser.user.balance;
+        this.bidService.setBidDetails(this.bidDetails);
+        if (parseFloat(loggedUser.user.balance) < parseFloat(this.bidDetails.total_amount)) {
+          return this.bidService.setCurrentPage(3);
+        } else {
+          return this.bidService.setCurrentPage(4);
+        }
       }
     }, (error: any) => {
       this.loggingIn = false;
@@ -164,16 +174,20 @@ export class StepperTwoComponent implements OnInit, OnDestroy {
     this.loadingBar.start();
     this.isRegistering = true;
     this.registerForm.disable();
-    this.registerSubscription = this.auth.register(formvalue).pipe(tap((data: loggedInUser) => {
+    this.auth.register(formvalue).pipe(tap((data: loggedInUser) => {
       this.auth.storeToken(data.token);
-     }), concatMap(() => this.auth.createPaymentAccount()), concatMap(() => this.auth.getWalletBalance())).subscribe((newUser: any) => {
+    }), concatMap(() => this.auth.createPaymentAccount()), concatMap(() => this.auth.getWalletBalance())).subscribe((newUser: any) => {
       this.loadingBar.stop();
       this.isRegistering = false;
       this.registerForm.enable();
       this.auth.storeUser(newUser.user);
       this.bidService.setBidDetails(this.bidDetails);
       this.bidService.setWalletDetails(newUser.user);
-      this.bidService.setCurrentPage(3);
+      if (this.gameType === 'spin') {
+        this.bidService.setCurrentPage(2);
+      } else {
+        this.bidService.setCurrentPage(3);
+      }
     }, (error: any) => {
       this.isRegistering = false;
       this.loadingBar.stop();
@@ -195,10 +209,10 @@ export class StepperTwoComponent implements OnInit, OnDestroy {
   }
 
   reset(formvalue) {
-    for (const i in this.resetForm.controls) {
-      this.resetForm.controls[i].markAsDirty();
-      this.resetForm.controls[i].updateValueAndValidity();
-    }
+    Object.keys(this.resetForm.controls).forEach(key => {
+      this.resetForm.controls[key].markAsDirty();
+      this.resetForm.controls[key].updateValueAndValidity();
+    });
     if (this.resetForm.invalid) {
       return;
     }
@@ -225,7 +239,7 @@ export class StepperTwoComponent implements OnInit, OnDestroy {
           });
         }
       }
-    })
+    });
   }
 
   displayResetForm() {

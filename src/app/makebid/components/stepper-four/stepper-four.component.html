@@ -1,64 +1,159 @@
-<div class="p-grid animate__animated animate__faster" [ngClass]="animation">
-  <div class="p-col-12 p-sm-5">
-    <div class="bid">
-      <img class="bid--img" [src]="bidDetails.product_image" alt="product image" srcset="">
+<ng-container *ngIf="gameType==='bid'">
+  <div class="p-grid animate__animated animate__faster" [ngClass]="animation">
+    <div class="p-col-12 p-sm-5">
+      <div class="bid">
+        <img class="bid--img" [src]="bidDetails.product_image" alt="product image" srcset="">
+      </div>
     </div>
-  </div>
-  <div class="p-col-12 p-sm-7">
-    <div class="bid_info">
-      <span class="bid_info--heading">
-        {{bidDetails.product_name}}
-      </span>
-      <span class="bid_info--amount">
-        {{bidDetails.bid_price | currency : '₦ '}}
-      </span>
-      <div class="bid_info_auction">
-        <div class="p-grid">
-          <div class="p-col-7">
-            <span class="bid_info_auction--title">Number of bids</span>
+    <div class="p-col-12 p-sm-7">
+      <div class="bid_info">
+        <span class="bid_info--heading">
+          {{bidDetails.product_name}}
+        </span>
+        <span class="bid_info--amount">
+          {{bidDetails.bid_price | currency : '₦ '}}
+        </span>
+        <div class="bid_info_auction">
+          <div class="p-grid">
+            <div class="p-col-7">
+              <span class="bid_info_auction--title">Number of bids</span>
+            </div>
+            <div class="p-col-5">
+              <span class="bid_info_auction--subdetails">
+                {{bidDetails.no_of_bid}}
+              </span>
+            </div>
           </div>
-          <div class="p-col-5">
-            <span class="bid_info_auction--subdetails">
-              {{bidDetails.no_of_bid}}
-            </span>
+          <div class="p-grid">
+            <div class="p-col-7">
+              <span class="bid_info_auction--title">total amount</span>
+            </div>
+            <div class="p-col-5">
+              <span class="bid_info_auction--subdetails">
+                {{bidDetails.total_amount | currency : '₦'}}
+              </span>
+            </div>
+          </div>
+          <div class="p-grid">
+            <div class="p-col-7">
+              <span class="bid_info_auction--title">wallet balance</span>
+            </div>
+            <div class="p-col-5">
+              <span class="bid_info_auction--subdetails">
+                {{(bidDetails.wallet_balance ? bidDetails.wallet_balance : accountDetails.balance ? accountDetails.balance: '0') | currency : '₦'}}
+              </span>
+            </div>
           </div>
         </div>
         <div class="p-grid">
-          <div class="p-col-7">
-            <span class="bid_info_auction--title">total amount</span>
+          <div class="p-col-5 p-text-left">
+            <button type="button" [disabled]="processing" (click)="goBack()"
+              class="button button--wide button--noborder button--secondary button--raised text--upper">
+              go back
+            </button>
           </div>
-          <div class="p-col-5">
-            <span class="bid_info_auction--subdetails">
-              {{bidDetails.total_amount | currency : '₦'}}
-            </span>
-          </div>
-        </div>
-        <div class="p-grid">
-          <div class="p-col-7">
-            <span class="bid_info_auction--title">wallet balance</span>
-          </div>
-          <div class="p-col-5">
-            <span class="bid_info_auction--subdetails">
-              {{(bidDetails.wallet_balance ? bidDetails.wallet_balance : accountDetails.balance ? accountDetails.balance: '0') | currency : '₦'}}
-            </span>
+          <div class="p-col-7 p-text-right">
+            <button type="button" (click)="makeBid()" [disabled]="processing"
+              class="button button--wide button--noborder button--secondary button--raised text--upper">
+              <i *ngIf="processing" class="pi pi-spin pi-spinner p-mr-2"></i>
+              {{processing ? 'processing' : 'confirm bid'}}
+            </button>
           </div>
         </div>
       </div>
-      <div class="p-grid">
-        <div class="p-col-5 p-text-left">
-          <button type="button" [disabled]="processing" (click)="goBack()"
-            class="button button--wide button--noborder button--secondary button--raised text--upper">
-            go back
-          </button>
-        </div>
-        <div class="p-col-7 p-text-right">
-          <button type="button" (click)="makeBid()" [disabled]="processing"
-            class="button button--wide button--noborder button--secondary button--raised text--upper">
-            <i *ngIf="processing" class="pi pi-spin pi-spinner p-mr-2"></i>
-            {{processing ? 'processing' : 'confirm bid'}}
-          </button>
-        </div>
-      </div>
     </div>
   </div>
-</div>
+</ng-container>
+<ng-container *ngIf="gameType==='spin'">
+  <div class="spin_wheel_container">
+    <div class="text--center">
+      <span class="spinner spinner-indicator"></span>
+      <div class="raffle_draw">
+        <ul class="raffle_container" #raffle>
+          <li>
+            <div class="loss raffle_item">
+              <p>Loss</p>
+            </div>
+          </li>
+          <li>
+            <div class="loss raffle_item">
+              <p>Loss</p>
+            </div>
+          </li>
+          <li>
+            <div class="won raffle_item">
+              <p>
+                <strong>
+                  Won!
+                </strong>
+              </p>
+              <i class="pi pi-star"></i>
+            </div>
+          </li>
+          <li>
+            <div class="loss raffle_item">
+              <p>Loss</p>
+            </div>
+          </li>
+          <li>
+            <div class="won_10 raffle_item">
+              <p>
+                <strong>10%</strong>
+              </p>
+              <p>
+                Cash
+              </p>
+              <p>
+                Back
+              </p>
+              <i class="pi pi-check"></i>
+            </div>
+          </li>
+          <li>
+            <div class="spin-again raffle_item">
+              <p>
+                <strong>Spin</strong>
+              </p>
+              <p>
+                <strong>
+                  Again
+                </strong>
+              </p>
+              <i class="pi pi-replay"></i>
+            </div>
+          </li>
+          <li>
+            <div class="loss raffle_item">
+              <p>
+                Loss
+              </p>
+            </div>
+          </li>
+          <li>
+            <div class="won_50 raffle_item">
+              <p>
+                <strong>20%</strong>
+              </p>
+              <p>
+                Winnings
+              </p>
+            </div>
+          </li>
+          <li>
+            <div class="reset raffle_item">
+              <p>
+                Spin
+              </p>
+            </div>
+          </li>
+        </ul>
+  
+      </div>
+      <ng-container>
+        <button (click)="startSpin(raffle)" [disabled]="!selectedEntry" class="button p-mx-2 button--primary">Spin
+          {{selectedEntry?.stake_amount | currency : '₦'}} </button>
+      </ng-container>
+    </div>
+  </div>
+
+</ng-container>

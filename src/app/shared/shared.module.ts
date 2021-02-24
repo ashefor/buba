@@ -20,11 +20,22 @@ import { MessageModule } from 'primeng/message';
 import { MessagesModule } from 'primeng/messages';
 import {TooltipModule} from 'primeng/tooltip';
 import { AddBankDetailsComponent } from './components/add-bank-details/add-bank-details.component';
+import { StepperFiveComponent } from '../makebid/components/stepper-five/stepper-five.component';
+import { StepperFourComponent } from '../makebid/components/stepper-four/stepper-four.component';
+import { StepperOneComponent } from '../makebid/components/stepper-one/stepper-one.component';
+import { StepperThreeComponent } from '../makebid/components/stepper-three/stepper-three.component';
+import { StepperTwoComponent } from '../makebid/components/stepper-two/stepper-two.component';
 
 
 
 @NgModule({
-  declarations: [SidenavComponent, TopnavComponent, MobileSidenavComponent, CustomeDatePipe, AddBankDetailsComponent],
+  declarations: [SidenavComponent, TopnavComponent, MobileSidenavComponent, CustomeDatePipe, AddBankDetailsComponent, 
+    StepperOneComponent,
+    StepperTwoComponent,
+    StepperThreeComponent,
+    StepperFourComponent,
+    StepperFiveComponent
+  ],
   imports: [
     CommonModule,
     ButtonModule,
@@ -44,6 +55,11 @@ import { AddBankDetailsComponent } from './components/add-bank-details/add-bank-
     RouterModule
   ],
   exports: [
+    StepperOneComponent,
+    StepperTwoComponent,
+    StepperThreeComponent,
+    StepperFourComponent,
+    StepperFiveComponent,
     ButtonModule,
     InputNumberModule,
     ProgressBarModule,

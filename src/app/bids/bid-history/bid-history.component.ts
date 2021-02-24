@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { LoadingBarService } from '@ngx-loading-bar/core';
 import { ToastrService } from 'ngx-toastr';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Observable, Subscription, TimeoutError } from 'rxjs';
+import { EMPTY, Observable, Subscription, TimeoutError } from 'rxjs';
 import { Title } from '@angular/platform-browser';
 import { GetBidsService } from '../services/get-bids.service';
 
@@ -46,8 +46,10 @@ export class BidHistoryComponent implements OnInit, OnDestroy {
       this.loadingBar.stop();
       this.isFetchingHistory = false;
       if (error instanceof HttpErrorResponse) {
-        if (error.status >= 400 && error.status <= 415) {
-          this.toastr.error(error.error.message, 'Error');
+        if (error.status === 401) {
+          return EMPTY;
+        } else if (error.status === 400) {
+          this.toastr.error(error.error.message);
         } else {
           this.toastr.error('Unknown error. Please try again later', 'Error');
         }
@@ -77,8 +79,10 @@ export class BidHistoryComponent implements OnInit, OnDestroy {
       this.loadingBar.stop();
       this.isFetchingHistory = false;
       if (error instanceof HttpErrorResponse) {
-        if (error.status >= 400 && error.status <= 415) {
-          this.toastr.error(error.error.message, 'Error');
+        if (error.status === 401) {
+          return EMPTY;
+        } else if (error.status === 400) {
+          this.toastr.error(error.error.message);
         } else {
           this.toastr.error('Unknown error. Please try again later', 'Error');
         }

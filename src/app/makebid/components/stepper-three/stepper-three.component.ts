@@ -3,7 +3,7 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angu
 import { FormGroup } from '@angular/forms';
 import { LoadingBarService } from '@ngx-loading-bar/core';
 import { ToastrService } from 'ngx-toastr';
-import { Subscription, TimeoutError } from 'rxjs';
+import { Observable, Subscription, TimeoutError } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { bidDetails } from '../../models/bid-details';
 import { loggedInUser } from '../../models/logged-user';
@@ -19,12 +19,17 @@ export class StepperThreeComponent implements OnInit, OnDestroy {
   @Input() animation: any;
   @Input() bidDetails: bidDetails;
   @Input() accountDetails: any;
+  @Input() gameType: string;
+  @Input() selectedEntry: any;
   processing: boolean;
   confirmPaymentSubscription: Subscription;
+  userDetails$: Observable<any>;
+
   constructor(private loadingBar: LoadingBarService,
               private bidService: BidService, private authService: AuthService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
+    this.userDetails$ = this.authService.getUser$();
   }
 
   ngOnDestroy() {
@@ -44,7 +49,11 @@ export class StepperThreeComponent implements OnInit, OnDestroy {
       this.bidService.setWalletDetails(data.user);
       this.authService.storeUser(data.user);
       if (parseFloat(data.user.balance) > parseFloat(this.bidDetails.total_amount)) {
-        return this.bidService.setCurrentPage(4);
+        if (this.gameType === 'spin') {
+          return this.bidService.setCurrentPage(3);
+        } else {
+          return this.bidService.setCurrentPage(4);
+        }
       } else {
         this.toastr.info('Payment has not reflected yet. Please hold on');
       }
@@ -53,7 +62,45 @@ export class StepperThreeComponent implements OnInit, OnDestroy {
       this.processing = false;
       if (error instanceof HttpErrorResponse) {
         if (error.status === 401) {
-          this.bidService.setCurrentPage(2);
+          if (this.gameType === 'spin') {
+            this.bidService.setCurrentPage(1);
+          } else {
+            this.bidService.setCurrentPage(2);
+          }
+        } else {
+          this.toastr.error('Server error. Please try again later', 'Error');
+        }
+      } else if (error instanceof TimeoutError) {
+        this.toastr.error('Server timed out. Please try again later', 'Time Out!');
+      } else {
+        this.toastr.error('An unknown error has occured. Please try again later', 'Error');
+      }
+    });
+  }
+
+  confirmSpinPayment() {
+    this.loadingBar.start();
+    this.processing = true;
+    this.confirmPaymentSubscription = this.authService.getWalletBalance().subscribe((data: loggedInUser) => {
+      this.loadingBar.stop();
+      this.processing = false;
+      this.bidService.setWalletDetails(data.user);
+      this.authService.storeUser(data.user);
+      if (parseFloat(data.user.balance) > parseFloat(this.selectedEntry.stake_amount)) {
+        return this.bidService.setCurrentPage(3);
+      } else {
+        this.toastr.info('Payment has not reflected yet. Please hold on');
+      }
+    }, (error: any) => {
+      this.loadingBar.stop();
+      this.processing = false;
+      if (error instanceof HttpErrorResponse) {
+        if (error.status === 401) {
+          if (this.gameType === 'spin') {
+            this.bidService.setCurrentPage(1);
+          } else {
+            this.bidService.setCurrentPage(2);
+          }
         } else {
           this.toastr.error('Server error. Please try again later', 'Error');
         }

@@ -3,7 +3,7 @@ import { LoadingBarService } from '@ngx-loading-bar/core';
 import { ToastrService } from 'ngx-toastr';
 import { FundingService } from './services/funding.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Observable, Subscription, TimeoutError } from 'rxjs';
+import { EMPTY, Observable, Subscription, TimeoutError } from 'rxjs';
 import { Title } from '@angular/platform-browser';
 
 @Component({
@@ -48,8 +48,10 @@ export class FundingComponent implements OnInit, OnDestroy {
       this.loadingBar.stop();
       this.isFetchingHistory = false;
       if (error instanceof HttpErrorResponse) {
-        if (error.status >= 400 && error.status <= 415) {
-          this.toastr.error(error.error.message, 'Error');
+        if (error.status === 401) {
+          return EMPTY;
+        } else if (error.status === 400) {
+          this.toastr.error(error.error.message);
         } else {
           this.toastr.error('Unknown error. Please try again later', 'Error');
         }
@@ -79,8 +81,10 @@ export class FundingComponent implements OnInit, OnDestroy {
       this.loadingBar.stop();
       this.isFetchingHistory = false;
       if (error instanceof HttpErrorResponse) {
-        if (error.status >= 400 && error.status <= 415) {
-          this.toastr.error(error.error.message, 'Error');
+        if (error.status === 401) {
+          return EMPTY;
+        } else if (error.status === 400) {
+          this.toastr.error(error.error.message);
         } else {
           this.toastr.error('Unknown error. Please try again later', 'Error');
         }
