@@ -46,4 +46,40 @@
       }
     }
   }
+
+  @keyframes spin {
+    0% {
+      opacity: 0;
+    }
+
+    100% {
+      opacity: 1;
+    }
+  }
+
+  #winner {
+    position: fixed;
+    top: 8.5rem;
+    right: 2rem;
+    z-index: 1200;
+    // animation: linear 1s infinite spin;
+    // animation-fill-mode: forwards;
+    // animation-play-state: running;
+
+    @media all and (min-width: 768px) {
+      right: 5rem;
+    }
+
+    .winner {
+      background-color: #b3e5fce6;
+      padding: 1rem;
+      border-radius: 5px;
+
+      &_text {
+        display: inline-flex;
+        // color: $color-ash;
+        // font-size: $font-size-small;
+      }
+    }
+  }
 }

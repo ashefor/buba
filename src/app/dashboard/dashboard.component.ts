@@ -20,12 +20,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
   isFetchingBids: boolean;
   storedUserDetails$: Observable<any>;
   userdetails: any;
-  displayPosition: boolean;
+  displayTransferModal: boolean;
+  displayPromoModal: boolean;
   bidHistory: any[];
   isCreating: boolean;
   isTransferring: boolean;
+  isAdding: boolean;
   badRequestError: any;
   transferFundsForm: FormGroup;
+  promoCodeForm: FormGroup;
   userDetailSubscription: Subscription;
   openBidsSubscription: Subscription;
   createAccountSubscription: Subscription;
@@ -45,6 +48,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.fetchUserDetails();
     this.fetchOpenBids();
     this.formInit();
+    this.promoFormInit();
   }
 
   formInit() {
@@ -53,20 +57,40 @@ export class DashboardComponent implements OnInit, OnDestroy {
     });
   }
 
+  promoFormInit() {
+    this.promoCodeForm = this.fb.group({
+      code: [null, Validators.required],
+    });
+  }
+
   get formControls() {
     return this.transferFundsForm.controls;
+  }
+
+  get promoFormControls() {
+    return this.promoCodeForm.controls;
   }
 
   ngOnDestroy() {
     this.loadingDetails = false;
     this.isCreating = false;
+    this.isTransferring = false;
+    this.isAdding = false;
   }
 
   openTransferModal() {
-    this.displayPosition = true;
+    this.displayTransferModal = true;
+  }
+
+  openPromoModal() {
+    this.displayPromoModal = true;
   }
   resetModal() {
     this.transferFundsForm.reset();
+  }
+
+  resetPromoModal() {
+    this.promoCodeForm.reset();
   }
 
   fetchUserDetails() {
@@ -161,7 +185,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.loadingBar.stop();
       this.isTransferring = false;
       this.toastr.success(data.message);
-      this.displayPosition = false;
+      this.displayTransferModal = false;
       this.refreshAccountDetails();
       this.transferFundsForm.reset();
     }, (error: any) => {
@@ -171,6 +195,42 @@ export class DashboardComponent implements OnInit, OnDestroy {
         if (error.status === 400) {
           const badRequestError = error.error.message;
           this.transferFundsForm.setErrors({
+            badRequest: badRequestError
+          });
+        } else {
+          this.toastr.error(error.error ? error.error.message : 'An error has occured. Please try again later');
+        }
+      } else if (error instanceof TimeoutError) {
+        this.toastr.error('Server timeout. Please try again later');
+      }
+    });
+  }
+
+  redeemPromoCode(formValue) {
+    // tslint:disable-next-line: forin
+    for (const i in this.promoCodeForm.controls) {
+      this.promoCodeForm.controls[i].markAsDirty();
+      this.promoCodeForm.controls[i].updateValueAndValidity();
+    }
+    if (this.promoCodeForm.invalid) {
+      return;
+    }
+    this.isAdding = true;
+    this.loadingBar.start();
+    this.authService.redeemPromoCode(formValue).subscribe((data: any) => {
+      this.loadingBar.stop();
+      this.isAdding = false;
+      this.toastr.success(data.message);
+      this.displayPromoModal = false;
+      this.refreshAccountDetails();
+      this.promoCodeForm.reset();
+    }, (error: any) => {
+      this.isAdding = false;
+      this.loadingBar.stop();
+      if (error instanceof HttpErrorResponse) {
+        if (error.status === 400) {
+          const badRequestError = error.error.message;
+          this.promoCodeForm.setErrors({
             badRequest: badRequestError
           });
         } else {

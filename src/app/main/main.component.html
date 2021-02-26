@@ -4,6 +4,15 @@
    <app-mobile-sidenav (closeSideBarEmitter)="closeSideMenu()"></app-mobile-sidenav>
 </p-sidebar>
   <main class="main">
+    <div id="winner">
+     <div *ngIf="winner" class="winner">
+       <span class="p-mx-1 text--semi-small winner_text">
+        <span>{{winner?.firstname | titlecase}}&nbsp;{{winner?.lastname | titlecase}}</span>
+        <span class="p-mx-2">{{winner.phone_number}}</span>
+        <span>won&nbsp;{{winner.amount | currency : '₦'}}</span>
+      </span>
+     </div>
+    </div>
     <div class="main__sidebar">
       <app-sidenav></app-sidenav>
     </div>

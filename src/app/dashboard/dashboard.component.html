@@ -11,6 +11,7 @@
       </ng-container>
     </div>
     <div class="pagebody dashboard__body">
+      <app-winning-marquee></app-winning-marquee>
       <div class="p-grid">
         <div class="p-col-12 p-md-12 p-lg-5 p-mr-auto dashboard__body__left">
           <div class="p-grid p-p-2">
@@ -27,6 +28,12 @@
                 <span class="balance__amount text--700">
                   {{userdetails?.balance | currency: '₦ '}}
                 </span>
+                <div class="payment__details__item">
+                  <button class="button button--secondary text--capital payment__addbutton payment__details__button"
+                    (click)="openPromoModal()">
+                    add promo code
+                  </button>
+                </div>
               </ng-template>
             </div>
             <div class="p-col-12 p-md-4 p-lg-12 payment p-ml-md-2 p-ml-lg-0">
@@ -84,7 +91,7 @@
                 </ng-template>
               </ng-template>
             </div>
-            <div class="p-col-12 p-md-4 p-lg-12 balance p-ml-md-2 p-ml-lg-0">
+            <div class="p-col-12 p-md-4 p-lg-12 balance p-mr-md-2 p-mr-lg-0">
               <span class="balance__header text--upper">
                 winning balance
               </span>
@@ -107,6 +114,29 @@
                 </div>
               </ng-template>
             </div>
+            <!-- <div class="p-col-12 p-md-4 p-lg-12 balance p-ml-md-2 p-ml-lg-0">
+              <span class="balance__header text--upper">
+                winning balance
+              </span>
+              <ng-container *ngIf="loadingDetails; else loadedWiningBalance">
+                <div class="text--center py-2 loading">
+                  <i class="pi pi-spin pi-spinner"></i>
+                </div>
+              </ng-container>
+              <ng-template #loadedWiningBalance>
+                <span class="balance__amount text--700">
+                  {{userdetails?.winnings_balance | currency: '₦ '}}
+                </span>
+                <div class="p-mt-2">
+                  <a [routerLink]="['/withdrawals/new']" class="button button--secondary text--capital payment__addbutton">
+                    withdraw
+                  </a>
+                  <button (click)="openTransferModal()" class="p-ml-2 button button--secondary text--capital payment__addbutton">
+                  transfer to wallet
+                  </button>
+                </div>
+              </ng-template>
+            </div> -->
           </div>
         </div>
 
@@ -181,15 +211,8 @@
                                 </div>
                               </div>
                             </div>
-                            <!-- <div class="bids__open__item p-col-2 text--right">
-                            <a class="bids__open__footer__text bids__open__footer__text--link button">View</a>
-                          </div> -->
                           </div>
                         </div>
-                        <!-- <div class="bids__open__footer">
-                        <span class="bids__open__footer__text bids__open__footer__text--left">Ends on: Oct 30th</span>
-                        <a class="bids__open__footer__text bids__open__footer__text--link button button--secondary">View</a>
-                      </div> -->
                       </div>
                     </div>
                     <div class="bids__open__item p-pt-5">
@@ -213,7 +236,7 @@
 
 
 
-<p-dialog [(visible)]="displayPosition" styleClass="transfer-modal" [modal]="true" [style]="{width: '35rem'}"
+<p-dialog [(visible)]="displayTransferModal" styleClass="transfer-modal" [modal]="true" [style]="{width: '35rem'}"
   [baseZIndex]="10000" [draggable]="false" [resizable]="false" (onHide)="resetModal()">
   <div class="modal-content p-px-1 p-mt-2">
     <h4 class="text--regular text--center p-mb-5">Enter how amount to transfer to wallet</h4>
@@ -240,6 +263,40 @@
             class="button button--secondary button--raised text--capital button--wide">
             <i *ngIf="isTransferring" class="pi pi-spin pi-spinner p-mr-2"></i>
             {{isTransferring ? 'please wait' : 'transfer'}}
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</p-dialog>
+
+<p-dialog [(visible)]="displayPromoModal" styleClass="transfer-modal" [modal]="true" [style]="{width: '32rem'}"
+  [baseZIndex]="10000" [draggable]="false" [resizable]="false" (onHide)="resetPromoModal()">
+  <div class="modal-content p-px-1 p-mt-2">
+    <h4 class="text--regular text--center p-mb-5">Enter promo code</h4>
+    <form [formGroup]="promoCodeForm" (ngSubmit)="redeemPromoCode(promoCodeForm.value)">
+      <div class="p-fluid">
+        <div class="p-field form__item">
+          <label for="code" class="form__label text--capital">code</label>
+          <input type="text" class="form__input form__input--lg" formControlName='code'>
+          <ng-container
+          *ngIf="(promoFormControls.code.dirty || promoFormControls.code.touched) && promoFormControls.code.errors">
+          <span *ngIf="promoFormControls.code.errors.required"
+            class="p-invalid p-mb-2 p-d-block p-px-2">Enter promo code</span>
+        </ng-container>
+        </div>
+          <ng-container *ngIf="promoCodeForm.errors && promoCodeForm.errors.badRequest">
+            <div class="p-field form__item">
+            <span class="p-invalid p-my-2 p-d-block">
+              {{promoCodeForm.errors.badRequest}}
+            </span>
+          </div>
+          </ng-container>
+        <div class="p-field form__item">
+          <button [disabled]="isAdding" type="submit"
+            class="button button--secondary button--raised text--capital button--wide">
+            <i *ngIf="isAdding" class="pi pi-spin pi-spinner p-mr-2"></i>
+            {{isAdding ? 'please wait' : 'add'}}
           </button>
         </div>
       </div>

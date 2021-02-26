@@ -62,8 +62,7 @@ export class TokenInterceptor implements HttpInterceptor {
                 }
                 // this.toastr.error('Please sign in to continue', 'Unauthorised!');
                 return throwError(error);
-            }
-            else {
+            } else {
                 return throwError(error);
             }
         }));

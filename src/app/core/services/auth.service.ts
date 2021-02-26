@@ -14,12 +14,14 @@ export class AuthService {
   currentPage: number;
   user: any;
   userObject$ = new BehaviorSubject<any>(this.getUserObject$());
+  winners$ = new BehaviorSubject<any>(null);
+
   constructor(private http: HttpClient, private router: Router) {
 
   }
 
   public getUserObject$() {
-    const userData = sessionStorage.getItem('bidbuba-user')
+    const userData = sessionStorage.getItem('bidbuba-user');
     if (userData !== 'undefined' || userData !== undefined || userData !== null) {
       return JSON.parse(userData);
     } else {
@@ -87,5 +89,13 @@ export class AuthService {
 
   transferFundsToWallet(amount) {
     return this.http.post(`${environment.bubaApi}/funding/transfer`, amount).pipe(catchError((error) => throwError(error)));
+  }
+
+  retrieveWinners() {
+    return this.http.get(`${environment.bubaApi}/winners/list`).pipe(catchError((error) => throwError(error)));
+  }
+
+  redeemPromoCode(code) {
+    return this.http.post(`${environment.bubaApi}/promo_code/redeem`, code).pipe(catchError((error) => throwError(error)));
   }
 }

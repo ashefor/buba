@@ -1,0 +1,12 @@
+<ng-container>
+    <marquee *ngIf="winners$ | async as data" class="winning_marquee" behavior="scroll" direction="left" scrollamount="8">
+        <strong class="p-px-3">
+          <span class="p-mr-4 text--small winning_item">**WINNERS**</span>
+          <span *ngFor="let winner of data.winners" class="p-mx-1 text--small winning_item">
+            <span>{{winner.firstname}}&nbsp;{{winner.lastname}}</span>
+            <span class="p-mx-2">{{winner.phone_number}}</span>
+            <span>{{winner.amount | currency : '₦'}}</span>
+          </span>
+        </strong>
+      </marquee>
+</ng-container>

@@ -25,6 +25,7 @@ import { StepperFourComponent } from '../makebid/components/stepper-four/stepper
 import { StepperOneComponent } from '../makebid/components/stepper-one/stepper-one.component';
 import { StepperThreeComponent } from '../makebid/components/stepper-three/stepper-three.component';
 import { StepperTwoComponent } from '../makebid/components/stepper-two/stepper-two.component';
+import { WinningMarqueeComponent } from './components/winning-marquee/winning-marquee.component';
 
 
 
@@ -34,7 +35,8 @@ import { StepperTwoComponent } from '../makebid/components/stepper-two/stepper-t
     StepperTwoComponent,
     StepperThreeComponent,
     StepperFourComponent,
-    StepperFiveComponent
+    StepperFiveComponent,
+    WinningMarqueeComponent
   ],
   imports: [
     CommonModule,
@@ -60,6 +62,7 @@ import { StepperTwoComponent } from '../makebid/components/stepper-two/stepper-t
     StepperThreeComponent,
     StepperFourComponent,
     StepperFiveComponent,
+    WinningMarqueeComponent,
     ButtonModule,
     InputNumberModule,
     ProgressBarModule,

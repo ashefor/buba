@@ -3,10 +3,11 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { LoadingBarService } from '@ngx-loading-bar/core';
 import { ToastrService } from 'ngx-toastr';
-import { EMPTY, Subscription, TimeoutError } from 'rxjs';
+import { EMPTY, Observable, Subscription, TimeoutError } from 'rxjs';
 import { GamesService } from '../services/games.service';
 import Swal from 'sweetalert2';
 import { CurrencyPipe } from '@angular/common';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-raffle-draw',
@@ -25,9 +26,10 @@ export class RaffleDrawComponent implements OnInit, OnDestroy {
   showRetryBtn: boolean;
   fetchSubscription: Subscription;
   spinSubscription: Subscription;
+
   constructor(private service: GamesService,
-    private currency: CurrencyPipe,
-    private toastr: ToastrService, private loadingBar: LoadingBarService, private title: Title) {
+              private currency: CurrencyPipe,
+              private toastr: ToastrService, private loadingBar: LoadingBarService, private title: Title, private auth: AuthService) {
     this.title.setTitle('Buba - Games | Buba Spin');
   }
 
