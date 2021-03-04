@@ -27,7 +27,7 @@ export class StepperThreeComponent implements OnInit, OnDestroy {
   confirmPaymentSubscription: Subscription;
   userDetails$: Observable<any>;
   @Input() stakeAmount: string;
-  deposit: any;
+  deposit = null;
   isPaying: boolean;
   constructor(private loadingBar: LoadingBarService,
               private bidService: BidService,
@@ -151,6 +151,8 @@ export class StepperThreeComponent implements OnInit, OnDestroy {
       }
     });
   }
+
+
   makePayment() {
     const details = {
       amount: this.deposit,

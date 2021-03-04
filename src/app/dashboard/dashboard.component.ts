@@ -22,8 +22,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
   storedUserDetails$: Observable<any>;
   userdetails: any;
   displayTransferModal: boolean;
+  displayLoyaltyTransferModal: boolean;
   displayPromoModal: boolean;
   displayFundModal: boolean;
+  displayLoyaltyWithdrawModal: boolean;
   bidHistory: any[];
   isCreating: boolean;
   isTransferring: boolean;
@@ -32,13 +34,16 @@ export class DashboardComponent implements OnInit, OnDestroy {
   transferFundsForm: FormGroup;
   promoCodeForm: FormGroup;
   fundWalletForm: FormGroup;
+  loyaltyTransferForm: FormGroup;
+  loyaltyWithdrawForm: FormGroup;
   userDetailSubscription: Subscription;
   openBidsSubscription: Subscription;
   createAccountSubscription: Subscription;
-  text = 'Sign up on @bubang now with https://account.buba.ng/register?reffered_by=fola to enjoy more with less'
+  text = 'Sign up on @bubang now with https://account.buba.ng/register?reffered_by=fola to enjoy more with less';
   transferSubscription: Subscription;
   deposit: any;
   isPaying: boolean;
+  isWithdrawing: boolean;
   constructor(private authService: AuthService,
               private bidService: BidService,
               private toastr: ToastrService,
@@ -54,6 +59,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.formInit();
     this.promoFormInit();
     this.fundWalletFormInit();
+    this.loyaltyTransferFormInit();
+    this.loyaltyWithdrawFormInit();
   }
 
   formInit() {
@@ -74,6 +81,19 @@ export class DashboardComponent implements OnInit, OnDestroy {
     });
   }
 
+  loyaltyTransferFormInit() {
+    this.loyaltyTransferForm = this.fb.group({
+      amount: [null, [Validators.required, Validators.min(100)]],
+    });
+  }
+
+  loyaltyWithdrawFormInit() {
+    this.loyaltyWithdrawForm = this.fb.group({
+      amount: [null, [Validators.required, Validators.min(100)]],
+      password: [null, [Validators.required]],
+    });
+  }
+
   get formControls() {
     return this.transferFundsForm.controls;
   }
@@ -84,6 +104,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   get fundWalletFormControls() {
     return this.fundWalletForm.controls;
+  }
+
+  get loyaltyTransferFormControls() {
+    return this.loyaltyTransferForm.controls;
+  }
+
+  get loyaltyWithdrawFormControls() {
+    return this.loyaltyWithdrawForm.controls;
   }
 
   ngOnDestroy() {
@@ -105,6 +133,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.displayFundModal = true;
   }
 
+  openLoyaltyTransferModal() {
+    this.displayLoyaltyTransferModal = true;
+  }
+
+  openLoyaltyWithdrawModal() {
+    this.displayLoyaltyWithdrawModal = true;
+  }
+
   resetModal() {
     this.transferFundsForm.reset();
   }
@@ -115,6 +151,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   resetFundModal() {
     this.fundWalletForm.reset();
+  }
+
+  resetLoyaltyTransferModal() {
+    this.loyaltyTransferForm.reset();
+  }
+
+  resetLoyaltyWithdrawModal() {
+    this.loyaltyWithdrawForm.reset();
   }
 
   fetchUserDetails() {
@@ -291,6 +335,80 @@ export class DashboardComponent implements OnInit, OnDestroy {
       }, err => {
         this.isPaying = false;
         this.fundWalletForm.disable();
+      });
+    }
+  }
+
+  loyaltyTransferFunds(formValue) {
+    Object.keys(this.loyaltyTransferForm.controls).forEach(key => {
+      this.loyaltyTransferForm.controls[key].markAsDirty();
+      this.loyaltyTransferForm.controls[key].updateValueAndValidity();
+    });
+    if (this.loyaltyTransferForm.invalid) {
+      return;
+    }
+    this.isTransferring = true;
+    this.loadingBar.start();
+    this.authService.transferLoyaltyToWallet(formValue).subscribe((data: any) => {
+      this.loadingBar.stop();
+      this.isTransferring = false;
+      this.toastr.success(data.message);
+      this.displayLoyaltyTransferModal = false;
+      this.refreshAccountDetails();
+      this.loyaltyTransferForm.reset();
+    }, (error: any) => {
+      this.isTransferring = false;
+      this.loadingBar.stop();
+      if (error instanceof HttpErrorResponse) {
+        if (error.status === 400) {
+          const badRequestError = error.error.message;
+          this.loyaltyTransferForm.setErrors({
+            badRequest: badRequestError
+          });
+        } else {
+          this.toastr.error(error.error ? error.error.message : 'An error has occured. Please try again later');
+        }
+      } else if (error instanceof TimeoutError) {
+        this.toastr.error('Server timeout. Please try again later');
+      }
+    });
+  }
+
+  loyaltyWithdrawFunds(formvalue) {
+    // tslint:disable-next-line: forin
+    for (const i in this.loyaltyWithdrawForm.controls) {
+      this.loyaltyWithdrawForm.controls[i].markAsDirty();
+      this.loyaltyWithdrawForm.controls[i].updateValueAndValidity();
+    }
+    if (this.loyaltyWithdrawForm.valid) {
+      this.isWithdrawing = true;
+      this.loadingBar.start();
+      this.loyaltyWithdrawForm.disable();
+      this.authService.withdrawLoyaltyBalance(formvalue).subscribe((withdrawalData: any) => {
+        this.loyaltyWithdrawForm.enable();
+        this.isWithdrawing = false;
+        this.loadingBar.stop();
+          this.toastr.success(withdrawalData.message);
+          this.loyaltyWithdrawForm.reset();
+          this.refreshAccountDetails();
+          this.displayLoyaltyWithdrawModal = false;
+      }, (error: any) => {
+        console.log(error);
+        this.isWithdrawing = false;
+        this.loadingBar.stop();
+        this.loyaltyWithdrawForm.enable();
+        if (error instanceof HttpErrorResponse) {
+          if (error.status === 400) {
+            const badRequestError = error.error.message;
+            this.loyaltyWithdrawForm.setErrors({
+              badRequest: badRequestError
+            });
+          } else {
+            this.toastr.error(error.error ? error.error.error : 'An error has occured. Please try again later', 'Error');
+          }
+        } else if (error instanceof TimeoutError) {
+          this.toastr.error('Time Out!', 'Server timeout. Please try again later');
+        }
       });
     }
   }

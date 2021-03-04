@@ -42,7 +42,7 @@ export class TokenInterceptor implements HttpInterceptor {
         }
         return next.handle(req).pipe(catchError(error => {
             if (error instanceof HttpErrorResponse && error.status === 401) {
-                this.toastr.error('Authorization failed! Please login to continue');
+                // this.toastr.error('Authorization failed! Please login to continue');
                 this.service.clearSessionStorage().then(() => this.service.storeUser(null));
                 if (routePath.toLowerCase().includes('process_bid')) {
                     this.bidService.setCurrentPage(2);

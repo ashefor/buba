@@ -91,6 +91,14 @@ export class AuthService {
     return this.http.post(`${environment.bubaApi}/funding/transfer`, amount).pipe(catchError((error) => throwError(error)));
   }
 
+  transferLoyaltyToWallet(amount) {
+    return this.http.post(`${environment.bubaApi}/funding/loyalty_balance/transfer`, amount).pipe(catchError((error) => throwError(error)));
+  }
+
+  withdrawLoyaltyBalance(details) {
+    return this.http.post(`${environment.bubaApi}/withdrawal/bonus/disburse`, details)
+  }
+
   retrieveWinners() {
     return this.http.get(`${environment.bubaApi}/winners/list`).pipe(catchError((error) => throwError(error)));
   }

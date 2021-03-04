@@ -72,10 +72,11 @@
       </div> -->
       <div class="p-fluid">
         <div class="p-field">
-          <input type="text" [(ngModel)]="deposit" class="form__input form__input--lg">
+          <input type="text" [(ngModel)]="deposit" class="form__input form__input--lg" pKeyFilter="num">
+           <span class="text--primary p-d-inline-block p-pt-2">Minimum is ₦100.00</span>
         </div>
         <div class="p-field form__item">
-          <button (click)="makePayment()" type="submit"
+          <button [disabled]="deposit < 100" (click)="makePayment()" type="submit"
             class="button button--secondary button--raised text--capital button--wide">
             <i *ngIf="isPaying" class="pi pi-spin pi-spinner p-mr-2"></i>
             {{isPaying ? 'please wait' : 'make payment'}}
@@ -155,10 +156,11 @@
         </div> -->
         <div class="p-fluid">
           <div class="p-field">
-            <input type="text" [(ngModel)]="deposit" class="form__input form__input--lg">
+            <input type="text" [(ngModel)]="deposit" class="form__input form__input--lg" pKeyFilter="num">
+             <span class="text--primary p-d-inline-block p-pt-2">Minimum is ₦100.00</span>
           </div>
           <div class="p-field form__item">
-            <button (click)="makePayment()" type="submit"
+            <button [disabled]="deposit < 100" (click)="makePayment()" type="submit"
               class="button button--secondary button--raised text--capital button--wide">
               <i *ngIf="isPaying" class="pi pi-spin pi-spinner p-mr-2"></i>
               {{isPaying ? 'please wait' : 'make payment'}}
@@ -240,10 +242,11 @@
         </div> -->
         <div class="p-fluid">
           <div class="p-field">
-            <input type="text" [(ngModel)]="deposit" class="form__input form__input--lg">
+            <input type="text" [(ngModel)]="deposit" class="form__input form__input--lg" pKeyFilter="num">
+             <span class="text--primary p-d-inline-block p-pt-2">Minimum is ₦100.00</span>
           </div>
           <div class="p-field form__item">
-            <button (click)="makePayment()" type="submit"
+            <button [disabled]="deposit < 100" (click)="makePayment()" type="submit"
               class="button button--secondary button--raised text--capital button--wide">
               <i *ngIf="isPaying" class="pi pi-spin pi-spinner p-mr-2"></i>
               {{isPaying ? 'please wait' : 'make payment'}}

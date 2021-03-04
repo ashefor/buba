@@ -132,6 +132,16 @@
                 <span class="balance__amount text--700">
                   {{userdetails?.loyalty_balance | currency: '₦ '}}
                 </span>
+                <div class="payment__details__item">
+                  <button class="button p-mr-2 p-mt-2 button--secondary text--capital payment__addbutton payment__details__button"
+                  (click)="openLoyaltyWithdrawModal()">
+                  withdraw
+                </button>
+                  <button class="button p-mt-2 button--secondary text--capital payment__addbutton payment__details__button"
+                    (click)="openLoyaltyTransferModal()">
+                    transfer to wallet
+                  </button>
+                </div>
               </ng-template>
             </div>
 
@@ -361,16 +371,79 @@
   </div>
 </p-dialog>
 
-<!-- 
-<div class="p-fluid">
-  <div class="p-field">
-    <input type="text" [(ngModel)]="deposit" class="form__input form__input--lg">
+<p-dialog [(visible)]="displayLoyaltyTransferModal" styleClass="transfer-modal" [modal]="true" [style]="{width: '35rem'}"
+  [baseZIndex]="10000" [draggable]="false" [resizable]="false" (onHide)="resetLoyaltyTransferModal()">
+  <div class="modal-content p-px-1 p-mt-2">
+    <h4 class="text--regular text--center p-mb-5">Enter how amount to transfer to wallet</h4>
+    <form [formGroup]="loyaltyTransferForm" (ngSubmit)="loyaltyTransferFunds(loyaltyTransferForm.value)">
+      <div class="p-fluid">
+        <div class="p-field form__item">
+          <label for="amount" class="form__label text--capital">amount</label>
+          <input type="text" class="form__input form__input--lg" formControlName='amount' pKeyFilter="num">
+          <ng-container
+          *ngIf="(loyaltyTransferFormControls.amount.dirty || loyaltyTransferFormControls.amount.touched) && loyaltyTransferFormControls.amount.errors">
+          <span *ngIf="loyaltyTransferFormControls.amount.errors.required"
+            class="p-invalid p-mb-2 p-d-block p-px-2">Enter amount</span>
+        </ng-container>
+        </div>
+          <ng-container *ngIf="loyaltyTransferForm.errors && loyaltyTransferForm.errors.badRequest">
+            <div class="p-field form__item">
+            <span class="p-invalid p-my-2 p-d-block">
+              {{loyaltyTransferForm.errors.badRequest}}
+            </span>
+          </div>
+          </ng-container>
+        <div class="p-field form__item">
+          <button [disabled]="isTransferring" type="submit"
+            class="button button--secondary button--raised text--capital button--wide">
+            <i *ngIf="isTransferring" class="pi pi-spin pi-spinner p-mr-2"></i>
+            {{isTransferring ? 'please wait' : 'transfer'}}
+          </button>
+        </div>
+      </div>
+    </form>
   </div>
-  <div class="p-field form__item">
-    <button (click)="makePayment()" type="submit"
-      class="button button--secondary button--raised text--capital button--wide">
-      <i *ngIf="isPaying" class="pi pi-spin pi-spinner p-mr-2"></i>
-      {{isPaying ? 'please wait' : 'make payment'}}
-    </button>
+</p-dialog>
+
+<p-dialog [(visible)]="displayLoyaltyWithdrawModal" styleClass="transfer-modal" [modal]="true" [style]="{width: '35rem'}"
+  [baseZIndex]="10000" [draggable]="false" [resizable]="false" (onHide)="resetLoyaltyWithdrawModal()">
+  <div class="modal-content p-px-1 p-mt-2">
+    <h4 class="text--regular text--center p-mb-5">Please complete form to proceed</h4>
+    <form [formGroup]="loyaltyWithdrawForm" (ngSubmit)="loyaltyWithdrawFunds(loyaltyWithdrawForm.value)">
+      <div class="p-fluid">
+        <div class="p-field form__item">
+          <label for="amount" class="form__label text--capital">amount</label>
+          <input autocomplete="new-password" type="number" class="form__input form__input--lg" formControlName='amount' pKeyFilter="num">
+          <ng-container
+          *ngIf="(loyaltyWithdrawFormControls.amount.dirty || loyaltyWithdrawFormControls.amount.touched) && loyaltyWithdrawFormControls.amount.errors">
+          <span *ngIf="loyaltyWithdrawFormControls.amount.errors.required"
+            class="p-invalid p-mb-2 p-d-block p-px-2">Enter amount</span>
+        </ng-container>
+        </div>
+        <div class="p-field form__item">
+          <label for="amount" class="form__label text--capital">password</label>
+          <input type="password" class="form__input form__input--lg" formControlName='password'>
+          <ng-container
+          *ngIf="(loyaltyWithdrawFormControls.password.dirty || loyaltyWithdrawFormControls.password.touched) && loyaltyWithdrawFormControls.password.errors">
+          <span *ngIf="loyaltyWithdrawFormControls.password.errors.required"
+            class="p-invalid p-mb-2 p-d-block p-px-2">Enter password</span>
+        </ng-container>
+        </div>
+          <ng-container *ngIf="loyaltyWithdrawForm.errors && loyaltyWithdrawForm.errors.badRequest">
+            <div class="p-field form__item">
+            <span class="p-invalid p-my-2 p-d-block">
+              {{loyaltyWithdrawForm.errors.badRequest}}
+            </span>
+          </div>
+          </ng-container>
+        <div class="p-field form__item">
+          <button [disabled]="isWithdrawing" type="submit"
+            class="button button--secondary button--raised text--capital button--wide">
+            <i *ngIf="isWithdrawing" class="pi pi-spin pi-spinner p-mr-2"></i>
+            {{isWithdrawing ? 'please wait' : 'transfer'}}
+          </button>
+        </div>
+      </div>
+    </form>
   </div>
-</div> -->
+</p-dialog>

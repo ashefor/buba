@@ -21,7 +21,11 @@ export class PaymentAccountComponent implements OnInit, OnDestroy {
   processing: boolean;
   accountDetails: any;
   currentPage = 1;
-  constructor(private toastr: ToastrService, private auth: AuthService, private loadingBar: LoadingBarService, private router: Router, private bidService: BidService) { }
+  deposit = null;
+  isPaying: boolean;
+
+  constructor(private toastr: ToastrService, 
+    private auth: AuthService, private loadingBar: LoadingBarService, private router: Router, private bidService: BidService) { }
 
   ngOnInit(): void {
   }
@@ -86,6 +90,21 @@ export class PaymentAccountComponent implements OnInit, OnDestroy {
       } else {
         this.toastr.error('An unknown error has occured. Please try again later', 'Error');
       }
+    });
+  }
+
+
+  makePayment() {
+    const details = {
+      amount: this.deposit,
+      return_url: '/dashboard',
+    };
+    this.isPaying = true;
+    this.bidService.initiateFlutterwave(details).subscribe((data: any) => {
+      if (data.status === 'success') {
+        location.href = data.link;
+      }
+      this.isPaying = false;
     });
   }
 }
