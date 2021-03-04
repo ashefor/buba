@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, CurrencyPipe } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputNumberModule } from 'primeng/inputnumber';
@@ -26,7 +26,10 @@ import { StepperOneComponent } from '../makebid/components/stepper-one/stepper-o
 import { StepperThreeComponent } from '../makebid/components/stepper-three/stepper-three.component';
 import { StepperTwoComponent } from '../makebid/components/stepper-two/stepper-two.component';
 import { WinningMarqueeComponent } from './components/winning-marquee/winning-marquee.component';
-
+import {CarouselModule} from 'primeng/carousel';
+import { TabViewModule } from 'primeng/tabview';
+import { StepperComponent } from './components/stepper/stepper.component';
+import { FlutterwaveModule } from 'flutterwave-angular-v3';
 
 
 @NgModule({
@@ -36,7 +39,8 @@ import { WinningMarqueeComponent } from './components/winning-marquee/winning-ma
     StepperThreeComponent,
     StepperFourComponent,
     StepperFiveComponent,
-    WinningMarqueeComponent
+    WinningMarqueeComponent,
+    StepperComponent,
   ],
   imports: [
     CommonModule,
@@ -45,6 +49,7 @@ import { WinningMarqueeComponent } from './components/winning-marquee/winning-ma
     ReactiveFormsModule,
     FormsModule,
     TableModule,
+    TabViewModule,
     TooltipModule,
     ToggleButtonModule,
     DropdownModule,
@@ -52,8 +57,10 @@ import { WinningMarqueeComponent } from './components/winning-marquee/winning-ma
     DialogModule,
     InputNumberModule,
     KeyFilterModule,
+    CarouselModule,
     InputTextModule,
     SidebarModule,
+    FlutterwaveModule,
     RouterModule
   ],
   exports: [
@@ -64,6 +71,7 @@ import { WinningMarqueeComponent } from './components/winning-marquee/winning-ma
     StepperFiveComponent,
     WinningMarqueeComponent,
     ButtonModule,
+    TabViewModule,
     InputNumberModule,
     ProgressBarModule,
     ToggleButtonModule,
@@ -71,6 +79,7 @@ import { WinningMarqueeComponent } from './components/winning-marquee/winning-ma
     DropdownModule,
     TooltipModule,
     MessagesModule,
+    CarouselModule,
     TableModule,
     FormsModule,
     DialogModule,
@@ -81,8 +90,13 @@ import { WinningMarqueeComponent } from './components/winning-marquee/winning-ma
     MobileSidenavComponent,
     InputTextModule,
     SidebarModule,
+    StepperComponent,
     AddBankDetailsComponent,
+    FlutterwaveModule,
     RouterModule
+  ], 
+  providers: [
+    CurrencyPipe
   ]
 })
 export class SharedModule { }

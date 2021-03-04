@@ -52,7 +52,9 @@ export class TokenInterceptor implements HttpInterceptor {
                    } else {
                     this.bidService.setCurrentPage(2);
                    }
-                } else {
+                } else if (routePath.toLowerCase().includes('berekete')) {
+                    this.bidService.setCurrentPage(1);
+                 } else {
                     if (this.router.url.includes('bank-details')) {
                         this.routeStatus.setRouteStatus(0);
                     } else {

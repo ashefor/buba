@@ -10,6 +10,7 @@
   padding: 0;
   box-sizing: inherit;
 }
+
 html {
   font-size: 62.5%;
 
@@ -170,13 +171,13 @@ body {
   }
 }
 
-.product-dropdown{
-  &.p-dropdown{
+.product-dropdown {
+  &.p-dropdown {
     width: 100%;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 
     height: 4.25rem;
-   
+
     .p-dropdown-label {
       font-size: 1.4rem;
       color: #000000;
@@ -244,7 +245,7 @@ body {
   .p-dialog-header {
     padding: 1 1.5rem !important;
 
-    &-icons{
+    &-icons {
       margin-left: auto;
     }
   }
@@ -264,4 +265,28 @@ body {
 
 .no-wrap {
   white-space: nowrap;
+}
+
+.games-history {
+  &.p-component{
+    font-family: inherit;
+  }
+  .p-tabview-nav {
+    display: flex;
+    justify-content: space-between;
+
+    li {
+      width: calc(100% /3);
+
+      .p-tabview-nav-link {
+        font-size: 1.8rem;
+        text-align: center;
+
+        .p-tabview-title {
+          width: 100%;
+        }
+      }
+
+    }
+  }
 }

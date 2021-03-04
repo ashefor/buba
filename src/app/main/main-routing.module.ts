@@ -43,6 +43,10 @@ const routes: Routes = [
         loadChildren: () => import('../root/root.module').then(m => m.RootModule)
       },
       {
+        path: 'berekete',
+        loadChildren: () => import('../cash-spin-landing/cash-spin-landing.module').then(m => m.CashSpinLandingModule)
+      },
+      {
         path: '',
         redirectTo: 'dashboard',
         pathMatch: 'full'

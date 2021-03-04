@@ -129,7 +129,7 @@ export class StepperTwoComponent implements OnInit, OnDestroy {
       this.auth.storeToken(loggedUser.token);
       this.auth.storeUser(loggedUser.user);
       this.bidService.setWalletDetails(loggedUser.user);
-      if (this.gameType === 'spin') {
+      if (this.gameType === 'spin' || this.gameType === 'berekete') {
         return this.bidService.setCurrentPage(3);
       } else {
         this.bidDetails.wallet_balance = loggedUser.user.balance;
@@ -183,7 +183,7 @@ export class StepperTwoComponent implements OnInit, OnDestroy {
       this.auth.storeUser(newUser.user);
       this.bidService.setBidDetails(this.bidDetails);
       this.bidService.setWalletDetails(newUser.user);
-      if (this.gameType === 'spin') {
+      if (this.gameType === 'spin' || this.gameType === 'berekete') {
         this.bidService.setCurrentPage(2);
       } else {
         this.bidService.setCurrentPage(3);

@@ -1,0 +1,54 @@
+@import '../../styles/abstract/variables';
+
+.jumbo{
+    height: 350px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%);
+    background-color: white;
+    border-radius: .5rem;
+}
+.bids{
+    &_grid {
+        display: flex;
+        // flex-wrap: wrap;
+        overflow-x: auto;
+
+        &::-webkit-scrollbar {
+            display: none;
+          }
+    }
+
+    &_card{
+        flex: 0 0 230px;
+        height: 100px;
+        max-height: 100px;
+        margin-right: 20px;
+        background-color: #fff;
+        // border: 1px solid rgba(0,0,0,.125);
+        border-radius: .75rem;
+        box-shadow: 0 2px 4px 0 rgba(112, 121, 139, .18);
+    }
+}
+
+.steps{
+    display: flex;
+    align-items: flex-start;
+
+    &_content{
+        padding: .5rem;
+
+        &_head{
+            margin-bottom: 0;
+            padding-bottom: 1rem;
+            line-height: 30px;
+            font-weight: 500;
+        } 
+        &_text{
+            line-height: 18px;
+            width: clamp(3vw);
+            display: none;
+        }
+    }
+}

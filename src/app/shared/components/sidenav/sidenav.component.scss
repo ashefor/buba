@@ -8,18 +8,18 @@
   }
 
   &__item {
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     text-decoration: none;
     cursor: pointer;
-    padding: 1.5rem;
+    padding: 1.25rem;
     display: flex;
     align-items: center;
-    font-size: $font-size-medium;
+    font-size: $font-size-regular-alt;
     color: $color-ash;
     font-weight: bold;
 
     &__icon {
-      font-size: $font-size-medium;
+      font-size: $font-size-regular-alt;
       margin-right: 1.5rem;
     }
 

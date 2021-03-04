@@ -10,11 +10,12 @@ import { StatusComponent } from './status/status.component';
 import { HistoryComponent } from './history/history.component';
 import { RaffleDrawComponent } from './raffle-draw/raffle-draw.component';
 import { SpinHistoryComponent } from './spin-history/spin-history.component';
+import { CashWheelComponent } from './cash-wheel/cash-wheel.component';
 
 
 @NgModule({
   declarations: [GamesComponent,
-    DailySpecialComponent, QuickPlayComponent, StatusComponent, HistoryComponent, RaffleDrawComponent, SpinHistoryComponent],
+    DailySpecialComponent, QuickPlayComponent, StatusComponent, HistoryComponent, RaffleDrawComponent, SpinHistoryComponent, CashWheelComponent],
   imports: [
     CommonModule,
     SharedModule,

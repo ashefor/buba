@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { CashWheelComponent } from './cash-wheel/cash-wheel.component';
 import { DailySpecialComponent } from './daily-special/daily-special.component';
 import { GamesComponent } from './games.component';
 import { HistoryComponent } from './history/history.component';
@@ -31,9 +32,13 @@ const routes: Routes = [
         component: RaffleDrawComponent
       },
       {
-        path: 'spin-history',
-        component: SpinHistoryComponent
+        path: 'berekete',
+        component: CashWheelComponent
       },
+      // {
+      //   path: 'spin-history',
+      //   component: SpinHistoryComponent
+      // },
       {
         path: '',
         pathMatch: '',

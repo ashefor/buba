@@ -1,11 +1,11 @@
 <section class="root_container">
   <div class="card">
     <div class="card__body p-d-flex p-flex-column">
-      <div class="p-d-md-inline-flex pageheader p-mb-0">
+      <!-- <div class="p-d-md-inline-flex pageheader p-mb-0">
         <h1 class="pageheader__title text--capital">
           buba wheel
         </h1>
-      </div>
+      </div> -->
       <ng-container *ngIf="loadingDetails else doneLoading">
         <div class="text--center py-2 pseudo">
           <div class="lds-hourglass"></div>
@@ -16,7 +16,7 @@
           <app-winning-marquee></app-winning-marquee>
           <div class="p-grid">
             <div class="p-col-12">
-              <p-messages severity="info">
+              <!-- <p-messages severity="info">
                 <ng-template pTemplate>
                   <div class="text--regular">
                     <strong>How it Works</strong>
@@ -31,7 +31,53 @@
                     You are now one spin away from changing your life forever!!
                   </div>
                 </ng-template>
-              </p-messages>
+              </p-messages> -->
+              <div class="p-grid p-mt-3">
+                <div class="p-md-6 p-lg-4 p-col-12 p-mx-md-auto">
+                  <div class="steps">
+                      <!-- <img src="assets/img/step1.png" class="p-pr-1" width="60" alt=""> -->
+                      <div class="steps_number">
+                        1
+                      </div>
+                      <div class="steps_content">
+                          <!-- <span class="steps_content_head text--capital text--medium p-d-block p-pb-2">1. do something</span> -->
+                          <div class="steps_content_text text--regular">
+                            Select an Item you want to win. 
+                            <br>
+                            Select your desired option; if you want to spin or bid for the product.
+                          </div>
+                      </div>
+                  </div>
+                </div>
+                 <div class="p-md-6 p-lg-4 p-col-12 p-mx-md-auto">
+                  <div class="steps">
+                    <!-- <img src="assets/img/step1.png" class="p-pr-1" width="60" alt=""> -->
+                    <div class="steps_number">
+                      2
+                    </div>
+                    <div class="steps_content">
+                        <!-- <span class="steps_content_head text--capital text--medium p-d-block p-pb-2">1. do something</span> -->
+                        <div class="steps_content_text text--regular">
+                          Login or Create an account, fund your account to spin or bid for your selected product.
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <div class="p-md-6 p-lg-4 p-col-12 p-mx-md-auto">
+                  <div class="steps">
+                    <!-- <img src="assets/img/step1.png" class="p-pr-1" width="60" alt=""> -->
+                    <div class="steps_number">
+                      3
+                    </div>
+                    <div class="steps_content">
+                        <!-- <span class="steps_content_head text--capital text--medium p-d-block p-pb-2">1. do something</span> -->
+                        <div class="steps_content_text text--regular">
+                          Your win status will be communicated to you Instantly for the wheel; and at the bid closing time for bids.
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
             </div>
             <div class="spin_wrapper w-100">
               <div class="p-col-12 p-md-7 p-mx-auto p-lg-6">

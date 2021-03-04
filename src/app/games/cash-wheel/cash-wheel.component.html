@@ -1,0 +1,181 @@
+<section class="games_container">
+    <div class="card">
+      <div class="card__body p-d-flex p-flex-column">
+        <div class="p-d-md-inline-flex pageheader p-mb-0">
+          <h1 class="pageheader__title text--capital">
+            berekete!
+          </h1>
+        </div>
+        <ng-container>
+            <app-winning-marquee></app-winning-marquee>
+            <div class="p-grid">
+              <div class="p-col-12">
+                <div class="p-grid p-mt-3">
+                    <div class="p-md-6 p-lg-4 p-col-12 p-mx-md-auto">
+                      <div class="steps">
+                          <!-- <img src="assets/img/step1.png" class="p-pr-1" width="60" alt=""> -->
+                          <div class="steps_number">
+                            1
+                          </div>
+                          <div class="steps_content">
+                              <!-- <span class="steps_content_head text--capital text--medium p-d-block p-pb-2">1. do something</span> -->
+                              <div class="steps_content_text text--regular">
+                                Input the amount you would like to stake. 
+                              </div>
+                          </div>
+                      </div>
+                    </div>
+                     <div class="p-md-6 p-lg-4 p-col-12 p-mx-md-auto">
+                      <div class="steps">
+                        <!-- <img src="assets/img/step1.png" class="p-pr-1" width="60" alt=""> -->
+                        <div class="steps_number">
+                          2
+                        </div>
+                        <div class="steps_content">
+                            <!-- <span class="steps_content_head text--capital text--medium p-d-block p-pb-2">1. do something</span> -->
+                            <div class="steps_content_text text--regular">
+                                Spin for your desired multiplier.
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+              <div class="p-col-12 p-md-7 p-lg-6 p-mx-auto">
+                  
+                <div class="text--center">
+                  <span class="spinner spinner-indicator"></span>
+                <div class="raffle_draw">
+                  <ul class="raffle_container" #raffle>
+                    <li>
+                      <div class="won raffle_item">
+                        <i class="pi pi-star"></i>
+                        <p>
+                          <strong>
+                            Won!
+                          </strong>
+                        </p>
+                        <p>
+                            <strong>
+                              x2
+                            </strong>
+                          </p>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="won raffle_item">
+                        <i class="pi pi-star"></i>
+                        <p>
+                          <strong>
+                            Won!
+                          </strong>
+                        </p>
+                        <p>
+                            <strong>
+                              x10
+                            </strong>
+                          </p>
+                      </div>
+                    </li>
+                    <li>
+                        <div class="loss raffle_item">
+                          <p>Loss</p>
+                        </div>
+                      </li>
+                    <li>
+                      <div class="won raffle_item">
+                        <i class="pi pi-star"></i>
+                        <p>
+                          <strong>
+                            Won!
+                          </strong>
+                        </p>
+                        <p>
+                            <strong>
+                              x25
+                            </strong>
+                          </p>
+                      </div>
+                    </li>
+                    <li>
+                        <div class="won raffle_item">
+                            <i class="pi pi-star"></i>
+                            <p>
+                              <strong>
+                                Won!
+                              </strong>
+                            </p>
+                            <p>
+                                <strong>
+                                  x50
+                                </strong>
+                              </p>
+                          </div>
+                    </li>
+                    <li>
+                        <div class="won raffle_item">
+                            <i class="pi pi-star"></i>
+                            <p>
+                              <strong>
+                                Won!
+                              </strong>
+                            </p>
+                            <p>
+                                <strong>
+                                  x100
+                                </strong>
+                              </p>
+                          </div>
+                    </li>
+                    <li>
+                      <div class="loss raffle_item">
+                        <p>
+                          Loss
+                        </p>
+                      </div>
+                    </li>
+                    <li>
+                        <div class="won_50 raffle_item">
+                            <p>
+                              <strong>Spin</strong>
+                            </p>
+                            <p>
+                              <strong>
+                                Again
+                              </strong>
+                            </p>
+                            <i class="pi pi-replay"></i>
+                          </div>
+                    </li>
+                    <li>
+                      <div class="reset raffle_item">
+                        <p>
+                          Spin
+                        </p>
+                      </div>
+                    </li>
+                  </ul>
+                  <ng-container *ngIf="!showExtraBtns">
+                    <div class="p-d-flex p-ai-center">
+                        <p-inputNumber [(ngModel)]="stake_amount" prefix="₦" [min]="100" [max]="500000">
+                        </p-inputNumber>
+                        <button [disabled]="isSpinning || !stake_amount || stake_amount < 100" class="button p-mx-2 button--primary"
+                      (click)="startSpin(raffle)">Spin</button>
+                    </div>
+                    <span class="text--semi-small p-d-block text--primary p-mt-2 p-pt-1">Minimum is <b>₦100</b>, Maximum is <b>₦50,000</b></span>
+                  </ng-container>
+                  <ng-container *ngIf="showExtraBtns">
+                    <!-- <button *ngIf="showRetryBtn" [disabled]="isSpinning" class="button p-mx-2 button--tertiary"
+                      (click)="retrySpin(raffle)">Retry</button> -->
+                    <button [disabled]="isSpinning" class="button p-mx-2 button--tertiary"
+                      (click)="resetSpinner(raffle)">Reset</button>
+                  </ng-container>
+                </div>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+      </div>
+    </div>
+  </section>
+  

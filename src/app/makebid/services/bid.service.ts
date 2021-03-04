@@ -58,4 +58,12 @@ export class BidService {
   checkBidStatus(bid) {
     return this.http.post(`${environment.bubaApi}/bids/check`, bid).pipe(catchError(error => throwError(error)));
   }
+
+  initiateFlutterwave(details) {
+    return this.http.post(`${environment.bubaApi}/flutterwave/initiate`, details);
+  }
+
+  verifyFlutterwave(details) {
+    return this.http.post(`${environment.bubaApi}/flutterwave/verify`, details);
+  }
 }

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { throwError } from 'rxjs';
+import { forkJoin, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
@@ -28,6 +28,10 @@ export class GamesService {
     return this.http.post(`${environment.bubaApi}/spin/stake`, spinDetails).pipe(catchError((error) => throwError(error)));
   }
 
+  startBereketeSpinSession(spinDetails) {
+    return this.http.post(`${environment.bubaApi}/berekete/stake`, spinDetails).pipe(catchError((error) => throwError(error)));
+  }
+
   retrySpinSession() {
     return this.http.get(`${environment.bubaApi}/spin/stake/retry`).pipe(catchError((error) => throwError(error)));
   }
@@ -50,5 +54,13 @@ export class GamesService {
 
   fetchAllSpinHistory(pageDetails) {
     return this.http.post(`${environment.bubaApi}/spin/history`, pageDetails).pipe(catchError((error) => throwError(error)));
+  }
+  fetchBereketeHistory(pageDetails) {
+    return this.http.post(`${environment.bubaApi}/berekete/history`, pageDetails).pipe(catchError((error) => throwError(error)));
+  }
+
+  fetchGamesHistory(details) {
+    return forkJoin([this.fetchAllGamesHistory(details.games),
+       this.fetchAllSpinHistory(details.spin), this.fetchBereketeHistory(details.berekete)]).pipe(catchError((error) => throwError(error)));
   }
 }

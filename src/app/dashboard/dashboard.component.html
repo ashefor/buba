@@ -29,14 +29,18 @@
                   {{userdetails?.balance | currency: '₦ '}}
                 </span>
                 <div class="payment__details__item">
-                  <button class="button button--secondary text--capital payment__addbutton payment__details__button"
+                  <button class="button p-mr-2 p-mt-2 button--secondary text--capital payment__addbutton payment__details__button"
                     (click)="openPromoModal()">
                     add promo code
+                  </button>
+                  <button class="button p-mt-2 button--secondary text--capital payment__addbutton payment__details__button"
+                    (click)="openFundModal()">
+                    fund wallet
                   </button>
                 </div>
               </ng-template>
             </div>
-            <div class="p-col-12 p-md-4 p-lg-12 payment p-ml-md-2 p-ml-lg-0">
+            <!-- <div class="p-col-12 p-md-4 p-lg-12 payment p-ml-md-2 p-ml-lg-0">
               <span class="payment__header text--upper">
                 payment account details
               </span>
@@ -90,8 +94,9 @@
                   </div>
                 </ng-template>
               </ng-template>
-            </div>
-            <div class="p-col-12 p-md-4 p-lg-12 balance p-mr-md-2 p-mr-lg-0">
+            </div> -->
+           
+            <div class="p-col-12 p-md-4 p-lg-12 payment p-mr-md-2 p-mr-lg-0">
               <span class="balance__header text--upper">
                 winning balance
               </span>
@@ -105,15 +110,31 @@
                   {{userdetails?.winnings_balance | currency: '₦ '}}
                 </span>
                 <div class="p-mt-2">
-                  <a [routerLink]="['/withdrawals/new']" class="button button--secondary text--capital payment__addbutton">
+                  <a [routerLink]="['/withdrawals/new']" class="button p-mr-2 p-mt-2 button--secondary text--capital payment__addbutton">
                     withdraw
                   </a>
-                  <button (click)="openTransferModal()" class="p-ml-2 button button--secondary text--capital payment__addbutton">
+                  <button (click)="openTransferModal()" class="button p-mt-2 button--secondary text--capital payment__addbutton">
                   transfer to wallet
                   </button>
                 </div>
               </ng-template>
             </div>
+            <div class="p-col-12 p-md-4 p-lg-12 balance p-mr-md-2 p-mr-lg-0">
+              <span class="balance__header text--upper">
+                loyalty balance
+              </span>
+              <ng-container *ngIf="loadingDetails; else loadedBonus">
+                <div class="text--center py-2 loading">
+                  <i class="pi pi-spin pi-spinner"></i>
+                </div>
+              </ng-container>
+              <ng-template #loadedBonus>
+                <span class="balance__amount text--700">
+                  {{userdetails?.loyalty_balance | currency: '₦ '}}
+                </span>
+              </ng-template>
+            </div>
+
             <!-- <div class="p-col-12 p-md-4 p-lg-12 balance p-ml-md-2 p-ml-lg-0">
               <span class="balance__header text--upper">
                 winning balance
@@ -131,7 +152,7 @@
                   <a [routerLink]="['/withdrawals/new']" class="button button--secondary text--capital payment__addbutton">
                     withdraw
                   </a>
-                  <button (click)="openTransferModal()" class="p-ml-2 button button--secondary text--capital payment__addbutton">
+                  <button (click)="openTransferModal()" class="button button--secondary text--capital payment__addbutton">
                   transfer to wallet
                   </button>
                 </div>
@@ -303,3 +324,53 @@
     </form>
   </div>
 </p-dialog>
+
+<p-dialog [(visible)]="displayFundModal" styleClass="transfer-modal" [modal]="true" [style]="{width: '32rem'}"
+  [baseZIndex]="10000" [draggable]="false" [resizable]="false" (onHide)="resetFundModal()">
+  <div class="modal-content p-px-1 p-mt-2">
+    <h4 class="text--regular text--center p-mb-5">Enter how much you want to fund</h4>
+    <form [formGroup]="fundWalletForm" (ngSubmit)="makePayment(fundWalletForm.value)">
+      <div class="p-fluid">
+        <div class="p-field form__item">
+          <label for="amount" class="form__label text--capital">amount</label>
+          <input type="text" id="amount" formControlName='amount' pKeyFilter="num" class="form__input form__input--lg">
+          <ng-container
+          *ngIf="(fundWalletFormControls.amount.dirty || fundWalletFormControls.amount.touched) && fundWalletFormControls.amount.errors">
+          <span *ngIf="fundWalletFormControls.amount.errors.required"
+            class="p-invalid p-mb-2 p-d-block p-px-2">Enter Amount</span>
+            <span *ngIf="fundWalletFormControls.amount.errors.min"
+            class="p-invalid p-mb-2 p-d-block p-px-2">Minimum is ₦100.00</span>
+        </ng-container>
+        </div>
+          <ng-container *ngIf="fundWalletForm.errors && fundWalletForm.errors.badRequest">
+            <div class="p-field form__item">
+            <span class="p-invalid p-my-2 p-d-block">
+              {{fundWalletForm.errors.badRequest}}
+            </span>
+          </div>
+          </ng-container>
+        <div class="p-field form__item">
+          <button [disabled]="isPaying" type="submit"
+            class="button button--secondary button--raised text--capital button--wide">
+            <i *ngIf="isPaying" class="pi pi-spin pi-spinner p-mr-2"></i>
+            {{isPaying ? 'please wait' : 'fund wallet'}}
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</p-dialog>
+
+<!-- 
+<div class="p-fluid">
+  <div class="p-field">
+    <input type="text" [(ngModel)]="deposit" class="form__input form__input--lg">
+  </div>
+  <div class="p-field form__item">
+    <button (click)="makePayment()" type="submit"
+      class="button button--secondary button--raised text--capital button--wide">
+      <i *ngIf="isPaying" class="pi pi-spin pi-spinner p-mr-2"></i>
+      {{isPaying ? 'please wait' : 'make payment'}}
+    </button>
+  </div>
+</div> -->

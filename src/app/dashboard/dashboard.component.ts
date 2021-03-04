@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import { LoadingBarService } from '@ngx-loading-bar/core';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, Subscription, TimeoutError } from 'rxjs';
@@ -22,6 +23,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   userdetails: any;
   displayTransferModal: boolean;
   displayPromoModal: boolean;
+  displayFundModal: boolean;
   bidHistory: any[];
   isCreating: boolean;
   isTransferring: boolean;
@@ -29,17 +31,19 @@ export class DashboardComponent implements OnInit, OnDestroy {
   badRequestError: any;
   transferFundsForm: FormGroup;
   promoCodeForm: FormGroup;
+  fundWalletForm: FormGroup;
   userDetailSubscription: Subscription;
   openBidsSubscription: Subscription;
   createAccountSubscription: Subscription;
   text = 'Sign up on @bubang now with https://account.buba.ng/register?reffered_by=fola to enjoy more with less'
   transferSubscription: Subscription;
-
+  deposit: any;
+  isPaying: boolean;
   constructor(private authService: AuthService,
-    private bidService: BidService,
-    private toastr: ToastrService,
-    private dashboardService: DashboardService, private title: Title, private fb: FormBuilder,
-    private loadingBar: LoadingBarService) {
+              private bidService: BidService,
+              private toastr: ToastrService,
+              private dashboardService: DashboardService, private router: Router, private title: Title, private fb: FormBuilder,
+              private loadingBar: LoadingBarService) {
     this.title.setTitle('Buba - Account Dashboard');
   }
 
@@ -49,6 +53,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.fetchOpenBids();
     this.formInit();
     this.promoFormInit();
+    this.fundWalletFormInit();
   }
 
   formInit() {
@@ -63,12 +68,22 @@ export class DashboardComponent implements OnInit, OnDestroy {
     });
   }
 
+  fundWalletFormInit() {
+    this.fundWalletForm = this.fb.group({
+      amount: [null, [Validators.required, Validators.min(100)]],
+    });
+  }
+
   get formControls() {
     return this.transferFundsForm.controls;
   }
 
   get promoFormControls() {
     return this.promoCodeForm.controls;
+  }
+
+  get fundWalletFormControls() {
+    return this.fundWalletForm.controls;
   }
 
   ngOnDestroy() {
@@ -85,12 +100,21 @@ export class DashboardComponent implements OnInit, OnDestroy {
   openPromoModal() {
     this.displayPromoModal = true;
   }
+
+  openFundModal() {
+    this.displayFundModal = true;
+  }
+
   resetModal() {
     this.transferFundsForm.reset();
   }
 
   resetPromoModal() {
     this.promoCodeForm.reset();
+  }
+
+  resetFundModal() {
+    this.fundWalletForm.reset();
   }
 
   fetchUserDetails() {
@@ -240,5 +264,34 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.toastr.error('Server timeout. Please try again later');
       }
     });
+  }
+
+  makePayment(formValue) {
+    // this.userDetails$.subscribe(user => {
+    //   // this.flutterwave.inlinePay(this.paymentData);
+    // })
+    Object.keys(this.fundWalletForm.controls).forEach(key => {
+      this.fundWalletForm.controls[key].markAsDirty();
+      this.fundWalletForm.controls[key].updateValueAndValidity();
+    });
+    if (this.fundWalletForm.invalid) {
+      return;
+    } else {
+      const details = {
+        amount: formValue.amount,
+        return_url: this.router.url,
+      };
+      this.isPaying = true;
+      this.fundWalletForm.disable();
+      this.bidService.initiateFlutterwave(details).subscribe((data: any) => {
+        if (data.status === 'success') {
+          location.href = data.link;
+        }
+        this.isPaying = false;
+      }, err => {
+        this.isPaying = false;
+        this.fundWalletForm.disable();
+      });
+    }
   }
 }

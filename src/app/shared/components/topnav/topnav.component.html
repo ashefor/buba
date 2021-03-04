@@ -1,41 +1,44 @@
-<div class="topnav">
-  <nav class="topnav__container">
-    <div class="topnav__left">
-      <div class="topnav__item p-d-md-none" [hidden]="showGoToStoreButton">
-        <div class="hamburger" [ngClass]="{'active': display}" (click)="toggleSideMenu()">
-          <div class="hamburger__bar hamburger__bar__top"></div>
-          <div class="hamburger__bar hamburger__bar__middle"></div>
-          <div class="hamburger__bar hamburger__bar__bottom"></div>
-        </div>
-      </div>
-      <div class="topnav__item">
-        <a href="" class="p-d-inline-block logo topnav__item__link topnav__item__logo">
-          <img src="assets/img/buba-secondary.png" alt="" srcset="">
-        </a>
-      </div>
-    </div>
-    <div class="topnav_right">
-      <ng-container *ngIf="(userDetails$ | async) as userDetails">
-        <div class="topnav__item">
-          <div class="user">
-            <!-- <span class="user__avi">
-              <img [src]="imgBase+userDetails.picture" alt="" class="user__avi__image">
-            </span> -->
-            <div class="user__info">
-              <!-- <span class="user__name text--bold">{{userDetails.firstname}}&nbsp;{{userDetails.lastname}}</span> -->
-              <span *ngIf="showGoToStoreButton" class="user__balance">{{userDetails.balance | currency : '₦ '}}
-                <i (click)="refreshWallet()" class="pi pi-refresh user__balance__refresh"
-                  [ngClass]="{'pi-spin': processing}"></i>
-              </span>
-            </div>
+<ng-container>
+  <div class="topnav">
+    <nav class="topnav__container">
+      <div class="topnav__left">
+        <div class="topnav__item p-d-md-none" [hidden]="showUserBalance">
+          <div class="hamburger" [ngClass]="{'active': display}" (click)="toggleSideMenu()">
+            <div class="hamburger__bar hamburger__bar__top"></div>
+            <div class="hamburger__bar hamburger__bar__middle"></div>
+            <div class="hamburger__bar hamburger__bar__bottom"></div>
           </div>
         </div>
-      </ng-container>
-      <div class="topnav__item">
-        <a href="https://buba.ng" class="topnav__item__button">
-          <span class="topnav__item__button__text">Back to store</span>
-        </a>
+        <div class="topnav__item">
+          <a href="" class="p-d-inline-block logo topnav__item__link topnav__item__logo">
+            <img src="assets/img/buba-secondary.png" alt="" srcset="">
+          </a>
+        </div>
       </div>
-    </div>
-  </nav>
-</div>
+      <div class="topnav_right">
+        <ng-container *ngIf="(userDetails$ | async) as userDetails">
+          <div class="topnav__item">
+            <div class="user">
+              <!-- <span class="user__avi">
+                <img [src]="imgBase+userDetails.picture" alt="" class="user__avi__image">
+              </span> -->
+              <div class="user__info">
+                <!-- <span class="user__name text--bold">{{userDetails.firstname}}&nbsp;{{userDetails.lastname}}</span> -->
+                <span *ngIf="showUserBalance" class="user__balance">{{userDetails.balance | currency : '₦ '}}
+                  <i (click)="refreshWallet()" class="pi pi-refresh user__balance__refresh"
+                    [ngClass]="{'pi-spin': processing}"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        <div class="topnav__item">
+          <a href="https://buba.ng" class="topnav__item__button">
+            <span class="topnav__item__button__text">Back to store</span>
+          </a>
+        </div>
+      </div>
+    </nav>
+  </div>
+</ng-container>
+

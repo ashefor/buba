@@ -8,6 +8,8 @@ import { AuthService } from 'src/app/core/services/auth.service';
 import { bidDetails } from '../../models/bid-details';
 import { loggedInUser } from '../../models/logged-user';
 import { BidService } from '../../services/bid.service';
+import {Flutterwave, InlinePaymentOptions, PaymentSuccessResponse} from 'flutterwave-angular-v3';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-stepper-three',
@@ -24,9 +26,13 @@ export class StepperThreeComponent implements OnInit, OnDestroy {
   processing: boolean;
   confirmPaymentSubscription: Subscription;
   userDetails$: Observable<any>;
-
+  @Input() stakeAmount: string;
+  deposit: any;
+  isPaying: boolean;
   constructor(private loadingBar: LoadingBarService,
-              private bidService: BidService, private authService: AuthService, private toastr: ToastrService) { }
+              private bidService: BidService,
+              private flutterwave: Flutterwave ,
+              private authService: AuthService, private toastr: ToastrService, private router: Router) { }
 
   ngOnInit(): void {
     this.userDetails$ = this.authService.getUser$();
@@ -109,6 +115,53 @@ export class StepperThreeComponent implements OnInit, OnDestroy {
       } else {
         this.toastr.error('An unknown error has occured. Please try again later', 'Error');
       }
+    });
+  }
+
+  confirmBereketePayment() {
+    this.loadingBar.start();
+    this.processing = true;
+    this.confirmPaymentSubscription = this.authService.getWalletBalance().subscribe((data: loggedInUser) => {
+      this.loadingBar.stop();
+      this.processing = false;
+      this.bidService.setWalletDetails(data.user);
+      this.authService.storeUser(data.user);
+      if (parseFloat(data.user.balance) > parseFloat(this.stakeAmount)) {
+        return this.bidService.setCurrentPage(3);
+      } else {
+        this.toastr.info('Payment has not reflected yet. Please hold on');
+      }
+    }, (error: any) => {
+      this.loadingBar.stop();
+      this.processing = false;
+      if (error instanceof HttpErrorResponse) {
+        if (error.status === 401) {
+          if (this.gameType === 'spin') {
+            this.bidService.setCurrentPage(1);
+          } else {
+            this.bidService.setCurrentPage(2);
+          }
+        } else {
+          this.toastr.error('Server error. Please try again later', 'Error');
+        }
+      } else if (error instanceof TimeoutError) {
+        this.toastr.error('Server timed out. Please try again later', 'Time Out!');
+      } else {
+        this.toastr.error('An unknown error has occured. Please try again later', 'Error');
+      }
+    });
+  }
+  makePayment() {
+    const details = {
+      amount: this.deposit,
+      return_url: this.router.url,
+    };
+    this.isPaying = true;
+    this.bidService.initiateFlutterwave(details).subscribe((data: any) => {
+      if (data.status === 'success') {
+        location.href = data.link;
+      }
+      this.isPaying = false;
     });
   }
 }

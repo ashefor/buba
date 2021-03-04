@@ -1,0 +1,116 @@
+<section class="root_container">
+    <div class="card">
+      <div class="card__body p-d-flex p-flex-column">
+        <!-- <div class="p-d-md-inline-flex pageheader p-mb-0">
+          <h1 class="pageheader__title text--capital">
+            buba wheel
+          </h1>
+        </div> -->
+          <ng-container>
+            <app-winning-marquee></app-winning-marquee>
+            <div class="p-grid">
+              <div class="p-col-12">
+                <div class="p-grid p-mt-3">
+                  <div class="p-md-6 p-lg-4 p-col-12 p-mx-md-auto">
+                    <div class="steps">
+                        <!-- <img src="assets/img/step1.png" class="p-pr-1" width="60" alt=""> -->
+                        <div class="steps_number">
+                          1
+                        </div>
+                        <div class="steps_content">
+                            <!-- <span class="steps_content_head text--capital text--medium p-d-block p-pb-2">1. do something</span> -->
+                            <div class="steps_content_text text--regular">
+                                Input the amount you would like to stake.
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                   <div class="p-md-6 p-lg-4 p-col-12 p-mx-md-auto">
+                    <div class="steps">
+                      <!-- <img src="assets/img/step1.png" class="p-pr-1" width="60" alt=""> -->
+                      <div class="steps_number">
+                        2
+                      </div>
+                      <div class="steps_content">
+                          <!-- <span class="steps_content_head text--capital text--medium p-d-block p-pb-2">1. do something</span> -->
+                          <div class="steps_content_text text--regular">
+                            Login or Create an account, fund your account to spin                           </div>
+                      </div>
+                  </div>
+                  </div>
+                  <div class="p-md-6 p-lg-4 p-col-12 p-mx-md-auto">
+                    <div class="steps">
+                      <!-- <img src="assets/img/step1.png" class="p-pr-1" width="60" alt=""> -->
+                      <div class="steps_number">
+                        3
+                      </div>
+                      <div class="steps_content">
+                          <!-- <span class="steps_content_head text--capital text--medium p-d-block p-pb-2">1. do something</span> -->
+                          <div class="steps_content_text text--regular">
+                            Spin for your desired multiplier.
+                          </div>
+                      </div>
+                  </div>
+                  </div>
+              </div>
+              </div>
+              <div class="spin_wrapper w-100">
+                <div class="p-col-12 p-md-7 p-mx-auto p-lg-6">
+                  
+                </div>
+                <div>
+                  <ng-container>
+                    <div class="stepper">
+                      <div class="stepper-indicator"
+                        [ngClass]="{'stepper-indicator--completed': (currentPage$ | async)  > 1, 'stepper-indicator--current': (currentPage$ | async)  === 1}">
+                        <i class="pi pi-check"></i>
+                        <span>1</span>
+                      </div>
+                      <span class="stepper-spacer stepper-spacer_spin"
+                        [ngClass]="{'stepper-spacer--completed': (currentPage$ | async)  > 1}">
+  
+                      </span>
+                      <div class="stepper-indicator"
+                        [ngClass]="{'stepper-indicator--completed': (currentPage$ | async)  > 2, 'stepper-indicator--current': (currentPage$ | async)  === 2}">
+                        <i class="pi pi-check"></i>
+                        <span>2</span>
+                      </div>
+                      <span class="stepper-spacer stepper-spacer_spin"
+                        [ngClass]="{'stepper-spacer--completed': (currentPage$ | async)  > 2}">
+  
+                      </span>
+                      <div class="stepper-indicator"
+                        [ngClass]="{'stepper-indicator--completed': (currentPage$ | async)  === 3}">
+                        <i class="pi pi-check"></i>
+                        <span>3</span>
+                      </div>
+                    </div>
+                    <div class="stepper-content">
+                      <div [ngSwitch]="(currentPage$ | async)">
+                        <div class="w-100">
+                          <ng-container *ngSwitchCase="1">
+                            <app-stepper-two [gameType]="gameType" [animation]="animation" (goBackEmitter)="handleGoback($event)"></app-stepper-two>
+                          </ng-container>
+                          <ng-container *ngSwitchCase="2">
+                            <app-stepper-three [stakeAmount]="stakeAmount" [gameType]="gameType"
+                              (stepThreeEmitter)="handleGoback($event)"
+                              [animation]="animation"></app-stepper-three>
+                          </ng-container>
+                          <ng-container *ngSwitchCase="3">
+                            <!-- <app-stepper-four [gameType]="gameType"
+                              (stepFourEmitter)="handleGoback($event)"
+                              [animation]="animation"></app-stepper-four> -->
+                              <app-stepper (setStakeAmount)="setStakeAmount($event)"></app-stepper>
+                          </ng-container>
+                        </div>
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+      </div>
+    </div>
+  </section>
+  

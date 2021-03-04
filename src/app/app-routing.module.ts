@@ -28,8 +28,20 @@ const routes: Routes = [
     loadChildren: () => import('./makebid/makebid.module').then(m => m.MakebidModule)
   },
   {
+    path: 'verify_payment',
+    loadChildren: () => import('./verify-payment/verify-payment.module').then(m => m.VerifyPaymentModule)
+  },
+  // {
+  //   path: 'home',
+  //   loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
+  // },
+  {
     path: '',
     loadChildren: () => import('./main/main.module').then(m => m.MainModule)
+  },
+  {
+    path: '**',
+    loadChildren: () => import('./page-not-found/page-not-found.module').then(m => m.PageNotFoundModule)
   },
 ];
 

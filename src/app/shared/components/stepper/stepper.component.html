@@ -1,0 +1,132 @@
+<ng-container>
+    <div class="spin_wheel_container">
+      <div class="text--center">
+        <span class="spinner spinner-indicator"></span>
+        <div class="raffle_draw">
+          <ul class="raffle_container" #raffle>
+            <li>
+              <div class="won raffle_item">
+                <i class="pi pi-star"></i>
+                <p>
+                  <strong>
+                    Won!
+                  </strong>
+                </p>
+                <p>
+                    <strong>
+                      x2
+                    </strong>
+                  </p>
+              </div>
+            </li>
+            <li>
+              <div class="won raffle_item">
+                <i class="pi pi-star"></i>
+                <p>
+                  <strong>
+                    Won!
+                  </strong>
+                </p>
+                <p>
+                    <strong>
+                      x10
+                    </strong>
+                  </p>
+              </div>
+            </li>
+            <li>
+                <div class="loss raffle_item">
+                  <p>Loss</p>
+                </div>
+              </li>
+            <li>
+              <div class="won raffle_item">
+                <i class="pi pi-star"></i>
+                <p>
+                  <strong>
+                    Won!
+                  </strong>
+                </p>
+                <p>
+                    <strong>
+                      x25
+                    </strong>
+                  </p>
+              </div>
+            </li>
+            <li>
+                <div class="won raffle_item">
+                    <i class="pi pi-star"></i>
+                    <p>
+                      <strong>
+                        Won!
+                      </strong>
+                    </p>
+                    <p>
+                        <strong>
+                          x50
+                        </strong>
+                      </p>
+                  </div>
+            </li>
+            <li>
+                <div class="won raffle_item">
+                    <i class="pi pi-star"></i>
+                    <p>
+                      <strong>
+                        Won!
+                      </strong>
+                    </p>
+                    <p>
+                        <strong>
+                          x100
+                        </strong>
+                      </p>
+                  </div>
+            </li>
+            <li>
+              <div class="loss raffle_item">
+                <p>
+                  Loss
+                </p>
+              </div>
+            </li>
+            <li>
+                <div class="won_50 raffle_item">
+                    <p>
+                      <strong>Spin</strong>
+                    </p>
+                    <p>
+                      <strong>
+                        Again
+                      </strong>
+                    </p>
+                    <i class="pi pi-replay"></i>
+                  </div>
+            </li>
+            <li>
+              <div class="reset raffle_item">
+                <p>
+                  Spin
+                </p>
+              </div>
+            </li>
+          </ul>
+          <ng-container *ngIf="!showExtraBtns">
+            <div class="p-d-flex p-ai-center">
+                <p-inputNumber [(ngModel)]="stake_amount" prefix="₦" [min]="100" [max]="500000">
+                </p-inputNumber>
+                <button [disabled]="isSpinning || !stake_amount || stake_amount < 100" class="button p-mx-2 button--primary"
+              (click)="startSpin(raffle)">Spin</button>
+            </div>
+            <span class="text--semi-small p-d-block text--primary p-mt-2 p-pt-1">Minimum is <b>₦100</b>, Maximum is <b>₦50,000</b></span>
+          </ng-container>
+          <ng-container *ngIf="showExtraBtns">
+            <button [disabled]="isSpinning" class="button p-mx-2 button--tertiary"
+              (click)="resetSpinner(raffle)">Reset</button>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  
+  </ng-container>

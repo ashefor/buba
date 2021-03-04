@@ -6,7 +6,7 @@
         <span class="sidenav__item__text text--capital">dashboard</span>
       </a>
       <a class="accordion sidenav__item"
-        [ngClass]="{'active': games1RLA.isActive || games2RLA.isActive || games3RLA.isActive || games4RLA.isActive|| games5RLA.isActive || games6RLA.isActive}">
+        [ngClass]="{'active': games1RLA.isActive || games2RLA.isActive || games3RLA.isActive || games4RLA.isActive || games6RLA.isActive || games7RLA.isActive}">
         <i class="pi pi-play sidenav__item__icon"></i>
         <span class="sidenav__item__text text--capital">games</span>
         <i class="pi pi-angle-right iconRight"></i>
@@ -27,17 +27,22 @@
           <i class="pi pi-circle-on sidenav__item__icon"></i>
           <span class="sidenav__item__text text--capital">Buba Wheel</span>
         </a>
-        <a class="sidenav__item" [routerLink]="['/games/spin-history']" routerLinkActive="active" #games4RLA="routerLinkActive"
+        <a class="sidenav__item" [routerLink]="['/games/berekete']" routerLinkActive="active"
+        #games4RLA="routerLinkActive" (click)="closeSideBar($event)">
+        <i class="pi pi-circle-on sidenav__item__icon"></i>
+        <span class="sidenav__item__text text--capital">berekete</span>
+      </a>
+        <!-- <a class="sidenav__item" [routerLink]="['/games/spin-history']" routerLinkActive="active" #games5RLA="routerLinkActive"
           (click)="closeSideBar($event)">
           <i class="pi pi-circle-on sidenav__item__icon"></i>
           <span class="sidenav__item__text text--capital">Spin History</span>
-        </a>
-        <a class="sidenav__item" [routerLink]="['/games/history']" routerLinkActive="active" #games5RLA="routerLinkActive"
+        </a> -->
+        <a class="sidenav__item" [routerLink]="['/games/history']" routerLinkActive="active" #games6RLA="routerLinkActive"
           (click)="closeSideBar($event)">
           <i class="pi pi-circle-on sidenav__item__icon"></i>
           <span class="sidenav__item__text text--capital">History</span>
         </a>
-        <a class="sidenav__item" [routerLink]="['/games/status']" routerLinkActive="active" #games6RLA="routerLinkActive"
+        <a class="sidenav__item" [routerLink]="['/games/status']" routerLinkActive="active" #games7RLA="routerLinkActive"
           (click)="closeSideBar($event)">
           <i class="pi pi-circle-on sidenav__item__icon"></i>
           <span class="sidenav__item__text text--capital">Ticket Status</span>
@@ -144,7 +149,7 @@
         <span class="sidenav__item__text text--capital">dashboard</span>
       </a>
       <a class="accordion sidenav__item"
-        [ngClass]="{'active': games1RLA.isActive || games2RLA.isActive}">
+        [ngClass]="{'active': games1RLA.isActive || games2RLA.isActive || games3RLA.isActive || games4RLA.isActive}">
         <i class="pi pi-play sidenav__item__icon"></i>
         <span class="sidenav__item__text text--capital">games</span>
         <i class="pi pi-angle-right iconRight"></i>
@@ -164,6 +169,11 @@
           #games3RLA="routerLinkActive" (click)="closeSideBar($event)">
           <i class="pi pi-circle-on sidenav__item__icon"></i>
           <span class="sidenav__item__text text--capital">Buba Wheel</span>
+        </a>
+        <a class="sidenav__item" [routerLink]="['/games/berekete']" routerLinkActive="active"
+          #games4RLA="routerLinkActive" (click)="closeSideBar($event)">
+          <i class="pi pi-circle-on sidenav__item__icon"></i>
+          <span class="sidenav__item__text text--capital">berekete</span>
         </a>
       </div>
     </div>

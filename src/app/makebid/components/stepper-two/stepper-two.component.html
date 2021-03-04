@@ -250,8 +250,8 @@
   </div>
 </ng-container>
 
-<ng-container *ngIf="gameType === 'spin'">
-  <div class="p-grid animate__animated animate__faster" [ngClass]="animation">
+<ng-container *ngIf="gameType === 'spin' || gameType === 'berekete'">
+  <div class="p-grid" [ngClass]="animation">
     <div class="p-col-10 p-md-8 p-lg-6 p-mx-auto">
       <div [ngSwitch]="authType">
   

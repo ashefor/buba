@@ -31,7 +31,7 @@ export class TopnavComponent implements OnInit {
     // this.showMobileNav = ! this.showMobileNav;
     this.toggleSideMenuEmitter.emit();
   }
-  get showGoToStoreButton() {
+  get showUserBalance() {
     if (this.currentUrl[1].includes('process_bid')) {
       return true;
     } else {
@@ -57,5 +57,13 @@ export class TopnavComponent implements OnInit {
         this.toastr.error('An unknown error has occured. Please try again later', 'Error');
       }
     });
+  }
+
+  get showHomeNav() {
+    if (this.currentUrl[1].includes('home')) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
