@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  bubaApi: 'https://api.buba.ng/public'
+  bubaApi: 'https://api.buba.ng/public',
+  gtag: 'G-9MET1RDF76'
 };
 
 /*

@@ -26,6 +26,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   displayPromoModal: boolean;
   displayFundModal: boolean;
   displayLoyaltyWithdrawModal: boolean;
+  displayAccountModal: boolean;
   bidHistory: any[];
   isCreating: boolean;
   isTransferring: boolean;
@@ -83,7 +84,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   loyaltyTransferFormInit() {
     this.loyaltyTransferForm = this.fb.group({
-      amount: [null, [Validators.required, Validators.min(100)]],
+      amount: [null, [Validators.required]],
     });
   }
 
@@ -119,6 +120,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.isCreating = false;
     this.isTransferring = false;
     this.isAdding = false;
+    this.loadingBar.complete();
   }
 
   openTransferModal() {
@@ -393,7 +395,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
           this.refreshAccountDetails();
           this.displayLoyaltyWithdrawModal = false;
       }, (error: any) => {
-        console.log(error);
         this.isWithdrawing = false;
         this.loadingBar.stop();
         this.loyaltyWithdrawForm.enable();

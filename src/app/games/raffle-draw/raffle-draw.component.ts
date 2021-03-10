@@ -173,7 +173,9 @@ export class RaffleDrawComponent implements OnInit, OnDestroy {
             this.showExtraBtns = true;
             this.isSpinning = false;
             if (this.retryData.spin_status === 4) {
-              this.showRetryBtn = true;
+              // this.showRetryBtn = true;
+              const message = 'You have won an extra spin!';
+              this.showSuccessSwal(message);
             } else if (this.retryData.spin_status === 1) {
               const message = 'You have won!, Please check your mail';
               this.showSuccessSwal(message);

@@ -67,7 +67,7 @@ export class StepperTwoComponent implements OnInit, OnDestroy {
   }
   formInit() {
     this.loginForm = this.fb.group({
-      email: [null, [Validators.email, Validators.required]],
+      username: [null, [Validators.required]],
       password: [null, [Validators.required, Validators.minLength(6)]]
     }, {
       updateOn: 'blur'
@@ -84,7 +84,7 @@ export class StepperTwoComponent implements OnInit, OnDestroy {
       firstname: [null, [Validators.required]],
       lastname: [null, [Validators.required]],
       phone_number: [null, [Validators.required, Validators.pattern('(0)[0-9 ]{10}')]],
-      email: [null, [Validators.email, Validators.required]],
+      username: [''],
       password: [null, [Validators.required, Validators.minLength(6)]],
       referred_by: [null]
     });
@@ -116,8 +116,8 @@ export class StepperTwoComponent implements OnInit, OnDestroy {
       return;
     }
     const newFormValue = {} as loginFormType;
-    const { email, password } = formvalue;
-    newFormValue.param = email;
+    const { username, password } = formvalue;
+    newFormValue.param = username;
     newFormValue.password = password;
     this.loadingBar.start();
     this.loggingIn = true;

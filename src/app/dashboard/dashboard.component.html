@@ -29,14 +29,37 @@
                   {{userdetails?.balance | currency: '₦ '}}
                 </span>
                 <div class="payment__details__item">
-                  <button class="button p-mr-2 p-mt-2 button--secondary text--capital payment__addbutton payment__details__button"
-                    (click)="openPromoModal()">
+                  <!-- <button class="button p-mr-2 p-mt-2 button--secondary text--capital payment__addbutton payment__details__button"
+                    >
                     add promo code
-                  </button>
-                  <button class="button p-mt-2 button--secondary text--capital payment__addbutton payment__details__button"
+                  </button> -->
+                  <div>
+                    Fund Wallet
+                  </div>
+                  <div>
+                    <a (click)="openFundModal()" class="text--secondary text--capital">
+                      Use Flutterwave
+                    </a>&nbsp;|&nbsp;
+                    <a (click)="displayAccountModal =  true" class="text--secondary text--capital">
+                      Bank Transfer
+                    </a>
+                  </div>
+                  <hr class="p-my-4">
+                  <div>
+                    Promo Code
+                  </div>
+                 <div>
+                  <a (click)="openPromoModal()" class="text--secondary text--capital">
+                    add promo code
+                  </a>
+                 </div>
+                  <!-- <a (click)="openPromoModal()" class="text--secondary text--capital">
+                    Fund Wallet
+                  </a> -->
+                  <!-- <button class="button p-mt-2 button--secondary text--capital payment__addbutton payment__details__button"
                     (click)="openFundModal()">
                     fund wallet
-                  </button>
+                  </button> -->
                 </div>
               </ng-template>
             </div>
@@ -95,7 +118,7 @@
                 </ng-template>
               </ng-template>
             </div> -->
-           
+
             <div class="p-col-12 p-md-4 p-lg-12 payment p-mr-md-2 p-mr-lg-0">
               <span class="balance__header text--upper">
                 winning balance
@@ -110,11 +133,13 @@
                   {{userdetails?.winnings_balance | currency: '₦ '}}
                 </span>
                 <div class="p-mt-2">
-                  <a [routerLink]="['/withdrawals/new']" class="button p-mr-2 p-mt-2 button--secondary text--capital payment__addbutton">
+                  <a [routerLink]="['/withdrawals/new']"
+                    class="button button--sm p-mr-2 p-mt-2 button--secondary text--capital payment__addbutton">
                     withdraw
                   </a>
-                  <button (click)="openTransferModal()" class="button p-mt-2 button--secondary text--capital payment__addbutton">
-                  transfer to wallet
+                  <button (click)="openTransferModal()"
+                    class="button button--sm p-mt-2 button--secondary text--capital payment__addbutton">
+                    transfer to wallet
                   </button>
                 </div>
               </ng-template>
@@ -130,17 +155,23 @@
               </ng-container>
               <ng-template #loadedBonus>
                 <span class="balance__amount text--700">
-                  {{userdetails?.loyalty_balance | currency: '₦ '}}
+                  {{userdetails?.loyalty_balance ? (userdetails?.loyalty_balance | currency: '₦ '): '₦ 0.00'}}
                 </span>
                 <div class="payment__details__item">
-                  <button class="button p-mr-2 p-mt-2 button--secondary text--capital payment__addbutton payment__details__button"
+                  <!-- <button class="button p-mr-2 p-mt-2 button--secondary text--capital payment__addbutton payment__details__button"
                   (click)="openLoyaltyWithdrawModal()">
                   withdraw
-                </button>
-                  <button class="button p-mt-2 button--secondary text--capital payment__addbutton payment__details__button"
+                </button> -->
+                  <!-- <button
+                    class="button p-mt-2 button--secondary text--capital payment__addbutton payment__details__button"
                     (click)="openLoyaltyTransferModal()">
                     transfer to wallet
-                  </button>
+                  </button> -->
+                  <div>
+                    <a (click)="openLoyaltyTransferModal()" class="text--capital text--secondary text--capital">
+                      transfer to wallet
+                    </a>
+                  </div>
                 </div>
               </ng-template>
             </div>
@@ -189,15 +220,16 @@
                   </span>
                   <div class="p-grid p-ai-center p-mt-5">
                     <div class="p-col-10">
-                      <textarea rows="2" #inputElement readonly class="form__input form__textarea" [value]="'https://account.buba.ng/register?referred_by=' + userdetails.referral_code">
+                      <textarea rows="2" #inputElement readonly class="form__input form__textarea"
+                        [value]="'https://account.buba.ng/register?referred_by=' + userdetails.referral_code">
                         </textarea>
-                     </div>
-                      <div class="p-col-2">
-                        <button class="button button p-mx-2" (click)="copyTextToClipBoard(inputElement)">
-                          <i class="pi pi-copy" style="font-size: 1.5rem"></i>
-                        </button>
-                      </div>
-                   </div>
+                    </div>
+                    <div class="p-col-2">
+                      <button class="button button p-mx-2" (click)="copyTextToClipBoard(inputElement)">
+                        <i class="pi pi-copy" style="font-size: 1.5rem"></i>
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </ng-template>
@@ -277,18 +309,18 @@
           <label for="amount" class="form__label text--capital">amount</label>
           <input type="text" class="form__input form__input--lg" formControlName='amount' pKeyFilter="num">
           <ng-container
-          *ngIf="(formControls.amount.dirty || formControls.amount.touched) && formControls.amount.errors">
-          <span *ngIf="formControls.amount.errors.required"
-            class="p-invalid p-mb-2 p-d-block p-px-2">Enter amount</span>
-        </ng-container>
+            *ngIf="(formControls.amount.dirty || formControls.amount.touched) && formControls.amount.errors">
+            <span *ngIf="formControls.amount.errors.required" class="p-invalid p-mb-2 p-d-block p-px-2">Enter
+              amount</span>
+          </ng-container>
         </div>
-          <ng-container *ngIf="transferFundsForm.errors && transferFundsForm.errors.badRequest">
-            <div class="p-field form__item">
+        <ng-container *ngIf="transferFundsForm.errors && transferFundsForm.errors.badRequest">
+          <div class="p-field form__item">
             <span class="p-invalid p-my-2 p-d-block">
               {{transferFundsForm.errors.badRequest}}
             </span>
           </div>
-          </ng-container>
+        </ng-container>
         <div class="p-field form__item">
           <button [disabled]="isTransferring" type="submit"
             class="button button--secondary button--raised text--capital button--wide">
@@ -311,18 +343,18 @@
           <label for="code" class="form__label text--capital">code</label>
           <input type="text" class="form__input form__input--lg" formControlName='code'>
           <ng-container
-          *ngIf="(promoFormControls.code.dirty || promoFormControls.code.touched) && promoFormControls.code.errors">
-          <span *ngIf="promoFormControls.code.errors.required"
-            class="p-invalid p-mb-2 p-d-block p-px-2">Enter promo code</span>
-        </ng-container>
+            *ngIf="(promoFormControls.code.dirty || promoFormControls.code.touched) && promoFormControls.code.errors">
+            <span *ngIf="promoFormControls.code.errors.required" class="p-invalid p-mb-2 p-d-block p-px-2">Enter promo
+              code</span>
+          </ng-container>
         </div>
-          <ng-container *ngIf="promoCodeForm.errors && promoCodeForm.errors.badRequest">
-            <div class="p-field form__item">
+        <ng-container *ngIf="promoCodeForm.errors && promoCodeForm.errors.badRequest">
+          <div class="p-field form__item">
             <span class="p-invalid p-my-2 p-d-block">
               {{promoCodeForm.errors.badRequest}}
             </span>
           </div>
-          </ng-container>
+        </ng-container>
         <div class="p-field form__item">
           <button [disabled]="isAdding" type="submit"
             class="button button--secondary button--raised text--capital button--wide">
@@ -345,20 +377,20 @@
           <label for="amount" class="form__label text--capital">amount</label>
           <input type="text" id="amount" formControlName='amount' pKeyFilter="num" class="form__input form__input--lg">
           <ng-container
-          *ngIf="(fundWalletFormControls.amount.dirty || fundWalletFormControls.amount.touched) && fundWalletFormControls.amount.errors">
-          <span *ngIf="fundWalletFormControls.amount.errors.required"
-            class="p-invalid p-mb-2 p-d-block p-px-2">Enter Amount</span>
-            <span *ngIf="fundWalletFormControls.amount.errors.min"
-            class="p-invalid p-mb-2 p-d-block p-px-2">Minimum is ₦100.00</span>
-        </ng-container>
+            *ngIf="(fundWalletFormControls.amount.dirty || fundWalletFormControls.amount.touched) && fundWalletFormControls.amount.errors">
+            <span *ngIf="fundWalletFormControls.amount.errors.required" class="p-invalid p-mb-2 p-d-block p-px-2">Enter
+              Amount</span>
+            <span *ngIf="fundWalletFormControls.amount.errors.min" class="p-invalid p-mb-2 p-d-block p-px-2">Minimum is
+              ₦100.00</span>
+          </ng-container>
         </div>
-          <ng-container *ngIf="fundWalletForm.errors && fundWalletForm.errors.badRequest">
-            <div class="p-field form__item">
+        <ng-container *ngIf="fundWalletForm.errors && fundWalletForm.errors.badRequest">
+          <div class="p-field form__item">
             <span class="p-invalid p-my-2 p-d-block">
               {{fundWalletForm.errors.badRequest}}
             </span>
           </div>
-          </ng-container>
+        </ng-container>
         <div class="p-field form__item">
           <button [disabled]="isPaying" type="submit"
             class="button button--secondary button--raised text--capital button--wide">
@@ -371,8 +403,9 @@
   </div>
 </p-dialog>
 
-<p-dialog [(visible)]="displayLoyaltyTransferModal" styleClass="transfer-modal" [modal]="true" [style]="{width: '35rem'}"
-  [baseZIndex]="10000" [draggable]="false" [resizable]="false" (onHide)="resetLoyaltyTransferModal()">
+<p-dialog [(visible)]="displayLoyaltyTransferModal" styleClass="transfer-modal" [modal]="true"
+  [style]="{width: '35rem'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false"
+  (onHide)="resetLoyaltyTransferModal()">
   <div class="modal-content p-px-1 p-mt-2">
     <h4 class="text--regular text--center p-mb-5">Enter how amount to transfer to wallet</h4>
     <form [formGroup]="loyaltyTransferForm" (ngSubmit)="loyaltyTransferFunds(loyaltyTransferForm.value)">
@@ -381,18 +414,18 @@
           <label for="amount" class="form__label text--capital">amount</label>
           <input type="text" class="form__input form__input--lg" formControlName='amount' pKeyFilter="num">
           <ng-container
-          *ngIf="(loyaltyTransferFormControls.amount.dirty || loyaltyTransferFormControls.amount.touched) && loyaltyTransferFormControls.amount.errors">
-          <span *ngIf="loyaltyTransferFormControls.amount.errors.required"
-            class="p-invalid p-mb-2 p-d-block p-px-2">Enter amount</span>
-        </ng-container>
+            *ngIf="(loyaltyTransferFormControls.amount.dirty || loyaltyTransferFormControls.amount.touched) && loyaltyTransferFormControls.amount.errors">
+            <span *ngIf="loyaltyTransferFormControls.amount.errors.required"
+              class="p-invalid p-mb-2 p-d-block p-px-2">Enter amount</span>
+          </ng-container>
         </div>
-          <ng-container *ngIf="loyaltyTransferForm.errors && loyaltyTransferForm.errors.badRequest">
-            <div class="p-field form__item">
+        <ng-container *ngIf="loyaltyTransferForm.errors && loyaltyTransferForm.errors.badRequest">
+          <div class="p-field form__item">
             <span class="p-invalid p-my-2 p-d-block">
               {{loyaltyTransferForm.errors.badRequest}}
             </span>
           </div>
-          </ng-container>
+        </ng-container>
         <div class="p-field form__item">
           <button [disabled]="isTransferring" type="submit"
             class="button button--secondary button--raised text--capital button--wide">
@@ -405,37 +438,39 @@
   </div>
 </p-dialog>
 
-<p-dialog [(visible)]="displayLoyaltyWithdrawModal" styleClass="transfer-modal" [modal]="true" [style]="{width: '35rem'}"
-  [baseZIndex]="10000" [draggable]="false" [resizable]="false" (onHide)="resetLoyaltyWithdrawModal()">
+<p-dialog [(visible)]="displayLoyaltyWithdrawModal" styleClass="transfer-modal" [modal]="true"
+  [style]="{width: '35rem'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false"
+  (onHide)="resetLoyaltyWithdrawModal()">
   <div class="modal-content p-px-1 p-mt-2">
     <h4 class="text--regular text--center p-mb-5">Please complete form to proceed</h4>
     <form [formGroup]="loyaltyWithdrawForm" (ngSubmit)="loyaltyWithdrawFunds(loyaltyWithdrawForm.value)">
       <div class="p-fluid">
         <div class="p-field form__item">
           <label for="amount" class="form__label text--capital">amount</label>
-          <input autocomplete="new-password" type="number" class="form__input form__input--lg" formControlName='amount' pKeyFilter="num">
+          <input autocomplete="new-password" type="number" class="form__input form__input--lg" formControlName='amount'
+            pKeyFilter="num">
           <ng-container
-          *ngIf="(loyaltyWithdrawFormControls.amount.dirty || loyaltyWithdrawFormControls.amount.touched) && loyaltyWithdrawFormControls.amount.errors">
-          <span *ngIf="loyaltyWithdrawFormControls.amount.errors.required"
-            class="p-invalid p-mb-2 p-d-block p-px-2">Enter amount</span>
-        </ng-container>
+            *ngIf="(loyaltyWithdrawFormControls.amount.dirty || loyaltyWithdrawFormControls.amount.touched) && loyaltyWithdrawFormControls.amount.errors">
+            <span *ngIf="loyaltyWithdrawFormControls.amount.errors.required"
+              class="p-invalid p-mb-2 p-d-block p-px-2">Enter amount</span>
+          </ng-container>
         </div>
         <div class="p-field form__item">
           <label for="amount" class="form__label text--capital">password</label>
           <input type="password" class="form__input form__input--lg" formControlName='password'>
           <ng-container
-          *ngIf="(loyaltyWithdrawFormControls.password.dirty || loyaltyWithdrawFormControls.password.touched) && loyaltyWithdrawFormControls.password.errors">
-          <span *ngIf="loyaltyWithdrawFormControls.password.errors.required"
-            class="p-invalid p-mb-2 p-d-block p-px-2">Enter password</span>
-        </ng-container>
+            *ngIf="(loyaltyWithdrawFormControls.password.dirty || loyaltyWithdrawFormControls.password.touched) && loyaltyWithdrawFormControls.password.errors">
+            <span *ngIf="loyaltyWithdrawFormControls.password.errors.required"
+              class="p-invalid p-mb-2 p-d-block p-px-2">Enter password</span>
+          </ng-container>
         </div>
-          <ng-container *ngIf="loyaltyWithdrawForm.errors && loyaltyWithdrawForm.errors.badRequest">
-            <div class="p-field form__item">
+        <ng-container *ngIf="loyaltyWithdrawForm.errors && loyaltyWithdrawForm.errors.badRequest">
+          <div class="p-field form__item">
             <span class="p-invalid p-my-2 p-d-block">
               {{loyaltyWithdrawForm.errors.badRequest}}
             </span>
           </div>
-          </ng-container>
+        </ng-container>
         <div class="p-field form__item">
           <button [disabled]="isWithdrawing" type="submit"
             class="button button--secondary button--raised text--capital button--wide">
@@ -445,5 +480,38 @@
         </div>
       </div>
     </form>
+  </div>
+</p-dialog>
+
+<p-dialog [(visible)]="displayAccountModal" styleClass="transfer-modal" [modal]="true"
+  [style]="{width: '35rem'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+  <div class="modal-content p-px-1 p-mt-2">
+    <h4 class="text--regular text--center p-mb-5">Make a transfer to the account details</h4>
+    <div>
+      <div class="p-grid p-py-1">
+        <div class="p-col-12">
+          <div class="p-py-2">
+            <span class="text--capital p-d-inline-block text--regular">bank name: </span>
+          <strong class="p-ml-1 text--700 text--capital p-d-inline-block text--regular">
+            {{userdetails && userdetails.payment_bank_name? userdetails.payment_bank_name : 'N/A'}}
+          </strong>
+          </div>
+         <div class="p-py-2">
+           <span class="text--capital p-d-inline-block text--regular">
+            account name:
+           </span>
+          <strong class="p-ml-1 text--700 text--capital p-d-inline-block text--regular">
+            {{userdetails && userdetails.payment_account_name ? userdetails.payment_account_name : 'N/A'}}
+          </strong>
+         </div>
+         <div class="p-py-2">
+           <span class="text--capital p-d-inline-block text--regular">account number:</span>
+           <strong class="p-ml-1 text--700 text--capital p-d-inline-block text--regular">
+            {{userdetails && userdetails.payment_account_number ? userdetails?.payment_account_number : 'N/A'}}
+          </strong>
+         </div>
+        </div>
+      </div>
+    </div>
   </div>
 </p-dialog>

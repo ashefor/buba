@@ -46,6 +46,10 @@ const routes: Routes = [
         path: 'berekete',
         loadChildren: () => import('../cash-spin-landing/cash-spin-landing.module').then(m => m.CashSpinLandingModule)
       },
+      // {
+      //   path: 'luckyjaka',
+      //   loadChildren: () => import('../luckyjaka/luckyjaka.module').then(m => m.LuckyjakaModule)
+      // },
       {
         path: '',
         redirectTo: 'dashboard',

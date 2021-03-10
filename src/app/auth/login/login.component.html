@@ -21,14 +21,14 @@
           <div class="p-fluid">
               
             <div class="p-field form__item">
-              <label for="email" class="form__label text--capital">email</label>
-              <input type="text" id="email" formControlName="email" class="form__input form__input--lg">
+              <label for="username" class="form__label text--capital">email/Phone</label>
+              <input type="text" id="username" formControlName="username" class="form__input form__input--lg">
               <ng-container
-              *ngIf="(formControls.email.dirty || formControls.email.touched) && formControls.email.errors">
-              <span *ngIf="formControls.email.errors.required" id="email-help"
-                class="p-invalid p-my-2 p-d-block">Email is required</span>
-              <span *ngIf="formControls.email.errors.email" id="email-help"
-                class="p-invalid p-my-2 p-d-block">Please enter valid email only</span>
+              *ngIf="(formControls.username.dirty || formControls.username.touched) && formControls.username.errors">
+              <span *ngIf="formControls.username.errors.required" id="username-help"
+                class="p-invalid p-my-2 p-d-block">Username is required</span>
+              <!-- <span *ngIf="formControls.username.errors.username" id="username-help"
+                class="p-invalid p-my-2 p-d-block">Please enter valid username only</span> -->
             </ng-container>
             </div>
             <div class="p-field form__item">

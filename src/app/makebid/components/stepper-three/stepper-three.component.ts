@@ -8,7 +8,6 @@ import { AuthService } from 'src/app/core/services/auth.service';
 import { bidDetails } from '../../models/bid-details';
 import { loggedInUser } from '../../models/logged-user';
 import { BidService } from '../../services/bid.service';
-import {Flutterwave, InlinePaymentOptions, PaymentSuccessResponse} from 'flutterwave-angular-v3';
 import { Router } from '@angular/router';
 
 @Component({
@@ -31,7 +30,6 @@ export class StepperThreeComponent implements OnInit, OnDestroy {
   isPaying: boolean;
   constructor(private loadingBar: LoadingBarService,
               private bidService: BidService,
-              private flutterwave: Flutterwave ,
               private authService: AuthService, private toastr: ToastrService, private router: Router) { }
 
   ngOnInit(): void {

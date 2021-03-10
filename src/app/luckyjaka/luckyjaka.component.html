@@ -1,0 +1,157 @@
+<section class="games_container">
+    <div class="card">
+      <div class="card__body p-d-flex p-flex-column">
+        <div class="p-d-none p-d-md-inline-flex pageheader p-mb-0">
+          <h1 class="pageheader__title text--capital">
+            luckyJaka
+          </h1>
+        </div>
+        <div class="p-d-md-none">
+          <div class="pageheader p-mb-0">
+            <h1 class="pageheader__title text--upper">
+              games
+            </h1>
+          </div>
+          <div class="p-grid p-ai-center p-mt-2">
+            <div class="p-col-4">
+              <h4 class="text--regular-alt text--primary">Type</h4>
+            </div>
+            <div class="p-col-8">
+              <div class="select">
+                <select class="form__input" (change)="changeGames($event)">
+                  <option value="games/quick-play">Quick Play</option>
+                  <option value="games/daily-special" selected>Daily Special</option>
+                </select>
+                <span class="select__icon">
+                  <i class="pi pi-angle-down"></i>
+                </span>
+               </div>
+            </div>
+          </div>
+        </div>
+        <ng-container *ngIf="loadingDetails else doneLoading">
+          <div class="text--center py-2 pseudo">
+            <div class="lds-hourglass"></div>
+          </div>
+        </ng-container>
+        <ng-template #doneLoading>
+          <ng-container *ngIf="lottoData; else noData">
+            <div class="lotto_container" [ngClass]="{'show-slip': showBetSlip}">
+              <p-messages class="lotto_how" severity="info" [closable]="false">
+                <ng-template pTemplate>
+                  <div>
+                    <h5 class="text--medium">How to play</h5>
+                    <br>
+                    <br>
+                    <p class="text--semi-small text--grey text--500">Select 5 numbers from 10 numbers using the hint as a
+                      guide.</p>
+                    <br>
+                    <p class="text--semi-small text--grey text--500">
+                      If you choose the correct set of numbers, the amount staked will be multiplied by 15 to give you
+                      your
+                      winning lot.
+                    </p>
+                  </div>
+                </ng-template>
+              </p-messages>
+              <div class="p-text-center text--small">
+                <p>Current session ends on <span class="text--bold">{{lottoData.numbers.end_date | customeDate: "MMM DD, YYYY. h:mm:ss a"}}</span></p>
+              </div>
+              <div class="lotto_wrapper">
+                <div class="lotto">
+                  <button class="lotto-ball" *ngFor="let number of alllottoNumbers"
+                    [ngClass]="{'selected': getBackgroundColor(number)}" (click)="selectNumber(number)"
+                    [class]="getHintBackgroundColor(number)" [attr.data-number]="number">
+                    <span class="lotto-ball-text">
+                      {{number}}
+                    </span>
+                  </button>
+                </div>
+                <details class="hints_container">
+                  <summary>Hints</summary>
+                  <ul class="hints">
+                    <li *ngIf="allHints.five_count && allHints.five_count != 0">
+                      <span class="text--secondary text--bold">{{allHints.five_count}}</span>
+                      number{{allHints.five_count > 1 ? 's' : ''}} in
+                      brown divisible by 5
+                    </li>
+                    <li *ngIf="allHints.odd_count && allHints.odd_count != 0">
+                      <span class="text--secondary text--bold">{{allHints.odd_count}}</span> odd numbers
+                    </li>
+                    <li *ngIf="allHints.prime_count && allHints.prime_count != 0">
+                      <span class="text--secondary text--bold">{{allHints.prime_count}}</span> prime
+                      number{{allHints.prime_count > 1 ? 's' : ''}} in blue
+                    </li>
+                    <li *ngIf="allHints.seven_count && allHints.seven_count != 0">
+                      <span class="text--secondary text--bold">{{allHints.seven_count}}</span>
+                      number{{allHints.seven_count > 1 ? 's' : ''}} in
+                      purple divisible by 7
+                    </li>
+                    <li *ngIf="allHints.three_count && allHints.three_count != 0">
+                      <span class="text--secondary text--bold">{{allHints.three_count}}</span>
+                      number{{allHints.three_count > 1 ? 's' : ''}} in
+                      black divisible by 3
+                    </li>
+                    <li *ngIf="allHints.two_count && allHints.two_count != 0">
+                      <span class="text--secondary text--bold">{{allHints.two_count}}</span>
+                      number{{allHints.two_count > 1 ? 's' : ''}} in
+                      green divisible by 2
+                    </li>
+                  </ul>
+                </details>
+                <input type="text" class="form__input" formControlName='amount' pKeyFilter="num">
+                <!-- <button [disabled]="selectedNumbers.length < 5"
+                  class="button p-mt-3 button--primary button--sm button--wide" (click)="addToSlip()">
+                  Add to Game Slip
+                </button> -->
+              </div>
+            </div>
+          </ng-container>
+          <ng-template #noData>
+            <div class="pseudo">
+              <p class="text--medium text--center">
+                No games found. Please come back later
+              </p>
+            </div>
+          </ng-template>
+        </ng-template>
+      </div>
+    </div>
+  </section>
+  
+  <p-dialog [(visible)]="displayPosition" styleClass="ticket-details-modal"
+    [modal]="true" [style]="{width: '35rem'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+    <div class="modal-content p-px-3 p-mt-2" *ngIf="ticketData">
+      <div class="howto">
+          <div class="game_ticket game_ticket--status">
+            <div class="p-mb-4 text--center">
+              <span class="ticket-details-icon">
+                <i style="font-size: 1.4rem" class="pi pi-check"></i>
+              </span>
+                <p class="text--medium text--center p-mb-2 text--600">Ticket Successful</p>
+                <!-- <p class="text--semi-small text--center">Use the ticket ID below to monitor this ticket status <a [routerLink]="['/games/status']" [queryParams]="{ticket_id: ticketData.ticket_id}" class="text--primary">here</a></p> -->
+            </div>
+          <div class="p-d-flex p-ai-center p-jc-between p-px-1 p-py-2">
+            <span class="text--regular p-d-inline-block p-pr-1 text--grey">Total Stake</span>
+            <span
+              class="text--regular p-d-inline-block p-pl-1 text--600 text--grey">{{(ticketData ? ticketData.total_amt : 0) | currency : '₦'}}</span>
+          </div>
+          <div class="p-d-flex p-ai-center p-jc-between p-px-1 p-py-2">
+            <span class="text--regular p-d-inline-block p-pr-1 text--grey">Total Potential Win</span>
+            <span
+              class="text--regular p-d-inline-block p-pl-1 text--600 text--grey">{{(ticketData ? ticketData.total_amt * 15 : 0) | currency : '₦'}}</span>
+          </div>
+          <div class="p-d-flex p-jc-between p-mb-3 p-py-2">
+            <span class="text--regular p-d-inline-block">Ticket ID</span>
+            <span class="text--regular p-d-inline-block text--600">{{ticketData.ticket_id}}</span>
+        </div>
+        <a [routerLink]="['/games/status']" class="text--secondary text--regular text--center text--capital p-d-block" style="text-decoration: none;">Check ticket status </a>
+        </div>
+        <br>
+      </div>
+    </div>
+    <!-- <ng-template pTemplate="footer">
+      <p-button icon="pi pi-check" (click)="displayPosition=false" label="Ok" styleClass="p-button-text p-button-lg"></p-button>
+    </ng-template> -->
+  </p-dialog>
+  

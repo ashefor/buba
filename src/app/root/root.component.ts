@@ -86,7 +86,7 @@ export class RootComponent implements OnInit {
   }
 
   startBidProcess() {
-    this.gameType = 'bid';
+    this.gameType = 'bid-landing';
     this.routeStatus.setRouteStatus(null);
     this.showStepper = true;
     this.showBidStepper = true;

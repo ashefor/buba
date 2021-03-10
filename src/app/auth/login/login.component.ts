@@ -40,12 +40,12 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.loadingBar.stop();
+    // this.loadingBar.stop();
     this.loginSubscription.unsubscribe();
   }
   formInit() {
     this.loginForm = this.fb.group({
-      email: [null, [Validators.email, Validators.required]],
+      username: [null, [Validators.required]],
       password: [null, [Validators.required, Validators.minLength(6)]]
     });
   }
@@ -64,14 +64,14 @@ export class LoginComponent implements OnInit, OnDestroy {
       return;
     }
     const newFormValue = {} as loginFormType;
-    const { email, password } = formvalue;
-    newFormValue.param = email;
+    const { username, password } = formvalue;
+    newFormValue.param = username;
     newFormValue.password = password;
-    this.loadingBar.start();
+    // this.loadingBar.start();
     this.loggingIn = true;
     this.loginForm.disable();
     this.loginSubscription = this.auth.login(newFormValue).subscribe((loggedUser: loggedInUser) => {
-      this.loadingBar.stop();
+      // this.loadingBar.stop();
       this.loggingIn = false;
       this.loginForm.enable();
       this.auth.storeToken(loggedUser.token);
@@ -84,17 +84,17 @@ export class LoginComponent implements OnInit, OnDestroy {
           if (this.returnUrl && this.returnUrl.length) {
             this.router.navigateByUrl(this.returnUrl);
           } else {
-            this.router.navigate(['/dashboard']);
+            this.router.navigate(['/']);
           }
         } else {
-          this.router.navigate(['/dashboard']);
+          this.router.navigate(['/']);
         }
       } else {
         // this.auth.storeLoginStatus(true);
         this.router.navigate(['/payment-account']);
       }
     }, (error: any) => {
-      this.loadingBar.stop();
+      // this.loadingBar.stop();
       this.loginForm.enable();
       this.loggingIn = false;
       if (error instanceof HttpErrorResponse) {

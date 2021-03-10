@@ -19,14 +19,14 @@
               </ng-container>
               <div class="p-fluid">
                 <div class="p-field">
-                  <label for="email">email</label>
-                  <input  id="email" formControlName="email" type="text" pInputText>
+                  <label for="username">email/Phone</label>
+                  <input  id="username" formControlName="username" type="text" pInputText>
                   <ng-container
-                    *ngIf="(formControls.email.dirty || formControls.email.touched) && formControls.email.errors">
-                    <span *ngIf="formControls.email.errors.required" id="email-help"
-                      class="p-invalid p-my-2 p-d-block">Email is required</span>
-                    <span *ngIf="formControls.email.errors.email" id="email-help"
-                      class="p-invalid p-my-2 p-d-block">Please enter valid email only</span>
+                    *ngIf="(formControls.username.dirty || formControls.username.touched) && formControls.username.errors">
+                    <span *ngIf="formControls.username.errors.required" id="username-help"
+                      class="p-invalid p-my-2 p-d-block">username is required</span>
+                    <!-- <span *ngIf="formControls.username.errors.username" id="username-help"
+                      class="p-invalid p-my-2 p-d-block">Please enter valid username only</span> -->
                   </ng-container>
                 </div>
                 <div class="p-field">
@@ -250,13 +250,112 @@
   </div>
 </ng-container>
 
-<ng-container *ngIf="gameType === 'spin' || gameType === 'berekete'">
+<ng-container *ngIf="gameType === 'spin' || gameType === 'berekete' || gameType === 'bid-landing'">
   <div class="p-grid" [ngClass]="animation">
     <div class="p-col-10 p-md-8 p-lg-6 p-mx-auto">
       <div [ngSwitch]="authType">
-  
-  
         <ng-container *ngSwitchDefault>
+          <div class="animate__animated animate__fadeIn animate__faster">
+            <form (ngSubmit)="register(registerForm.value)" [formGroup]="registerForm">
+              <h4 class="p-text-center text--semi-small">Create your account</h4>
+              <ng-container *ngIf="registerForm.errors">
+                <span *ngIf="registerForm.errors.badRequest"
+                  class="p-invalid p-my-2 p-d-block p-text-center text--semi-small">
+                  {{registerForm.errors.badRequest}}
+                </span>
+                <span *ngIf="registerForm.errors.unAuthorized"
+                  class="p-invalid p-my-2 p-d-block p-text-center text--semi-small">
+                  {{registerForm.errors.unAuthorized}}
+                </span>
+              </ng-container>
+              <div class="p-fluid">
+                <div class="p-field">
+                  <label for="firstname">first name</label>
+                  <input  id="firstname" formControlName="firstname" type="text" pInputText>
+                  <ng-container
+                    *ngIf="(registerFormControls.firstname.dirty || registerFormControls.firstname.touched) && registerFormControls.firstname.errors">
+                    <span *ngIf="registerFormControls.firstname.errors.required" id="firstname-help"
+                      class="p-invalid p-my-2 p-d-block">First name is required</span>
+                  </ng-container>
+                </div>
+                <div class="p-field">
+                  <label for="lastname">last name</label>
+                  <input  id="lastname" formControlName="lastname" type="text" pInputText>
+                  <ng-container
+                    *ngIf="(registerFormControls.lastname.dirty || registerFormControls.lastname.touched) && registerFormControls.lastname.errors">
+                    <span *ngIf="registerFormControls.lastname.errors.required" id="lastname-help"
+                      class="p-invalid p-my-2 p-d-block">Last name is required</span>
+                  </ng-container>
+                </div>
+                <div class="p-field">
+                  <label for="phone_number">phone number</label>
+                  <input autocomplete="tel"  id="phone_number" formControlName="phone_number" type="tel" pInputText>
+                  <ng-container
+                    *ngIf="(registerFormControls.phone_number.dirty || registerFormControls.phone_number.touched) && registerFormControls.phone_number.errors">
+                    <span *ngIf="registerFormControls.phone_number.errors.required" id="phone_number-help"
+                      class="p-invalid p-my-2 p-d-block">Phone number is
+                      required</span>
+                      <span *ngIf="registerFormControls.phone_number.errors.pattern" id="phone_number-help"
+                      class="p-invalid p-my-2 p-d-block">Invalid phone number</span>
+                  </ng-container>
+                </div>
+                <!-- <div class="p-field">
+                  <label for="email">email</label>
+                  <input  id="email" formControlName="email" type="email" pInputText>
+                  <ng-container
+                    *ngIf="(registerFormControls.email.dirty || registerFormControls.email.touched) && registerFormControls.email.errors">
+                    <span *ngIf="registerFormControls.email.errors.required" id="email-help"
+                      class="p-invalid p-my-2 p-d-block">Email is required</span>
+                    <span *ngIf="registerFormControls.email.errors.email" id="email-help"
+                      class="p-invalid p-my-2 p-d-block">Please enter valid email only</span>
+                  </ng-container>
+                </div> -->
+                <div class="p-field">
+                  <label for="password">password</label>
+                  <div class="password-toggle">
+                    <input class="password-toggle--input" formControlName="password" id="password"
+                      [type]="hide2 ? 'password' : 'text'" pInputText>
+                    <span class="password-toggle--button" (click)="hide2 =! hide2">
+                      {{hide2? 'show' : 'hide'}}
+                    </span>
+                  </div>
+                  <ng-container
+                    *ngIf="(registerFormControls.password.dirty || registerFormControls.password.touched) && registerFormControls.password.errors">
+                    <span *ngIf="registerFormControls.password.errors.required" id="password-help"
+                      class="p-invalid p-mb-2 p-d-block p-px-2">Please enter password</span>
+                    <span *ngIf="registerFormControls.password.errors.minlength" id="password-help"
+                      class="p-invalid p-mb-2 p-d-block p-px-2">Password must be at least characters</span>
+                  </ng-container>
+                </div>
+                <div class="p-field">
+                  <label for="referred_by">Referral code (optional)</label>
+                  <input  id="referred_by" formControlName="referred_by" type="tel" pInputText>
+                </div>
+                <div class="p-field p-mt-5">
+                  <button type="submit" [disabled]="isRegistering"
+                    class="button button--secondary button--raised button--wide text--upper">
+                    <i *ngIf="isRegistering" class="pi pi-spin pi-spinner p-mr-2"></i>
+                    {{isRegistering ? 'registering..' : 'register'}}
+                  </button>
+                </div>
+                <!-- <div class="buba-form__bottom-group">
+                  <div class="buba-form__bottom-text-container">
+                    <span class="buba-form__bottom-text">or</span>
+                  </div>
+                  <hr class="buba-form__bottom-decoration" />
+                </div>
+                <div class="p-field p-mt-3">
+                  <button [disabled]="isRegistering" type="button"
+                    class="button button--secondary button--raised button--wide text--upper" (click)="toggleFormType(1)">
+                    log in
+                  </button>
+                </div> -->
+              </div>
+            </form>
+          </div>
+        </ng-container>
+  
+        <ng-container *ngSwitchCase="2" >
           <div class="animate__animated animate__fadeIn animate__faster">
             <form (ngSubmit)="logIn(loginForm.value)" [formGroup]="loginForm">
               <h4 class="p-text-center text--semi-small">Log in to your account</h4>
@@ -324,110 +423,6 @@
             </form>
           </div>
         </ng-container>
-  
-  
-        <ng-container *ngSwitchCase="2">
-          <div class="animate__animated animate__fadeIn animate__faster">
-            <form (ngSubmit)="register(registerForm.value)" [formGroup]="registerForm">
-              <h4 class="p-text-center text--semi-small">Create your account</h4>
-              <ng-container *ngIf="registerForm.errors">
-                <span *ngIf="registerForm.errors.badRequest"
-                  class="p-invalid p-my-2 p-d-block p-text-center text--semi-small">
-                  {{registerForm.errors.badRequest}}
-                </span>
-                <span *ngIf="registerForm.errors.unAuthorized"
-                  class="p-invalid p-my-2 p-d-block p-text-center text--semi-small">
-                  {{registerForm.errors.unAuthorized}}
-                </span>
-              </ng-container>
-              <div class="p-fluid">
-                <div class="p-field">
-                  <label for="firstname">first name</label>
-                  <input  id="firstname" formControlName="firstname" type="text" pInputText>
-                  <ng-container
-                    *ngIf="(registerFormControls.firstname.dirty || registerFormControls.firstname.touched) && registerFormControls.firstname.errors">
-                    <span *ngIf="registerFormControls.firstname.errors.required" id="firstname-help"
-                      class="p-invalid p-my-2 p-d-block">First name is required</span>
-                  </ng-container>
-                </div>
-                <div class="p-field">
-                  <label for="lastname">last name</label>
-                  <input  id="lastname" formControlName="lastname" type="text" pInputText>
-                  <ng-container
-                    *ngIf="(registerFormControls.lastname.dirty || registerFormControls.lastname.touched) && registerFormControls.lastname.errors">
-                    <span *ngIf="registerFormControls.lastname.errors.required" id="lastname-help"
-                      class="p-invalid p-my-2 p-d-block">Last name is required</span>
-                  </ng-container>
-                </div>
-                <div class="p-field">
-                  <label for="phone_number">phone number</label>
-                  <input  id="phone_number" formControlName="phone_number" type="tel" pInputText>
-                  <ng-container
-                    *ngIf="(registerFormControls.phone_number.dirty || registerFormControls.phone_number.touched) && registerFormControls.phone_number.errors">
-                    <span *ngIf="registerFormControls.phone_number.errors.required" id="phone_number-help"
-                      class="p-invalid p-my-2 p-d-block">Phone number is
-                      required</span>
-                      <span *ngIf="registerFormControls.phone_number.errors.pattern" id="phone_number-help"
-                      class="p-invalid p-my-2 p-d-block">Invalid phone number</span>
-                  </ng-container>
-                </div>
-                <div class="p-field">
-                  <label for="email">email</label>
-                  <input  id="email" formControlName="email" type="email" pInputText>
-                  <ng-container
-                    *ngIf="(registerFormControls.email.dirty || registerFormControls.email.touched) && registerFormControls.email.errors">
-                    <span *ngIf="registerFormControls.email.errors.required" id="email-help"
-                      class="p-invalid p-my-2 p-d-block">Email is required</span>
-                    <span *ngIf="registerFormControls.email.errors.email" id="email-help"
-                      class="p-invalid p-my-2 p-d-block">Please enter valid email only</span>
-                  </ng-container>
-                </div>
-                <div class="p-field">
-                  <label for="password">password</label>
-                  <div class="password-toggle">
-                    <input class="password-toggle--input" formControlName="password" id="password"
-                      [type]="hide2 ? 'password' : 'text'" pInputText>
-                    <span class="password-toggle--button" (click)="hide2 =! hide2">
-                      {{hide2? 'show' : 'hide'}}
-                    </span>
-                  </div>
-                  <ng-container
-                    *ngIf="(registerFormControls.password.dirty || registerFormControls.password.touched) && registerFormControls.password.errors">
-                    <span *ngIf="registerFormControls.password.errors.required" id="password-help"
-                      class="p-invalid p-mb-2 p-d-block p-px-2">Please enter password</span>
-                    <span *ngIf="registerFormControls.password.errors.minlength" id="password-help"
-                      class="p-invalid p-mb-2 p-d-block p-px-2">Password must be at least characters</span>
-                  </ng-container>
-                </div>
-                <div class="p-field">
-                  <label for="referred_by">Referral code (optional)</label>
-                  <input  id="referred_by" formControlName="referred_by" type="tel" pInputText>
-                </div>
-                <div class="p-field p-mt-5">
-                  <button type="submit" [disabled]="isRegistering"
-                    class="button button--secondary button--raised button--wide text--upper">
-                    <i *ngIf="isRegistering" class="pi pi-spin pi-spinner p-mr-2"></i>
-                    {{isRegistering ? 'registering..' : 'register'}}
-                  </button>
-                </div>
-                <div class="buba-form__bottom-group">
-                  <div class="buba-form__bottom-text-container">
-                    <span class="buba-form__bottom-text">or</span>
-                  </div>
-                  <hr class="buba-form__bottom-decoration" />
-                </div>
-                <div class="p-field p-mt-3">
-                  <button [disabled]="isRegistering" type="button"
-                    class="button button--secondary button--raised button--wide text--upper" (click)="toggleFormType(1)">
-                    log in
-                  </button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </ng-container>
-  
-  
         <ng-container *ngSwitchCase="3">
         <div *ngIf="showResetForm">
           <div class="animate__animated animate__fadeIn animate__faster">

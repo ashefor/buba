@@ -29,7 +29,6 @@ import { WinningMarqueeComponent } from './components/winning-marquee/winning-ma
 import {CarouselModule} from 'primeng/carousel';
 import { TabViewModule } from 'primeng/tabview';
 import { StepperComponent } from './components/stepper/stepper.component';
-import { FlutterwaveModule } from 'flutterwave-angular-v3';
 
 
 @NgModule({
@@ -60,7 +59,6 @@ import { FlutterwaveModule } from 'flutterwave-angular-v3';
     CarouselModule,
     InputTextModule,
     SidebarModule,
-    FlutterwaveModule,
     RouterModule
   ],
   exports: [
@@ -92,7 +90,6 @@ import { FlutterwaveModule } from 'flutterwave-angular-v3';
     SidebarModule,
     StepperComponent,
     AddBankDetailsComponent,
-    FlutterwaveModule,
     RouterModule
   ], 
   providers: [

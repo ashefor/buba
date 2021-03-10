@@ -31,40 +31,46 @@ export class RegisterComponent implements OnInit, OnDestroy {
   isRegistering: boolean;
   hide2 = true;
   registerSubscription = new Subscription();
-  constructor(private fb: FormBuilder, private toastr: ToastrService, private bidService: BidService, private loadingBar: LoadingBarService, private auth: AuthService, private router: Router, private title: Title, private activatedRoute: ActivatedRoute, private meta: Meta) {
+  constructor(private fb: FormBuilder,
+              private toastr: ToastrService,
+              private bidService: BidService,
+              private loadingBar: LoadingBarService,
+              private auth: AuthService,
+              private router: Router,
+              private title: Title, private activatedRoute: ActivatedRoute, private meta: Meta) {
     this.title.setTitle('Buba - Account Register');
     this.meta.updateTag(
-      { name: "description", content: "Use my link to create your Buba account to enjoy More for Less!" }
-    )
+      { name: 'description', content: 'Use my link to create your Buba account to enjoy More for Less!' }
+    );
     this.meta.updateTag(
-      { name: "twitter:url", content: "https://account.buba.ng/register" }
-    )
+      { name: 'twitter:url', content: 'https://account.buba.ng/register' }
+    );
     this.meta.updateTag(
-      { name: "twitter:card", content: "summary" }
-    )
+      { name: 'twitter:card', content: 'summary' }
+    );
     this.meta.updateTag(
-      { name: "twitter:description", content: "Use my link to create your Buba account to enjoy More for Less!" }
-    )
+      { name: 'twitter:description', content: 'Use my link to create your Buba account to enjoy More for Less!' }
+    );
     this.meta.updateTag(
-      { name: "twitter:card", content: "summary" },
+      { name: 'twitter:card', content: 'summary' },
       `name='twitter:card'`
-    )
+    );
     this.meta.updateTag(
-      {meta:'property="og:title"', content:"Buba | Account Register"},
-    )
+      {meta: 'property="og:title"', content: 'Buba | Account Register'},
+    );
   }
 
   ngOnInit(): void {
     this.meta.updateTag(
-      {meta:'property="og:title"', content:"Buba | Account Register"},
-    )
+      {meta: 'property="og:title"', content: 'Buba | Account Register'},
+    );
     this.meta.updateTag(
-      { name: "twitter:description", content: "Use my link to create your Buba account to enjoy More for Less!" }
-    )
+      { name: 'twitter:description', content: 'Use my link to create your Buba account to enjoy More for Less!' }
+    );
     this.registerFormInit();
     this.activatedRoute.queryParams.subscribe((param: Params) => {
-      this.registerForm.patchValue({ referred_by: param.referred_by })
-    })
+      this.registerForm.patchValue({ referred_by: param.referred_by });
+    });
   }
   ngOnDestroy() {
     this.loadingBar.stop();
@@ -74,11 +80,11 @@ export class RegisterComponent implements OnInit, OnDestroy {
     this.registerForm = this.fb.group({
       firstname: [null, [Validators.required]],
       lastname: [null, [Validators.required]],
-      phone_number: [null, [Validators.required, Validators.pattern("(0)[0-9 ]{10}")]],
-      email: [null, [Validators.email, Validators.required]],
+      phone_number: [null, [Validators.required, Validators.pattern('(0)[0-9 ]{10}')]],
+      email: [''],
       password: [null, [Validators.required, Validators.minLength(6)]],
       confirmpassword: [null, [this.confirmValidator]],
-      referred_by: [null]
+      referred_by: ['']
     });
   }
   get registerFormControls() {
@@ -107,7 +113,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     if (this.registerForm.invalid) {
       return;
     }
-    this.loadingBar.start();
+    // this.loadingBar.start();
     this.isRegistering = true;
     this.registerForm.disable();
     const {referred_by} = formvalue;
@@ -115,7 +121,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     formvalue.referred_by = newRefCode;
     this.registerSubscription = this.auth.register(formvalue).subscribe((newUser: any) => {
       this.auth.storeToken(newUser.token);
-      this.loadingBar.stop();
+      // this.loadingBar.stop();
       this.isRegistering = false;
       this.registerForm.enable();
       this.auth.storeUser(newUser.user);
@@ -123,7 +129,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
       this.router.navigate(['/payment-account']);
     }, (error: any) => {
       this.isRegistering = false;
-      this.loadingBar.stop();
+      // this.loadingBar.stop();
       this.registerForm.enable();
       if (error instanceof HttpErrorResponse) {
         if (error.status === 400) {

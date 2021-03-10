@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { ToastrModule } from 'ngx-toastr';
+import { NgxGoogleAnalyticsModule, NgxGoogleAnalyticsRouterModule } from 'ngx-google-analytics';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -9,6 +10,7 @@ import { LoadingBarModule } from '@ngx-loading-bar/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TokenInterceptor } from './core/interceptors/token-interceptor';
 import { ChunkLoadErrorHandler } from './core/services/error-handler';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -19,6 +21,8 @@ import { ChunkLoadErrorHandler } from './core/services/error-handler';
     BrowserAnimationsModule,
     HttpClientModule,
     LoadingBarModule,
+    NgxGoogleAnalyticsModule.forRoot(environment.gtag),
+    NgxGoogleAnalyticsRouterModule,
     ToastrModule.forRoot({
       preventDuplicates: true
     }),

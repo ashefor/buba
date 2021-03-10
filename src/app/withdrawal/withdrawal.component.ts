@@ -15,7 +15,7 @@ export class WithdrawalComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.loadingBar.stop();
+    this.loadingBar.complete();
   }
 
 }

@@ -123,7 +123,7 @@ export class CashWheelComponent implements OnInit, OnDestroy {
               const message = `You have won <b>${this.currency.transform((10 * this.stake_amount), '₦')}</b>!, Check your winning balance`;
               this.showSuccessSwal(message);
             } else if (this.retryData.spin_status === 6) {
-              const message = `You have won <b>${this.currency.transform((2 * this.stake_amount), '₦')}</b>!, Check your winning balance`;
+              const message = `You have won <b>${this.currency.transform((500 * this.stake_amount), '₦')}</b>!, Check your winning balance`;
               this.showSuccessSwal(message);
             } else {
               this.showLossSwal();

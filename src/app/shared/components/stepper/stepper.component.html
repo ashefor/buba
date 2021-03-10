@@ -14,7 +14,7 @@
                 </p>
                 <p>
                     <strong>
-                      x2
+                      x500
                     </strong>
                   </p>
               </div>
@@ -112,20 +112,20 @@
               </div>
             </li>
           </ul>
-          <ng-container *ngIf="!showExtraBtns">
-            <div class="p-d-flex p-ai-center">
-                <p-inputNumber [(ngModel)]="stake_amount" prefix="₦" [min]="100" [max]="500000">
-                </p-inputNumber>
-                <button [disabled]="isSpinning || !stake_amount || stake_amount < 100" class="button p-mx-2 button--primary"
-              (click)="startSpin(raffle)">Spin</button>
-            </div>
-            <span class="text--semi-small p-d-block text--primary p-mt-2 p-pt-1">Minimum is <b>₦100</b>, Maximum is <b>₦50,000</b></span>
-          </ng-container>
-          <ng-container *ngIf="showExtraBtns">
-            <button [disabled]="isSpinning" class="button p-mx-2 button--tertiary"
-              (click)="resetSpinner(raffle)">Reset</button>
-          </ng-container>
         </div>
+        <ng-container *ngIf="!showExtraBtns">
+          <div class="p-d-flex p-ai-center p-jc-center p-mt-3">
+              <p-inputNumber [(ngModel)]="stake_amount" prefix="₦" [min]="100" [max]="500000">
+              </p-inputNumber>
+              <button [disabled]="isSpinning || !stake_amount || stake_amount < 100" class="button p-mx-2 button--primary"
+            (click)="startSpin(raffle)">Spin</button>
+          </div>
+          <span class="text--semi-small p-d-block text--primary p-mt-2 p-pt-1">Minimum is <b>₦100</b>, Maximum is <b>₦50,000</b></span>
+        </ng-container>
+        <ng-container *ngIf="showExtraBtns">
+          <button [disabled]="isSpinning" class="button p-mt-3 p-mx-2 button--tertiary"
+            (click)="resetSpinner(raffle)">Reset</button>
+        </ng-container>
       </div>
     </div>
   

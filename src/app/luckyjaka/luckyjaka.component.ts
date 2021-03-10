@@ -5,14 +5,14 @@ import { Router } from '@angular/router';
 import { LoadingBarService } from '@ngx-loading-bar/core';
 import { ToastrService } from 'ngx-toastr';
 import { EMPTY, TimeoutError } from 'rxjs';
-import { GamesService } from '../services/games.service';
+import { GamesService } from '../games/services/games.service';
 
 @Component({
-  selector: 'app-daily-special',
-  templateUrl: './daily-special.component.html',
-  styleUrls: ['./daily-special.component.scss']
+  selector: 'app-luckyjaka',
+  templateUrl: './luckyjaka.component.html',
+  styleUrls: ['./luckyjaka.component.scss']
 })
-export class DailySpecialComponent implements OnInit {
+export class LuckyjakaComponent implements OnInit {
   alllottoNumbers: any[] = [];
   showBetSlip = false;
   selectedNumbersContainer: any[] = [];
@@ -29,10 +29,11 @@ export class DailySpecialComponent implements OnInit {
   openSide: boolean;
   ticketData: any;
   disablePlayButton: boolean;
+
   constructor(private service: GamesService,
               private toastr: ToastrService,
               private loadingBar: LoadingBarService, private router: Router, private title: Title) {
-                this.title.setTitle('Buba - Games | Daily Special');
+                this.title.setTitle('Buba - Games | LuckyJaka');
                }
 
   ngOnInit(): void {
@@ -82,30 +83,8 @@ export class DailySpecialComponent implements OnInit {
     }
   }
 
-  addToSlip() {
-    const newSelectedNumbers = [...this.selectedNumbers];
-    this.selectedNumbersContainer.push(newSelectedNumbers);
-    this.stake_amount.push(100);
-    this.selectedNumbers = [];
-  }
+  
 
-  showSideBar() {
-    this.showBetSlip = true;
-    setTimeout(() => {
-      this.miniBar = true;
-    }, 100);
-    setTimeout(() => {
-      this.openSide = true;
-    }, 400);
-  }
-
-  closeSideBar() {
-    this.miniBar = false;
-    setTimeout(() => {
-      this.openSide = false;
-      this.showBetSlip = false;
-    }, 400);
-  }
 
   clearGameSlip() {
     this.miniBar = false;
@@ -222,18 +201,11 @@ export class DailySpecialComponent implements OnInit {
     }
   }
 
-  changeAmount(event: number) {
-    if (event < 100) {
-      this.disablePlayButton = true;
-    } else {
-     this.disablePlayButton = false;
-    }
-   }
-
    changeGames(event: { target: { value: any; }; }) {
     const url = event.target.value;
     if (url.length) {
       this.router.navigateByUrl(url);
     }
   }
+
 }
