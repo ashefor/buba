@@ -31,14 +31,27 @@ const routes: Routes = [
     path: 'verify_payment',
     loadChildren: () => import('./verify-payment/verify-payment.module').then(m => m.VerifyPaymentModule)
   },
-  // {
-  //   path: 'home',
-  //   loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
-  // },
   {
-    path: '',
+    path: 'dashboard',
     loadChildren: () => import('./main/main.module').then(m => m.MainModule)
   },
+  {
+    path: 'faqs',
+    loadChildren: () => import('./faq/faq.module').then(m => m.FaqModule)
+  },
+  {
+    path: 'responsible-gaming',
+    loadChildren: () => import('./responsible-gaming/responsible-gaming.module').then(m => m.ResponsibleGamingModule)
+  },
+  {
+    path: '',
+    loadChildren: () => import('./landing/landing.module').then(m => m.LandingModule)
+  },
+  // {
+  //   path: '',
+  //   redirectTo: 'dashboard',
+  //   pathMatch: 'full'
+  // },
   {
     path: '**',
     loadChildren: () => import('./page-not-found/page-not-found.module').then(m => m.PageNotFoundModule)
@@ -46,7 +59,9 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {
+    anchorScrolling: 'enabled'
+  })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

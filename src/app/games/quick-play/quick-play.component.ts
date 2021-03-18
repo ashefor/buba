@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { LoadingBarService } from '@ngx-loading-bar/core';
 import { ToastrService } from 'ngx-toastr';
 import { EMPTY, TimeoutError } from 'rxjs';
@@ -43,6 +43,11 @@ export class QuickPlayComponent implements OnInit {
                }
 
   ngOnInit(): void {
+    this.router.events.subscribe(evt => {
+      if (evt instanceof NavigationEnd) {
+        
+      }
+    });
     this.fetchGameSession();
   }
 

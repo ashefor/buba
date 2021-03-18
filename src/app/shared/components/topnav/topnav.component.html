@@ -1,5 +1,14 @@
 <ng-container>
   <div class="topnav">
+    <!-- <nav class="top-banner" [ngClass]="{'p-d-none': noBanner, 'slideUp': addAnimation}">
+      <div class="w-100">
+        <button (click)="closeBanner()" pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-info close-banner"></button>
+      <a class="p-d-block" [routerLink]="['/process_bid/BUBA_5071166722924755971464390834833885724']">
+        <img src="assets/img/banner-ad.gif" loading="lazy" class="p-d-none p-d-md-block" alt="Bid of the day" width="100%"/>
+        <img src="assets/img/banner-ad-mobile.gif" loading="lazy" class="p-d-md-none" alt="Bid of the day" width="100%"/>
+      </a>
+      </div>
+    </nav> -->
     <nav class="topnav__container">
       <div class="topnav__left">
         <div class="topnav__item p-d-md-none" [hidden]="showUserBalance">
@@ -10,33 +19,88 @@
           </div>
         </div>
         <div class="topnav__item">
-          <a href="" class="p-d-inline-block logo topnav__item__link topnav__item__logo">
-            <img src="assets/img/buba-secondary.png" alt="" srcset="">
+          <a [routerLink]="['/']" routerLinkActive="router-link-active"  class="topnav__brand p-d-flex p-ai-center">
+            <img src="assets/img/buba-logo.png" alt="" width="80" height="80" srcset="">
           </a>
+          <ng-container>
+            <ul class="topnav__menu">
+              <li class="topnav__menu_item"><a class="topnav__menu_link text--capital" [routerLink]="['/']" fragment="today-deals">today's deals</a></li>
+              <li class="topnav__menu_item"><a [routerLink]="['/dashboard/games/wheel']" class="topnav__menu_link text--capital">buba wheel</a></li>
+              <li class="topnav__menu_item"><a class="topnav__menu_link text--capital"  [routerLink]="['/dashboard/games/berekete']">berekete
+              </a>
+            </li>
+              <li class="topnav__menu_item"><a [routerLink]="['/dashboard/games/luckyjaka']" class="topnav__menu_link text--capital">lucky jaka</a></li>
+            </ul>
+          </ng-container>
         </div>
       </div>
       <div class="topnav_right">
+        <!-- <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input type="text" pInputText placeholder="Search"  />
+      </span> -->
+        <!-- <button type="button" class="button button--sm button--transparent button--rounded black">
+          <i class="pi pi-search" style="font-size: 1.4rem"></i>
+        </button> -->
         <ng-container *ngIf="(userDetails$ | async) as userDetails">
           <div class="topnav__item">
             <div class="user">
               <!-- <span class="user__avi">
                 <img [src]="imgBase+userDetails.picture" alt="" class="user__avi__image">
               </span> -->
-              <div class="user__info">
-                <!-- <span class="user__name text--bold">{{userDetails.firstname}}&nbsp;{{userDetails.lastname}}</span> -->
-                <span *ngIf="showUserBalance" class="user__balance">{{userDetails.balance | currency : '₦ '}}
-                  <i (click)="refreshWallet()" class="pi pi-refresh user__balance__refresh"
-                    [ngClass]="{'pi-spin': processing}"></i>
-                </span>
-              </div>
+              <ng-container>
+                <div class="user__info">
+                  <!-- <span class="user__name text--bold">{{userDetails.firstname}}&nbsp;{{userDetails.lastname}}</span> -->
+                  
+                  <span class="user__balance">
+                    <!-- <a [routerLink]="['/dashboard/transactions']" class="button button--sm button--transparent text--primary">
+                      Deposit 
+                    </a> -->
+                    {{userDetails.balance | currency : '₦'}}
+                    <i (click)="refreshWallet()" class="pi pi-refresh user__balance__refresh"
+                      [ngClass]="{'pi-spin': processing}"></i>
+                  </span>
+                </div>
+              </ng-container>
+              <div class="dropdown">
+              <button class="button button--tertiary">
+                <span class="">{{userDetails.firstname | titlecase}}</span>
+                <i class="p-ml-2 pi pi-angle-down" style="font-size: 1.4rem"></i>
+              </button>
+                <ul class="dropdown-content" id="myDropdown">
+                  <li class="dropdown-item text--capital" [routerLinkActiveOptions]="{ exact: true }" [routerLink]="['/dashboard/home']" routerLinkActive="active">
+                    <span>Dashboard</span>
+                  </li>
+                  <li class="dropdown-item text--capital" [routerLink]="['/dashboard/withdrawals']" routerLinkActive="active" >
+                    <span>withdrawals</span>
+                  </li>
+                  <li class="dropdown-item text--capital" [routerLink]="['/dashboard/games/history']" routerLinkActive="active" >
+                    <span>games history</span>
+                  </li>
+                  <li class="dropdown-item text--capital" [routerLink]="['/dashboard/settings']" routerLinkActive="active" >
+                    <span>Settings</span>
+                  </li>
+                  <li class="dropdown-item logout" (click)="logOut()">
+                      Log Out
+                  </li>
+                </ul>
+                </div> 
+                <!-- <button (click)="menu.toggle($event)" class="button button--tertiary">
+                  <span class="">{{userDetails.firstname | titlecase}}</span>
+                  <i class="p-ml-2 pi pi-angle-down" style="font-size: 1.4rem"></i>
+                </button>
+                <p-menu styleClass="navmenu" #menu [popup]="true" [model]="items"></p-menu> -->
             </div>
           </div>
         </ng-container>
-        <div class="topnav__item">
-          <a href="https://buba.ng" class="topnav__item__button">
-            <span class="topnav__item__button__text">Back to store</span>
-          </a>
-        </div>
+        <ng-container *ngIf="!(userDetails$ | async)">
+          <button [routerLink]="['/login']" type="button" class="button button--sm text--capital p-mx-1 button--tertiary">
+            Login
+          </button>
+          <button [routerLink]="['/register']" type="button" class="button button--sm text--capital p-mx-1 button--tertiary">
+            register
+          </button>
+        </ng-container>
       </div>
     </nav>
   </div>

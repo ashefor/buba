@@ -299,7 +299,7 @@
                       class="p-invalid p-my-2 p-d-block">Invalid phone number</span>
                   </ng-container>
                 </div>
-                <!-- <div class="p-field">
+                <div class="p-field">
                   <label for="email">email</label>
                   <input  id="email" formControlName="email" type="email" pInputText>
                   <ng-container
@@ -309,7 +309,7 @@
                     <span *ngIf="registerFormControls.email.errors.email" id="email-help"
                       class="p-invalid p-my-2 p-d-block">Please enter valid email only</span>
                   </ng-container>
-                </div> -->
+                </div>
                 <div class="p-field">
                   <label for="password">password</label>
                   <div class="password-toggle">
@@ -370,14 +370,14 @@
               </ng-container>
               <div class="p-fluid">
                 <div class="p-field">
-                  <label for="email">email</label>
-                  <input  id="email" formControlName="email" type="text" pInputText>
+                  <label for="email">email/phone</label>
+                  <input  id="email" formControlName="username" type="text" pInputText>
                   <ng-container
-                    *ngIf="(formControls.email.dirty || formControls.email.touched) && formControls.email.errors">
-                    <span *ngIf="formControls.email.errors.required" id="email-help"
-                      class="p-invalid p-my-2 p-d-block">Email is required</span>
-                    <span *ngIf="formControls.email.errors.email" id="email-help"
-                      class="p-invalid p-my-2 p-d-block">Please enter valid email only</span>
+                    *ngIf="(formControls.username.dirty || formControls.username.touched) && formControls.username.errors">
+                    <span *ngIf="formControls.username.errors.required" id="username-help"
+                      class="p-invalid p-my-2 p-d-block">username is required</span>
+                    <!-- <span *ngIf="formControls.username.errors.username" id="username-help"
+                      class="p-invalid p-my-2 p-d-block">Please enter valid username only</span> -->
                   </ng-container>
                 </div>
                 <div class="p-field">

@@ -1,5 +1,5 @@
-<app-topnav></app-topnav>
-<div class="buba-bid">
+<app-topnav (closeBannerEmitter)="closeBanner($event)"></app-topnav>
+<div class="buba-bid" [ngStyle]="{'margin-top': noBanner ? '8rem' : '14rem'}">
   <div class="p-grid">
     <div class="p-col-12 p-sm-10 p-md-8 p-lg-6 p-mx-auto">
       <div class="card">
@@ -88,3 +88,4 @@
     </div>
   </div>
 </div>
+<app-footer></app-footer>

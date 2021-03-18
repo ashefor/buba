@@ -8,6 +8,7 @@ import { GamesService } from '../services/games.service';
 import Swal from 'sweetalert2';
 import { HttpErrorResponse } from '@angular/common/http';
 import { EMPTY, TimeoutError } from 'rxjs';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-cash-wheel',
@@ -24,11 +25,17 @@ export class CashWheelComponent implements OnInit, OnDestroy {
 
   constructor(private service: GamesService,
     private currency: CurrencyPipe,
+    private router: Router,
     private toastr: ToastrService, private loadingBar: LoadingBarService, private title: Title, private auth: AuthService) {
       this.title.setTitle('Buba - Account Games | Berekete');
      }
 
   ngOnInit(): void {
+    this.router.events.subscribe(evt => {
+      if (evt instanceof NavigationEnd) {
+        
+      }
+    });
   }
 
   ngOnDestroy() {
@@ -120,10 +127,10 @@ export class CashWheelComponent implements OnInit, OnDestroy {
               const message = `You have won <b>${this.currency.transform((25 * this.stake_amount), '₦')}</b>!, Check your winning balance`;
               this.showSuccessSwal(message);
             } else if (this.retryData.spin_status === 5) {
-              const message = `You have won <b>${this.currency.transform((10 * this.stake_amount), '₦')}</b>!, Check your winning balance`;
+              const message = `You have won <b>${this.currency.transform((5 * this.stake_amount), '₦')}</b>!, Check your winning balance`;
               this.showSuccessSwal(message);
             } else if (this.retryData.spin_status === 6) {
-              const message = `You have won <b>${this.currency.transform((500 * this.stake_amount), '₦')}</b>!, Check your winning balance`;
+              const message = `You have won <b>${this.currency.transform((2 * this.stake_amount), '₦')}</b>!, Check your winning balance`;
               this.showSuccessSwal(message);
             } else {
               this.showLossSwal();

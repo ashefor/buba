@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, AfterViewInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth.service';
 
@@ -9,6 +9,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 })
 export class MobileSidenavComponent implements OnInit, AfterViewInit {
   @Output() closeSideBarEmitter = new EventEmitter();
+  @Input() noBanner: boolean = true;
   constructor(public authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {

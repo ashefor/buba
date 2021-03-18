@@ -8,6 +8,7 @@ import { GamesService } from '../services/games.service';
 import Swal from 'sweetalert2';
 import { CurrencyPipe } from '@angular/common';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-raffle-draw',
@@ -29,11 +30,17 @@ export class RaffleDrawComponent implements OnInit, OnDestroy {
 
   constructor(private service: GamesService,
               private currency: CurrencyPipe,
+              private router: Router,
               private toastr: ToastrService, private loadingBar: LoadingBarService, private title: Title, private auth: AuthService) {
     this.title.setTitle('Buba - Games | Buba Spin');
   }
 
   ngOnInit(): void {
+    this.router.events.subscribe(evt => {
+      if (evt instanceof NavigationEnd) {
+        
+      }
+    });
     this.fetchSpinItems();
   }
 

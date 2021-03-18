@@ -1,0 +1,34 @@
+@import '../../styles/abstract/variables';
+
+.transaction{
+    border-bottom: 1px solid rgba(61, 61, 61, .1);
+
+    &:last-of-type{
+        border: none !important;
+    }
+
+    padding: 1rem 0;
+
+    &_index{
+        width: 3.25rem;
+        height: 3.25rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 5px;
+        font-size: 1.8rem;
+        color: $color-white;
+        background-color: $color-primary
+    }
+
+    &_text{
+        font-size: $font-size-medium;
+        // margin-bottom: 1rem;
+        padding: .5rem 0;
+        line-height: 20px;
+    }
+
+    &_number{
+        // letter-spacing: 10px;
+    }
+}

@@ -13,7 +13,10 @@ button {
   }
 
   // font sizes
-
+&--extra-large{
+  font-size: $font-size-extra-large !important;
+  line-height: 49px;
+}
   &--large {
     font-size: $font-size-large !important;
   }
@@ -42,6 +45,11 @@ button {
     font-size: $font-size-tiny !important;
   }
 
+
+  //
+  &--italic{
+    font-style: italic !important;
+  }
   &--upper{
     text-transform: uppercase !important;
   }
@@ -61,6 +69,10 @@ button {
   //   colours
   &--primary {
     color: $color-primary !important;
+  }
+
+  &--blue {
+    color: $color-blue !important;
   }
 
   &--secondary {
@@ -118,6 +130,10 @@ button {
 
   &--bold {
     font-weight: bold !important;
+  }
+
+  &--800 {
+    font-weight: 800 !important;
   }
 
   &--normal {

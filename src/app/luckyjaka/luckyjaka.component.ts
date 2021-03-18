@@ -1,11 +1,13 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { LoadingBarService } from '@ngx-loading-bar/core';
 import { ToastrService } from 'ngx-toastr';
 import { EMPTY, TimeoutError } from 'rxjs';
 import { GamesService } from '../games/services/games.service';
+import Swal from 'sweetalert2';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-luckyjaka',
@@ -19,7 +21,8 @@ export class LuckyjakaComponent implements OnInit {
   miniBar = false;
   displayPosition = false;
   position = 'left';
-  stake_amount: any[] = [];
+  stake_amount = 100;
+  numObj = [];
   selectedNumbers: any[] = [];
   lottoData: any;
   animation = 'animate__slideInRight';
@@ -31,25 +34,30 @@ export class LuckyjakaComponent implements OnInit {
   disablePlayButton: boolean;
 
   constructor(private service: GamesService,
-              private toastr: ToastrService,
-              private loadingBar: LoadingBarService, private router: Router, private title: Title) {
-                this.title.setTitle('Buba - Games | LuckyJaka');
-               }
+    private toastr: ToastrService,
+    private loadingBar: LoadingBarService, private router: Router, private title: Title, private currency: CurrencyPipe) {
+    this.title.setTitle('Buba - Games | LuckyJaka');
+  }
 
   ngOnInit(): void {
+    this.router.events.subscribe(evt => {
+      if (evt instanceof NavigationEnd) {
+        
+      }
+    });
     this.fetchGameSession();
   }
 
   fetchGameSession() {
     this.loadingBar.start();
     this.loadingDetails = true;
-    this.service.fetchDailySpecialSession().subscribe((data: any) => {
+    this.service.fetchLuckyJakaSession().subscribe((data: any) => {
       this.loadingBar.stop();
       this.loadingDetails = false;
       if (data.status === 'success') {
         this.lottoData = data;
         this.allHints = data.hints;
-        this.alllottoNumbers.push(data.numbers.A_1, data.numbers.B_1, data.numbers.C_1, data.numbers.D_1, data.numbers.E_1, data.numbers.F_1, data.numbers.G_1, data.numbers.H_1, data.numbers.I_1, data.numbers.J_1);
+        this.alllottoNumbers.push(data.lucky_jaka.L_1, data.lucky_jaka.L_2, data.lucky_jaka.L_3, data.lucky_jaka.L_4, data.lucky_jaka.L_5, data.lucky_jaka.L_6, data.lucky_jaka.L_7, data.lucky_jaka.L_8, data.lucky_jaka.L_9, data.lucky_jaka.L_10);
       }
     }, (error: any) => {
       this.loadingBar.stop();
@@ -83,19 +91,8 @@ export class LuckyjakaComponent implements OnInit {
     }
   }
 
-  
 
 
-  clearGameSlip() {
-    this.miniBar = false;
-    setTimeout(() => {
-      this.openSide = false;
-      this.showBetSlip = false;
-      this.selectedNumbers = [];
-      this.stake_amount = [];
-      this.selectedNumbersContainer = [];
-    }, 400);
-  }
 
   getBackgroundColor(number: any) {
     const foundIndex = this.selectedNumbers.findIndex(num => num === number);
@@ -110,45 +107,34 @@ export class LuckyjakaComponent implements OnInit {
     }
   }
 
-  removeFromSlip(index: number) {
-    this.selectedNumbersContainer.splice(index, 1);
-    this.stake_amount.splice(index, 1);
-    if (this.selectedNumbersContainer.length === 0) {
-      this.clearGameSlip();
-    }
-  }
-
   buyTickets() {
-    const tickets = [];
-    this.selectedNumbersContainer.forEach((parentitem: [], itemindex) => {
-      const newObj = {} as any;
-      parentitem.forEach((item, index) => {
-        newObj[`L_${index + 1}`] = item;
-      });
-      tickets.push({ ...newObj, amount: this.stake_amount[itemindex] });
+    const newObj = {} as any;
+    this.selectedNumbers.forEach((parentitem, index) => {
+      newObj[`L_${index + 1}`] = parentitem;
     });
     const ticketsObj = {
-      session_id: this.allHints.session_id,
-      tickets
+      stake_amount: this.stake_amount,
+      ...newObj
     };
+    this.loadingBar.start();
     this.buyingTickets = true;
-    this.service.buyTickets(ticketsObj).subscribe((data: any) => {
+    this.service.buyLuckyJakaTicket(ticketsObj).subscribe((data: any) => {
       this.loadingBar.stop();
       this.buyingTickets = false;
       if (data.status === 'success') {
-        this.ticketData = {
-          ticket_id: data.ticket_id,
-          total_amt: tickets.reduce((acc, {amount}) => acc + amount, 0)
-        };
-        this.displayPosition = true;
+        if (data.game_status === 1) {
+          const message =
+            `<p>Winning numbers were <b>${data.win_array}</b> </p>
+         <p>You have won <b>${this.currency.transform(data.win_value, '₦')}</b>!, Check your winning balance</p>`;
+          this.showSuccessSwal(message);
+        } else {
+          const message =
+            `<p>Winning numbers were <b>${data.win_array}</b> </p>
+         <p>But you lost! Try again</p>`;
+          this.showLossSwal(message);
+        }
         // this.toastr.success(data.message ? data.message : 'Ticket Saved')
-        setTimeout(() => {
-          this.miniBar = false;
-          this.showBetSlip = false;
-        }, 100);
-        this.selectedNumbersContainer = [];
-        this.stake_amount = [];
-        this.selectedNumbers = [];
+
       } else {
         this.toastr.error(data.message);
       }
@@ -171,9 +157,6 @@ export class LuckyjakaComponent implements OnInit {
     });
   }
 
-  get totalStakeAmount() {
-    return this.stake_amount.reduce((acc, item) => acc + item, 0);
-  }
 
   getHintBackgroundColor(argument: string) {
     // tslint:disable-next-line: radix
@@ -201,11 +184,35 @@ export class LuckyjakaComponent implements OnInit {
     }
   }
 
-   changeGames(event: { target: { value: any; }; }) {
+  changeGames(event: { target: { value: any; }; }) {
     const url = event.target.value;
     if (url.length) {
       this.router.navigateByUrl(url);
     }
+  }
+
+  showSuccessSwal(message) {
+    return Swal.fire({
+      title: 'Congratulations!',
+      html: `${message}`,
+      icon: 'success',
+      width: '35rem',
+      showCancelButton: false,
+      showConfirmButton: true,
+      confirmButtonText: 'Awesome!',
+    });
+  }
+
+  showLossSwal(message) {
+    return Swal.fire({
+      title: 'Loss!',
+      html: `${message}`,
+      icon: 'error',
+      width: '35rem',
+      showCancelButton: false,
+      showConfirmButton: true,
+      confirmButtonText: 'Okay',
+    });
   }
 
 }

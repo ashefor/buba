@@ -40,6 +40,10 @@ const routes: Routes = [
       //   component: SpinHistoryComponent
       // },
       {
+        path: 'luckyjaka',
+        loadChildren: () => import('../luckyjaka/luckyjaka.module').then(m => m.LuckyjakaModule)
+      },
+      {
         path: '',
         pathMatch: '',
         redirectTo: 'quick-play'

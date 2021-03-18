@@ -18,6 +18,8 @@ export class TokenInterceptor implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         // tslint:disable-next-line: no-string-literal
         const routePath = this.activatedRoute.snapshot['_routerState'].url;
+        // console.log('intercept')
+        window.scrollTo(0, 0);
         if (this.service.isLoggedIn()) {
             const token = this.service.getToken();
             let request;
@@ -52,7 +54,7 @@ export class TokenInterceptor implements HttpInterceptor {
                    } else {
                     this.bidService.setCurrentPage(2);
                    }
-                } else if (routePath.toLowerCase().includes('berekete')) {
+                } else if (routePath.toLowerCase().includes('dashboard/berekete')) {
                     this.bidService.setCurrentPage(1);
                  } else {
                     if (this.router.url.includes('bank-details')) {

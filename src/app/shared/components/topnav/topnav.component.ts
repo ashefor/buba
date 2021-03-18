@@ -3,6 +3,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoadingBarService } from '@ngx-loading-bar/core';
 import { ToastrService } from 'ngx-toastr';
+import { MenuItem } from 'primeng/api';
 import { Observable, TimeoutError } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { loggedInUser } from 'src/app/makebid/models/logged-user';
@@ -17,19 +18,60 @@ export class TopnavComponent implements OnInit {
   imgBase = 'https://api.buba.ng/app/api/uploads/';
   processing: boolean;
   currentUrl: string[];
-  showMobileNav =  false;
+  showMobileNav = false;
   @Input() display: boolean;
   @Output() toggleSideMenuEmitter = new EventEmitter();
-  constructor(private authService: AuthService, private toastr: ToastrService, private router: Router) { }
+  @Output() closeBannerEmitter = new EventEmitter();
+  noBanner = true;
+  items: MenuItem[];
+  addAnimation: boolean;
+  constructor(private authService: AuthService, private toastr: ToastrService, public router: Router) {
+    // window.onclick = (e) => {
+    //   if (!e.target.matches('.dropdown-btn')) {
+    //     const myDropdown = document.getElementById('myDropdown');
+    //     if (myDropdown.classList.contains('show')) {
+    //       myDropdown.classList.remove('show');
+    //     }
+    //   }
+    // };
+  }
 
   ngOnInit(): void {
     this.userDetails$ = this.authService.getUser$();
     this.currentUrl = this.router.url.split('/');
+    this.items = [
+      {
+        label: 'Update',
+        icon: 'pi pi-refresh'
+      },
+      {
+        label: 'Delete',
+        icon: 'pi pi-times'
+      },
+      {
+        label: 'Angular Website',
+        icon: 'pi pi-external-link',
+        routerLink: '/dashboard/home',
+      },
+      {
+        label: 'Router',
+        icon: 'pi pi-upload',
+        routerLink: '/fileupload'
+      }
+    ];
   }
 
   toggleSideMenu() {
     // this.showMobileNav = ! this.showMobileNav;
     this.toggleSideMenuEmitter.emit();
+  }
+
+  closeBanner() {
+    this.addAnimation = true;
+    setTimeout(() => {
+      this.noBanner = true;
+    this.closeBannerEmitter.emit(true);
+    }, 100);
   }
   get showUserBalance() {
     if (this.currentUrl[1].includes('process_bid')) {
@@ -65,5 +107,16 @@ export class TopnavComponent implements OnInit {
     } else {
       return false;
     }
+  }
+
+  toggleDropdown() {
+    document.getElementById('myDropdown').classList.toggle('show');
+  }
+
+  logOut() {
+    this.authService.clearSessionStorage().then(() => {
+      this.authService.storeUser(null);
+      this.router.navigate(['/']);
+    });
   }
 }

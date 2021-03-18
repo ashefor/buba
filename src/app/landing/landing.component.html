@@ -1,0 +1,302 @@
+<app-topnav (closeBannerEmitter)="closeBanner($event)" (toggleSideMenuEmitter)="showSideMenu($event)"></app-topnav>
+<section>
+  <p-sidebar [(visible)]="display" [showCloseIcon]="false" [blockScroll]="true">
+    <app-mobile-sidenav [noBanner]="noBanner" (closeSideBarEmitter)="closeSideMenu()"></app-mobile-sidenav>
+ </p-sidebar>
+  <main class="landing" [ngStyle]="{'margin-top': noBanner ? '8rem' : '14rem'}">
+    
+
+    <p-carousel [value]="jumbos" styleClass="custom-carousel" [numVisible]="1" [numScroll]="1" [circular]="false" [autoplayInterval]="3000">
+      <ng-template let-jumbo pTemplate="item">
+        <div class="jumbotron">
+          <a [routerLink]="[jumbo.router]" routerLinkActive="router-link-active" >
+            <img [src]="jumbo.url" [alt]="jumbo.alt" srcset="">
+          </a>
+          <!-- <picture>
+            <source [srcset]="jumbo.url" type="image/webp">
+          </picture> -->
+        </div>
+      </ng-template>
+  </p-carousel>
+
+    <div class="container">
+      <div class="landing_wrapper bids" id="today-deals">
+        <div class="landing_header">
+          <h6 class="landing_title text--500 text--capital">
+            <strong>
+              today's top deals
+            </strong>
+          </h6>
+        </div>
+        <ng-container *ngIf="!todayBids">
+          <div class="carousel-container">
+            <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+              <div ngxSlickItem *ngFor="let product of products" class="slide">
+                <div class="p-px-2">
+                  <div class="bids_card">
+                    <div class="bids_img_wrapper">
+                    </div>
+                  </div>
+                  <div class="bids_text p-mt-3">
+                    <span class="product_category p-d-block lh-16 text--grey text--semi-small text--capital p-mb-3">
+                      
+                    </span>
+                    <p class="product_name text--semi-small text--upper lh-16 p-mb-2">
+                      
+                    </p>
+                    <span class="product_price p-d-block lh-16 text--regular text--primary">
+                      
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </ngx-slick-carousel>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="todayBids">
+          <div class="carousel-container">
+            <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+              <div ngxSlickItem *ngFor="let today of todayBids; let i = index" class="slide">
+                <a class="bid_item">
+                  <div class="bids_card">
+                    <div class="bids_img_wrapper">
+                      <img [lazyLoad]="today.product_image" [alt]="today.product_name"  [srcset]="today.product_image">
+                    </div>
+                  </div>
+                  <div class="bids_text p-mt-3">
+                    <span class="product_category p-d-block lh-16 text--grey text--semi-small text--capital p-mb-3">
+                      {{today.category}}
+                    </span>
+                    <p class="product_name text--semi-small text--upper lh-16 p-mb-2">
+                      {{today.product_name}}
+                    </p>
+                    <div class="p-d-block lh-16">
+                      <button [routerLink]="['/dashboard/games/wheel']" class="button button--primary button--sm p-mr-2">
+                        <span class="product_price p-mb-0 text--semi-small text--white text--capital">
+                          spin for {{today.spin_prize | currency: '₦': 'symbol':'1.0'}}
+                        </span>
+                      </button>
+                      <button [routerLink]="['/process_bid', today.display_id]" class="button button--secondary button--sm">
+                        <span class="product_price p-mb-0 text--semi-small text--white text--capital">
+                          bid for {{today.bid_prize | currency: '₦': 'symbol':'1.0'}}
+                        </span>
+                      </button>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </ngx-slick-carousel>
+          </div>
+        </ng-container>
+      </div>
+      <div class="landing_wrapper games">
+        <div class="landing_header">
+          <h6 class="landing_title text--500 text--capital">
+            <strong>
+              Buba games
+            </strong>
+          </h6>
+          <span class="landing_subtitle">Available interactive games on buba</span>
+        </div>
+        <div>
+          <div class="games_container">
+            <div class="games_card">
+              <a [routerLink]="['/dashboard/games/quick-play']">
+                <img src="assets/img/giqp.jpg" alt="Quick Play">
+              </a>
+            </div>
+            <div class="games_card">
+              <a [routerLink]="['/dashboard/games/daily-special']">
+                <img src="assets/img/gids.jpg" alt="Daily Special">
+              </a>
+            </div>
+            <div class="games_card">
+              <a [routerLink]="['/dashboard/games/luckyjaka']">
+                <img src="assets/img/gilj.jpg" alt="Lucky Jaka">
+              </a>
+            </div>
+            <div class="games_card">
+              <a [routerLink]="['/dashboard/games/wheel']">
+                <img src="assets/img/giw.jpg" alt="Buba Wheel">
+              </a>
+            </div>
+            <div class="games_card">
+              <a [routerLink]="['/dashboard/games/berekete']">
+                <img src="assets/img/gib.jpg" alt="Berekete">
+              </a>
+            </div>
+            <!-- <div class="games_card">
+              <a>
+                <img src="assets/img/gidc.jpg" alt="Daily Chance">
+              </a>
+            </div> -->
+          </div>
+        </div>
+      </div>
+      <div class="landing_wrapper bids">
+        <div class="landing_header">
+          <h6 class="landing_title text--500 text--capital">
+            <strong>
+              Recommended Deals
+            </strong>
+          </h6>
+        </div>
+        <ng-container *ngIf="!recommendedBids">
+          <div class="carousel-container">
+            <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+              <div ngxSlickItem *ngFor="let item of products" class="slide">
+                <div class="p-px-2">
+                  <div class="bids_card">
+                    <div class="bids_img_wrapper">
+                    </div>
+                  </div>
+                  <div class="bids_text p-mt-3">
+                    <span class="product_category p-d-block lh-16 text--grey text--semi-small text--capital p-mb-3">
+                      
+                    </span>
+                    <p class="product_name text--semi-small text--upper lh-16 p-mb-2">
+                      
+                    </p>
+                    <span class="product_price p-d-block lh-16 text--regular text--primary">
+                      
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </ngx-slick-carousel>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="recommendedBids">
+          <div class="carousel-container">
+            <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+              <div ngxSlickItem *ngFor="let product of recommendedBids" class="slide">
+                <a class="bid_item">
+                  <div class="bids_card">
+                    <div class="bids_img_wrapper">
+                      <img [src]="product.product_image" loading="lazy" [alt]="product.product_name"  [srcset]="product.product_image">
+                    </div>
+                  </div>
+                  <div class="bids_text p-mt-3">
+                    <span class="product_category p-d-block lh-16 text--grey text--semi-small text--capital p-mb-3">
+                      {{product.category}}
+                    </span>
+                    <p class="product_name text--semi-small text--upper lh-16 p-mb-2">
+                      {{product.product_name}}
+                    </p>
+                    <!-- <span class="product_price p-d-block lh-16 text--regular text--primary">
+                      {{product.bid_prize | currency: '₦'}}
+                    </span> -->
+                    <div class="p-d-block lh-16">
+                      <button [routerLink]="['/dashboard/games/wheel']" class="button button--primary button--sm p-mr-2">
+                        <span class="product_price p-mb-0 text--semi-small text--white text--capital">
+                          spin for {{product.spin_prize | currency: '₦': 'symbol':'1.0'}}
+                        </span>
+                      </button>
+                      <button [routerLink]="['/process_bid', product.display_id]" class="button button--secondary button--sm">
+                        <span class="product_price p-mb-0 text--semi-small text--white text--capital">
+                          bid for {{product.bid_prize | currency: '₦': 'symbol':'1.0'}}
+                        </span>
+                      </button>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </ngx-slick-carousel>
+          </div>
+        </ng-container>
+       
+      </div>
+      <div class="landing_wrapper referral">
+        <div class="p-grid">
+          <div class="p-col-12 p-md-6 p-mr-auto p-mb-3">
+            <div class="p-pr-md-6">
+              <div class="referral_card">
+                <img [defaultImage]="defaultImage" [lazyLoad]="'assets/img/ad2.gif'" alt="Win Up to ₦5,000,000 on Buba Berekete">
+              </div>
+            </div>
+          </div>
+          <div class="p-col-12 p-md-6 p-ml-auto p-mb-3">
+            <div class="p-pl-md-6">
+              <div class="referral_card">
+                <img [defaultImage]="defaultImage" [lazyLoad]="'assets/img/ad.gif'" alt="Win an iPhone 12">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="landing_wrapper bids">
+        <div class="landing_header">
+          <h6 class="landing_title text--500 text--capital">
+            <strong>
+              Hot bids
+            </strong>
+          </h6>
+        </div>
+       <ng-container *ngIf="!hotBids">
+        <div class="carousel-container">
+          <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+            <div ngxSlickItem *ngFor="let empty of products" class="slide">
+              <div class="p-px-2">
+                <div class="bids_card">
+                  <div class="bids_img_wrapper">
+                  </div>
+                </div>
+                <div class="bids_text p-mt-3">
+                  <span class="product_category p-d-block lh-16 text--grey text--semi-small text--capital p-mb-3">
+                    
+                  </span>
+                  <p class="product_name text--semi-small text--upper lh-16 p-mb-2">
+                    
+                  </p>
+                  <span class="product_price p-d-block lh-16 text--regular text--primary">
+                    
+                  </span>
+                </div>
+              </div>
+            </div>
+          </ngx-slick-carousel>
+        </div>
+       </ng-container>
+       <ng-container *ngIf="hotBids">
+        <div class="carousel-container">
+          <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+            <div ngxSlickItem *ngFor="let bid of hotBids" class="slide">
+              <a class="bid_item">
+                <div class="bids_card">
+                  <div class="bids_img_wrapper">
+                    <img [src]="bid.product_image" loading="lazy" [alt]="bid.product_name"  [srcset]="bid.product_image">
+                  </div>
+                </div>
+                <div class="bids_text p-mt-3">
+                  <span class="product_category p-d-block lh-16 text--grey text--semi-small text--capital p-mb-3">
+                    {{bid.category}}
+                  </span>
+                  <p class="product_name text--semi-small text--upper lh-16 p-mb-2">
+                    {{bid.product_name}}
+                  </p>
+                  <!-- <span class="product_price p-d-block lh-16 text--regular text--primary">
+                    {{bid.bid_prize | currency: '₦'}}
+                  </span> -->
+                  <div class="p-d-block lh-16">
+                    <button [routerLink]="['/dashboard/games/wheel']" class="button button--primary button--sm p-mr-2">
+                      <span class="product_price p-mb-0 text--semi-small text--white text--capital">
+                        spin for {{bid.spin_prize | currency: '₦': 'symbol':'1.0'}}
+                      </span>
+                    </button>
+                    <button [routerLink]="['/process_bid', bid.display_id]" class="button button--secondary button--sm">
+                      <span class="product_price p-mb-0 text--semi-small text--white text--capital">
+                        bid for {{bid.bid_prize | currency: '₦': 'symbol':'1.0'}}
+                      </span>
+                    </button>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </ngx-slick-carousel>
+        </div>
+       </ng-container>
+      </div>
+    </div>
+  </main>
+  <app-footer></app-footer>
+</section>

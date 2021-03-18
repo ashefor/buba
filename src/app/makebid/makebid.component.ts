@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Params, Router } from '@angular/router';
 import { LoadingBarService } from '@ngx-loading-bar/core';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, Subscription, TimeoutError } from 'rxjs';
@@ -17,6 +17,8 @@ export class MakebidComponent implements OnInit, OnDestroy {
   currentPage$: Observable<number>;
   bidDetails$: Observable<any>;
   accountDetails$: Observable<any>;
+  // noBanner = false;
+  noBanner = true;
   fetchBidErrors: any;
   bidId: string;
   bidList: any;
@@ -27,11 +29,16 @@ export class MakebidComponent implements OnInit, OnDestroy {
   fetchBidSubscription: Subscription;
   gameType = 'bid';
   // tslint:disable-next-line: max-line-length
-  constructor(private route: ActivatedRoute, private service: BidService, private loadingBar: LoadingBarService, private auth: AuthService, private toastr: ToastrService, private chref: ChangeDetectorRef, private title: Title) {
+  constructor(private route: ActivatedRoute, private service: BidService, private loadingBar: LoadingBarService, private auth: AuthService, private toastr: ToastrService, private router: Router, private chref: ChangeDetectorRef, private title: Title) {
     this.title.setTitle('Buba - Complete Bid');
-   }
+  }
 
   ngOnInit(): void {
+    this.router.events.subscribe(evt => {
+      if (evt instanceof NavigationEnd) {
+        
+      }
+    });
     this.currentPage$ = this.service.getCurrentPage$();
     this.bidDetails$ = this.service.getBidDetails$();
     this.accountDetails$ = this.service.getWalletDetails$();
@@ -40,8 +47,12 @@ export class MakebidComponent implements OnInit, OnDestroy {
     });
   }
 
+  closeBanner(event) {
+    this.noBanner = event;
+  }
   ngOnDestroy() {
     this.loadingBar.stop();
+    this.service.setCurrentPage(1);
   }
 
   changePage() {

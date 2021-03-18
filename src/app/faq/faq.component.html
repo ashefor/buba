@@ -1,0 +1,303 @@
+    <app-topnav (closeBannerEmitter)="closeBanner($event)" (toggleSideMenuEmitter)="showSideMenu($event)"></app-topnav>
+    <main class="faq">
+        <p-sidebar [(visible)]="display" [showCloseIcon]="false" [blockScroll]="true">
+            <app-mobile-sidenav [noBanner]="noBanner" (closeSideBarEmitter)="closeSideMenu()"></app-mobile-sidenav>
+         </p-sidebar>
+      <section class="container">
+        <div class="faq_content">
+          <div class="pageheader">
+            <h1 class="pageheader__title text--upper">
+              f.a.q
+            </h1>
+            <span class="pageheader__subtitle text--capital">
+              frequently asked questions
+            </span>
+          </div>
+          <div class="card">
+            <div class="card__body">
+                <div class="p-grid">
+                    <div class="p-md-3 p-d-none p-d-md-inline-block">
+                        <div class="faq__nav">
+                            <a class="faq__nav__item" [ngClass]="{'active': activeState[0]}" (click)="toggle(0)" >
+                                What is Buba?
+                            </a>
+                            <a class="faq__nav__item"  [ngClass]="{'active': activeState[1]}" (click)="toggle(1)"  >
+                              How to Fund?
+                          </a>
+                            <a class="faq__nav__item"  [ngClass]="{'active': activeState[2]}" (click)="toggle(2)" >
+                                How to Bid?
+                            </a>
+                            <a class="faq__nav__item"  [ngClass]="{'active': activeState[3]}" (click)="toggle(3)" >
+                                How to Play Games?
+                            </a>
+                            <a class="faq__nav__item"  [ngClass]="{'active': activeState[4]}" (click)="toggle(4)" >
+                                Buba Berekete
+                            </a>
+                            <a class="faq__nav__item"  [ngClass]="{'active': activeState[5]}" (click)="toggle(5)" >
+                                Withdrawals
+                            </a>
+                            <a class="faq__nav__item"  [ngClass]="{'active': activeState[6]}" (click)="toggle(6)" >
+                                Loyalty Wallet
+                            </a>
+                            <a class="faq__nav__item"  [ngClass]="{'active': activeState[7]}" (click)="toggle(7)" >
+                                Referral Program
+                            </a>
+                            <a class="faq__nav__item"  [ngClass]="{'active': activeState[8]}" (click)="toggle(8)" >
+                                Campus Ambassadors
+                            </a>
+                            <a class="faq__nav__item"  [ngClass]="{'active': activeState[9]}" (click)="toggle(9)" >
+                                Buba Agents
+                            </a>
+                        </div>
+                    </div>
+                    <div class="p-md-8 p-ml-auto p-col-12">
+                        <p-accordion>
+                            <p-accordionTab header="What is Buba?" [(selected)]="activeState[0]">
+                                <div class="p-p-2">
+                                    <p class="text--regular-alt faq-text">
+                                        <span class="text--primary"><b>BUBA</b></span> is a bidding and Interactive games platform in Nigeria that allows you to place bids on products for as low as ₦100. There is an interactive gaming platform that allows users to play games such as: Buba Berekete, Buba Wheel, Luckyjaka, Quick play, Daily special.
+                                      </p>
+                                  </div>
+                            </p-accordionTab>
+                            <p-accordionTab header="How to Fund?" [(selected)]="activeState[1]">
+                                <div class="p-p-2">
+                                    <p class="text--regular-alt faq-text">
+                                      <b>The options depositing into your Buba wallet includes:</b>
+                                    </p>
+                                    <ol class="p-px-6">
+                                      <li class="text--regular-alt faq-text p-mt-3">
+                                        Rolez Microfinance bank
+                                      </li>
+                                      <li class="text--regular-alt faq-text p-mt-3">
+                                        Wema Bank 
+                                      </li>
+                                      <li class="text--regular-alt faq-text p-mt-3">
+                                        Flutterwave 
+                                      </li>
+                                    </ol>
+                                  </div>
+                            </p-accordionTab>
+                            <p-accordionTab header="How to Bid?" [(selected)]="activeState[2]">
+                                <div class="p-p-2">
+                                    <p class="text--regular-alt faq-text">
+                                        Every product has an allocated number of bid slot and a closing bid time, bid slots start from as low as ₦50 depending on the product.
+                                      </p>
+                                      <p class="text--regular-alt faq-text">
+                                        At the close of every deal time, if the total number of bid slot available was bought, we have a completed bid, and one selected winner takes the item. However, if the total number of bid slot sold for that item is not equal to the total number of slots, we have an incomplete bid, hence, one winner is selected through the same process as the completed bid, then 70% of the total bid amount is given to the selected winner.
+                                      </p>
+                                      <p class="text--regular-alt faq-text">
+                                        The more bid slots you buy for an item, the higher your chance of winning!
+                                      </p>
+                                      <p class="text--regular-alt faq-text">
+                                        <b>How to Place a Bid.</b>
+                                      </p>
+                                      <ol class="p-px-6">
+                                        <li class="text--regular-alt faq-text p-mt-3">
+                                            Search or select the item you want to view the product description page.
+                                        </li>
+                                        <li class="text--regular-alt faq-text p-mt-3">
+                                            Select the ‘bid now’ option to proceed to the bid checkout page. 
+                                        </li>
+                                        <li class="text--regular-alt faq-text p-mt-3">
+                                            On the bid checkout page, provide the number of bid slots you want to buy and proceed.
+                                        </li>
+                                        <li class="text--regular-alt faq-text p-mt-3">
+                                            If you are a new user, you will be asked to create an account and given the option to fund your wallet. However, if you are an existing user, you will be asked to login to finalize your bid.
+                                        </li>
+                                      </ol>
+                                      <p class="text--regular-alt faq-text">
+                                        After the closing time for the bid elapse, your win status is communicated with you via email and SMS to your registered phone number.
+                                      </p>
+                                  </div>  
+                            </p-accordionTab>
+                            <p-accordionTab header="How to play games?" [(selected)]="activeState[3]">
+                                <div class="p-p-2">
+                                    <div class="p-mb-4">
+                                        <p class="text--regular-alt faq-text p-mb-3">
+                                            <b>Information on Buba Wheel.</b>
+                                          </p>
+                                          <p class="text--regular-alt faq-text">
+                                              The Buba wheel has various options including but not limited to Cash Prizes, amazing products, and unbelievable deals. With one spin, you could become a millionaire, get a chance to try again, or win exciting prizes. Each product spin has different stakes and guarantees you a chance of winning.
+                                            </p>
+                                    </div>
+                                     <div class="p-mb-4">
+                                        <p class="text--regular-alt faq-text">
+                                            <b>How to Spin the Buba Wheel.</b>
+                                          </p>
+                                        <ol class="p-px-6">
+                                          <li class="text--regular-alt faq-text p-mt-3">
+                                            Select ‘Games’ from the Menu bar.
+                                          </li>
+                                          <li class="text--regular-alt faq-text p-mt-3">
+                                            Click on ‘Buba Wheel’
+                                          </li>
+                                          <li class="text--regular-alt faq-text p-mt-3">
+                                            Select the product you would like to spin for – you would be able to see the amount to be staked to spin for the product.
+                                          </li>
+                                          <li class="text--regular-alt faq-text p-mt-3">
+                                            Click on ‘Spin’ to spin the wheel.
+                                          </li>
+                                          <li class="text--regular-alt faq-text p-mt-3">
+                                            If you are a new user, you will be asked to create an account and given the option to fund your wallet. However, if you are an existing user, you will be asked to login to spin the wheel.
+                                          </li>
+                                        </ol>
+                                     </div>
+                                    <div class="p-mb-4">
+                                        <p class="text--regular-alt faq-text">
+                                            <b>How to play Daily Special.</b>
+                                          </p>
+                                        <ol class="p-px-6">
+                                          <li class="text--regular-alt faq-text p-mt-3">
+                                            Select ‘Games’ from the Menu bar.
+                                          </li>
+                                          <li class="text--regular-alt faq-text p-mt-3">
+                                            Click on ‘Daily Special’
+                                          </li>
+                                          <li class="text--regular-alt faq-text p-mt-3">
+                                            Select 5 numbers from 10 numbers using the hint as a guide.
+                                          </li>
+                                          <li class="text--regular-alt faq-text p-mt-3">
+                                            If you choose the correct set of numbers, the amount staked will be multiplied by 15 to give you your winning lot.
+                                          </li>
+                                          <li class="text--regular-alt faq-text p-mt-3">
+                                            Click on ‘Add to Game Slip’ to create your ticket.
+                                          </li>
+                                          <li class="text--regular-alt faq-text p-mt-3">
+                                            Click on ‘Open Game slip’ to view your ticket and stake the amount you want.
+                                          </li>
+                                          <li class="text--regular-alt faq-text p-mt-3">
+                                            Click on ‘play game’.
+                                          </li>
+                                          <li class="text--regular-alt faq-text p-mt-3">
+                                            If you are a new user, you will be asked to create an account and given the option to fund your wallet. However, if you are an existing user, you will be asked to login to play the game.
+                                          </li>
+                                        </ol>
+                                    </div>
+                                    <div class="p-mb-4">
+                                        <p class="text--regular-alt faq-text">
+                                            <b>How to play Quick Play</b>
+                                          </p>
+                                        <ol class="p-px-6">
+                                          <li class="text--regular-alt faq-text p-mt-3">
+                                            Select ‘Games’ from the Menu bar.
+                                          </li>
+                                          <li class="text--regular-alt faq-text p-mt-3">
+                                            Click on ‘Quick Play’
+                                          </li>
+                                          <li class="text--regular-alt faq-text p-mt-3">
+                                            Select one number from each row.
+                                          </li>
+                                          <li class="text--regular-alt faq-text p-mt-3">
+                                            If you choose the correct set of numbers, the amount staked will be multiplied by 120 to give you your winning lot.
+                                          </li>
+                                          <li class="text--regular-alt faq-text p-mt-3">
+                                            Click on ‘Add to Game Slip’ to create your ticket.
+                                          </li>
+                                          <li class="text--regular-alt faq-text p-mt-3">
+                                            Click on ‘Open Game slip’ to view your ticket and stake the amount you want.
+                                          </li>
+                                          <li class="text--regular-alt faq-text p-mt-3">
+                                            Click on ‘play game’.
+                                          </li>
+                                          <li class="text--regular-alt faq-text p-mt-3">
+                                            If you are a new user, you will be asked to create an account and given the option to fund your wallet. However, if you are an existing user, you will be asked to login to play the game.
+                                          </li>
+                                        </ol>
+                                    </div>
+                                  </div>  
+                            </p-accordionTab>
+                            <p-accordionTab header="Buba Berekete" [(selected)]="activeState[4]">
+                                <div class="p-p-2">
+                                    <div class="p-mb-4">
+                                          <p class="text--regular-alt faq-text p-mb-3">
+                                            BUBA BEREKETE is limited to Cash Prizes only. With one spin, you could become a millionaire, win other multiplications of your stakes, or get a chance to try again. You can stake any amount you want to guarantee you a chance of winning.
+                                          </p>
+                                          <p class="text--regular-alt faq-text">
+                                            <b>How to play Buba Berekete</b>
+                                          </p>
+                                        <ol class="p-px-6">
+                                          <li class="text--regular-alt faq-text p-mt-3">
+                                            Select ‘Games’ from the Menu bar.
+                                          </li>
+                                          <li class="text--regular-alt faq-text p-mt-3">
+                                            Click on ‘Berekete’
+                                          </li>
+                                          <li class="text--regular-alt faq-text p-mt-3">
+                                            Select the Cash Prize you would like to spin for.
+                                          </li>
+                                          <li class="text--regular-alt faq-text p-mt-3">
+                                            Input the amount you would like to stake.
+                                          </li>
+                                          <li class="text--regular-alt faq-text p-mt-3">
+                                            Click on ‘Spin’ to spin the wheel.
+                                          </li>
+                                          <li class="text--regular-alt faq-text p-mt-3">
+                                            If you are a new user, you will be asked to create an account and given the option to fund your wallet. However, if you are an existing user, you will be asked to login to spin the wheel.
+                                          </li>
+                                        </ol>
+                                    </div>
+                                  </div>  
+                            </p-accordionTab>
+                            <p-accordionTab header="Withdrawals" [(selected)]="activeState[5]">
+                                <div class="p-p-2">
+                                    <div class="p-mb-4">
+                                          <p class="text--regular-alt faq-text p-mb-3">
+                                            Go to settings to add your account number
+                                          </p>
+                                    </div>
+                                  </div>  
+                            </p-accordionTab>
+                            <p-accordionTab header="Loyalty Wallet" [(selected)]="activeState[6]">
+                                <div class="p-p-2">
+                                    <div class="p-mb-4">
+                                          <p class="text--regular-alt faq-text p-mb-3">
+                                            You accumulate monetary points every time you fund your wallet. 0.5% of amount funded by active players is added to their loyalty balance.
+                                          </p>
+                                    </div>
+                                  </div>  
+                            </p-accordionTab>
+                            <p-accordionTab header="Referral Program" [(selected)]="activeState[7]">
+                                <div class="p-p-2">
+                                    <div class="p-mb-4">
+                                        <p class="text--regular-alt faq-text p-mb-3">
+                                            When someone signs using your referral code or link, you earn ₦500 when they have funded up to ₦5000, which is paid into your winning balance. 
+                                        </p>
+                                  </div>
+                                  </div>  
+                            </p-accordionTab>
+                            <p-accordionTab header="Campus Ambassadors" [(selected)]="activeState[8]">
+                                <div class="p-p-2">
+                                    <p class="text--regular-alt faq-text p-mb-3">
+                                        To become a BUBA Campus Plug, click the link below to fill the form. 
+                                    </p>
+                                    <p class="text--regular-alt faq-text p-mb-3">
+                                        <a target="_blank" rel="noreferrer" href="https://docs.google.com/forms/d/e/1FAIpQLSc23rnrRWkUUzT9m9xEFIAz8_1V0-vXO99On48m2LpK3U6wwA/viewform?usp=sf_link">
+                                           Become a Campus Ambassador
+                                        </a>
+                                    </p>
+                                  </div>  
+                            </p-accordionTab>
+                            <p-accordionTab header="Buba Agents" [(selected)]="activeState[9]">
+                                <div class="p-p-2">
+                                    <p class="text--regular-alt faq-text p-mb-3">
+                                        To become an agent, Click the link to fill the form:  
+                                    </p>
+                                    <p class="text--regular-alt faq-text p-mb-3">
+                                        <a target="_blank" rel="noreferrer" href="https://docs.google.com/forms/d/e/1FAIpQLSeoX8wshhcIGg0f602wmdjsw_-LAOEM0P-pZeit148vsG0JKg/viewform">
+                                           Become a Buba Agent
+                                        </a>
+                                    </p>
+                                    <p class="text--regular-alt faq-text p-mb-3">
+                                        Or Call Olamide on <a href="tel:08144232895">08144232895</a>	 
+                                    </p>
+                                  </div>  
+                            </p-accordionTab>
+                        </p-accordion>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+      </section>
+    </main>
+    <app-footer></app-footer>

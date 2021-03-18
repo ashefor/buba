@@ -15,7 +15,7 @@
       <div class="p-grid">
         <div class="p-col-12 p-md-12 p-lg-5 p-mr-auto dashboard__body__left">
           <div class="p-grid p-p-2">
-            <div class="p-col-12 p-md-4 p-lg-12 balance p-mr-md-2 p-mr-lg-0">
+            <div class="p-col-12 p-md-4 p-lg-12 info_card p-mr-md-2 p-mr-lg-0">
               <span class="balance__header text--upper">
                 wallet
               </span>
@@ -29,11 +29,7 @@
                   {{userdetails?.balance | currency: '₦ '}}
                 </span>
                 <div class="payment__details__item">
-                  <!-- <button class="button p-mr-2 p-mt-2 button--secondary text--capital payment__addbutton payment__details__button"
-                    >
-                    add promo code
-                  </button> -->
-                  <div>
+                  <!-- <div>
                     Fund Wallet
                   </div>
                   <div>
@@ -52,14 +48,15 @@
                   <a (click)="openPromoModal()" class="text--secondary text--capital">
                     add promo code
                   </a>
-                 </div>
-                  <!-- <a (click)="openPromoModal()" class="text--secondary text--capital">
-                    Fund Wallet
-                  </a> -->
-                  <!-- <button class="button p-mt-2 button--secondary text--capital payment__addbutton payment__details__button"
-                    (click)="openFundModal()">
-                    fund wallet
-                  </button> -->
+                 </div> -->
+                 <!-- <a [routerLink]="['/dashboard/transactions']" class="button button--sm p-mt-2 button--secondary text--capital payment__addbutton">
+                 deposit 
+                 <i class="pi pi-plus p-ml-2" style="font-size: 1.2rem"></i>
+                </a> -->
+                <button class="button button--sm p-mt-2 button--secondary text--capital payment__addbutton" (click)="openFundModal()">
+                  deposit
+                  <i class="pi pi-plus p-ml-2" style="font-size: 1.2rem"></i>
+                </button>
                 </div>
               </ng-template>
             </div>
@@ -119,7 +116,7 @@
               </ng-template>
             </div> -->
 
-            <div class="p-col-12 p-md-4 p-lg-12 payment p-mr-md-2 p-mr-lg-0">
+            <div class="p-col-12 p-md-4 p-lg-12 info_card payment p-mr-md-2 p-mr-lg-0">
               <span class="balance__header text--upper">
                 winning balance
               </span>
@@ -133,7 +130,7 @@
                   {{userdetails?.winnings_balance | currency: '₦ '}}
                 </span>
                 <div class="p-mt-2">
-                  <a [routerLink]="['/withdrawals/new']"
+                  <a [routerLink]="['/dashboard/withdrawals/new']"
                     class="button button--sm p-mr-2 p-mt-2 button--secondary text--capital payment__addbutton">
                     withdraw
                   </a>
@@ -144,7 +141,7 @@
                 </div>
               </ng-template>
             </div>
-            <div class="p-col-12 p-md-4 p-lg-12 balance p-mr-md-2 p-mr-lg-0">
+            <div class="p-col-12 p-md-4 p-lg-12 info_card p-mr-md-2 p-mr-lg-0">
               <span class="balance__header text--upper">
                 loyalty balance
               </span>
@@ -203,7 +200,7 @@
         </div>
 
         <div class="p-col-12  p-md-12 p-lg-6 p-mx-auto dashboard__body__right">
-          <div class="referral">
+          <div class="info_card">
             <span class="referral__header text--upper">
               referral details
             </span>
@@ -234,7 +231,7 @@
               </div>
             </ng-template>
           </div>
-          <div class="bids">
+          <div class="info_card">
             <span class="bids__header text--upper">
               open bid(s)
             </span>
@@ -279,7 +276,7 @@
                       </div>
                     </div>
                     <div class="bids__open__item p-pt-5">
-                      <a [routerLink]="['/bids']" class="bids__open__text bids__open__link">See all transactions</a>
+                      <a [routerLink]="['/dashboard/bids']" class="bids__open__text bids__open__link">See all transactions</a>
                     </div>
                   </ng-container>
                   <ng-template #noHistory>
@@ -456,7 +453,7 @@
           </ng-container>
         </div>
         <div class="p-field form__item">
-          <label for="amount" class="form__label text--capital">password</label>
+          <label for="amount" class="form__label text--capital">For Security Reasons, Please Enter Your Password</label>
           <input type="password" class="form__input form__input--lg" formControlName='password'>
           <ng-container
             *ngIf="(loyaltyWithdrawFormControls.password.dirty || loyaltyWithdrawFormControls.password.touched) && loyaltyWithdrawFormControls.password.errors">

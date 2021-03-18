@@ -1,5 +1,6 @@
 /*basic reset*/
-@import url('https://fonts.googleapis.com/css2?family=Yantramanav&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=Overpass&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
 @import '../abstract/variables';
 
 
@@ -22,8 +23,8 @@ html {
 
 body {
   box-sizing: border-box;
-  // font-family: 'Heebo', sans-serif;
-  font-family: 'Yantramanav', sans-serif;
+  // font-family: 'Overpass', sans-serif;
+  font-family: 'Josefin Sans', sans-serif;
   font-style: normal;
   line-height: 1.2;
   // font-size: 14px;
@@ -48,8 +49,16 @@ a {
   }
 }
 
+.lh-16 {
+  line-height: 16px;
+}
+
 p {
   margin: 0;
+}
+
+.position-relative {
+  position: relative !important;
 }
 
 input,
@@ -77,6 +86,7 @@ html,
 body {
   background-color: $color-off-black;
   margin: 0 auto;
+  scroll-behavior: smooth;
   min-height: 100vh;
 }
 
@@ -140,7 +150,7 @@ body {
 //   }
 // }
 .p-sidebar-left {
-  padding-top: 6rem;
+  // padding-top: 6rem;
   width: 30rem !important;
   // height: calc(100vh - 6rem) !important;
   overflow: auto;
@@ -268,25 +278,102 @@ body {
 }
 
 .games-history {
-  &.p-component{
+  &.p-component {
     font-family: inherit;
   }
+
   .p-tabview-nav {
     display: flex;
     justify-content: space-between;
 
     li {
-      width: calc(100% /3);
+      width: calc(100% /4);
 
       .p-tabview-nav-link {
-        font-size: 1.8rem;
+        font-size: 1.3rem;
+        text-align: left;
+
+        @media all and (min-width: 768px) {
+        font-size: 1.6rem;
         text-align: center;
+        }
 
         .p-tabview-title {
           width: 100%;
         }
       }
 
+    }
+  }
+
+}
+
+.bids_carousel {
+  margin-left: -1rem;
+  margin-right: -1rem;
+
+  .p-carousel-container {
+    position: relative;
+
+    button.p-ripple {
+      position: absolute;
+      top: 40%;
+      margin: 0;
+      background: $color-white;
+      z-index: 999;
+
+      &.p-carousel-prev {
+        left: 0;
+      }
+
+      &.p-carousel-next {
+        right: 0;
+      }
+    }
+  }
+
+  .p-carousel-indicators {
+    display: none;
+  }
+}
+
+ngx-slick-carousel {
+
+  button.slick-prev,
+  button.slick-next {
+    z-index: 99;
+    top: 40%;
+  }
+
+  button.slick-prev {
+    left: -1px;
+  }
+
+  button.slick-next {
+    right: -1px;
+  }
+}
+
+.navmenu {
+  ul {
+    li {
+      a.p-menuitem-link {
+        padding: 12px 16px;
+        font-size: 1.2rem;
+      }
+    }
+  }
+}
+
+.p-accordion {
+  font-family: "Josefin Sans", sans-serif !important;
+
+  .p-accordion-header-link {
+    font-size: 1.5rem;
+    padding: 1.5rem !important;
+
+    .p-accordion-toggle-icon {
+      font-size: 1.5rem;
     }
   }
 }

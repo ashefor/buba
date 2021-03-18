@@ -10,7 +10,7 @@ const routes: Routes = [
     component: MainComponent,
     children: [
       {
-        path: 'dashboard',
+        path: 'home',
         canActivate: [AuthGuard],
         loadChildren: () => import('../dashboard/dashboard.module').then(m => m.DashboardModule)
       },
@@ -43,16 +43,20 @@ const routes: Routes = [
         loadChildren: () => import('../root/root.module').then(m => m.RootModule)
       },
       {
+        path: 'fb-landing',
+        loadChildren: () => import('../root/root.module').then(m => m.RootModule)
+      },
+      {
         path: 'berekete',
         loadChildren: () => import('../cash-spin-landing/cash-spin-landing.module').then(m => m.CashSpinLandingModule)
       },
-      // {
-      //   path: 'luckyjaka',
-      //   loadChildren: () => import('../luckyjaka/luckyjaka.module').then(m => m.LuckyjakaModule)
-      // },
+      {
+        path: 'transactions',
+        loadChildren: () => import('../transactions/transactions.module').then(m => m.TransactionsModule)
+      },
       {
         path: '',
-        redirectTo: 'dashboard',
+        redirectTo: 'home',
         pathMatch: 'full'
       },
     ]

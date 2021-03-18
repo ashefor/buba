@@ -1,10 +1,10 @@
+<app-topnav [display]="display" (closeBannerEmitter)="closeBanner($event)" (toggleSideMenuEmitter)="showSideMenu($event)"></app-topnav>
 <section class="container">
-  <app-topnav [display]="display" (toggleSideMenuEmitter)="showSideMenu($event)"></app-topnav>
   <p-sidebar [(visible)]="display" [showCloseIcon]="false" [blockScroll]="true">
-   <app-mobile-sidenav (closeSideBarEmitter)="closeSideMenu()"></app-mobile-sidenav>
+   <app-mobile-sidenav [noBanner]="noBanner" (closeSideBarEmitter)="closeSideMenu()"></app-mobile-sidenav>
 </p-sidebar>
-  <main class="main">
-    <div id="winner">
+  <main class="main"  [ngStyle]="{'margin-top': noBanner ? '8rem' : '14rem'}">
+    <div id="winner"  [ngStyle]="{'top': noBanner ? '8.5rem' : '14.5rem'}">
      <div *ngIf="winner" class="winner">
        <span class="p-mx-1 text--semi-small winner_text">
         <span>{{winner?.firstname | titlecase}}&nbsp;{{winner?.lastname | titlecase}}</span>
@@ -13,9 +13,9 @@
       </span>
      </div>
     </div>
-    <div class="main__sidebar">
+    <!-- <div class="main__sidebar" [ngStyle]="{'top': noBanner ? '8rem' : '14rem'}">
       <app-sidenav></app-sidenav>
-    </div>
+    </div> -->
     <div class="main__content">
        <!-- <button (click)="showSideMenu()">show</button> -->
       <div class="main__content__container">
@@ -23,5 +23,5 @@
       </div>
     </div>
   </main>
-
 </section>
+<app-footer></app-footer>

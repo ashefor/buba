@@ -1,9 +1,9 @@
 .button {
-  border-radius: 0.5rem ;
+  border-radius: 0.5rem;
   font-style: normal;
   font-weight: bold;
   font-size: $font-size-regular;
-  border: 1px solid rgba(0,0,0,.1);
+  border: 1px solid rgba(0, 0, 0, .1);
   line-height: 1.5;
   cursor: pointer;
   outline: none;
@@ -17,33 +17,71 @@
   text-decoration: none;
   transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
 
-  &--wide{
+  &--transparent {
+    background-color: transparent;
+    color: inherit;
+    border-color: transparent;
+
+    &:focus{
+      outline: 0 none;
+      outline-offset: 0;
+      box-shadow: 0 0 0 0.2rem rgba(3, 2, 127, 0.16);
+    }
+
+    &:enabled {
+      &:hover {
+        background: rgba(3, 2, 127, 0.04);
+        color: $color-primary;
+        border-color: transparent;
+      }
+
+      &:active {
+        background: rgba(3, 2, 127, 0.16);
+        color: $color-primary;
+        border-color: transparent;
+      }
+    }
+  }
+
+  &--rounded {
+    border-radius: 50%;
+  }
+
+  &--wide {
     width: 100%;
   }
 
-  &[disabled]{
+  &[disabled] {
     // background-color: lighten($color: $color-primary, $amount: 30);
     opacity: .65;
     cursor: not-allowed;
   }
 
-  &--noborder{
+  &--noborder {
     border: none !important;
   }
+
   &--primary {
     background: $color-primary;
     color: $color-white;
 
-    &[disabled]{
+    &[disabled] {
       // background-color: lighten($color: $color-primary, $amount: 30);
       opacity: .65;
     }
+
+    &-outline{
+      border: 1px solid $color-primary !important;
+      color: $color-primary !important;
+      border-radius: 0 !important;
+    }
   }
+
   &--tertiary {
     background: $color-tertiary;
     color: $color-white;
 
-    &[disabled]{
+    &[disabled] {
       // background-color: lighten($color: $color-primary, $amount: 30);
       opacity: .65;
     }
@@ -53,23 +91,24 @@
     background: $color-secondary;
     color: $color-white;
 
-    &[disabled]{
+    &[disabled] {
       // background-color: lighten($color: $color-secondary, $amount: 30);
       opacity: .65;
     }
   }
 
-  &--wider{
-  padding: 0.875rem 1.75rem;
+  &--wider {
+    padding: 0.875rem 1.75rem;
   }
 
   &--sm {
     padding: .75rem;
     font-size: 1.25rem;
   }
-  &--raised{
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+
+  &--raised {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   }
 
-  
+
 }

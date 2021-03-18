@@ -1,53 +1,53 @@
 <div *ngIf="isLoggedIn">
   <div class="sidenav">
     <div class="sidenav__container">
-      <a class="sidenav__item" [routerLink]="['/dashboard']" routerLinkActive="active">
+      <a class="sidenav__item" [routerLink]="['/dashboard/home']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" >
         <i class="pi pi-info-circle sidenav__item__icon"></i>
         <span class="sidenav__item__text text--capital">dashboard</span>
       </a>
-      <a class="accordion sidenav__item" [ngClass]="{'active': games1RLA.isActive || games2RLA.isActive || games3RLA.isActive || games4RLA.isActive || games6RLA.isActive  || games7RLA.isActive}">
+      <a class="accordion sidenav__item" [ngClass]="{'active': games1RLA.isActive || games2RLA.isActive || games3RLA.isActive || games4RLA.isActive || games5RLA.isActive || games6RLA.isActive  || games7RLA.isActive}">
         <i class="pi pi-play sidenav__item__icon"></i>
         <span class="sidenav__item__text text--capital">games</span>
         <i class="pi pi-angle-right iconRight"></i>
       </a>
       <div class="sidenav__mobilenav">
-        <a class="sidenav__item" [routerLink]="['/games/quick-play']" routerLinkActive="active"
+        <a class="sidenav__item" [routerLink]="['/dashboard/games/quick-play']" routerLinkActive="active"
           #games1RLA="routerLinkActive">
           <i class="pi pi-circle-on sidenav__item__icon"></i>
           <span class="sidenav__item__text text--capital">Quick Play</span>
         </a>
-        <a class="sidenav__item" [routerLink]="['/games/daily-special']" routerLinkActive="active"
+        <a class="sidenav__item" [routerLink]="['/dashboard/games/daily-special']" routerLinkActive="active"
         #games2RLA="routerLinkActive">
         <i class="pi pi-circle-on sidenav__item__icon"></i>
         <span class="sidenav__item__text text--capital">Daily Special</span>
       </a>
-      <a class="sidenav__item" [routerLink]="['/games/wheel']" routerLinkActive="active"
+      <a class="sidenav__item" [routerLink]="['/dashboard/games/wheel']" routerLinkActive="active"
         #games3RLA="routerLinkActive">
         <i class="pi pi-circle-on sidenav__item__icon"></i>
         <span class="sidenav__item__text text--capital">Buba Wheel</span>
       </a>
-      <a class="sidenav__item" [routerLink]="['/games/berekete']" routerLinkActive="active"
+      <a class="sidenav__item" [routerLink]="['/dashboard/games/berekete']" routerLinkActive="active"
       #games4RLA="routerLinkActive">
       <i class="pi pi-circle-on sidenav__item__icon"></i>
       <span class="sidenav__item__text text--capital">Berekete</span>
     </a>
-      <!-- <a class="sidenav__item" [routerLink]="['/games/spin-history']" routerLinkActive="active"
+      <a class="sidenav__item" [routerLink]="['/dashboard/games/luckyjaka']" routerLinkActive="active"
       #games5RLA="routerLinkActive">
       <i class="pi pi-circle-on sidenav__item__icon"></i>
-      <span class="sidenav__item__text text--capital">Spin History</span>
-    </a> -->
-      <a class="sidenav__item" [routerLink]="['/games/history']" routerLinkActive="active"
+      <span class="sidenav__item__text text--capital">LuckyJaka</span>
+    </a>
+      <a class="sidenav__item" [routerLink]="['/dashboard/games/history']" routerLinkActive="active"
         #games6RLA="routerLinkActive">
         <i class="pi pi-circle-on sidenav__item__icon"></i>
         <span class="sidenav__item__text text--capital">History</span>
       </a>
-      <a class="sidenav__item" [routerLink]="['/games/status']" routerLinkActive="active"
+      <a class="sidenav__item" [routerLink]="['/dashboard/games/status']" routerLinkActive="active"
         #games7RLA="routerLinkActive">
         <i class="pi pi-circle-on sidenav__item__icon"></i>
         <span class="sidenav__item__text text--capital">Ticket Status</span>
       </a>
       </div>
-      <a class="sidenav__item" [routerLink]="['/funding']" routerLinkActive="active">
+      <a class="sidenav__item" [routerLink]="['/dashboard/funding']" routerLinkActive="active">
         <i class="pi pi-money-bill sidenav__item__icon"></i>
         <span class="sidenav__item__text text--capital">funding</span>
       </a>
@@ -58,28 +58,28 @@
           <i class="pi pi-angle-right iconRight"></i>
         </a>
         <div class="sidenav__mobilenav">
-          <a class="sidenav__item" [routerLink]="['/bids/open']" routerLinkActive="active"
+          <a class="sidenav__item" [routerLink]="['/dashboard/bids/open']" routerLinkActive="active"
             #bids1RLA="routerLinkActive">
             <i class="pi pi-circle-on sidenav__item__icon"></i>
             <span class="sidenav__item__text text--capital">Open Bids</span>
           </a>
-          <a class="sidenav__item" [routerLink]="['/bids/history']" routerLinkActive="active"
+          <a class="sidenav__item" [routerLink]="['/dashboard/bids/history']" routerLinkActive="active"
           #bids2RLA="routerLinkActive">
           <i class="pi pi-circle-on sidenav__item__icon"></i>
           <span class="sidenav__item__text text--capital">Bids History</span>
         </a>
-        <a class="sidenav__item" [routerLink]="['/bids/status']" routerLinkActive="active"
+        <a class="sidenav__item" [routerLink]="['/dashboard/bids/status']" routerLinkActive="active"
           #bids3RLA="routerLinkActive">
           <i class="pi pi-circle-on sidenav__item__icon"></i>
           <span class="sidenav__item__text text--capital">Bid Status</span>
         </a>
         </div>
       </ng-container>
-      <a class="sidenav__item" [routerLink]="['/withdrawals']" routerLinkActive="active">
+      <a class="sidenav__item" [routerLink]="['/dashboard/withdrawals']" routerLinkActive="active">
         <i class="pi pi-money-bill sidenav__item__icon"></i>
         <span class="sidenav__item__text text--capital">withdrawals</span>
       </a>
-      <a class="sidenav__item" [routerLink]="['/settings']" routerLinkActive="active">
+      <a class="sidenav__item" [routerLink]="['/dashboard/settings']" routerLinkActive="active">
         <i class="pi pi-cog sidenav__item__icon"></i>
         <span class="sidenav__item__text text--capital">settings</span>
       </a>
@@ -94,36 +94,41 @@
 <ng-container *ngIf="!isLoggedIn">
   <div class="sidenav">
     <div class="sidenav__container">
-      <a class="sidenav__item" [routerLink]="['/dashboard']" routerLinkActive="active">
+      <a class="sidenav__item" [routerLink]="['/dashboard/home']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" >
         <i class="pi pi-info-circle sidenav__item__icon"></i>
         <span class="sidenav__item__text text--capital">dashboard</span>
       </a>
-      <a class="accordion sidenav__item" [ngClass]="{'active': games1RLA.isActive || games2RLA.isActive || games3RLA.isActive || games4RLA.isActive, 'accordion-open': shouldOpenMenu}">
+      <a class="accordion sidenav__item" [ngClass]="{'active': games1RLA.isActive || games2RLA.isActive || games3RLA.isActive || games4RLA.isActive || games5RLA.isActive, 'accordion-open': shouldOpenMenu}">
         <i class="pi pi-play sidenav__item__icon"></i>
         <span class="sidenav__item__text text--capital">games</span>
         <i class="pi pi-angle-right iconRight"></i>
       </a>
       <div class="sidenav__mobilenav" [ngClass]="{'submenu-show': shouldOpenMenu}">
-        <a class="sidenav__item" [routerLink]="['/games/quick-play']" routerLinkActive="active"
+        <a class="sidenav__item" [routerLink]="['/dashboard/games/quick-play']" routerLinkActive="active"
           #games1RLA="routerLinkActive">
-          <i class="pi pi-play sidenav__item__icon"></i>
+          <i class="pi pi-circle-on sidenav__item__icon"></i>
           <span class="sidenav__item__text text--capital">Quick Play</span>
         </a>
-        <a class="sidenav__item" [routerLink]="['/games/daily-special']" routerLinkActive="active"
+        <a class="sidenav__item" [routerLink]="['/dashboard/games/daily-special']" routerLinkActive="active"
         #games2RLA="routerLinkActive">
-        <i class="pi pi-play sidenav__item__icon"></i>
+        <i class="pi pi-circle-on sidenav__item__icon"></i>
         <span class="sidenav__item__text text--capital">Daily Special</span>
       </a>
-      <a class="sidenav__item" [routerLink]="['/games/wheel']" routerLinkActive="active"
+      <a class="sidenav__item" [routerLink]="['/dashboard/games/wheel']" routerLinkActive="active"
       #games3RLA="routerLinkActive">
-      <i class="pi pi-play sidenav__item__icon"></i>
+      <i class="pi pi-circle-on sidenav__item__icon"></i>
       <span class="sidenav__item__text text--capital">Buba Wheel</span>
     </a>
-    <a class="sidenav__item" [routerLink]="['/games/berekete']" routerLinkActive="active"
+    <a class="sidenav__item" [routerLink]="['/dashboard/games/berekete']" routerLinkActive="active"
       #games4RLA="routerLinkActive">
-      <i class="pi pi-play sidenav__item__icon"></i>
+      <i class="pi pi-circle-on sidenav__item__icon"></i>
       <span class="sidenav__item__text text--capital">Berekete</span>
     </a>
+    <a class="sidenav__item" [routerLink]="['/dashboard/games/luckyjaka']" routerLinkActive="active"
+    #games5RLA="routerLinkActive">
+    <i class="pi pi-circle-on sidenav__item__icon"></i>
+    <span class="sidenav__item__text text--capital">LuckyJaka</span>
+  </a>
       </div>
     </div>
   </div>

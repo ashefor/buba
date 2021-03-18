@@ -5,7 +5,9 @@
       <p-messages severity="info">
         <ng-template pTemplate>
           <div class="text--regular">
-            Your current balance is <strong>{{accountDetails.balance | currency : '₦'}}</strong>, kindly make a bank transfer to the account details below to fund your Buba account in order to be able to buy bids or play games.
+            Your current balance is <strong>{{accountDetails.balance | currency : '₦'}}</strong>, kindly make a bank
+            transfer to the account details below to fund your Buba account in order to be able to buy bids or play
+            games.
             <br>
             <br>
             Note that payments are set to reflect automatically within 15 minutes.
@@ -17,7 +19,10 @@
       </p-messages>
     </div>
     <div class="p-col-10 p-md-8 p-lg-6 p-mx-auto">
-      <!-- <div class="p-fluid">
+      <!-- <div class="p-mb-3 text--center">
+        <p><b>Make a transfer to either of the accounts below</b></p>
+      </div> -->
+      <!-- <div class="p-fluid ">
         <div class="p-grid">
           <div class="p-field p-col-5">
             <span class="text--semi-small text--upper account-title text--bold">
@@ -54,6 +59,45 @@
             </span>
           </div>
         </div>
+      </div> -->
+       <!-- <p class="text--regular p-py-2 text--center"><b>OR</b></p>
+      <div class="p-fluid p-mt-2">
+        <div class="p-grid">
+          <div class="p-field p-col-5">
+            <span class="text--semi-small text--upper account-title text--bold">
+              bank name
+            </span>
+          </div>
+          <div class="p-field p-col-7">
+            <span class="text--regular-alt text--upper account-subtitle">
+              {{accountDetails.payment_bank_name_2}}
+            </span>
+          </div>
+        </div>
+        <div class="p-grid">
+          <div class="p-field p-col-5">
+            <span class="text--semi-small text--upper account-title text--bold">
+              account name
+            </span>
+          </div>
+          <div class="p-field p-col-7">
+            <span class="text--regular-alt text--upper account-subtitle">
+              {{accountDetails.payment_account_name}}
+            </span>
+          </div>
+        </div>
+        <div class="p-grid">
+          <div class="p-field p-col-5">
+            <span class="text--semi-small text--upper account-title text--bold">
+              account number
+            </span>
+          </div>
+          <div class="p-field p-col-7">
+            <span class="text--regular-alt text--upper account-subtitle">
+              {{accountDetails.payment_account_number_2}}
+            </span>
+          </div>
+        </div>
         <div class="p-grid p-field p-mt-5">
           <div class="p-col-5 p-text-left">
             <button type="button" [disabled]="processing" (click)="goBack()"
@@ -69,11 +113,13 @@
             </button>
           </div>
         </div>
-      </div> -->
+      </div>
+      <p class="text--regular p-py-2"><b>OR</b></p> -->
+      <!-- <p><b>Use flutterwave payment</b></p> -->
       <div class="p-fluid">
         <div class="p-field">
           <input type="text" [(ngModel)]="deposit" class="form__input form__input--lg" pKeyFilter="num">
-           <span class="text--primary p-d-inline-block p-pt-2">Minimum is ₦100.00</span>
+          <span class="text--primary p-d-inline-block p-pt-2">Minimum is ₦100.00</span>
         </div>
         <div class="p-field form__item">
           <button [disabled]="deposit < 100" (click)="makePayment()" type="submit"
@@ -89,13 +135,15 @@
 
 <ng-container *ngIf="gameType==='spin'">
   <div class="p-grid animate__animated animate__faster" [ngClass]="animation">
-    <ng-container *ngIf="userDetails$ | async as userDetails"> 
+    <ng-container *ngIf="userDetails$ | async as userDetails">
       <div class="p-col-10 p-md-9 p-lg-8 p-mx-auto">
         <p class="text--regular text--danger text--capital p-mb-3 text--center">insufficient balance</p>
         <p-messages severity="info">
           <ng-template pTemplate>
             <div class="text--regular">
-              Your current balance is <strong>{{userDetails.balance | currency : '₦'}}</strong>, kindly make a bank transfer to the account details below to fund your Buba account in order to be able to buy bids or play games.
+              Your current balance is <strong>{{userDetails.balance | currency : '₦'}}</strong>, kindly make a bank
+              transfer to the account details below to fund your Buba account in order to be able to buy bids or play
+              games.
               <br>
               <br>
               Note that payments are set to reflect automatically within 15 minutes.
@@ -107,7 +155,10 @@
         </p-messages>
       </div>
       <div class="p-col-10 p-md-8 p-lg-6 p-mx-auto">
-        <!-- <div class="p-fluid">
+        <!-- <div class="p-mb-3 text--center">
+          <p><b>Make a transfer to either of the accounts below</b></p>
+        </div> -->
+        <!-- <div class="p-fluid ">
           <div class="p-grid">
             <div class="p-field p-col-5">
               <span class="text--semi-small text--upper account-title text--bold">
@@ -128,7 +179,7 @@
             </div>
             <div class="p-field p-col-7">
               <span class="text--regular-alt text--upper account-subtitle">
-                {{userDetails.payment_account_name}}
+                {{userDetails.payment_account_name ? userDetails.payment_account_name: 'N/A'}}
               </span>
             </div>
           </div>
@@ -144,6 +195,45 @@
               </span>
             </div>
           </div>
+        </div>
+         <p class="text--regular p-py-2 text--center"><b>OR</b></p>
+        <div class="p-fluid p-mt-2">
+          <div class="p-grid">
+            <div class="p-field p-col-5">
+              <span class="text--semi-small text--upper account-title text--bold">
+                bank name
+              </span>
+            </div>
+            <div class="p-field p-col-7">
+              <span class="text--regular-alt text--upper account-subtitle">
+                {{userDetails.payment_bank_name_2 ? userDetails.payment_bank_name_2: 'N/A'}}
+              </span>
+            </div>
+          </div>
+          <div class="p-grid">
+            <div class="p-field p-col-5">
+              <span class="text--semi-small text--upper account-title text--bold">
+                account name
+              </span>
+            </div>
+            <div class="p-field p-col-7">
+              <span class="text--regular-alt text--upper account-subtitle">
+                {{userDetails.payment_account_name ? userDetails.payment_account_name: 'N/A'}}
+              </span>
+            </div>
+          </div>
+          <div class="p-grid">
+            <div class="p-field p-col-5">
+              <span class="text--semi-small text--upper account-title text--bold">
+                account number
+              </span>
+            </div>
+            <div class="p-field p-col-7">
+              <span class="text--regular-alt text--upper account-subtitle">
+                {{userDetails.payment_account_number_2 ? userDetails.payment_account_number_2 : 'N/A'}}
+              </span>
+            </div>
+          </div>
           <div class="p-grid p-field p-mt-5">
             <div class="p-col-7 p-text-right p-mx-auto">
               <button type="button" [disabled]="processing" (click)="confirmSpinPayment()"
@@ -153,11 +243,15 @@
               </button>
             </div>
           </div>
+        </div>
+        <div class="text--center p-my-3">
+          <p class="text--regular p-py-2 text--center"><b>OR</b></p>
+          <p class="text--center"><b>Use flutterwave payment</b></p>
         </div> -->
         <div class="p-fluid">
           <div class="p-field">
             <input type="text" [(ngModel)]="deposit" class="form__input form__input--lg" pKeyFilter="num">
-             <span class="text--primary p-d-inline-block p-pt-2">Minimum is ₦100.00</span>
+            <span class="text--primary p-d-inline-block p-pt-2">Minimum is ₦100.00</span>
           </div>
           <div class="p-field form__item">
             <button [disabled]="deposit < 100" (click)="makePayment()" type="submit"
@@ -175,13 +269,15 @@
 
 <ng-container *ngIf="gameType==='berekete'">
   <div class="p-grid animate__animated animate__faster" [ngClass]="animation">
-    <ng-container *ngIf="userDetails$ | async as userDetails"> 
+    <ng-container *ngIf="userDetails$ | async as userDetails">
       <div class="p-col-10 p-md-9 p-lg-8 p-mx-auto">
         <p class="text--regular text--danger text--capital p-mb-3 text--center">insufficient balance</p>
         <p-messages severity="info">
           <ng-template pTemplate>
             <div class="text--regular">
-              Your current balance is <strong>{{userDetails.balance | currency : '₦'}}</strong>, kindly make a bank transfer to the account details below to fund your Buba account in order to be able to buy bids or play games.
+              Your current balance is <strong>{{userDetails.balance | currency : '₦'}}</strong>, kindly make a bank
+              transfer to the account details below to fund your Buba account in order to be able to buy bids or play
+              games.
               <br>
               <br>
               Note that payments are set to reflect automatically within 15 minutes.
@@ -193,7 +289,10 @@
         </p-messages>
       </div>
       <div class="p-col-10 p-md-8 p-lg-6 p-mx-auto">
-        <!-- <div class="p-fluid">
+        <!-- <div class="p-mb-3 text--center">
+          <p><b>Make a transfer to either of the accounts below</b></p>
+        </div> -->
+        <!-- <div class="p-fluid ">
           <div class="p-grid">
             <div class="p-field p-col-5">
               <span class="text--semi-small text--upper account-title text--bold">
@@ -214,7 +313,7 @@
             </div>
             <div class="p-field p-col-7">
               <span class="text--regular-alt text--upper account-subtitle">
-                {{userDetails.payment_account_name}}
+                {{userDetails.payment_account_name ? userDetails.payment_account_name: 'N/A'}}
               </span>
             </div>
           </div>
@@ -230,6 +329,45 @@
               </span>
             </div>
           </div>
+        </div>
+         <p class="text--regular p-py-2 text--center"><b>OR</b></p>
+        <div class="p-fluid p-mt-2">
+          <div class="p-grid">
+            <div class="p-field p-col-5">
+              <span class="text--semi-small text--upper account-title text--bold">
+                bank name
+              </span>
+            </div>
+            <div class="p-field p-col-7">
+              <span class="text--regular-alt text--upper account-subtitle">
+                {{userDetails.payment_bank_name_2 ? userDetails.payment_bank_name_2: 'N/A'}}
+              </span>
+            </div>
+          </div>
+          <div class="p-grid">
+            <div class="p-field p-col-5">
+              <span class="text--semi-small text--upper account-title text--bold">
+                account name
+              </span>
+            </div>
+            <div class="p-field p-col-7">
+              <span class="text--regular-alt text--upper account-subtitle">
+                {{userDetails.payment_account_name ? userDetails.payment_account_name: 'N/A'}}
+              </span>
+            </div>
+          </div>
+          <div class="p-grid">
+            <div class="p-field p-col-5">
+              <span class="text--semi-small text--upper account-title text--bold">
+                account number
+              </span>
+            </div>
+            <div class="p-field p-col-7">
+              <span class="text--regular-alt text--upper account-subtitle">
+                {{userDetails.payment_account_number_2 ? userDetails.payment_account_number_2 : 'N/A'}}
+              </span>
+            </div>
+          </div>
           <div class="p-grid p-field p-mt-5">
             <div class="p-col-7 p-text-right p-mx-auto">
               <button type="button" [disabled]="processing" (click)="confirmBereketePayment()"
@@ -239,11 +377,15 @@
               </button>
             </div>
           </div>
+        </div>
+        <div class="text--center p-my-3">
+          <p class="text--regular p-py-2 text--center"><b>OR</b></p>
+          <p class="text--center"><b>Use flutterwave payment</b></p>
         </div> -->
         <div class="p-fluid">
           <div class="p-field">
             <input type="text" [(ngModel)]="deposit" class="form__input form__input--lg" pKeyFilter="num">
-             <span class="text--primary p-d-inline-block p-pt-2">Minimum is ₦100.00</span>
+            <span class="text--primary p-d-inline-block p-pt-2">Minimum is ₦100.00</span>
           </div>
           <div class="p-field form__item">
             <button [disabled]="deposit < 100" (click)="makePayment()" type="submit"
@@ -257,4 +399,3 @@
     </ng-container>
   </div>
 </ng-container>
-

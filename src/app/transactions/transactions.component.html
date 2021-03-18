@@ -1,0 +1,119 @@
+<section class="">
+    <div class="pageheader">
+        <h1 class="pageheader__title text--capital">
+            Deposit Methods
+          </h1>
+          <span class="pageheader__subtitle">
+            Below are the list of payment methods you can use to fund your Buba Wallet
+          </span>
+      </div>
+    <div class="card">
+        <div class="card__body">
+            <!-- <h4>Payment methods</h4> -->
+            <ng-container *ngIf="userDetails$ | async as userDetails">
+                <div class="p-grid">
+                    <!-- <div class="p-col-3">
+                        Deposit
+                    </div> -->
+                    <div class="p-col-12 p-md-10 p-mx-auto">
+                        <div class="transaction">
+                            <div class="p-grid">
+                                <div class="p-col-12 p-md-1">
+                                    <div class="transaction_index">
+                                        1
+                                    </div>
+                                </div>
+                                <div class="p-col-12 p-md-11">
+                                    <h6 class="text--regular text--primary">Make a transfer to the following account</h6>
+                                    <div class="p-mt-3">
+                                        <div class="transaction_text transaction_bank"><strong>Bank Name</strong>:&nbsp;{{userDetails.payment_bank_name | titlecase}}</div>
+                                        <div class="transaction_text transaction_name"><strong>Account Name</strong>:&nbsp;{{userDetails.payment_account_name | titlecase}}</div>
+                                        <div class="transaction_text transaction_number"><strong>Account Number</strong>:&nbsp;{{userDetails.payment_account_number | titlecase}}</div>
+                                    </div>
+                                    <div class="text--regular">Confirmation speed:&nbsp;<span class="p-tag p-tag-success">Fastest</span></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="transaction">
+                            <div class="p-grid">
+                                <div class="p-col-12 p-md-1">
+                                    <div class="transaction_index">
+                                        2
+                                    </div>
+                                </div>
+                                <div class="p-col-12 p-md-11">
+                                    <h6 class="text--regular text--primary">Make a transfer to the following account </h6>
+                                    <div class="p-mt-3">
+                                        <div class="transaction_text transaction_bank"><strong>Bank Name</strong>:&nbsp;{{userDetails.payment_bank_name_2 | titlecase}}</div>
+                                        <div class="transaction_text transaction_name"><strong>Account Name</strong>:&nbsp;{{userDetails.payment_account_name | titlecase}}</div>
+                                        <div class="transaction_text transaction_number"><strong>Account Number</strong>:&nbsp;{{userDetails.payment_account_number_2 | titlecase}}</div>
+                                    </div>
+                                    <div>Confirmation speed:&nbsp;<span class="p-tag p-tag-success">Fast</span></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="transaction">
+                            <div class="p-grid">
+                                <div class="p-col-12 p-md-1">
+                                    <div class="transaction_index">
+                                        3
+                                    </div>
+                                </div>
+                                <div class="p-col-12 p-md-11">
+                                    <div class="p-grid p-ai-center">
+                                        <div class="p-col-8">
+                                            <div class="transaction_text transaction_bank">
+                                                <strong>Flutterwave</strong>
+                                            </div>
+                                            <p class="text--regular">To pay through your card/USSD</p>
+                                        </div>
+                                       <div class="p-col-4">
+                                        <button class="button button--secondary" (click)="openFundModal()">Click Here</button>
+                                       </div>
+                                    </div>
+                                    <div class="text--regular">Confirmation speed:&nbsp;<span class="p-tag p-tag-danger">Slow</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</section>
+
+<p-dialog [(visible)]="displayFundModal" styleClass="transfer-modal" [modal]="true" [style]="{width: '32rem'}"
+  [baseZIndex]="10000" [draggable]="false" [resizable]="false" (onHide)="resetFundModal()">
+  <div class="modal-content p-px-1 p-mt-2">
+    <h4 class="text--regular text--center p-mb-5">Enter how much you want to fund</h4>
+    <form [formGroup]="fundWalletForm" (ngSubmit)="makePayment(fundWalletForm.value)">
+      <div class="p-fluid">
+        <div class="p-field form__item">
+          <label for="amount" class="form__label text--capital">amount</label>
+          <input type="text" id="amount" formControlName='amount' pKeyFilter="num" class="form__input form__input--lg">
+          <ng-container
+            *ngIf="(fundWalletFormControls.amount.dirty || fundWalletFormControls.amount.touched) && fundWalletFormControls.amount.errors">
+            <span *ngIf="fundWalletFormControls.amount.errors.required" class="p-invalid p-mb-2 p-d-block p-px-2">Enter
+              Amount</span>
+            <span *ngIf="fundWalletFormControls.amount.errors.min" class="p-invalid p-mb-2 p-d-block p-px-2">Minimum is
+              ₦100.00</span>
+          </ng-container>
+        </div>
+        <ng-container *ngIf="fundWalletForm.errors && fundWalletForm.errors.badRequest">
+          <div class="p-field form__item">
+            <span class="p-invalid p-my-2 p-d-block">
+              {{fundWalletForm.errors.badRequest}}
+            </span>
+          </div>
+        </ng-container>
+        <div class="p-field form__item">
+          <button [disabled]="isPaying" type="submit"
+            class="button button--secondary button--raised text--capital button--wide">
+            <i *ngIf="isPaying" class="pi pi-spin pi-spinner p-mr-2"></i>
+            {{isPaying ? 'please wait' : 'fund wallet'}}
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</p-dialog>

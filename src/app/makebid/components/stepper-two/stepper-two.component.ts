@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { LoadingBarService } from '@ngx-loading-bar/core';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
@@ -24,6 +25,7 @@ interface registerFormType {
   password: string;
   email: string;
   phone_number: string;
+  reg_source?: string;
 }
 
 @Component({
@@ -51,10 +53,26 @@ export class StepperTwoComponent implements OnInit, OnDestroy {
   isResetting: boolean;
   registerSubscription: Subscription;
   showResetForm = true;
+  // tslint:disable-next-line: variable-name
+  reg_source: any;
   constructor(private fb: FormBuilder,
     private loadingBar: LoadingBarService,
     private auth: AuthService,
-    private bidService: BidService, private toastr: ToastrService) { }
+    private router: Router,
+    private bidService: BidService, private toastr: ToastrService) {
+    const url = this.router.url.split('/');
+    if (url[2]) {
+      if (url[2] === 'fb-landing') {
+        this.reg_source = 'Facebook';
+      } else if (url[2] === 'landing') {
+        this.reg_source = 'Eskimi';
+      } else {
+        this.reg_source = 'OTHERS';
+      }
+    } else {
+      this.reg_source = 'OTHERS';
+    }
+  }
 
   ngOnInit(): void {
     this.formInit();
@@ -84,7 +102,7 @@ export class StepperTwoComponent implements OnInit, OnDestroy {
       firstname: [null, [Validators.required]],
       lastname: [null, [Validators.required]],
       phone_number: [null, [Validators.required, Validators.pattern('(0)[0-9 ]{10}')]],
-      username: [''],
+      email: [null, [Validators.email, Validators.required]],
       password: [null, [Validators.required, Validators.minLength(6)]],
       referred_by: [null]
     });
@@ -171,12 +189,13 @@ export class StepperTwoComponent implements OnInit, OnDestroy {
     if (this.registerForm.invalid) {
       return;
     }
+    formvalue.reg_source = this.reg_source;
     this.loadingBar.start();
     this.isRegistering = true;
     this.registerForm.disable();
     this.auth.register(formvalue).pipe(tap((data: loggedInUser) => {
       this.auth.storeToken(data.token);
-    }), concatMap(() => this.auth.createPaymentAccount()), concatMap(() => this.auth.getWalletBalance())).subscribe((newUser: any) => {
+    }), concatMap(() => this.auth.getWalletBalance())).subscribe((newUser: any) => {
       this.loadingBar.stop();
       this.isRegistering = false;
       this.registerForm.enable();

@@ -1,9 +1,8 @@
 @import '../../styles/abstract/variables';
 
 .dashboard {
-  &__container {}
 
-  .balance {
+  .info_card{
     display: flex;
     flex-direction: column;
     position: relative;
@@ -12,11 +11,14 @@
     background-color: $color-white;
     background-clip: border-box;
     border: 0;
-    border-radius: .75rem;
+    // border-radius: .75rem;
     flex: 1 1 auto;
     padding: 1.5rem 1.5rem;
-    box-shadow: 0 2px 4px 0 rgba(112, 121, 139, .18);
+    // box-shadow: 0 2px 4px 0 rgba(112, 121, 139, .18);
     margin-bottom: 2.5rem;
+  }
+
+  .balance {
 
     @media all and (min-width: 768px) {
       padding: 2.5rem 2rem;
@@ -40,21 +42,7 @@
   }
 
   .payment {
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    min-width: 0;
-    // word-wrap: break-word;
-    // background-color: $color-white;
-    // background-color: $color-primary;
-    background-color: lighten($color: $color-primary, $amount: 65);
-    background-clip: border-box;
-    border: 0;
-    border-radius: .75rem;
-    flex: 1 1 auto;
-    padding: 1.5rem 1.5rem;
-    box-shadow: 0 2px 4px 0 rgba(112, 121, 139, .18);
-    margin-bottom: 2.5rem;
+    background-color: lighten($color: $color-primary, $amount: 65) !important;
     
     @media all and (min-width: 768px) {
       padding: 2.5rem 2rem;
@@ -82,19 +70,6 @@
   }
 
   .bids {
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    min-width: 0;
-    // word-wrap: break-word;
-    background-color: $color-white;
-    background-clip: border-box;
-    border: 0;
-    border-radius: .75rem;
-    flex: 1 1 auto;
-    padding: 1.5rem 1.5rem;
-    box-shadow: 0 2px 4px 0 rgba(112, 121, 139, .18);
-    margin-bottom: 2.5rem;
 
     @media all and (min-width: 768px) {
       padding: 2.5rem 2rem;
@@ -200,19 +175,6 @@
   }
   
   .referral {
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    min-width: 0;
-    // word-wrap: break-word;
-    background-color: $color-white;
-    background-clip: border-box;
-    border: 0;
-    border-radius: .75rem;
-    flex: 1 1 auto;
-    padding: 1.5rem 1.5rem;
-    box-shadow: 0 2px 4px 0 rgba(112, 121, 139, .18);
-    margin-bottom: 2.5rem;
 
     @media all and (min-width: 768px) {
       padding: 2.5rem 2rem;

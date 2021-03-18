@@ -12,6 +12,7 @@ export class MainComponent implements OnInit {
   display: boolean;
   winners$: Observable<any>;
   winner: any;
+  noBanner = true;
 
   constructor(private auth: AuthService) { }
 
@@ -22,7 +23,7 @@ export class MainComponent implements OnInit {
         setInterval(() => {
           const index = Math.floor(Math.random() * (19 - 0) + 0);
           this.winner = data.winners[index];
-          winner.style.display = 'block';
+          winner.style.display = 'inline-block';
           const interval = setInterval(() => {
             this.winner = data.winners[index];
           }, 2000);
@@ -39,7 +40,9 @@ export class MainComponent implements OnInit {
     this.display = !this.display;
   }
 
-
+  closeBanner(event) {
+    this.noBanner = event;
+  }
   closeSideMenu() {
     this.display = false;
   }

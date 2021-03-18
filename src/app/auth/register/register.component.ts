@@ -19,6 +19,7 @@ interface registerFormType {
   email: string;
   phone_number: string;
   referred_by: string;
+  reg_source?: string;
 }
 
 @Component({
@@ -81,7 +82,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
       firstname: [null, [Validators.required]],
       lastname: [null, [Validators.required]],
       phone_number: [null, [Validators.required, Validators.pattern('(0)[0-9 ]{10}')]],
-      email: [''],
+      email: [null, [Validators.required, Validators.email]],
       password: [null, [Validators.required, Validators.minLength(6)]],
       confirmpassword: [null, [this.confirmValidator]],
       referred_by: ['']
@@ -119,6 +120,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     const {referred_by} = formvalue;
     const newRefCode = referred_by ? referred_by : '';
     formvalue.referred_by = newRefCode;
+    formvalue.reg_source = 'OTHERS';
     this.registerSubscription = this.auth.register(formvalue).subscribe((newUser: any) => {
       this.auth.storeToken(newUser.token);
       // this.loadingBar.stop();

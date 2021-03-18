@@ -211,6 +211,84 @@
                     </div>
                   </div>
                 </p-tabPanel>
+                <p-tabPanel header="LuckyJaka">
+                  <div class="p-grid">
+                    <div class="p-col-12">
+                      <div class="table__container">
+                        <table class="table">
+                          <thead>
+                            <tr>
+                              <th>S/No</th>
+                              <th>Status</th>
+                              <th>Date Created</th>
+                              <th>Stake</th>
+                              <th>Selection</th>
+                              <th>Winnings</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <ng-container *ngIf="luckyjakaHistory && luckyjakaHistory.length">
+                              <tr *ngFor="let item of luckyjakaHistory; let i = index">
+                                <td>{{i + 1}}</td> 
+                                <td>
+                                  <span *ngIf="item.status == 1" class="p-tag p-tag-success">Won</span>
+                                  <span *ngIf="item.status == 0" class="p-tag p-tag-danger">Loss</span>
+                                  <span *ngIf="item.status == 2" class="p-tag p-tag-info">Cash</span>
+                                  <span *ngIf="item.status == 3" class="p-tag p-tag-info">Cash Back</span>
+                                </td>
+                                <td>{{item.updated_at | customeDate: "MMM DD, YYYY. h:mm:ss a"}}</td>
+                                <td>{{item.stake_amount | currency: '₦'}}</td>
+                                <td>
+                                  <div>
+                                    <div class="text--regular text--capital p-mb-2">
+                                      selected numbers:
+                                      <span>
+                                        <b>{{item.L_1}}, {{item.L_2}}, {{item.L_3}}, {{item.L_4}}, {{item.L_5}}</b>
+                                      </span>
+                                    </div>
+                                    <div class="text--regular text--capital">
+                                      winning numbers:
+                                      <span>
+                                        <b>{{item.W_1}}, {{item.W_2}}, {{item.W_3}}, {{item.W_4}}, {{item.W_5}}</b>
+                                      </span>
+                                    </div>
+                                  </div>
+                                </td>
+                                <td>
+                                  <span>
+                                    {{item.win_value | currency: '₦'}}
+                                    </span>
+                                    <!-- <span *ngIf="spin.status == '1'">
+                                      {{spin.win_value}}
+                                    </span> -->
+                                </td>
+                              </tr>
+                            </ng-container>
+                            <ng-container *ngIf="bereketeHistory && !bereketeHistory.length">
+                              <tr>
+                                <td colspan="6">
+                                  <p class="p-p-4 text--center text--capital">
+                                    {{luckyJakaErrorMsg}}
+                                  </p>
+                                </td>
+                              </tr>
+                            </ng-container>
+                          </tbody>
+                        </table>
+                      </div>
+                      <ng-container>
+                        <div class="p-flex p-mt-3 p-ml-auto text--right">
+                          <button class="button p-mx-1 button--secondary text--capital" (click)="goLuckyJakaPrevious()">
+                            previous
+                          </button>
+                          <button class="button p-mx-1 button--secondary text--capital" (click)="goLuckyJakaNext()">
+                            next
+                          </button>
+                        </div>
+                      </ng-container>
+                    </div>
+                  </div>
+                </p-tabPanel>
               </p-tabView>
             </div>
           </div>

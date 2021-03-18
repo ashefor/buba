@@ -1,0 +1,54 @@
+<app-topnav (closeBannerEmitter)="closeBanner($event)" (toggleSideMenuEmitter)="showSideMenu($event)"></app-topnav>
+<main class="faq">
+    <p-sidebar [(visible)]="display" [showCloseIcon]="false" [blockScroll]="true">
+        <app-mobile-sidenav [noBanner]="noBanner" (closeSideBarEmitter)="closeSideMenu()"></app-mobile-sidenav>
+     </p-sidebar>
+  <section class="container">
+    <div class="rg">
+        <div class="card">
+            <div class="card__body">
+                <div class="p-grid">
+                    <div class="p-col-12 p-md-9 p-mx-auto">
+                        <div class="text--center">
+                            <h3 class="text--primary text--medium text--upper">RESPONSIBLE GAMING</h3>
+                        </div>
+                        <div class="p-my-3">
+                            <p class="paragraph rg-text text-indent">
+                                You become a subscriber of Buba by completing the user account registration. This Agreement takes effect as soon as you indicate your acceptance of the stated terms. You may not become a subscriber if you are under the age of 18, as Buba is not intended for children under 18 and will not knowingly collect required information from children under the age of 18. Your online association and interaction with other Subscribers should be guided by good judgement and essential manners.
+                            </p>
+                        </div>
+                        <div class="p-my-3">
+                            <p class="paragraph rg-text">
+                                For most people, playing lottery games is fun and generally safe. However, a number of people may find that they are spending more than they can afford, or that gambling is affecting other aspects of their lives negatively. In other to enjoy and appreciate playing these games, one should keep track of the money spent, bet uniquely with cash you can stand to lose and regard gambling as a form of entertainment and not a source of income.
+                            </p>
+                        </div>
+                        <div class="p-my-3">
+                            <p class="paragraph rg-text">
+                                Buba is focused on limiting the dangers for our players, bringing issues to light about the risks of gambling and on the off chance that you, or somebody you care about, have issues with gambling, contact Buba's help channels to have your account disabled temporarily or permanently.
+                            </p>
+                        </div>
+                        <div class="p-my-3">
+                            <h2 class="text--regular-alt text--capital p-mb-3">Parental Controls.</h2>
+                            <p class="paragraph rg-text text-indent">
+                                If underaged children may have access to your computer, you should consider installing parental control software to prevent them from accessing this online gaming site. Examples of such software includes Kidlogger, kapersky safe kids etc.
+                            </p>
+                        </div>
+                        <div class="p-my-3">
+                            <h2 class="text--regular-alt text--capital p-mb-3">Our Commitment.</h2>
+                            <p class="paragraph rg-text text-indent">
+                                To encourage all our players to gamble responsibly and mindfully, we give clear information about our games, for example:
+                            </p>
+                            <ol class="p-my-2 p-px-4">
+                                <li class="rg-text p-my-1 lh20">Clearly expressing the odds in the ‘how to play’ information.</li>
+                                <li class="rg-text p-my-1 lh20">‘Play Responsibly’ is on our marketing materials.</li>
+                                <li class="rg-text p-my-1 lh20">The option to self-exclude for Buba members playing online.</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </section>
+</main>
+<app-footer></app-footer>

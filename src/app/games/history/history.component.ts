@@ -21,6 +21,9 @@ export class HistoryComponent implements OnInit, OnDestroy {
   bereketePageNumber = 1;
   bereketePageSize = 10;
 
+  luckyJakaPageNumber = 1;
+  luckyJakaPageSize = 10;
+
   pagenumber = 1;
   pagesize = 10;
   gamesHistory: any[];
@@ -34,6 +37,8 @@ export class HistoryComponent implements OnInit, OnDestroy {
   spinErrorMsg: string;
   bereketeHistory: any;
   bereketeErrorMsg: string;
+  luckyJakaErrorMsg: string;
+  luckyjakaHistory: any;
   constructor(private gamesService: GamesService,
     private loadingBar: LoadingBarService,
     private toastr: ToastrService, private title: Title) {
@@ -96,6 +101,11 @@ export class HistoryComponent implements OnInit, OnDestroy {
         page_number: this.bereketePageNumber,
         page_size: this.bereketePageSize,
         search_text: '',
+      },
+      luckyjaka: {
+        page_number: this.luckyJakaPageNumber,
+        page_size: this.luckyJakaPageSize,
+        search_text: '',
       }
     };
     this.loadingBar.start();
@@ -105,6 +115,7 @@ export class HistoryComponent implements OnInit, OnDestroy {
       this.gamesHistory = this.allGamesData[0].game_history;
       this.spinHistory = this.allGamesData[1].spins;
       this.bereketeHistory = this.allGamesData[2].berekete;
+      this.luckyjakaHistory = this.allGamesData[3].lucky_jaka;
     }, (error: any) => {
       this.loadingBar.stop();
       if (error instanceof HttpErrorResponse) {
@@ -265,6 +276,54 @@ export class HistoryComponent implements OnInit, OnDestroy {
   goBereketeNext() {
     this.bereketePageNumber += 1;
     this.goToBereketeAnotherPage();
+  }
+
+  goToLuckyJakaAnotherPage() {
+    const pageData = {
+      page_number: this.luckyJakaPageNumber,
+      page_size: this.luckyJakaPageSize,
+      search_text: ''
+    };
+    this.loadingBar.start();
+    this.gamesService.fetchBereketeHistory(pageData).subscribe((data: any) => {
+      this.loadingBar.stop();
+      if (data.status === 'success') {
+        this.luckyjakaHistory = data.lucky_jaka;
+      }
+      if (!this.luckyjakaHistory.length) {
+        this.luckyJakaErrorMsg = 'no more results';
+      }
+    }, (error: any) => {
+      this.loadingBar.stop();
+      this.isFetchingHistory = false;
+      if (error instanceof HttpErrorResponse) {
+        if (error.status === 401) {
+          return EMPTY;
+        } else if (error.status === 400) {
+          this.toastr.error(error.error.message);
+        } else {
+          this.toastr.error('Unknown error. Please try again later', 'Error');
+        }
+      } else if (error instanceof TimeoutError) {
+        this.toastr.error('Server timed out. Please try again later', 'Time Out!');
+      } else {
+        this.toastr.error('An unknown error has occured. Please try again later', 'Error');
+      }
+    });
+  }
+
+  goLuckyJakaPrevious() {
+    if (this.luckyJakaPageNumber === 1) {
+      return;
+    } else {
+      this.luckyJakaPageNumber -= 1;
+      this.goToLuckyJakaAnotherPage();
+    }
+  }
+
+  goLuckyJakaNext() {
+    this.luckyJakaPageNumber += 1;
+    this.goToLuckyJakaAnotherPage();
   }
 
   showMore(bid) {
