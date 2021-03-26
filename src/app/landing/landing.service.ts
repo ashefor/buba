@@ -12,4 +12,8 @@ export class LandingService {
   fetchLandingBids(details) {
     return this.http.post(`${environment.bubaApi}/bids`, details);
   }
+
+  fetchSortBids(details) {
+    return this.http.post(`${environment.bubaApi}/bids/sort`, details);
+  }
 }

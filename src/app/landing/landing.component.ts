@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { EMPTY } from 'rxjs';
 import { LandingService } from './landing.service';
 
@@ -7,10 +8,11 @@ import { LandingService } from './landing.service';
   templateUrl: './landing.component.html',
   styleUrls: ['./landing.component.scss']
 })
-export class LandingComponent implements OnInit {
+export class LandingComponent implements OnInit, OnDestroy, AfterViewInit {
   noBanner = true;
   display: boolean;
-  defaultImage = 'https://via.placeholder.com/500x250';
+  displayLandingModal: boolean;
+  defaultImage = 'assets/img/placeholder.webp';
   responsiveOptions = [
     {
       breakpoint: '1024px',
@@ -46,10 +48,21 @@ export class LandingComponent implements OnInit {
     }
   ];
   products = ['', '', '', '', ''];
+  youtubeUrls = [
+    'https://www.youtube.com/embed/yEoa3kUqF8g?autoplay=1&mute=0',
+    'https://www.youtube.com/embed/w2IyneuLHaE'
+  ]
   hotBids: any[];
   todayBids: any[];
   recommendedBids: any[];
-  constructor(private service: LandingService) { }
+  safeUrl: any;
+  cashBids: any;
+  gadgetBids: any;
+  safeYouTubeUrls: any;
+  constructor(private service: LandingService, private sanitizer: DomSanitizer) {
+    // this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/yEoa3kUqF8g')
+    this.safeYouTubeUrls = this.youtubeUrls.map(url => this.sanitizer.bypassSecurityTrustResourceUrl(url))
+  }
   jumboSlideConfig = {
     slidesToShow: 5,
     slidesToScroll: 5
@@ -87,6 +100,19 @@ export class LandingComponent implements OnInit {
     this.fetchAllTodayBids();
     this.fetchAllRecommendedBids();
     this.fetchAllHotBids();
+    this.fetchGadgetBids();
+    this.fetchCashBids();
+  }
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.displayLandingModal = true;
+    }, 1500);
+  }
+
+  ngOnDestroy() {
+    this.displayLandingModal = false;
+    clearTimeout();
   }
 
   showSideMenu(event) {
@@ -132,6 +158,32 @@ export class LandingComponent implements OnInit {
     this.service.fetchLandingBids(details).subscribe((data: any) => {
       if (data.status === 'success') {
         this.hotBids = data.bids;
+      }
+    }, (error: any) => {
+      return EMPTY;
+    });
+  }
+
+  fetchCashBids() {
+    const details = {
+      category: 'CASH'
+    };
+    this.service.fetchSortBids(details).subscribe((data: any) => {
+      if (data.status === 'success') {
+        this.cashBids = data.bids;
+      }
+    }, (error: any) => {
+      return EMPTY;
+    });
+  }
+
+  fetchGadgetBids() {
+    const details = {
+      category: 'GADGETS'
+    };
+    this.service.fetchSortBids(details).subscribe((data: any) => {
+      if (data.status === 'success') {
+        this.gadgetBids = data.bids;
       }
     }, (error: any) => {
       return EMPTY;

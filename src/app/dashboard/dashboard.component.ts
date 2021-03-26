@@ -40,7 +40,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
   userDetailSubscription: Subscription;
   openBidsSubscription: Subscription;
   createAccountSubscription: Subscription;
-  text = 'Sign up on @bubang now with https://account.buba.ng/register?reffered_by=fola to enjoy more with less';
   transferSubscription: Subscription;
   deposit: any;
   isPaying: boolean;
@@ -173,6 +172,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.userDetailSubscription = this.authService.getWalletBalance().subscribe((data: loggedInUser) => {
       this.loadingDetails = false;
       this.userdetails = data.user;
+      this.authService.storeUser(data.user);
       this.bidService.setWalletDetails(data.user);
     }, (error: any) => {
       this.loadingDetails = false;

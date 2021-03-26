@@ -24,12 +24,12 @@
           </a>
           <ng-container>
             <ul class="topnav__menu">
-              <li class="topnav__menu_item"><a class="topnav__menu_link text--capital" [routerLink]="['/']" fragment="today-deals">today's deals</a></li>
-              <li class="topnav__menu_item"><a [routerLink]="['/dashboard/games/wheel']" class="topnav__menu_link text--capital">buba wheel</a></li>
-              <li class="topnav__menu_item"><a class="topnav__menu_link text--capital"  [routerLink]="['/dashboard/games/berekete']">berekete
+              <li class="topnav__menu_item"><a class="topnav__menu_link text--capital" [routerLink]="['/']" routerLinkActive="active-menu" [routerLinkActiveOptions]="{exact: true}" fragment="today-deals">today's deals</a></li>
+              <li class="topnav__menu_item"><a [routerLink]="['/dashboard/games/wheel']" routerLinkActive="active-menu" class="topnav__menu_link text--capital">buba wheel</a></li>
+              <li class="topnav__menu_item"><a class="topnav__menu_link text--capital"  [routerLink]="['/dashboard/games/berekete']" routerLinkActive="active-menu">berekete
               </a>
             </li>
-              <li class="topnav__menu_item"><a [routerLink]="['/dashboard/games/luckyjaka']" class="topnav__menu_link text--capital">lucky jaka</a></li>
+              <li class="topnav__menu_item"><a [routerLink]="['/dashboard/games/luckyjaka']"  routerLinkActive="active-menu"class="topnav__menu_link text--capital">lucky jaka</a></li>
             </ul>
           </ng-container>
         </div>
@@ -77,6 +77,9 @@
                   <li class="dropdown-item text--capital" [routerLink]="['/dashboard/games/history']" routerLinkActive="active" >
                     <span>games history</span>
                   </li>
+                  <li class="dropdown-item text--capital" [routerLink]="['/dashboard/bids/history']" routerLinkActive="active" >
+                    <span>bids history</span>
+                  </li>
                   <li class="dropdown-item text--capital" [routerLink]="['/dashboard/settings']" routerLinkActive="active" >
                     <span>Settings</span>
                   </li>
@@ -104,5 +107,8 @@
       </div>
     </nav>
   </div>
+  <p-sidebar [(visible)]="display" [showCloseIcon]="false" [blockScroll]="true">
+    <app-mobile-sidenav [noBanner]="noBanner" (closeSideBarEmitter)="closeSideMenu()"></app-mobile-sidenav>
+ </p-sidebar>
 </ng-container>
 

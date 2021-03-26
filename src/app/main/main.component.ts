@@ -20,6 +20,7 @@ export class MainComponent implements OnInit {
     this.auth.retrieveWinners().subscribe((data: any) => {
       const winner = document.getElementById('winner');
       if (data.winners.length) {
+        this.auth.setMaque(data);
         setInterval(() => {
           const index = Math.floor(Math.random() * (19 - 0) + 0);
           this.winner = data.winners[index];
@@ -43,7 +44,7 @@ export class MainComponent implements OnInit {
   closeBanner(event) {
     this.noBanner = event;
   }
-  closeSideMenu() {
-    this.display = false;
-  }
+  // closeSideMenu() {
+  //   this.display = false;
+  // }
 }

@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { LoadingBarService } from '@ngx-loading-bar/core';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
@@ -19,7 +19,7 @@ export class TopnavComponent implements OnInit {
   processing: boolean;
   currentUrl: string[];
   showMobileNav = false;
-  @Input() display: boolean;
+  display: boolean;
   @Output() toggleSideMenuEmitter = new EventEmitter();
   @Output() closeBannerEmitter = new EventEmitter();
   noBanner = true;
@@ -37,6 +37,11 @@ export class TopnavComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.router.events.subscribe(evt => {
+      if (evt instanceof NavigationEnd) {
+        this.display = false;
+      }
+    })
     this.userDetails$ = this.authService.getUser$();
     this.currentUrl = this.router.url.split('/');
     this.items = [
@@ -63,7 +68,8 @@ export class TopnavComponent implements OnInit {
 
   toggleSideMenu() {
     // this.showMobileNav = ! this.showMobileNav;
-    this.toggleSideMenuEmitter.emit();
+    // this.toggleSideMenuEmitter.emit();
+    this.display =! this.display;
   }
 
   closeBanner() {
@@ -118,5 +124,9 @@ export class TopnavComponent implements OnInit {
       this.authService.storeUser(null);
       this.router.navigate(['/']);
     });
+  }
+
+  closeSideMenu() {
+    // this.display = false;
   }
 }

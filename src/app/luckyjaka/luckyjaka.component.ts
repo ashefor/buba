@@ -200,6 +200,12 @@ export class LuckyjakaComponent implements OnInit {
       showCancelButton: false,
       showConfirmButton: true,
       confirmButtonText: 'Awesome!',
+      backdrop: `
+      rgba(0,0,123,0.4)
+      url("/assets/img/confetti.gif")
+      center center
+      no-repeat
+    `
     });
   }
 

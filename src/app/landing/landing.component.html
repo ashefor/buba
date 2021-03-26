@@ -1,23 +1,20 @@
-<app-topnav (closeBannerEmitter)="closeBanner($event)" (toggleSideMenuEmitter)="showSideMenu($event)"></app-topnav>
+<app-topnav></app-topnav>
 <section>
-  <p-sidebar [(visible)]="display" [showCloseIcon]="false" [blockScroll]="true">
-    <app-mobile-sidenav [noBanner]="noBanner" (closeSideBarEmitter)="closeSideMenu()"></app-mobile-sidenav>
- </p-sidebar>
   <main class="landing" [ngStyle]="{'margin-top': noBanner ? '8rem' : '14rem'}">
-    
-
-    <p-carousel [value]="jumbos" styleClass="custom-carousel" [numVisible]="1" [numScroll]="1" [circular]="false" [autoplayInterval]="3000">
-      <ng-template let-jumbo pTemplate="item">
-        <div class="jumbotron">
-          <a [routerLink]="[jumbo.router]" routerLinkActive="router-link-active" >
-            <img [src]="jumbo.url" [alt]="jumbo.alt" srcset="">
-          </a>
-          <!-- <picture>
-            <source [srcset]="jumbo.url" type="image/webp">
-          </picture> -->
-        </div>
-      </ng-template>
-  </p-carousel>
+    <div class="jumbo-carousel">
+      <p-carousel [value]="jumbos" styleClass="custom-carousel" [numVisible]="1" [numScroll]="1" [circular]="false" [autoplayInterval]="3000">
+        <ng-template let-jumbo pTemplate="item">
+          <div class="jumbotron">
+            <a [routerLink]="[jumbo.router]" routerLinkActive="router-link-active" >
+              <img [src]="jumbo.url" [alt]="jumbo.alt" srcset="">
+            </a>
+            <!-- <picture>
+              <source [srcset]="jumbo.url" type="image/webp">
+            </picture> -->
+          </div>
+        </ng-template>
+    </p-carousel>
+    </div>
 
     <div class="container">
       <div class="landing_wrapper bids" id="today-deals">
@@ -137,6 +134,152 @@
         <div class="landing_header">
           <h6 class="landing_title text--500 text--capital">
             <strong>
+              cash prizes
+            </strong>
+          </h6>
+        </div>
+        <ng-container *ngIf="!cashBids">
+          <div class="carousel-container">
+            <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+              <div ngxSlickItem *ngFor="let item of products" class="slide">
+                <div class="p-px-2">
+                  <div class="bids_card">
+                    <div class="bids_img_wrapper">
+                    </div>
+                  </div>
+                  <div class="bids_text p-mt-3">
+                    <span class="product_category p-d-block lh-16 text--grey text--semi-small text--capital p-mb-3">
+                      
+                    </span>
+                    <p class="product_name text--semi-small text--upper lh-16 p-mb-2">
+                      
+                    </p>
+                    <span class="product_price p-d-block lh-16 text--regular text--primary">
+                      
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </ngx-slick-carousel>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="cashBids">
+          <div class="carousel-container">
+            <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+              <div ngxSlickItem *ngFor="let cash of cashBids" class="slide">
+                <a class="bid_item">
+                  <div class="bids_card">
+                    <div class="bids_img_wrapper">
+                      <img [src]="cash.product_image" loading="lazy" [alt]="cash.product_name"  [srcset]="cash.product_image">
+                    </div>
+                  </div>
+                  <div class="bids_text p-mt-3">
+                    <span class="product_category p-d-block lh-16 text--grey text--semi-small text--capital p-mb-3">
+                      {{cash.category}}
+                    </span>
+                    <p class="product_name text--semi-small text--upper lh-16 p-mb-2">
+                      {{cash.product_name}}
+                    </p>
+                    <!-- <span class="product_price p-d-block lh-16 text--regular text--primary">
+                      {{cash.bid_prize | currency: '₦'}}
+                    </span> -->
+                    <div class="p-d-block lh-16">
+                      <button [routerLink]="['/dashboard/games/wheel']" class="button button--primary button--sm p-mr-2">
+                        <span class="product_price p-mb-0 text--semi-small text--white text--capital">
+                          spin for {{cash.spin_prize | currency: '₦': 'symbol':'1.0'}}
+                        </span>
+                      </button>
+                      <button [routerLink]="['/process_bid', cash.display_id]" class="button button--secondary button--sm">
+                        <span class="product_price p-mb-0 text--semi-small text--white text--capital">
+                          bid for {{cash.bid_prize | currency: '₦': 'symbol':'1.0'}}
+                        </span>
+                      </button>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </ngx-slick-carousel>
+          </div>
+        </ng-container>
+       
+      </div>
+      <div class="landing_wrapper bids">
+        <div class="landing_header">
+          <h6 class="landing_title text--500 text--capital">
+            <strong>
+              gadgets
+            </strong>
+          </h6>
+        </div>
+        <ng-container *ngIf="!gadgetBids">
+          <div class="carousel-container">
+            <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+              <div ngxSlickItem *ngFor="let item of products" class="slide">
+                <div class="p-px-2">
+                  <div class="bids_card">
+                    <div class="bids_img_wrapper">
+                    </div>
+                  </div>
+                  <div class="bids_text p-mt-3">
+                    <span class="product_category p-d-block lh-16 text--grey text--semi-small text--capital p-mb-3">
+                      
+                    </span>
+                    <p class="product_name text--semi-small text--upper lh-16 p-mb-2">
+                      
+                    </p>
+                    <span class="product_price p-d-block lh-16 text--regular text--primary">
+                      
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </ngx-slick-carousel>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="gadgetBids">
+          <div class="carousel-container">
+            <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+              <div ngxSlickItem *ngFor="let gadget of gadgetBids" class="slide">
+                <a class="bid_item">
+                  <div class="bids_card">
+                    <div class="bids_img_wrapper">
+                      <img [src]="gadget.product_image" loading="lazy" [alt]="gadget.product_name"  [srcset]="gadget.product_image">
+                    </div>
+                  </div>
+                  <div class="bids_text p-mt-3">
+                    <span class="product_category p-d-block lh-16 text--grey text--semi-small text--capital p-mb-3">
+                      {{gadget.category}}
+                    </span>
+                    <p class="product_name text--semi-small text--upper lh-16 p-mb-2">
+                      {{gadget.product_name}}
+                    </p>
+                    <!-- <span class="product_price p-d-block lh-16 text--regular text--primary">
+                      {{gadget.bid_prize | currency: '₦'}}
+                    </span> -->
+                    <div class="p-d-block lh-16">
+                      <button [routerLink]="['/dashboard/games/wheel']" class="button button--primary button--sm p-mr-2">
+                        <span class="product_price p-mb-0 text--semi-small text--white text--capital">
+                          spin for {{gadget.spin_prize | currency: '₦': 'symbol':'1.0'}}
+                        </span>
+                      </button>
+                      <button [routerLink]="['/process_bid', gadget.display_id]" class="button button--secondary button--sm">
+                        <span class="product_price p-mb-0 text--semi-small text--white text--capital">
+                          bid for {{gadget.bid_prize | currency: '₦': 'symbol':'1.0'}}
+                        </span>
+                      </button>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </ngx-slick-carousel>
+          </div>
+        </ng-container>
+       
+      </div>
+      <div class="landing_wrapper bids">
+        <div class="landing_header">
+          <h6 class="landing_title text--500 text--capital">
+            <strong>
               Recommended Deals
             </strong>
           </h6>
@@ -211,14 +354,18 @@
           <div class="p-col-12 p-md-6 p-mr-auto p-mb-3">
             <div class="p-pr-md-6">
               <div class="referral_card">
+               <a [routerLink]="['/dashboard/games/berekete']" >
                 <img [defaultImage]="defaultImage" [lazyLoad]="'assets/img/ad2.gif'" alt="Win Up to ₦5,000,000 on Buba Berekete">
+               </a>
               </div>
             </div>
           </div>
           <div class="p-col-12 p-md-6 p-ml-auto p-mb-3">
             <div class="p-pl-md-6">
               <div class="referral_card">
-                <img [defaultImage]="defaultImage" [lazyLoad]="'assets/img/ad.gif'" alt="Win an iPhone 12">
+                <a [routerLink]="['/process_bid/BUBA_5529627156724418712663191374450706596']">
+                  <img [defaultImage]="defaultImage" [lazyLoad]="'assets/img/ad.gif'" alt="Win an iPhone 12">
+                </a>
               </div>
             </div>
           </div>
@@ -300,3 +447,26 @@
   </main>
   <app-footer></app-footer>
 </section>
+
+<p-dialog [(visible)]="displayLandingModal" styleClass="transfer-modal" [modal]="true"
+[style]="{width: '100%', maxWidth: '50rem'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+  <div class="modal-content p-px-1">
+    <h4 class="text--large text--center p-mb-5">Buba Testimonials</h4>
+    <div>
+      <div class="p-grid p-py-1">
+        <div class="p-col-12">
+          <div class="">
+            <!-- <iframe [src]="safeUrl" frameborder="0" allowfullscreen width="100%" height="250"></iframe> -->
+            <!-- <iframe width="100%" height="300" [src]="safeUrl" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
+
+            <p-carousel [value]="safeYouTubeUrls" [numVisible]="1" [numScroll]="1">
+              <ng-template let-url pTemplate="item">
+                <iframe width="100%" height="300" [src]="url" title="Buba Video Testimonial" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              </ng-template>
+          </p-carousel>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</p-dialog>

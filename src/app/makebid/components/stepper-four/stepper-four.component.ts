@@ -22,6 +22,7 @@ export class StepperFourComponent implements OnInit, OnDestroy {
   @Input() accountDetails;
   @Input() gameType: any;
   @Input() selectedEntry: any;
+  @Input() luckyJakaData: any;
   @Output() stepFourEmitter = new EventEmitter();
   itemAmount = 2500;
   processing: boolean;
@@ -203,7 +204,13 @@ export class StepperFourComponent implements OnInit, OnDestroy {
       width: '35rem',
       showCancelButton: false,
       showConfirmButton: false,
-      timer: 2500
+      timer: 2500,
+      backdrop: `
+      rgba(0,0,123,0.4)
+      url("/assets/img/confetti.gif")
+      center center
+      no-repeat
+    `
     });
   }
 

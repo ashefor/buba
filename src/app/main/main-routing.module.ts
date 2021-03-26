@@ -50,10 +50,10 @@ const routes: Routes = [
         path: 'berekete',
         loadChildren: () => import('../cash-spin-landing/cash-spin-landing.module').then(m => m.CashSpinLandingModule)
       },
-      {
-        path: 'transactions',
-        loadChildren: () => import('../transactions/transactions.module').then(m => m.TransactionsModule)
-      },
+      // {
+      //   path: 'transactions',
+      //   loadChildren: () => import('../transactions/transactions.module').then(m => m.TransactionsModule)
+      // },
       {
         path: '',
         redirectTo: 'home',

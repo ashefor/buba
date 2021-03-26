@@ -13,7 +13,7 @@ export class WinningMarqueeComponent implements OnInit {
   constructor(private auth: AuthService) { }
 
   ngOnInit(): void {
-    this.winners$ = this.auth.retrieveWinners();
+    this.winners$ = this.auth.getMarqueWinners$();
   }
 
 }

@@ -188,7 +188,13 @@ export class StepperComponent implements OnInit, OnDestroy {
       width: '35rem',
       showCancelButton: false,
       showConfirmButton: false,
-      timer: 2500
+      timer: 2500,
+      backdrop: `
+      rgba(0,0,123,0.4)
+      url("/assets/img/confetti.gif")
+      center center
+      no-repeat
+    `
     });
   }
 

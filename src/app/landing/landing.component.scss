@@ -48,6 +48,12 @@
     line-height: 16px;
   }
 
+  .jumbo-carousel{
+    max-width: 1600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
   .jumbotron {
     min-height: 18rem;
     max-height: 18rem;
@@ -60,13 +66,13 @@
     // background-attachment: fixed;
 
     @media all and (min-width: 768px) {
-      min-height: 25rem;
-      max-height: 25rem;
+      min-height: 30rem;
+      max-height: 30rem;
     }
 
-    @media all and (min-width: 768px) {
-      min-height: 45rem;
-      max-height: 45rem;
+    @media all and (min-width: 992px) {
+      min-height: 50rem;
+      max-height: 50rem;
     }
 
     img {

@@ -120,6 +120,7 @@ export class RaffleDrawComponent implements OnInit, OnDestroy {
       cancelButtonText: 'No, Thank You'
     }).then((result) => {
       if (result.value) {
+        console.log(this.selectedEntry);
         let count = 0;
         this.isSpinning = true;
         setTimeout(() => {
@@ -344,7 +345,13 @@ export class RaffleDrawComponent implements OnInit, OnDestroy {
       width: '35rem',
       showCancelButton: false,
       showConfirmButton: false,
-      timer: 2500
+      timer: 2500,
+      backdrop: `
+      rgba(0,0,123,0.4)
+      url("/assets/img/confetti.gif")
+      center center
+      no-repeat
+    `
     });
   }
 

@@ -17,7 +17,7 @@ import { NavigationEnd, Router } from '@angular/router';
 })
 export class CashWheelComponent implements OnInit, OnDestroy {
   isSpinning = false;
-  stake_amount= 100;
+  stake_amount = 100;
   showExtraBtns: boolean;
   showRetryBtn: boolean;
   retryData: any;
@@ -27,13 +27,13 @@ export class CashWheelComponent implements OnInit, OnDestroy {
     private currency: CurrencyPipe,
     private router: Router,
     private toastr: ToastrService, private loadingBar: LoadingBarService, private title: Title, private auth: AuthService) {
-      this.title.setTitle('Buba - Account Games | Berekete');
-     }
+    this.title.setTitle('Buba - Account Games | Berekete');
+  }
 
   ngOnInit(): void {
     this.router.events.subscribe(evt => {
       if (evt instanceof NavigationEnd) {
-        
+
       }
     });
   }
@@ -193,7 +193,13 @@ export class CashWheelComponent implements OnInit, OnDestroy {
       width: '35rem',
       showCancelButton: false,
       showConfirmButton: false,
-      timer: 2500
+      timer: 2500,
+      backdrop: `
+      rgba(0,0,123,0.4)
+      url("/assets/img/confetti.gif")
+      center center
+      no-repeat
+    `
     });
   }
 
@@ -205,7 +211,7 @@ export class CashWheelComponent implements OnInit, OnDestroy {
       width: '35rem',
       showCancelButton: false,
       showConfirmButton: false,
-      timer: 2500
+      timer: 2500,
     });
   }
 }

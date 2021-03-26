@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
+import { NavigationEnd, Router } from '@angular/router';
 import { PrimeNGConfig } from 'primeng/api';
 
 @Component({
@@ -9,8 +10,12 @@ import { PrimeNGConfig } from 'primeng/api';
 })
 export class AppComponent implements OnInit {
   title = 'More For Less - Buba';
-  constructor(private primengConfig: PrimeNGConfig, private meta: Meta) {
-    
+  constructor(private primengConfig: PrimeNGConfig, private meta: Meta, private router: Router) {
+      this.router.events.subscribe(ev => {
+        if (ev instanceof NavigationEnd) {
+          window.scrollTo(0, 0);
+        }
+      })
   }
 
   ngOnInit() {

@@ -52,6 +52,12 @@ export class AuthService {
   getUser$() {
     return this.userObject$.asObservable();
   }
+  getMarqueWinners$() {
+    return this.winners$.asObservable();
+  }
+  setMaque(data) {
+    return this.winners$.next(data)
+  }
 
   isLoggedIn() {
     return !!this.getToken();

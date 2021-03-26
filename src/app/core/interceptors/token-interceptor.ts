@@ -19,7 +19,6 @@ export class TokenInterceptor implements HttpInterceptor {
         // tslint:disable-next-line: no-string-literal
         const routePath = this.activatedRoute.snapshot['_routerState'].url;
         // console.log('intercept')
-        window.scrollTo(0, 0);
         if (this.service.isLoggedIn()) {
             const token = this.service.getToken();
             let request;

@@ -44,7 +44,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
       { name: 'description', content: 'Use my link to create your Buba account to enjoy More for Less!' }
     );
     this.meta.updateTag(
-      { name: 'twitter:url', content: 'https://account.buba.ng/register' }
+      { name: 'twitter:url', content: 'https://buba.ng/register' }
     );
     this.meta.updateTag(
       { name: 'twitter:card', content: 'summary' }

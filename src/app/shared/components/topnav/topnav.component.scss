@@ -190,7 +190,9 @@
     &_link {
       font-size: $font-size-regular-alt;
       line-height: 16px;
-      padding: 2rem;
+      // padding: 2rem;
+      padding: 1rem;
+      margin: 1rem;
       text-decoration: none;
       // color: #000000;
       font-weight: 600;
@@ -198,32 +200,23 @@
       text-transform: capitalize;
       position: relative;
 
-      .nav-tag {
-        font-size: 1.1rem;
-        padding: 0 .5rem;
-        color: #fff;
-        position: absolute;
-        right: -1.5rem;
-        top: -1.8rem;
-        line-height: 2;
-        display: inline-block;
-        text-transform: capitalize;
+      background: linear-gradient(currentColor 0 0) bottom /var(--d, 0) 3px no-repeat;
+      transition: 0.15s;
 
-        &::before{
-          content: '';
-          position: absolute;
-          z-index: 9;
-          top: 100%;
-          left: 7px;
-          border-width: 3px;
-          border-style: solid;
-        }
+      &:hover {
+        --d: 50%;
+      }
 
-        &--hot {
-          background: #d9534f;
-        }
+      &.active-menu {
+        background: $color-white;
+        color: $color-primary;
+        border: 1px solid $color-primary;
       }
     }
+
+    // &_item {
+
+    // }
   }
 
   &__left {
@@ -277,8 +270,9 @@
 
       &__refresh {
         cursor: pointer;
-      } 
-      &__add{
+      }
+
+      &__add {
         cursor: pointer;
         user-select: none;
         pointer-events: none;
