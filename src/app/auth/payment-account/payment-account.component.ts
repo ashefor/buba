@@ -25,28 +25,28 @@ export class PaymentAccountComponent implements OnInit, OnDestroy {
   isPaying: boolean;
 
   constructor(private toastr: ToastrService, 
-    private auth: AuthService, private loadingBar: LoadingBarService, private router: Router, private bidService: BidService) { }
+    private auth: AuthService,  private router: Router, private bidService: BidService) { }
 
   ngOnInit(): void {
   }
 
   ngOnDestroy() {
-    this.loadingBar.stop();
+    
     this.creatingAcctSubscription.unsubscribe();
     this.confirmPaymentSubscription.unsubscribe();
   }
 
   createPaymentAccount() {
-    this.loadingBar.start();
+    
     this.isCreating = true;
     this.creatingAcctSubscription = this.auth.createPaymentAccount().subscribe((data: any) => {
       this.currentPage = 2;
-      this.loadingBar.stop();
+      
       this.isCreating = false;
       this.accountDetails = data;
     },  (error: any) => {
       this.isCreating = false;
-      this.loadingBar.stop();
+      
       if (error instanceof HttpErrorResponse) {
         if (error.status === 400) {
           this.errorMessage = error.error.message;
@@ -64,10 +64,10 @@ export class PaymentAccountComponent implements OnInit, OnDestroy {
   }
 
   confirmPayment() {
-    this.loadingBar.start();
+    
     this.processing = true;
     this.confirmPaymentSubscription = this.auth.getWalletBalance().subscribe((data: loggedInUser) => {
-      this.loadingBar.stop();
+      
       this.processing = false;
       this.bidService.setWalletDetails(data.user);
       this.auth.storeUser(data.user);
@@ -77,7 +77,7 @@ export class PaymentAccountComponent implements OnInit, OnDestroy {
         this.toastr.info('Payment has not reflected yet. Please hold on');
       }
     }, (error: any) => {
-      this.loadingBar.stop();
+      
       this.processing = false;
       if (error instanceof HttpErrorResponse) {
         if (error.status === 401) {

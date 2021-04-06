@@ -28,7 +28,7 @@ export class StepperThreeComponent implements OnInit, OnDestroy {
   @Input() stakeAmount: string;
   deposit = null;
   isPaying: boolean;
-  constructor(private loadingBar: LoadingBarService,
+  constructor(
               private bidService: BidService,
               private authService: AuthService, private toastr: ToastrService, private router: Router) { }
 
@@ -37,7 +37,7 @@ export class StepperThreeComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.loadingBar.stop();
+    
   }
 
   goBack() {
@@ -45,10 +45,10 @@ export class StepperThreeComponent implements OnInit, OnDestroy {
   }
 
   confirmPayment() {
-    this.loadingBar.start();
+    
     this.processing = true;
     this.confirmPaymentSubscription = this.authService.getWalletBalance().subscribe((data: loggedInUser) => {
-      this.loadingBar.stop();
+      
       this.processing = false;
       this.bidService.setWalletDetails(data.user);
       this.authService.storeUser(data.user);
@@ -62,7 +62,7 @@ export class StepperThreeComponent implements OnInit, OnDestroy {
         this.toastr.info('Payment has not reflected yet. Please hold on');
       }
     }, (error: any) => {
-      this.loadingBar.stop();
+      
       this.processing = false;
       if (error instanceof HttpErrorResponse) {
         if (error.status === 401) {
@@ -83,10 +83,10 @@ export class StepperThreeComponent implements OnInit, OnDestroy {
   }
 
   confirmSpinPayment() {
-    this.loadingBar.start();
+    
     this.processing = true;
     this.confirmPaymentSubscription = this.authService.getWalletBalance().subscribe((data: loggedInUser) => {
-      this.loadingBar.stop();
+      
       this.processing = false;
       this.bidService.setWalletDetails(data.user);
       this.authService.storeUser(data.user);
@@ -96,7 +96,7 @@ export class StepperThreeComponent implements OnInit, OnDestroy {
         this.toastr.info('Payment has not reflected yet. Please hold on');
       }
     }, (error: any) => {
-      this.loadingBar.stop();
+      
       this.processing = false;
       if (error instanceof HttpErrorResponse) {
         if (error.status === 401) {
@@ -117,10 +117,10 @@ export class StepperThreeComponent implements OnInit, OnDestroy {
   }
 
   confirmBereketePayment() {
-    this.loadingBar.start();
+    
     this.processing = true;
     this.confirmPaymentSubscription = this.authService.getWalletBalance().subscribe((data: loggedInUser) => {
-      this.loadingBar.stop();
+      
       this.processing = false;
       this.bidService.setWalletDetails(data.user);
       this.authService.storeUser(data.user);
@@ -130,7 +130,7 @@ export class StepperThreeComponent implements OnInit, OnDestroy {
         this.toastr.info('Payment has not reflected yet. Please hold on');
       }
     }, (error: any) => {
-      this.loadingBar.stop();
+      
       this.processing = false;
       if (error instanceof HttpErrorResponse) {
         if (error.status === 401) {

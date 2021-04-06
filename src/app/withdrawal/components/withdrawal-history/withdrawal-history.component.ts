@@ -21,7 +21,7 @@ export class WithdrawalHistoryComponent implements OnInit, OnDestroy {
   errorMsg = 'no withdrawals yet';
   constructor(private withdrawalService: WithdrawalService,
               private toastr: ToastrService,
-              private loadingBar: LoadingBarService, private title: Title) {
+               private title: Title) {
     this.title.setTitle('Buba - Account Withdrawal History');
    }
 
@@ -30,7 +30,7 @@ export class WithdrawalHistoryComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.loadingBar.complete();
+    
   }
 
   fetchWithdrawalHistory() {
@@ -39,16 +39,16 @@ export class WithdrawalHistoryComponent implements OnInit, OnDestroy {
       page_size: this.pagesize,
       search_text: ''
     };
-    this.loadingBar.start();
+    
     this.withdrawalSubscription = this.withdrawalService.fetchWithdrawals(pageData).subscribe((data: any) => {
-      this.loadingBar.stop();
+      
       if (data.status === 'success') {
         this.withdrawalHistory = data.withdrawals;
       } else {
         this.toastr.error(data.message);
       }
     }, (error: any) => {
-      this.loadingBar.stop();
+      
       this.isFetchingHistory = false;
       if (error instanceof HttpErrorResponse) {
         if (error.status === 401) {
@@ -72,9 +72,9 @@ export class WithdrawalHistoryComponent implements OnInit, OnDestroy {
       page_size: this.pagesize,
       search_text: this.searchText
     };
-    this.loadingBar.start();
+    
     this.withdrawalSubscription = this.withdrawalService.fetchWithdrawals(pageData).subscribe((data: any) => {
-      this.loadingBar.stop();
+      
       if (data.status === 'success') {
         this.withdrawalHistory = data.withdrawals;
       } else {
@@ -84,7 +84,7 @@ export class WithdrawalHistoryComponent implements OnInit, OnDestroy {
         this.errorMsg = 'no more results';
       }
     }, (error: any) => {
-      this.loadingBar.stop();
+      
       this.isFetchingHistory = false;
       if (error instanceof HttpErrorResponse) {
         if (error.status === 401) {

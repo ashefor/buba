@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   returnUrl: any;
   loginSubscription = new Subscription();
   constructor(private fb: FormBuilder,
-              private loadingBar: LoadingBarService,
+              
               private auth: AuthService,
               private bidService: BidService, private router: Router, private title: Title, private routerServices: RouterService) {
     this.title.setTitle('Buba - Account Login');
@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    // this.loadingBar.stop();
+    // 
     this.loginSubscription.unsubscribe();
   }
   formInit() {
@@ -67,11 +67,11 @@ export class LoginComponent implements OnInit, OnDestroy {
     const { username, password } = formvalue;
     newFormValue.param = username;
     newFormValue.password = password;
-    // this.loadingBar.start();
+    // 
     this.loggingIn = true;
     this.loginForm.disable();
     this.loginSubscription = this.auth.login(newFormValue).subscribe((loggedUser: loggedInUser) => {
-      // this.loadingBar.stop();
+      // 
       this.loggingIn = false;
       this.loginForm.enable();
       this.auth.storeToken(loggedUser.token);
@@ -94,7 +94,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.router.navigate(['/payment-account']);
       }
     }, (error: any) => {
-      // this.loadingBar.stop();
+      // 
       this.loginForm.enable();
       this.loggingIn = false;
       if (error instanceof HttpErrorResponse) {

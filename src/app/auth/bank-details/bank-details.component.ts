@@ -20,7 +20,7 @@ export class BankDetailsComponent implements OnInit {
   returnUrl: any;
   addBankAccountForm: FormGroup;
   addBankAccountSubscription = new Subscription();
-  constructor(private auth: AuthService, private bidService: BidService, private router: Router, private title: Title, private loadingBar: LoadingBarService, private toastr: ToastrService, private routerService: RouterService) { }
+  constructor(private auth: AuthService, private bidService: BidService, private router: Router, private title: Title,  private toastr: ToastrService, private routerService: RouterService) { }
 
   ngOnInit(): void {
     this.returnUrl = this.routerService.getPreviousUrl();
@@ -28,9 +28,9 @@ export class BankDetailsComponent implements OnInit {
 
   addBankAccountHandler(formvalue) {
     this.loading = true;
-    this.loadingBar.start();
+    
     this.auth.addBankAccountDetails(formvalue).subscribe((bankData: any) => {
-      this.loadingBar.stop();
+      
       this.loading = false;
       if (bankData.status === 'success') {
         this.toastr.success('Success', bankData.message);
@@ -49,7 +49,7 @@ export class BankDetailsComponent implements OnInit {
       }
     }, (error: any) => {
       this.loading = false;
-      this.loadingBar.stop();
+      
       if (error instanceof HttpErrorResponse) {
         if (error.status === 401) {
           return EMPTY;

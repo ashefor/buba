@@ -71,8 +71,13 @@
       <div class="raffle_draw">
         <ul class="raffle_container" #raffle>
           <li>
-            <div class="loss raffle_item">
-              <p>Loss</p>
+            <div class="won_50 raffle_item">
+              <p>
+                <strong>70%</strong>
+              </p>
+              <p>
+                Winnings
+              </p>
             </div>
           </li>
           <li>
@@ -123,9 +128,12 @@
             </div>
           </li>
           <li>
-            <div class="loss raffle_item">
+            <div class="won_50 raffle_item">
               <p>
-                Loss
+                <strong>50%</strong>
+              </p>
+              <p>
+                Winnings
               </p>
             </div>
           </li>
@@ -147,7 +155,7 @@
             </div>
           </li>
         </ul>
-  
+
       </div>
       <ng-container>
         <button (click)="startSpin(raffle)" [disabled]="!selectedEntry" class="button p-mx-2 button--primary">Spin
@@ -158,5 +166,5 @@
 
 </ng-container>
 <ng-container *ngIf="gameType==='luckyJaka'">
-  
+
 </ng-container>

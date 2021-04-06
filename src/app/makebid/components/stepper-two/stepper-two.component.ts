@@ -56,7 +56,7 @@ export class StepperTwoComponent implements OnInit, OnDestroy {
   // tslint:disable-next-line: variable-name
   reg_source: any;
   constructor(private fb: FormBuilder,
-    private loadingBar: LoadingBarService,
+    
     private auth: AuthService,
     private router: Router,
     private bidService: BidService, private toastr: ToastrService) {
@@ -64,6 +64,8 @@ export class StepperTwoComponent implements OnInit, OnDestroy {
     if (url[2]) {
       if (url[2] === 'fb-landing') {
         this.reg_source = 'Facebook';
+      } else if (url[2] === 'twt-landing') {
+        this.reg_source = 'Twitter';
       } else if (url[2] === 'landing') {
         this.reg_source = 'Eskimi';
       } else {
@@ -81,7 +83,7 @@ export class StepperTwoComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.loadingBar.stop();
+    
   }
   formInit() {
     this.loginForm = this.fb.group({
@@ -137,11 +139,11 @@ export class StepperTwoComponent implements OnInit, OnDestroy {
     const { username, password } = formvalue;
     newFormValue.param = username;
     newFormValue.password = password;
-    this.loadingBar.start();
+    
     this.loggingIn = true;
     this.loginForm.disable();
     this.auth.login(newFormValue).subscribe((loggedUser: loggedInUser) => {
-      this.loadingBar.stop();
+      
       this.loggingIn = false;
       this.loginForm.enable();
       this.auth.storeToken(loggedUser.token);
@@ -160,7 +162,7 @@ export class StepperTwoComponent implements OnInit, OnDestroy {
       }
     }, (error: any) => {
       this.loggingIn = false;
-      this.loadingBar.stop();
+      
       this.loginForm.enable();
       if (error instanceof HttpErrorResponse) {
         if (error.status === 400) {
@@ -190,13 +192,13 @@ export class StepperTwoComponent implements OnInit, OnDestroy {
       return;
     }
     formvalue.reg_source = this.reg_source;
-    this.loadingBar.start();
+    
     this.isRegistering = true;
     this.registerForm.disable();
     this.auth.register(formvalue).pipe(tap((data: loggedInUser) => {
       this.auth.storeToken(data.token);
     }), concatMap(() => this.auth.getWalletBalance())).subscribe((newUser: any) => {
-      this.loadingBar.stop();
+      
       this.isRegistering = false;
       this.registerForm.enable();
       this.auth.storeUser(newUser.user);
@@ -209,7 +211,7 @@ export class StepperTwoComponent implements OnInit, OnDestroy {
       }
     }, (error: any) => {
       this.isRegistering = false;
-      this.loadingBar.stop();
+      
       this.registerForm.enable();
       if (error instanceof HttpErrorResponse) {
         if (error.status === 400) {
@@ -235,17 +237,17 @@ export class StepperTwoComponent implements OnInit, OnDestroy {
     if (this.resetForm.invalid) {
       return;
     }
-    this.loadingBar.start();
+    
     this.isResetting = true;
     this.resetForm.disable();
     this.auth.resetAccount(formvalue).subscribe((data: any) => {
-      this.loadingBar.stop();
+      
       this.isResetting = false;
       this.showResetForm = false;
       this.resetForm.enable();
     }, (error: any) => {
       this.isResetting = false;
-      this.loadingBar.stop();
+      
       this.resetForm.enable();
       if (error instanceof HttpErrorResponse) {
         if (error.status === 400) {

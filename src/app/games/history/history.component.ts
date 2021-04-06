@@ -40,7 +40,7 @@ export class HistoryComponent implements OnInit, OnDestroy {
   luckyJakaErrorMsg: string;
   luckyjakaHistory: any;
   constructor(private gamesService: GamesService,
-    private loadingBar: LoadingBarService,
+    
     private toastr: ToastrService, private title: Title) {
     this.title.setTitle('Buba - Account Games | History');
   }
@@ -51,7 +51,7 @@ export class HistoryComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.loadingBar.stop();
+    
   }
 
   fetchGamesHistory() {
@@ -60,14 +60,14 @@ export class HistoryComponent implements OnInit, OnDestroy {
       page_size: this.pagesize,
       search_text: '',
     };
-    this.loadingBar.start();
+    
     this.gamesHistorySubscription = this.gamesService.fetchAllGamesHistory(pageData).subscribe((data: any) => {
-      this.loadingBar.stop();
+      
       if (data.status === 'success') {
         this.gamesHistory = data.game_history;
       }
     }, (error: any) => {
-      this.loadingBar.stop();
+      
       this.isFetchingHistory = false;
       if (error instanceof HttpErrorResponse) {
         if (error.status === 401) {
@@ -108,16 +108,16 @@ export class HistoryComponent implements OnInit, OnDestroy {
         search_text: '',
       }
     };
-    this.loadingBar.start();
+    
     this.gamesService.fetchGamesHistory(details).subscribe((data: any[]) => {
-      this.loadingBar.stop();
+      
       this.allGamesData = data;
       this.gamesHistory = this.allGamesData[0].game_history;
       this.spinHistory = this.allGamesData[1].spins;
       this.bereketeHistory = this.allGamesData[2].berekete;
       this.luckyjakaHistory = this.allGamesData[3].lucky_jaka;
     }, (error: any) => {
-      this.loadingBar.stop();
+      
       if (error instanceof HttpErrorResponse) {
         if (error.status === 401) {
           return EMPTY;
@@ -139,9 +139,9 @@ export class HistoryComponent implements OnInit, OnDestroy {
       page_number: this.gamesPageNumber,
       page_size: this.gamesPageSize,
     };
-    this.loadingBar.start();
+    
     this.gamesHistorySubscription = this.gamesService.fetchAllGamesHistory(pageData).subscribe((data: any) => {
-      this.loadingBar.stop();
+      
       if (data.status === 'success') {
         this.gamesHistory = data.game_history;
       }
@@ -149,7 +149,7 @@ export class HistoryComponent implements OnInit, OnDestroy {
         this.errorMsg = 'no more results';
       }
     }, (error: any) => {
-      this.loadingBar.stop();
+      
       this.isFetchingHistory = false;
       if (error instanceof HttpErrorResponse) {
         if (error.status === 401) {
@@ -187,9 +187,9 @@ export class HistoryComponent implements OnInit, OnDestroy {
       page_size: this.spinPageSize,
       search_text: ''
     };
-    this.loadingBar.start();
+    
     this.gamesService.fetchAllSpinHistory(pageData).subscribe((data: any) => {
-      this.loadingBar.stop();
+      
       if (data.status === 'success') {
         this.spinHistory = data.spins;
       }
@@ -197,7 +197,7 @@ export class HistoryComponent implements OnInit, OnDestroy {
         this.spinErrorMsg = 'no more results';
       }
     }, (error: any) => {
-      this.loadingBar.stop();
+      
       this.isFetchingHistory = false;
       if (error instanceof HttpErrorResponse) {
         if (error.status === 401) {
@@ -236,9 +236,9 @@ export class HistoryComponent implements OnInit, OnDestroy {
       page_size: this.bereketePageSize,
       search_text: ''
     };
-    this.loadingBar.start();
+    
     this.gamesService.fetchBereketeHistory(pageData).subscribe((data: any) => {
-      this.loadingBar.stop();
+      
       if (data.status === 'success') {
         this.bereketeHistory = data.berekete;
       }
@@ -246,7 +246,7 @@ export class HistoryComponent implements OnInit, OnDestroy {
         this.bereketeErrorMsg = 'no more results';
       }
     }, (error: any) => {
-      this.loadingBar.stop();
+      
       this.isFetchingHistory = false;
       if (error instanceof HttpErrorResponse) {
         if (error.status === 401) {
@@ -284,9 +284,9 @@ export class HistoryComponent implements OnInit, OnDestroy {
       page_size: this.luckyJakaPageSize,
       search_text: ''
     };
-    this.loadingBar.start();
+    
     this.gamesService.fetchBereketeHistory(pageData).subscribe((data: any) => {
-      this.loadingBar.stop();
+      
       if (data.status === 'success') {
         this.luckyjakaHistory = data.lucky_jaka;
       }
@@ -294,7 +294,7 @@ export class HistoryComponent implements OnInit, OnDestroy {
         this.luckyJakaErrorMsg = 'no more results';
       }
     }, (error: any) => {
-      this.loadingBar.stop();
+      
       this.isFetchingHistory = false;
       if (error instanceof HttpErrorResponse) {
         if (error.status === 401) {

@@ -53,11 +53,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.router.events.subscribe(evt => {
-      if (evt instanceof NavigationEnd) {
-        
-      }
-    });
+    
     this.storedUserDetails$ = this.authService.getUser$();
     this.fetchUserDetails();
     this.fetchOpenBids();
@@ -124,7 +120,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.isCreating = false;
     this.isTransferring = false;
     this.isAdding = false;
-    this.loadingBar.complete();
+    
   }
 
   openTransferModal() {
@@ -255,9 +251,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
       return;
     }
     this.isTransferring = true;
-    this.loadingBar.start();
+    
     this.transferSubscription = this.authService.transferFundsToWallet(formValue).subscribe((data: any) => {
-      this.loadingBar.stop();
+      
       this.isTransferring = false;
       this.toastr.success(data.message);
       this.displayTransferModal = false;
@@ -265,7 +261,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.transferFundsForm.reset();
     }, (error: any) => {
       this.isTransferring = false;
-      this.loadingBar.stop();
+      
       if (error instanceof HttpErrorResponse) {
         if (error.status === 400) {
           const badRequestError = error.error.message;
@@ -291,9 +287,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
       return;
     }
     this.isAdding = true;
-    this.loadingBar.start();
+    
     this.authService.redeemPromoCode(formValue).subscribe((data: any) => {
-      this.loadingBar.stop();
+      
       this.isAdding = false;
       this.toastr.success(data.message);
       this.displayPromoModal = false;
@@ -301,7 +297,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.promoCodeForm.reset();
     }, (error: any) => {
       this.isAdding = false;
-      this.loadingBar.stop();
+      
       if (error instanceof HttpErrorResponse) {
         if (error.status === 400) {
           const badRequestError = error.error.message;
@@ -355,9 +351,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
       return;
     }
     this.isTransferring = true;
-    this.loadingBar.start();
+    
     this.authService.transferLoyaltyToWallet(formValue).subscribe((data: any) => {
-      this.loadingBar.stop();
+      
       this.isTransferring = false;
       this.toastr.success(data.message);
       this.displayLoyaltyTransferModal = false;
@@ -365,7 +361,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.loyaltyTransferForm.reset();
     }, (error: any) => {
       this.isTransferring = false;
-      this.loadingBar.stop();
+      
       if (error instanceof HttpErrorResponse) {
         if (error.status === 400) {
           const badRequestError = error.error.message;
@@ -389,19 +385,19 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }
     if (this.loyaltyWithdrawForm.valid) {
       this.isWithdrawing = true;
-      this.loadingBar.start();
+      
       this.loyaltyWithdrawForm.disable();
       this.authService.withdrawLoyaltyBalance(formvalue).subscribe((withdrawalData: any) => {
         this.loyaltyWithdrawForm.enable();
         this.isWithdrawing = false;
-        this.loadingBar.stop();
+        
           this.toastr.success(withdrawalData.message);
           this.loyaltyWithdrawForm.reset();
           this.refreshAccountDetails();
           this.displayLoyaltyWithdrawModal = false;
       }, (error: any) => {
         this.isWithdrawing = false;
-        this.loadingBar.stop();
+        
         this.loyaltyWithdrawForm.enable();
         if (error instanceof HttpErrorResponse) {
           if (error.status === 400) {

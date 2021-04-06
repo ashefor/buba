@@ -9,13 +9,14 @@ import Swal from 'sweetalert2';
 import { HttpErrorResponse } from '@angular/common/http';
 import { EMPTY, TimeoutError } from 'rxjs';
 import { NavigationEnd, Router } from '@angular/router';
+import { loggedInUser } from 'src/app/makebid/models/logged-user';
 
 @Component({
   selector: 'app-cash-wheel',
   templateUrl: './cash-wheel.component.html',
   styleUrls: ['./cash-wheel.component.scss']
 })
-export class CashWheelComponent implements OnInit, OnDestroy {
+export class CashWheelComponent implements OnInit{
   isSpinning = false;
   stake_amount = 100;
   showExtraBtns: boolean;
@@ -26,7 +27,7 @@ export class CashWheelComponent implements OnInit, OnDestroy {
   constructor(private service: GamesService,
     private currency: CurrencyPipe,
     private router: Router,
-    private toastr: ToastrService, private loadingBar: LoadingBarService, private title: Title, private auth: AuthService) {
+    private toastr: ToastrService,  private title: Title, private auth: AuthService) {
     this.title.setTitle('Buba - Account Games | Berekete');
   }
 
@@ -38,10 +39,22 @@ export class CashWheelComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy() {
-    this.loadingBar.stop();
+  refreshWallet() {
+    this.auth.getWalletBalance().subscribe((data: loggedInUser) => {
+      this.auth.storeUser(data.user);
+    }, (error: any) => {
+      if (error instanceof HttpErrorResponse) {
+        if (error.status === 401) {
+        } else {
+          this.toastr.error('Server error. Please try again later', 'Error');
+        }
+      } else if (error instanceof TimeoutError) {
+        this.toastr.error('Server timed out. Please try again later', 'Time Out!');
+      } else {
+        this.toastr.error('An unknown error has occured. Please try again later', 'Error');
+      }
+    });
   }
-
   startSpin(element: HTMLElement) {
     Swal.fire({
       html: `Spin with <b> ${this.currency.transform(this.stake_amount, '₦')}</b>?`,
@@ -61,9 +74,9 @@ export class CashWheelComponent implements OnInit, OnDestroy {
         const spinDetails = {
           stake_amount: this.stake_amount,
         };
-        this.loadingBar.start();
+        
         this.service.startBereketeSpinSession(spinDetails).subscribe((data: any) => {
-          this.loadingBar.stop();
+          
           this.retryData = data;
           element.addEventListener('animationiteration', () => {
             count += 1;
@@ -105,7 +118,7 @@ export class CashWheelComponent implements OnInit, OnDestroy {
             } else {
               this.errorMessage = true;
               element.classList.remove('show');
-              this.loadingBar.stop();
+              
               this.showExtraBtns = true;
               this.isSpinning = false;
               this.toastr.error(data.message);
@@ -137,10 +150,11 @@ export class CashWheelComponent implements OnInit, OnDestroy {
             }
             return this.retryData = null;
           });
+          this.refreshWallet();
         }, (error: any) => {
           this.errorMessage = true;
           element.classList.remove('show');
-          this.loadingBar.stop();
+          
           this.showExtraBtns = true;
           this.isSpinning = false;
           if (error instanceof HttpErrorResponse) {

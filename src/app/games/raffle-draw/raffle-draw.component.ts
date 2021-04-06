@@ -9,6 +9,8 @@ import Swal from 'sweetalert2';
 import { CurrencyPipe } from '@angular/common';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { NavigationEnd, Router } from '@angular/router';
+import { tap } from 'rxjs/operators';
+import { loggedInUser } from 'src/app/makebid/models/logged-user';
 
 @Component({
   selector: 'app-raffle-draw',
@@ -31,21 +33,17 @@ export class RaffleDrawComponent implements OnInit, OnDestroy {
   constructor(private service: GamesService,
               private currency: CurrencyPipe,
               private router: Router,
-              private toastr: ToastrService, private loadingBar: LoadingBarService, private title: Title, private auth: AuthService) {
+              private toastr: ToastrService,  private title: Title, private auth: AuthService) {
     this.title.setTitle('Buba - Games | Buba Spin');
   }
 
   ngOnInit(): void {
-    this.router.events.subscribe(evt => {
-      if (evt instanceof NavigationEnd) {
-        
-      }
-    });
+    
     this.fetchSpinItems();
   }
 
   ngOnDestroy() {
-    this.loadingBar.stop();
+    
   }
 
   spin(raffle: HTMLElement) {
@@ -71,16 +69,16 @@ export class RaffleDrawComponent implements OnInit, OnDestroy {
 
   fetchSpinItems() {
     this.loadingDetails = true;
-    this.loadingBar.start();
+    
     this.fetchSubscription = this.service.fetchSpinItems().subscribe((data: any) => {
-      this.loadingBar.stop();
+      
       this.loadingDetails = false;
       if (data.status === 'success') {
         this.spinData = data;
         this.entries = data.product;
       }
     }, (error: any) => {
-      this.loadingBar.stop();
+      
       this.loadingDetails = false;
       if (error instanceof HttpErrorResponse) {
         if (error.status >= 400 && error.status <= 415) {
@@ -110,6 +108,23 @@ export class RaffleDrawComponent implements OnInit, OnDestroy {
     window.location.reload();
   }
 
+  refreshWallet() {
+    this.auth.getWalletBalance().subscribe((data: loggedInUser) => {
+      this.auth.storeUser(data.user);
+    }, (error: any) => {
+      if (error instanceof HttpErrorResponse) {
+        if (error.status === 401) {
+        } else {
+          this.toastr.error('Server error. Please try again later', 'Error');
+        }
+      } else if (error instanceof TimeoutError) {
+        this.toastr.error('Server timed out. Please try again later', 'Time Out!');
+      } else {
+        this.toastr.error('An unknown error has occured. Please try again later', 'Error');
+      }
+    });
+  }
+  
   startSpin(raffle: HTMLElement) {
     Swal.fire({
       html: `Spin to win <b>${this.selectedEntry.product_name}</b> for ${this.currency.transform(this.selectedEntry.stake_amount, '₦')}?`,
@@ -130,9 +145,7 @@ export class RaffleDrawComponent implements OnInit, OnDestroy {
         const spinDetails = {
           product_id: this.selectedEntry.product_id,
         };
-        this.loadingBar.start();
-        this.spinSubscription = this.service.startSpinSession(spinDetails).subscribe((data: any) => {
-          this.loadingBar.stop();
+        this.spinSubscription = this.service.startSpinSession(spinDetails).pipe().subscribe((data: any) => {
           this.retryData = data;
           raffle.addEventListener('animationiteration', () => {
             count += 1;
@@ -142,7 +155,7 @@ export class RaffleDrawComponent implements OnInit, OnDestroy {
                 raffle.classList.add('new');
                 if (this.retryData.spin_status === 0) {
                   count = 0;
-                  raffle.style.setProperty('--transformEnd', '80deg');
+                  raffle.style.setProperty('--transformEnd', '280deg');
                 } else if (this.retryData.spin_status === 1) {
                   count = 0;
                   raffle.style.setProperty('--transformEnd', '240deg');
@@ -158,10 +171,10 @@ export class RaffleDrawComponent implements OnInit, OnDestroy {
                 } else if (this.retryData.spin_status === 10) {
                   count = 0;
                   raffle.style.setProperty('--transformEnd', '200deg');
-                } else if (this.retryData.spin_status === 11) {
+                } else if (this.retryData.spin_status === 5) {
                   count = 0;
-                  raffle.style.setProperty('--transformEnd', '280deg');
-                } else if (this.retryData.spin_status === 12) {
+                  raffle.style.setProperty('--transformEnd', '80deg');
+                } else if (this.retryData.spin_status === 7) {
                   count = 0;
                   raffle.style.setProperty('--transformEnd', '320deg');
                 }
@@ -171,7 +184,6 @@ export class RaffleDrawComponent implements OnInit, OnDestroy {
             } else {
               this.errorMessage = true;
               raffle.classList.remove('show');
-              this.loadingBar.stop();
               this.showExtraBtns = true;
               this.isSpinning = false;
               this.toastr.error(data.message);
@@ -198,10 +210,10 @@ export class RaffleDrawComponent implements OnInit, OnDestroy {
             }
             return this.retryData = null;
           });
+          this.refreshWallet();
         }, (error: any) => {
           this.errorMessage = true;
           raffle.classList.remove('show');
-          this.loadingBar.stop();
           this.showExtraBtns = true;
           this.isSpinning = false;
           if (error instanceof HttpErrorResponse) {
@@ -247,9 +259,7 @@ export class RaffleDrawComponent implements OnInit, OnDestroy {
           raffle.classList.remove('new');
           raffle.classList.add('show');
         }, 50);
-        this.loadingBar.start();
         this.spinSubscription = this.service.retrySpinSession().subscribe((data: any) => {
-          this.loadingBar.stop();
           this.retryData = data;
           raffle.addEventListener('animationiteration', () => {
             count += 1;
@@ -259,7 +269,7 @@ export class RaffleDrawComponent implements OnInit, OnDestroy {
                 raffle.classList.add('new');
                 if (this.retryData.spin_status === 0) {
                   count = 0;
-                  raffle.style.setProperty('--transformEnd', '80deg');
+                  raffle.style.setProperty('--transformEnd', '280deg');
                 } else if (this.retryData.spin_status === 1) {
                   count = 0;
                   raffle.style.setProperty('--transformEnd', '240deg');
@@ -275,10 +285,10 @@ export class RaffleDrawComponent implements OnInit, OnDestroy {
                 } else if (this.retryData.spin_status === 10) {
                   count = 0;
                   raffle.style.setProperty('--transformEnd', '200deg');
-                } else if (this.retryData.spin_status === 11) {
+                } else if (this.retryData.spin_status === 5) {
                   count = 0;
-                  raffle.style.setProperty('--transformEnd', '280deg');
-                } else if (this.retryData.spin_status === 12) {
+                  raffle.style.setProperty('--transformEnd', '80deg');
+                } else if (this.retryData.spin_status === 7) {
                   count = 0;
                   raffle.style.setProperty('--transformEnd', '320deg');
                 }
@@ -288,7 +298,7 @@ export class RaffleDrawComponent implements OnInit, OnDestroy {
             } else {
               this.errorMessage = true;
               raffle.classList.remove('show');
-              this.loadingBar.stop();
+              
               this.showExtraBtns = true;
               this.isSpinning = false;
               this.toastr.error(data.message);
@@ -313,10 +323,11 @@ export class RaffleDrawComponent implements OnInit, OnDestroy {
             }
             return this.retryData = null;
           });
+          this.refreshWallet();
         }, (error: any) => {
           this.errorMessage = true;
           raffle.classList.remove('show');
-          this.loadingBar.stop();
+          
           this.showExtraBtns = true;
           this.isSpinning = false;
           if (error instanceof HttpErrorResponse) {

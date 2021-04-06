@@ -32,7 +32,7 @@ export class StepperFourComponent implements OnInit, OnDestroy {
   errorMessage: boolean;
   showExtraBtns: boolean;
   showRetryBtn: boolean;
-  constructor(private loadingBar: LoadingBarService,
+  constructor(
               private auth: AuthService,
               private currency: CurrencyPipe,
               private service: GamesService,
@@ -42,17 +42,17 @@ export class StepperFourComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.loadingBar.stop();
+    
   }
 
   makeBid() {
-    this.loadingBar.start();
+    
     const { bid_id, bid_type, no_of_bid } = this.bidDetails;
     const bidData = { bid_id, bid_type, no_of_bid };
     this.processing = true;
     this.makeBidSubscription = this.bidService.buyBid(bidData).pipe(tap((bid) => {
    }), concatMap(() => this.auth.getWalletBalance())).subscribe((data: any) => {
-      this.loadingBar.stop();
+      
       this.processing = false;
       this.auth.storeUser(data.user);
       if (data.status === 'success') {
@@ -61,7 +61,7 @@ export class StepperFourComponent implements OnInit, OnDestroy {
         this.toastr.error(data.message, 'Error!');
       }
     }, (error: any) => {
-      this.loadingBar.stop();
+      
       this.processing = false;
       if (error instanceof HttpErrorResponse) {
         if (error.status === 401) {
@@ -102,9 +102,9 @@ export class StepperFourComponent implements OnInit, OnDestroy {
         const spinDetails = {
           product_id: this.selectedEntry.product_id,
         };
-        this.loadingBar.start();
+        
         this.service.startSpinSession(spinDetails).subscribe((data: any) => {
-          this.loadingBar.stop();
+          
           this.retryData = data;
           raffle.addEventListener('animationiteration', () => {
             count += 1;
@@ -114,7 +114,7 @@ export class StepperFourComponent implements OnInit, OnDestroy {
                 raffle.classList.add('new');
                 if (this.retryData.spin_status === 0) {
                   count = 0;
-                  raffle.style.setProperty('--transformEnd', '80deg');
+                  raffle.style.setProperty('--transformEnd', '280deg');
                 } else if (this.retryData.spin_status === 1) {
                   count = 0;
                   raffle.style.setProperty('--transformEnd', '240deg');
@@ -130,10 +130,10 @@ export class StepperFourComponent implements OnInit, OnDestroy {
                 } else if (this.retryData.spin_status === 10) {
                   count = 0;
                   raffle.style.setProperty('--transformEnd', '200deg');
-                } else if (this.retryData.spin_status === 11) {
+                } else if (this.retryData.spin_status === 5) {
                   count = 0;
-                  raffle.style.setProperty('--transformEnd', '280deg');
-                } else if (this.retryData.spin_status === 12) {
+                  raffle.style.setProperty('--transformEnd', '80deg');
+                } else if (this.retryData.spin_status === 7) {
                   count = 0;
                   raffle.style.setProperty('--transformEnd', '320deg');
                 }
@@ -143,7 +143,7 @@ export class StepperFourComponent implements OnInit, OnDestroy {
             } else {
               this.errorMessage = true;
               raffle.classList.remove('show');
-              this.loadingBar.stop();
+              
               this.showExtraBtns = true;
               this.isSpinning = false;
               this.toastr.error(data.message);
@@ -172,7 +172,7 @@ export class StepperFourComponent implements OnInit, OnDestroy {
         }, (error: any) => {
           this.errorMessage = true;
           raffle.classList.remove('show');
-          this.loadingBar.stop();
+          
           this.showExtraBtns = true;
           this.isSpinning = false;
           if (error instanceof HttpErrorResponse) {

@@ -17,7 +17,7 @@ export class ForgotPasswordComponent implements OnInit {
   resetting: boolean;
   showResetForm = true;
 
-  constructor(private fb: FormBuilder, private title: Title, private loadingBar: LoadingBarService, private auth: AuthService, private bidService: BidService, private router: Router) {
+  constructor(private fb: FormBuilder, private title: Title,  private auth: AuthService, private bidService: BidService, private router: Router) {
     this.title.setTitle('Buba - Account Reset Password');
   }
 
@@ -47,17 +47,17 @@ export class ForgotPasswordComponent implements OnInit {
     if (this.forgotPasswordForm.invalid) {
       return;
     }
-    this.loadingBar.start();
+    
     this.resetting = true;
     this.forgotPasswordForm.disable();
     this.auth.resetAccount(formvalue).subscribe((data: any) => {
-      this.loadingBar.stop();
+      
       this.resetting = false;
       this.showResetForm = false;
       this.forgotPasswordForm.enable();
     }, (error: any) => {
       this.resetting = false;
-      this.loadingBar.stop();
+      
       this.forgotPasswordForm.enable();
       if (error instanceof HttpErrorResponse) {
         if (error.status === 400) {

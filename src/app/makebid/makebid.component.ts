@@ -29,16 +29,12 @@ export class MakebidComponent implements OnInit, OnDestroy {
   fetchBidSubscription: Subscription;
   gameType = 'bid';
   // tslint:disable-next-line: max-line-length
-  constructor(private route: ActivatedRoute, private service: BidService, private loadingBar: LoadingBarService, private auth: AuthService, private toastr: ToastrService, private router: Router, private chref: ChangeDetectorRef, private title: Title) {
+  constructor(private route: ActivatedRoute, private service: BidService,  private auth: AuthService, private toastr: ToastrService, private router: Router, private chref: ChangeDetectorRef, private title: Title) {
     this.title.setTitle('Buba - Complete Bid');
   }
 
   ngOnInit(): void {
-    this.router.events.subscribe(evt => {
-      if (evt instanceof NavigationEnd) {
-        
-      }
-    });
+    
     this.currentPage$ = this.service.getCurrentPage$();
     this.bidDetails$ = this.service.getBidDetails$();
     this.accountDetails$ = this.service.getWalletDetails$();
@@ -51,7 +47,7 @@ export class MakebidComponent implements OnInit, OnDestroy {
     this.noBanner = event;
   }
   ngOnDestroy() {
-    this.loadingBar.stop();
+    
     this.service.setCurrentPage(1);
   }
 
@@ -72,15 +68,15 @@ export class MakebidComponent implements OnInit, OnDestroy {
   }
 
   fetchOneBid(bidId) {
-    this.loadingBar.start();
+    
     this.fetchBidSubscription = this.service.listOneBid(bidId).subscribe((data: any) => {
-      this.loadingBar.stop();
+      
       if (data.status === 'success') {
         this.bidInfo = data;
         this.bidList = data.bid_list;
       }
     }, (error: HttpErrorResponse) => {
-      this.loadingBar.stop();
+      
       if (error.status === 404) {
         this.fetchBidErrors = error.error.message;
       }

@@ -35,7 +35,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   constructor(private fb: FormBuilder,
               private toastr: ToastrService,
               private bidService: BidService,
-              private loadingBar: LoadingBarService,
+              
               private auth: AuthService,
               private router: Router,
               private title: Title, private activatedRoute: ActivatedRoute, private meta: Meta) {
@@ -74,7 +74,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     });
   }
   ngOnDestroy() {
-    this.loadingBar.stop();
+    
     this.registerSubscription.unsubscribe();
   }
   registerFormInit() {
@@ -114,7 +114,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     if (this.registerForm.invalid) {
       return;
     }
-    // this.loadingBar.start();
+    // 
     this.isRegistering = true;
     this.registerForm.disable();
     const {referred_by} = formvalue;
@@ -123,7 +123,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     formvalue.reg_source = 'OTHERS';
     this.registerSubscription = this.auth.register(formvalue).subscribe((newUser: any) => {
       this.auth.storeToken(newUser.token);
-      // this.loadingBar.stop();
+      // 
       this.isRegistering = false;
       this.registerForm.enable();
       this.auth.storeUser(newUser.user);
@@ -131,7 +131,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
       this.router.navigate(['/payment-account']);
     }, (error: any) => {
       this.isRegistering = false;
-      // this.loadingBar.stop();
+      // 
       this.registerForm.enable();
       if (error instanceof HttpErrorResponse) {
         if (error.status === 400) {

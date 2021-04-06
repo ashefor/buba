@@ -22,7 +22,7 @@ export class SpinHistoryComponent implements OnInit, OnDestroy {
   displayPosition: boolean;
   gameData: any;
   constructor(private gamesService: GamesService,
-              private loadingBar: LoadingBarService,
+              
               private toastr: ToastrService, private title: Title) {
     this.title.setTitle('Buba - Account Spin History');
    }
@@ -32,7 +32,7 @@ export class SpinHistoryComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.loadingBar.stop();
+    
   }
 
   fetchSpinHistory() {
@@ -41,14 +41,14 @@ export class SpinHistoryComponent implements OnInit, OnDestroy {
       page_size: this.pagesize,
       search_text: ''
     };
-    this.loadingBar.start();
+    
     this.spinHistorySubscription = this.gamesService.fetchAllSpinHistory(pageData).subscribe((data: any) => {
-      this.loadingBar.stop();
+      
       if (data.status === 'success') {
         this.spinHistory = data.spins;
       }
     }, (error: any) => {
-      this.loadingBar.stop();
+      
       this.isFetchingHistory = false;
       if (error instanceof HttpErrorResponse) {
         if (error.status === 401) {
@@ -72,9 +72,9 @@ export class SpinHistoryComponent implements OnInit, OnDestroy {
       page_size: this.pagesize,
       search_text: ''
     };
-    this.loadingBar.start();
+    
     this.spinHistorySubscription = this.gamesService.fetchAllSpinHistory(pageData).subscribe((data: any) => {
-      this.loadingBar.stop();
+      
       if (data.status === 'success') {
         this.spinHistory = data.spins;
       }
@@ -82,7 +82,7 @@ export class SpinHistoryComponent implements OnInit, OnDestroy {
         this.errorMsg = 'no more results';
       }
     }, (error: any) => {
-      this.loadingBar.stop();
+      
       this.isFetchingHistory = false;
       if (error instanceof HttpErrorResponse) {
         if (error.status === 401) {

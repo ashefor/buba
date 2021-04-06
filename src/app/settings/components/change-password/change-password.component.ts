@@ -19,7 +19,7 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
   changePasswordSubscription: Subscription;
   constructor(private fb: FormBuilder,
               private profileService: ProfileService,
-              private toastr: ToastrService,  private loadingBar: LoadingBarService, private title: Title) { 
+              private toastr: ToastrService,   private title: Title) { 
                 this.title.setTitle('Buba - Account Change Password');
               }
 
@@ -28,7 +28,7 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.loadingBar.stop();
+    
   }
   formInit() {
     this.changePasswordForm = this.fb.group({
@@ -58,12 +58,12 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
     const { new_password, old_password } = formvalue;
     const newFormvalue = { new_password, old_password };
     this.loading = true;
-    this.loadingBar.start();
+    
     this.changePasswordForm.disable();
     this.changePasswordSubscription = this.profileService.changeUserPassword(newFormvalue).subscribe((passwordData: any) => {
       this.changePasswordForm.enable();
       this.loading = false;
-      this.loadingBar.stop();
+      
       if (passwordData.status === 'success') {
         this.toastr.success('Success', passwordData.message);
         this.changePasswordForm.reset();
@@ -73,7 +73,7 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
     }, (error: any) => {
       this.loading = false;
       this.changePasswordForm.enable();
-      this.loadingBar.stop();
+      
       if (error instanceof HttpErrorResponse) {
         this.toastr.error('Error', error.error ? error.error.error : 'An error has occured. Please try again later');
         if (error.status === 400) {

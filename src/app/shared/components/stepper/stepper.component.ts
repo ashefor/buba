@@ -27,12 +27,12 @@ export class StepperComponent implements OnInit, OnDestroy {
   constructor(private service: GamesService,
               private currency: CurrencyPipe,
               private bidService: BidService,
-              private toastr: ToastrService, private loadingBar: LoadingBarService, private title: Title, private auth: AuthService) { }
+              private toastr: ToastrService,  private title: Title, private auth: AuthService) { }
 
   ngOnInit(): void {
   }
   ngOnDestroy() {
-    this.loadingBar.stop();
+    
   }
 
   updateStakeAmount() {
@@ -58,9 +58,9 @@ export class StepperComponent implements OnInit, OnDestroy {
         const spinDetails = {
           stake_amount: this.stake_amount,
         };
-        this.loadingBar.start();
+        
         this.service.startBereketeSpinSession(spinDetails).subscribe((data: any) => {
-          this.loadingBar.stop();
+          
           this.retryData = data;
           element.addEventListener('animationiteration', () => {
             count += 1;
@@ -102,7 +102,7 @@ export class StepperComponent implements OnInit, OnDestroy {
             } else {
               this.errorMessage = true;
               element.classList.remove('show');
-              this.loadingBar.stop();
+              
               this.showExtraBtns = true;
               this.isSpinning = false;
               this.toastr.error(data.message);
@@ -137,7 +137,7 @@ export class StepperComponent implements OnInit, OnDestroy {
         }, (error: any) => {
           this.errorMessage = true;
           element.classList.remove('show');
-          this.loadingBar.stop();
+          
           this.showExtraBtns = true;
           this.isSpinning = false;
           if (error instanceof HttpErrorResponse) {

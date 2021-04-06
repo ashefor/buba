@@ -36,7 +36,7 @@ export class RootComponent implements OnInit {
               private bidservice: BidService,
               private currency: CurrencyPipe,
               private toastr: ToastrService,
-              private loadingBar: LoadingBarService,
+              
               private routeStatus: RouterService,
               private title: Title) { }
 
@@ -49,16 +49,16 @@ export class RootComponent implements OnInit {
 
   fetchSpinItems() {
     this.loadingDetails = true;
-    this.loadingBar.start();
+    
     this.service.fetchSpinItems().subscribe((data: any) => {
-      this.loadingBar.stop();
+      
       this.loadingDetails = false;
       if (data.status === 'success') {
         this.spinData = data;
         this.entries = data.product;
       }
     }, (error: any) => {
-      this.loadingBar.stop();
+      
       this.loadingDetails = false;
       if (error instanceof HttpErrorResponse) {
         if (error.status === 401) {

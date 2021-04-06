@@ -19,7 +19,7 @@ export class OpenBidsComponent implements OnInit,OnDestroy {
   isFetchingHistory: boolean;
   bidsHistorySubscription: Subscription;
   errorMsg = 'no bids yet';
-  constructor(private bidService: GetBidsService, private loadingBar: LoadingBarService, private toastr: ToastrService, private title: Title) {
+  constructor(private bidService: GetBidsService,  private toastr: ToastrService, private title: Title) {
     this.title.setTitle('Buba - Account Open Bids');
    }
 
@@ -28,7 +28,7 @@ export class OpenBidsComponent implements OnInit,OnDestroy {
   }
 
   ngOnDestroy() {
-    this.loadingBar.stop();
+    
   }
 
   fetchBidsHistory() {
@@ -36,14 +36,14 @@ export class OpenBidsComponent implements OnInit,OnDestroy {
       page_number: this.pagenumber,
       page_size: this.pagesize
     };
-    this.loadingBar.start();
+    
     this.bidsHistorySubscription = this.bidService.fetchOpenBids().subscribe((data: any) => {
-      this.loadingBar.stop();
+      
       if (data.status === 'success') {
         this.bidsHistory = data.bids_history;
       }
     }, (error: any) => {
-      this.loadingBar.stop();
+      
       this.isFetchingHistory = false;
       if (error instanceof HttpErrorResponse) {
         if (error.status === 401) {
@@ -66,9 +66,9 @@ export class OpenBidsComponent implements OnInit,OnDestroy {
       page_number: this.pagenumber,
       page_size: this.pagesize,
     };
-    this.loadingBar.start();
+    
     this.bidsHistorySubscription = this.bidService.fetchOpenBids().subscribe((data: any) => {
-      this.loadingBar.stop();
+      
       if (data.status === 'successs') {
         this.bidsHistory = data.bids_history;;
       }
@@ -76,7 +76,7 @@ export class OpenBidsComponent implements OnInit,OnDestroy {
         this.errorMsg = 'no more results';
       }
     }, (error: any) => {
-      this.loadingBar.stop();
+      
       this.isFetchingHistory = false;
       if (error instanceof HttpErrorResponse) {
         if (error.status === 401) {

@@ -24,7 +24,7 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
   
   constructor(private fb: FormBuilder,
               private profileService: ProfileService,
-              private toastr: ToastrService, private authService: AuthService, private loadingBar: LoadingBarService, private title: Title) {
+              private toastr: ToastrService, private authService: AuthService,  private title: Title) {
                 this.title.setTitle('Buba - Account Edit Profile');
                }
 
@@ -35,7 +35,7 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
     this.formInit();
   }
   ngOnDestroy() {
-    this.loadingBar.stop();
+    
   }
 
   formInit() {
@@ -65,12 +65,12 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
       return;
     }
     this.loading = true;
-    this.loadingBar.start();
+    
     this.profileEditForm.disable();
     this.profileEditSubscription = this.profileService.editProfileDetails(formvalue).subscribe((profileData: any) => {
       this.profileEditForm.enable();
       this.loading = false;
-      this.loadingBar.stop();
+      
       if (profileData.status === 'success') {
         this.toastr.success('Success', profileData.message);
         const newUserDetails = {...this.userDetails, ...formvalue};
@@ -80,7 +80,7 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
       }
     }, (error: any) => {
       this.loading = false;
-      this.loadingBar.stop();
+      
       this.profileEditForm.enable();
       if (error instanceof HttpErrorResponse) {
         this.toastr.error('Error', error.error ? error.error.error : 'An error has occured. Please try again later');

@@ -8,6 +8,8 @@ import { EMPTY, TimeoutError } from 'rxjs';
 import { GamesService } from '../games/services/games.service';
 import Swal from 'sweetalert2';
 import { CurrencyPipe } from '@angular/common';
+import { loggedInUser } from '../makebid/models/logged-user';
+import { AuthService } from '../core/services/auth.service';
 
 @Component({
   selector: 'app-luckyjaka',
@@ -35,24 +37,37 @@ export class LuckyjakaComponent implements OnInit {
 
   constructor(private service: GamesService,
     private toastr: ToastrService,
-    private loadingBar: LoadingBarService, private router: Router, private title: Title, private currency: CurrencyPipe) {
+     private router: Router, private auth: AuthService, private title: Title, private currency: CurrencyPipe) {
     this.title.setTitle('Buba - Games | LuckyJaka');
   }
 
   ngOnInit(): void {
-    this.router.events.subscribe(evt => {
-      if (evt instanceof NavigationEnd) {
-        
-      }
-    });
+    
     this.fetchGameSession();
   }
 
+  refreshWallet() {
+    this.auth.getWalletBalance().subscribe((data: loggedInUser) => {
+      this.auth.storeUser(data.user);
+    }, (error: any) => {
+      if (error instanceof HttpErrorResponse) {
+        if (error.status === 401) {
+        } else {
+          this.toastr.error('Server error. Please try again later', 'Error');
+        }
+      } else if (error instanceof TimeoutError) {
+        this.toastr.error('Server timed out. Please try again later', 'Time Out!');
+      } else {
+        this.toastr.error('An unknown error has occured. Please try again later', 'Error');
+      }
+    });
+  }
+
   fetchGameSession() {
-    this.loadingBar.start();
+    
     this.loadingDetails = true;
     this.service.fetchLuckyJakaSession().subscribe((data: any) => {
-      this.loadingBar.stop();
+      
       this.loadingDetails = false;
       if (data.status === 'success') {
         this.lottoData = data;
@@ -60,7 +75,7 @@ export class LuckyjakaComponent implements OnInit {
         this.alllottoNumbers.push(data.lucky_jaka.L_1, data.lucky_jaka.L_2, data.lucky_jaka.L_3, data.lucky_jaka.L_4, data.lucky_jaka.L_5, data.lucky_jaka.L_6, data.lucky_jaka.L_7, data.lucky_jaka.L_8, data.lucky_jaka.L_9, data.lucky_jaka.L_10);
       }
     }, (error: any) => {
-      this.loadingBar.stop();
+      
       this.loadingDetails = false;
       if (error instanceof HttpErrorResponse) {
         if (error.status === 401) {
@@ -116,10 +131,10 @@ export class LuckyjakaComponent implements OnInit {
       stake_amount: this.stake_amount,
       ...newObj
     };
-    this.loadingBar.start();
+    
     this.buyingTickets = true;
     this.service.buyLuckyJakaTicket(ticketsObj).subscribe((data: any) => {
-      this.loadingBar.stop();
+      
       this.buyingTickets = false;
       if (data.status === 'success') {
         if (data.game_status === 1) {
@@ -138,9 +153,10 @@ export class LuckyjakaComponent implements OnInit {
       } else {
         this.toastr.error(data.message);
       }
+      this.refreshWallet();
     }, (error: any) => {
       this.buyingTickets = false;
-      this.loadingBar.stop();
+      
       if (error instanceof HttpErrorResponse) {
         if (error.status === 401) {
           return EMPTY;

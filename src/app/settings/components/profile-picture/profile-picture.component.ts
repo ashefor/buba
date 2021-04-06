@@ -24,7 +24,7 @@ export class ProfilePictureComponent implements OnInit, OnDestroy {
    constructor(private profileService: ProfileService,
                private authService: AuthService,
                private toastr: ToastrService,
-               private loadingBar: LoadingBarService, private title: Title) {
+                private title: Title) {
     this.title.setTitle('Buba - Account Profile Picture');
    }
 
@@ -36,7 +36,7 @@ export class ProfilePictureComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.loadingBar.stop();
+    
   }
 
   onFileChanged(event) {
@@ -70,9 +70,9 @@ export class ProfilePictureComponent implements OnInit, OnDestroy {
    const uploadData = new FormData();
    uploadData.append('file', this.selectedFile, this.selectedFile.name);
    this.loading = true;
-   this.loadingBar.start();
+   
    this.profileService.changeProfilePicture(uploadData).subscribe((pictureData: any) => {
-     this.loadingBar.stop();
+     
      this.loading = false;
      if (pictureData.status === 'success') {
        this.toastr.success('Success', 'Picture changed successfully');
@@ -83,7 +83,7 @@ export class ProfilePictureComponent implements OnInit, OnDestroy {
      }
    }, (error: any) => {
      this.loading = false;
-     this.loadingBar.stop();
+     
      if (error instanceof HttpErrorResponse) {
        if (error.status === 400) {
          this.badRequestError = error.error.message;

@@ -38,30 +38,26 @@ export class QuickPlayComponent implements OnInit {
   disablePlayButton: boolean;
 
   constructor(private service: GamesService,
-              private toastr: ToastrService, private loadingBar: LoadingBarService, private router: Router, private title: Title) {
+              private toastr: ToastrService,  private router: Router, private title: Title) {
                 this.title.setTitle('Buba - Games | Quick Play');
                }
 
   ngOnInit(): void {
-    this.router.events.subscribe(evt => {
-      if (evt instanceof NavigationEnd) {
-        
-      }
-    });
+    
     this.fetchGameSession();
   }
 
   fetchGameSession() {
-    this.loadingBar.start();
+    
     this.loadingDetails = true;
     this.service.fetchQuickPlaySession().subscribe((data: any) => {
-      this.loadingBar.stop();
+      
       this.loadingDetails = false;
       if (data.status === 'success') {
         this.lottoData = data;
       }
     }, (error: any) => {
-      this.loadingBar.stop();
+      
       this.loadingDetails = false;
       if (error instanceof HttpErrorResponse) {
         if (error.status === 401) {
@@ -158,7 +154,7 @@ export class QuickPlayComponent implements OnInit {
     };
     this.buyingTickets = true;
     this.service.buyQuickPlayTickets(ticketsObj).subscribe((data: any) => {
-      this.loadingBar.stop();
+      
       this.buyingTickets = false;
       if (data.status === 'success') {
         this.ticketData = {
@@ -179,7 +175,7 @@ export class QuickPlayComponent implements OnInit {
       }
     }, (error: any) => {
       this.buyingTickets = false;
-      this.loadingBar.stop();
+      
       if (error instanceof HttpErrorResponse) {
         if (error.status === 401) {
           return EMPTY;

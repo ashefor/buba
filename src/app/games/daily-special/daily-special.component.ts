@@ -5,6 +5,8 @@ import { NavigationEnd, Router } from '@angular/router';
 import { LoadingBarService } from '@ngx-loading-bar/core';
 import { ToastrService } from 'ngx-toastr';
 import { EMPTY, TimeoutError } from 'rxjs';
+import { AuthService } from 'src/app/core/services/auth.service';
+import { loggedInUser } from 'src/app/makebid/models/logged-user';
 import { GamesService } from '../services/games.service';
 
 @Component({
@@ -31,24 +33,36 @@ export class DailySpecialComponent implements OnInit {
   disablePlayButton: boolean;
   constructor(private service: GamesService,
               private toastr: ToastrService,
-              private loadingBar: LoadingBarService, private router: Router, private title: Title) {
+               private router: Router, private title: Title, private auth: AuthService) {
                 this.title.setTitle('Buba - Games | Daily Special');
                }
 
   ngOnInit(): void {
-    this.router.events.subscribe(evt => {
-      if (evt instanceof NavigationEnd) {
-        
-      }
-    });
+    
     this.fetchGameSession();
   }
-
+  
+  refreshWallet() {
+    this.auth.getWalletBalance().subscribe((data: loggedInUser) => {
+      this.auth.storeUser(data.user);
+    }, (error: any) => {
+      if (error instanceof HttpErrorResponse) {
+        if (error.status === 401) {
+        } else {
+          this.toastr.error('Server error. Please try again later', 'Error');
+        }
+      } else if (error instanceof TimeoutError) {
+        this.toastr.error('Server timed out. Please try again later', 'Time Out!');
+      } else {
+        this.toastr.error('An unknown error has occured. Please try again later', 'Error');
+      }
+    });
+  }
   fetchGameSession() {
-    this.loadingBar.start();
+    
     this.loadingDetails = true;
     this.service.fetchDailySpecialSession().subscribe((data: any) => {
-      this.loadingBar.stop();
+      
       this.loadingDetails = false;
       if (data.status === 'success') {
         this.lottoData = data;
@@ -56,7 +70,7 @@ export class DailySpecialComponent implements OnInit {
         this.alllottoNumbers.push(data.numbers.A_1, data.numbers.B_1, data.numbers.C_1, data.numbers.D_1, data.numbers.E_1, data.numbers.F_1, data.numbers.G_1, data.numbers.H_1, data.numbers.I_1, data.numbers.J_1);
       }
     }, (error: any) => {
-      this.loadingBar.stop();
+      
       this.loadingDetails = false;
       if (error instanceof HttpErrorResponse) {
         if (error.status === 401) {
@@ -159,7 +173,7 @@ export class DailySpecialComponent implements OnInit {
     };
     this.buyingTickets = true;
     this.service.buyTickets(ticketsObj).subscribe((data: any) => {
-      this.loadingBar.stop();
+      
       this.buyingTickets = false;
       if (data.status === 'success') {
         this.ticketData = {
@@ -178,9 +192,10 @@ export class DailySpecialComponent implements OnInit {
       } else {
         this.toastr.error(data.message);
       }
+      this.refreshWallet();
     }, (error: any) => {
       this.buyingTickets = false;
-      this.loadingBar.stop();
+      
       if (error instanceof HttpErrorResponse) {
         if (error.status === 401) {
           return EMPTY;

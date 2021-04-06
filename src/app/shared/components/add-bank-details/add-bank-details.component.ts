@@ -29,7 +29,7 @@ export class AddBankDetailsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.loadingBar.stop();
+    
   }
 
   formInit() {

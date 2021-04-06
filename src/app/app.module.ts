@@ -6,11 +6,13 @@ import { NgxGoogleAnalyticsModule, NgxGoogleAnalyticsRouterModule } from 'ngx-go
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { LoadingBarModule } from '@ngx-loading-bar/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TokenInterceptor } from './core/interceptors/token-interceptor';
 import { ChunkLoadErrorHandler } from './core/services/error-handler';
 import { environment } from 'src/environments/environment';
+import { LoadingBarModule } from '@ngx-loading-bar/core';
+import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
+import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 
 @NgModule({
   declarations: [
@@ -21,6 +23,8 @@ import { environment } from 'src/environments/environment';
     BrowserAnimationsModule,
     HttpClientModule,
     LoadingBarModule,
+    LoadingBarHttpClientModule,
+    LoadingBarRouterModule,
     NgxGoogleAnalyticsModule.forRoot(environment.gtag),
     NgxGoogleAnalyticsRouterModule,
     ToastrModule.forRoot({

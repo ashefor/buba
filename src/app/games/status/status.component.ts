@@ -22,7 +22,7 @@ export class StatusComponent implements OnInit, OnDestroy {
 
   constructor(private fb: FormBuilder,
     private service: GamesService,
-    private toastr: ToastrService, private loadingBar: LoadingBarService, private title: Title, private activatedRoute: ActivatedRoute) {
+    private toastr: ToastrService,  private title: Title, private activatedRoute: ActivatedRoute) {
       this.title.setTitle('Buba | Ticket Status')
      }
 
@@ -36,7 +36,7 @@ export class StatusComponent implements OnInit, OnDestroy {
     });
   }
   ngOnDestroy() {
-    this.loadingBar.stop();
+    
   }
 
   get formControls() {
@@ -53,12 +53,12 @@ export class StatusComponent implements OnInit, OnDestroy {
     if (this.ticketStatusForm.valid) {
       this.loading = true;
       this.ticketDetails = null;
-      this.loadingBar.start();
+      
       this.ticketStatusForm.disable();
       this.ticketSubscription = this.service.checkTicketStatus(formvalue).subscribe((ticketData: any) => {
         this.ticketStatusForm.enable();
         this.loading = false;
-        this.loadingBar.stop();
+        
         if (ticketData.status === 'success') {
           this.ticketDetails = ticketData;
         } else {
@@ -69,7 +69,7 @@ export class StatusComponent implements OnInit, OnDestroy {
         }
       }, (error: any) => {
         this.loading = false;
-        this.loadingBar.stop();
+        
         this.ticketStatusForm.enable();
         if (error instanceof HttpErrorResponse) {
           if (error.status === 400) {

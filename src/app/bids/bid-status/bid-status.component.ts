@@ -20,7 +20,7 @@ export class BidStatusComponent implements OnInit, OnDestroy {
   bidSubscription: Subscription;
   constructor(private fb: FormBuilder,
     private bidService: BidService,
-    private toastr: ToastrService, private loadingBar: LoadingBarService, private title: Title) {
+    private toastr: ToastrService,  private title: Title) {
       this.title.setTitle('Buba | Bid Status')
      }
 
@@ -34,7 +34,7 @@ export class BidStatusComponent implements OnInit, OnDestroy {
     });
   }
   ngOnDestroy() {
-    this.loadingBar.stop();
+    
   }
 
   get formControls() {
@@ -50,12 +50,12 @@ export class BidStatusComponent implements OnInit, OnDestroy {
     if (this.bidStatusForm.valid) {
       this.loading = true;
       this.ticketDetails = null;
-      this.loadingBar.start();
+      
       this.bidStatusForm.disable();
       this.bidSubscription = this.bidService.checkBidStatus(formvalue).subscribe((bidData: any) => {
         this.bidStatusForm.enable();
         this.loading = false;
-        this.loadingBar.stop();
+        
         if (bidData.status === 'success') {
           // this.toastr.success('Success', bidData.message);
           // this.bidStatusForm.reset();
@@ -68,7 +68,7 @@ export class BidStatusComponent implements OnInit, OnDestroy {
         }
       }, (error: any) => {
         this.loading = false;
-        this.loadingBar.stop();
+        
         this.bidStatusForm.enable();
         if (error instanceof HttpErrorResponse) {
           if (error.status === 400) {

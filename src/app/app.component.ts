@@ -15,7 +15,7 @@ export class AppComponent implements OnInit {
         if (ev instanceof NavigationEnd) {
           window.scrollTo(0, 0);
         }
-      })
+      });
   }
 
   ngOnInit() {

@@ -18,7 +18,7 @@ export class IdCardComponent implements OnInit, OnDestroy {
   addIdCardSubscription: Subscription;
   constructor(private profileService: ProfileService,
               private toastr: ToastrService,
-              private loadingBar: LoadingBarService, private title: Title) {
+               private title: Title) {
     this.title.setTitle('Buba - Account Id Card');
    }
 
@@ -26,7 +26,7 @@ export class IdCardComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.loadingBar.stop();
+    
   }
 
   onFileChanged(event) {
@@ -45,9 +45,9 @@ export class IdCardComponent implements OnInit, OnDestroy {
    const uploadData = new FormData();
    uploadData.append('file', this.selectedFile, this.selectedFile.name);
    this.loading = true;
-   this.loadingBar.start();
+   
    this.addIdCardSubscription = this.profileService.uploadIdCardDetails(uploadData).subscribe((idCardData: any) => {
-     this.loadingBar.stop();
+     
      this.loading = false;
      if (idCardData.status === 'success') {
        this.toastr.success('Success', idCardData.message);
@@ -57,7 +57,7 @@ export class IdCardComponent implements OnInit, OnDestroy {
      }
    }, (error: any) => {
      this.loading = false;
-     this.loadingBar.stop();
+     
      if (error instanceof HttpErrorResponse) {
        if (error.status === 400) {
          this.badRequestError = error.error.message;

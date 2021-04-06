@@ -41,7 +41,7 @@ export class TopnavComponent implements OnInit {
       if (evt instanceof NavigationEnd) {
         this.display = false;
       }
-    })
+    });
     this.userDetails$ = this.authService.getUser$();
     this.currentUrl = this.router.url.split('/');
     this.items = [

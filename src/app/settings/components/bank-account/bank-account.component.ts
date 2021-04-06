@@ -25,7 +25,7 @@ export class BankAccountComponent implements OnInit, OnDestroy {
   constructor(private fb: FormBuilder,
               private profileService: ProfileService,
               private toastr: ToastrService,
-              private authService: AuthService, private loadingBar: LoadingBarService, private title: Title) {
+              private authService: AuthService,  private title: Title) {
     this.title.setTitle('Buba - Account Bank Details');
   }
 
@@ -36,7 +36,7 @@ export class BankAccountComponent implements OnInit, OnDestroy {
     this.formInit();
   }
   ngOnDestroy() {
-    this.loadingBar.stop();
+    
   }
 
   formInit() {
@@ -55,11 +55,11 @@ export class BankAccountComponent implements OnInit, OnDestroy {
       return;
     }
     this.loading = true;
-    this.loadingBar.start();
+    
     this.addBankAccountForm.disable();
     this.addBankAccountSubscription = this.profileService.addBankAccountDetails(formvalue).subscribe((bankData: any) => {
       this.addBankAccountForm.enable();
-      this.loadingBar.stop();
+      
       this.loading = false;
       if (bankData.status === 'success') {
         const newuser = {...this.userDetails, bank_code: formvalue.bank_code, account_number: formvalue.account_number};
@@ -70,7 +70,7 @@ export class BankAccountComponent implements OnInit, OnDestroy {
       }
     }, (error: any) => {
       this.loading = false;
-      this.loadingBar.stop();
+      
       this.addBankAccountForm.enable();
       if (error instanceof HttpErrorResponse) {
         if (error.status === 400) {

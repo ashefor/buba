@@ -20,7 +20,7 @@ export class FundingComponent implements OnInit, OnDestroy {
   searchText = '';
   errorMsg = 'no funding yet';
   constructor(private fundingService: FundingService,
-              private loadingBar: LoadingBarService,
+              
               private toastr: ToastrService, private title: Title) {
     this.title.setTitle('Buba - Account Funding History');
   }
@@ -30,7 +30,7 @@ export class FundingComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.loadingBar.stop();
+    
   }
 
   fetchFundingHistory() {
@@ -38,14 +38,14 @@ export class FundingComponent implements OnInit, OnDestroy {
       page_number: this.pagenumber,
       page_size: this.pagesize
     };
-    this.loadingBar.start();
+    
     this.fundingHistorySubscription = this.fundingService.fetchTransactions(pageData).subscribe((data: any) => {
-      this.loadingBar.stop();
+      
       if (data.status === 'successs' || data.status === 'success' ) {
         this.fundingHistory = data.transactions;
       }
     }, (error: any) => {
-      this.loadingBar.stop();
+      
       this.isFetchingHistory = false;
       if (error instanceof HttpErrorResponse) {
         if (error.status === 401) {
@@ -68,9 +68,9 @@ export class FundingComponent implements OnInit, OnDestroy {
       page_number: this.pagenumber,
       page_size: this.pagesize,
     };
-    this.loadingBar.start();
+    
     this.fundingHistorySubscription = this.fundingService.fetchTransactions(pageData).subscribe((data: any) => {
-      this.loadingBar.stop();
+      
       if (data.status === 'successs') {
         this.fundingHistory = data.transactions;
       }
@@ -78,7 +78,7 @@ export class FundingComponent implements OnInit, OnDestroy {
         this.errorMsg = 'no more results';
       }
     }, (error: any) => {
-      this.loadingBar.stop();
+      
       this.isFetchingHistory = false;
       if (error instanceof HttpErrorResponse) {
         if (error.status === 401) {

@@ -18,7 +18,7 @@ export class MakeWithdrawalComponent implements OnInit, OnDestroy {
   withdrawSubscription: Subscription;
   constructor(private fb: FormBuilder,
               private withdrawalService: WithdrawalService,
-              private toastr: ToastrService, private loadingBar: LoadingBarService, private title: Title) {
+              private toastr: ToastrService,  private title: Title) {
                 this.title.setTitle('Buba - Account New Withdrawal');
                }
 
@@ -27,7 +27,7 @@ export class MakeWithdrawalComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.loadingBar.stop();
+    
   }
 
   initWithdrawalForm() {
@@ -107,12 +107,12 @@ export class MakeWithdrawalComponent implements OnInit, OnDestroy {
     }
     if (this.withdrawalForm.valid) {
       this.loading = true;
-      this.loadingBar.start();
+      
       this.withdrawalForm.disable();
       this.withdrawSubscription = this.withdrawalService.makeWithdrawal(formvalue).subscribe((withdrawalData: any) => {
         this.withdrawalForm.enable();
         this.loading = false;
-        this.loadingBar.stop();
+        
         if (withdrawalData.status === 'success') {
           this.toastr.success(withdrawalData.message);
           this.withdrawalForm.reset();
@@ -124,7 +124,7 @@ export class MakeWithdrawalComponent implements OnInit, OnDestroy {
         }
       }, (error: any) => {
         this.loading = false;
-        this.loadingBar.stop();
+        
         this.withdrawalForm.enable();
         if (error instanceof HttpErrorResponse) {
           if (error.status === 400) {

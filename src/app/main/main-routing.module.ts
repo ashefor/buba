@@ -47,13 +47,18 @@ const routes: Routes = [
         loadChildren: () => import('../root/root.module').then(m => m.RootModule)
       },
       {
+        path: 'twt-landing',
+        loadChildren: () => import('../root/root.module').then(m => m.RootModule)
+      },
+      {
         path: 'berekete',
         loadChildren: () => import('../cash-spin-landing/cash-spin-landing.module').then(m => m.CashSpinLandingModule)
       },
-      // {
-      //   path: 'transactions',
-      //   loadChildren: () => import('../transactions/transactions.module').then(m => m.TransactionsModule)
-      // },
+      {
+        path: 'transactions',
+        canActivate: [AuthGuard],
+        loadChildren: () => import('../transactions/transactions.module').then(m => m.TransactionsModule)
+      },
       {
         path: '',
         redirectTo: 'home',

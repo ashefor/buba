@@ -31,13 +31,13 @@ export class StepperOneComponent implements OnInit, OnDestroy {
   @Output() makeBidEmitter = new EventEmitter();
   maxError: boolean;
   // tslint:disable-next-line: max-line-length
-  constructor(private authService: AuthService, private loadingBar: LoadingBarService, private bidService: BidService, private toastr: ToastrService, private chref: ChangeDetectorRef) { }
+  constructor(private authService: AuthService,  private bidService: BidService, private toastr: ToastrService, private chref: ChangeDetectorRef) { }
 
   ngOnInit(): void {
   }
 
   ngOnDestroy() {
-    this.loadingBar.stop();
+    
   }
 
   showHowToModal() {
@@ -106,7 +106,7 @@ export class StepperOneComponent implements OnInit, OnDestroy {
   }
 
   makeBid() {
-    this.loadingBar.start();
+    
     this.processing = true;
     const bid: bidDetails = {
       bid_id: this.bidInfo.bid_details.bid_id,
@@ -121,7 +121,7 @@ export class StepperOneComponent implements OnInit, OnDestroy {
     };
     this.bidService.setBidDetails(bid);
     this.authService.getWalletBalance().subscribe((data: loggedInUser) => {
-      this.loadingBar.stop();
+      
       this.processing = false;
       this.bidService.setWalletDetails(data.user);
       this.authService.storeUser(data.user);
@@ -133,7 +133,7 @@ export class StepperOneComponent implements OnInit, OnDestroy {
         this.bidService.setCurrentPage(4);
       }
     }, (error: any) => {
-      this.loadingBar.stop();
+      
       this.processing = false;
       if (error instanceof HttpErrorResponse) {
         if (error.status === 401) {
