@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, Title } from '@angular/platform-browser';
 import { EMPTY } from 'rxjs';
 import { LandingService } from './landing.service';
 
@@ -59,9 +59,10 @@ export class LandingComponent implements OnInit, OnDestroy, AfterViewInit {
   cashBids: any;
   gadgetBids: any;
   safeYouTubeUrls: any;
-  constructor(private service: LandingService, private sanitizer: DomSanitizer) {
+  constructor(private service: LandingService, private sanitizer: DomSanitizer, private title: Title) {
     // this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/yEoa3kUqF8g')
     this.safeYouTubeUrls = this.youtubeUrls.map(url => this.sanitizer.bypassSecurityTrustResourceUrl(url))
+    this.title.setTitle('More For Less - Buba');
   }
   jumboSlideConfig = {
     slidesToShow: 5,
