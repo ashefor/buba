@@ -8,7 +8,7 @@ import { LandingService } from './landing.service';
   templateUrl: './landing.component.html',
   styleUrls: ['./landing.component.scss']
 })
-export class LandingComponent implements OnInit, OnDestroy, AfterViewInit {
+export class LandingComponent implements OnInit, OnDestroy{
   noBanner = true;
   display: boolean;
   displayLandingModal: boolean;
@@ -105,11 +105,6 @@ export class LandingComponent implements OnInit, OnDestroy, AfterViewInit {
     this.fetchCashBids();
   }
 
-  ngAfterViewInit() {
-    setTimeout(() => {
-      this.displayLandingModal = true;
-    }, 1500);
-  }
 
   ngOnDestroy() {
     this.displayLandingModal = false;
