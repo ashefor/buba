@@ -44,8 +44,12 @@ const routes: Routes = [
     loadChildren: () => import('./responsible-gaming/responsible-gaming.module').then(m => m.ResponsibleGamingModule)
   },
   {
-    path: '',
+    path: 'lobby',
     loadChildren: () => import('./landing/landing.module').then(m => m.LandingModule)
+  },
+  {
+    path: '',
+    loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
   },
   // {
   //   path: '',

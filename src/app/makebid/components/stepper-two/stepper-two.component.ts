@@ -66,6 +66,8 @@ export class StepperTwoComponent implements OnInit, OnDestroy {
         this.reg_source = 'Facebook';
       } else if (url[2] === 'twt-landing') {
         this.reg_source = 'Twitter';
+      } else if (url[2] === 'yt-landing') {
+        this.reg_source = 'Youtube';
       } else if (url[2] === 'landing') {
         this.reg_source = 'Eskimi';
       } else {

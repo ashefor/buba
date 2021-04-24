@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { DomSanitizer, Title } from '@angular/platform-browser';
 import { EMPTY } from 'rxjs';
 import { LandingService } from './landing.service';
@@ -8,7 +8,7 @@ import { LandingService } from './landing.service';
   templateUrl: './landing.component.html',
   styleUrls: ['./landing.component.scss']
 })
-export class LandingComponent implements OnInit, OnDestroy{
+export class LandingComponent implements OnInit, OnDestroy, AfterViewInit{
   noBanner = true;
   display: boolean;
   displayLandingModal: boolean;
@@ -105,6 +105,11 @@ export class LandingComponent implements OnInit, OnDestroy{
     this.fetchCashBids();
   }
 
+  ngAfterViewInit() {
+    setTimeout(() => {
+      // this.displayLandingModal = true;
+    }, 1000);
+  }
 
   ngOnDestroy() {
     this.displayLandingModal = false;

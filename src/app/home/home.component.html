@@ -1,116 +1,23 @@
-<section class="container">
-  <div class="p-grid p-nogutter">
-    <div class="p-col-11 p-mx-auto">
-      <div class="p-grid">
-        <div class="p-col-12">
-          <app-topnav></app-topnav>
-        </div>
-        <div class="p-col-12">
-          <div class="p-grid">
-            <!-- <div class="p-col-3">
-               <div class="card">
-                   <div class="card__body">
-                       left
-                   </div>
-               </div>
-            </div> -->
-            <div class="p-col-11 p-mx-auto">
-             <div class="p-grid">
-                 <div class="p-col-12">
-                    <p-carousel [value]="cars" [autoplayInterval]="3000" [circular]="true" [numVisible]="1" [numScroll]="1" [responsiveOptions]="responsiveOptions">
-                        <ng-template let-car pTemplate="item">
-                            <div class="jumbo">
-                                Content to display
-                            </div>
-                        </ng-template>
-                    </p-carousel>
-                 </div>
-                 <div class="p-col-12">
-                     <h6 class="text--medium">3 cards</h6>
-                     <div class="p-grid">
-                         <div class="p-col-4">
-                           <div class="steps">
-                               <img src="assets/img/step1.png" class="p-pr-1" width="60" alt="">
-                               <div class="steps_content">
-                                   <span class="steps_content_head text--capital text--medium p-d-block p-pb-2">1. do something</span>
-                                   <div class="steps_content_text text--regular">
-                                    Join the community and stay up to date on the latest deals and auctions.
-                                   </div>
-                               </div>
-                           </div>
-                         </div>
-                          <div class="p-col-4">
-                            <div class="steps">
-                                <img src="assets/img/step1.png" class="p-pr-1" width="60" alt="">
-                                <div class="steps_content">
-                                    <span class="steps_content_head text--capital text--medium p-d-block p-pb-2">2. do it again</span>
-                                    <div class="steps_content_text text--regular">
-                                     Join the community and stay up to date on the latest deals and auctions.
-                                    </div>
-                                </div>
-                            </div>
-                         </div>
-                         <div class="p-col-4">
-                            <div class="steps">
-                                <img src="assets/img/step1.png" class="p-pr-1" width="60" alt="">
-                                <div class="steps_content">
-                                    <span class="steps_content_head text--capital text--medium p-d-block p-pb-2">1. do something else</span>
-                                    <div class="steps_content_text text--regular">
-                                     Join the community and stay up to date on the latest deals and auctions.
-                                    </div>
-                                </div>
-                            </div>
-                         </div>
-                     </div>
-                 </div>
-                 <div class="p-col-12">
-                    <div class="bids">
-                        <h6 class="text--medium">hot bids</h6>
-                        <div class="bids_grid mb-3">
-                           <div class="bids_card">
-                             <div class="">
-                                bids a
-                             </div>
-                           </div>
-                           <div class="bids_card">
-                            <div class="">
-                               bids b
-                            </div>
-                          </div>
-                          <div class="bids_card">
-                            <div class="">
-                               bids c
-                            </div>
-                          </div>
-                          <div class="bids_card">
-                            <div class="">
-                               bids b
-                            </div>
-                          </div>
-                          <div class="bids_card">
-                            <div class="">
-                               bids b
-                            </div>
-                          </div>
-                          <div class="bids_card">
-                            <div class="">
-                               bids b
-                            </div>
-                          </div>
-                         </div>
-                    </div>
-                 </div>
-                 <div class="p-col-12">
-                     <h6 class="text--medium">spin</h6>
-                 </div>
-                 <div class="p-col-12">
-                     <h6 class="text--medium">games</h6>
-                 </div>
+<section>
+  <a [routerLink]="['/lobby']" >
+    <div class="home">
+      <!-- <div class="container">
+       <div class="p-grid p-nogutter">
+         <div class="p-col-5 p-mr-auto">
+             <div>
+               <button>a</button>
+               <button>a</button>
+               <button>a</button>
+               <button>a</button>
+               <button>a</button>
              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+         </div>
+       </div>
+      </div> -->
+      <!-- <div class="container">
+        <button class="button button--primary button--lg">Click here to play</button>
+      </div> -->
+     </div>
+  </a>
 </section>
+<app-footer></app-footer>

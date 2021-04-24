@@ -14,10 +14,10 @@
 .landing {
   // margin-top: 14rem;
   transition: all .1s ease-in-out;
-  padding-top: 1rem;
+  // padding-top: 1rem;
 
   &_wrapper {
-    padding-top: 8rem;
+    padding-top: 2rem;
     // padding-top: 2rem;
   }
 
@@ -218,7 +218,7 @@
         background-image: -webkit-linear-gradient(to right, #dedfe1 0%, #f2f3f5 20%, #dedfe1 40%, #dedfe1 100%);
         background-image: linear-gradient(to right, #dedfe1 0%, #f2f3f5 20%, #dedfe1 40%, #dedfe1 100%);
         background-repeat: no-repeat;
-
+        border-radius: 5px;
       }
     }
 
@@ -248,6 +248,7 @@
         background-image: -webkit-linear-gradient(to right, #dedfe1 0%, #f2f3f5 20%, #dedfe1 40%, #dedfe1 100%);
         background-image: linear-gradient(to right, #dedfe1 0%, #f2f3f5 20%, #dedfe1 40%, #dedfe1 100%);
         background-repeat: no-repeat;
+        border-radius: 3px;
       }
     }
 

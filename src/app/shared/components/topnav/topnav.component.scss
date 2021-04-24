@@ -224,6 +224,25 @@
     align-items: center;
   }
 
+  &__search{
+    .search_wrapper{
+      display: flex;
+      align-items: stretch;
+
+      input{
+        min-width: 23rem;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+
+      button{
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        // margin-left: -0.5rem;
+      }
+    }
+  }
+
   &_right {
     margin-left: auto;
     display: flex;

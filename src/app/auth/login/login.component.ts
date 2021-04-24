@@ -84,10 +84,10 @@ export class LoginComponent implements OnInit, OnDestroy {
           if (this.returnUrl && this.returnUrl.length) {
             this.router.navigateByUrl(this.returnUrl);
           } else {
-            this.router.navigate(['/']);
+            this.router.navigate(['/lobby']);
           }
         } else {
-          this.router.navigate(['/']);
+          this.router.navigate(['/lobby']);
         }
       } else {
         // this.auth.storeLoginStatus(true);

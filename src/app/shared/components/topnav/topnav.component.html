@@ -19,12 +19,12 @@
           </div>
         </div>
         <div class="topnav__item">
-          <a [routerLink]="['/']" routerLinkActive="router-link-active"  class="topnav__brand p-d-flex p-ai-center">
+          <a [routerLink]="['/lobby']" routerLinkActive="router-link-active"  class="topnav__brand p-d-flex p-ai-center">
             <img src="assets/img/buba-logo.png" alt="" width="80" height="80" srcset="">
           </a>
           <ng-container>
             <ul class="topnav__menu">
-              <li class="topnav__menu_item"><a class="topnav__menu_link text--capital" [routerLink]="['/']" routerLinkActive="active-menu" [routerLinkActiveOptions]="{exact: true}" fragment="today-deals">today's deals</a></li>
+              <li class="topnav__menu_item"><a class="topnav__menu_link text--capital" [routerLink]="['/lobby']" routerLinkActive="active-menu" [routerLinkActiveOptions]="{exact: true}" fragment="today-deals">today's deals</a></li>
               <li class="topnav__menu_item"><a [routerLink]="['/dashboard/games/wheel']" routerLinkActive="active-menu" class="topnav__menu_link text--capital">buba wheel</a></li>
               <li class="topnav__menu_item"><a class="topnav__menu_link text--capital"  [routerLink]="['/dashboard/games/berekete']" routerLinkActive="active-menu">berekete
               </a>
@@ -34,6 +34,16 @@
           </ng-container>
         </div>
       </div>
+      <!-- <div class="topnav__search">
+        <form>
+          <div class="search_wrapper">
+            <input type="text" placeholder="Search site (ctrl + /)" id="searchInput" class="form__input form__input--md">
+          <button class="button button--primary">
+            <i class="pi pi-search"></i>
+          </button>
+          </div>
+        </form>
+      </div> -->
       <div class="topnav_right">
         <!-- <span class="p-input-icon-left">
           <i class="pi pi-search"></i>

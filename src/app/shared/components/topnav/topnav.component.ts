@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { LoadingBarService } from '@ngx-loading-bar/core';
 import { ToastrService } from 'ngx-toastr';
@@ -13,7 +13,7 @@ import { loggedInUser } from 'src/app/makebid/models/logged-user';
   templateUrl: './topnav.component.html',
   styleUrls: ['./topnav.component.scss']
 })
-export class TopnavComponent implements OnInit {
+export class TopnavComponent implements OnInit, AfterViewInit {
   userDetails$: Observable<any>;
   imgBase = 'https://api.buba.ng/app/api/uploads/';
   processing: boolean;
@@ -34,8 +34,22 @@ export class TopnavComponent implements OnInit {
     //     }
     //   }
     // };
+   
   }
 
+  ngAfterViewInit() {
+    let keysPressed = {};
+    const searchInput = document.getElementById('searchInput');
+    document.addEventListener('keydown', (event) => {
+      keysPressed[event.key] = true;
+   
+      if (keysPressed['Control'] && event.key == '/') {
+        searchInput.focus();
+          // alert(event.key);
+      }
+   });
+    
+  }
   ngOnInit(): void {
     this.router.events.subscribe(evt => {
       if (evt instanceof NavigationEnd) {
@@ -122,7 +136,7 @@ export class TopnavComponent implements OnInit {
   logOut() {
     this.authService.clearSessionStorage().then(() => {
       this.authService.storeUser(null);
-      this.router.navigate(['/']);
+      this.router.navigate(['/lobby']);
     });
   }
 
