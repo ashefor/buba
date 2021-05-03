@@ -1,0 +1,30 @@
+<form [formGroup]="fundWalletForm" (ngSubmit)="makePayment(fundWalletForm.value)">
+    <div class="p-fluid">
+      <div class="p-field form__item">
+        <label for="amount" class="form__label text--capital">amount</label>
+        <input type="text" id="amount" formControlName='amount' pKeyFilter="num" class="form__input form__input--lg">
+        <ng-container
+          *ngIf="(fundWalletFormControls.amount.dirty || fundWalletFormControls.amount.touched) && fundWalletFormControls.amount.errors">
+          <span *ngIf="fundWalletFormControls.amount.errors.required" class="p-invalid p-my-1 p-d-block p-px-2">Enter
+            Amount</span>
+          <span *ngIf="fundWalletFormControls.amount.errors.min" class="p-invalid p-my-1 p-d-block p-px-2">Minimum is
+            ₦100.00</span>
+        </ng-container>
+      </div>
+      <ng-container *ngIf="fundWalletForm.errors && fundWalletForm.errors.badRequest">
+        <div class="p-field form__item">
+          <span class="p-invalid p-my-2 p-d-block">
+            {{fundWalletForm.errors.badRequest}}
+          </span>
+        </div>
+      </ng-container>
+      <div class="p-field form__item">
+        <button [disabled]="isPaying" type="submit"
+          class="button button--secondary button--raised text--capital button--wide">
+          <i *ngIf="isPaying" class="pi pi-spin pi-spinner p-mr-2"></i>
+          {{isPaying ? 'please wait' : 'fund wallet'}}
+        </button>
+      </div>
+    </div>
+  </form>
+  <p class="text--regular mt2" style="margin-top: 30px;"><b>Disclaimer:</b> Please ensure that while making payments, you pay the amount indicated in payment modal for a successful transaction.</p>

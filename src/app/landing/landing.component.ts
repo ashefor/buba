@@ -1,6 +1,7 @@
 import { AfterContentInit, AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { DomSanitizer, Title } from '@angular/platform-browser';
-import { EMPTY } from 'rxjs';
+import { EMPTY, Observable } from 'rxjs';
+import { AuthService } from '../core/services/auth.service';
 import { LandingService } from './landing.service';
 
 @Component({
@@ -8,10 +9,11 @@ import { LandingService } from './landing.service';
   templateUrl: './landing.component.html',
   styleUrls: ['./landing.component.scss']
 })
-export class LandingComponent implements OnInit, OnDestroy, AfterViewInit{
+export class LandingComponent implements OnInit, OnDestroy, AfterViewInit, AfterContentInit{
   noBanner = true;
   display: boolean;
   displayLandingModal: boolean;
+  displayDepositModal: boolean;
   defaultImage = 'assets/img/placeholder.webp';
   responsiveOptions = [
     {
@@ -59,9 +61,10 @@ export class LandingComponent implements OnInit, OnDestroy, AfterViewInit{
   cashBids: any;
   gadgetBids: any;
   safeYouTubeUrls: any;
-  constructor(private service: LandingService, private sanitizer: DomSanitizer, private title: Title) {
+  user: any;
+  constructor(private service: LandingService, private sanitizer: DomSanitizer, private title: Title, private authService: AuthService,) {
     // this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/yEoa3kUqF8g')
-    this.safeYouTubeUrls = this.youtubeUrls.map(url => this.sanitizer.bypassSecurityTrustResourceUrl(url))
+    this.safeYouTubeUrls = this.youtubeUrls.map(url => this.sanitizer.bypassSecurityTrustResourceUrl(url));
     this.title.setTitle('More For Less - Buba');
   }
   jumboSlideConfig = {
@@ -111,6 +114,19 @@ export class LandingComponent implements OnInit, OnDestroy, AfterViewInit{
     }, 1000);
   }
 
+  ngAfterContentInit() {
+    this.authService.getUser$().subscribe((user: any) => {
+      if (user) {
+        this.user = user;
+        if (parseFloat(user.balance) < 100) {
+          setTimeout(() => {
+            this.displayDepositModal = true;
+          }, 1000);
+        }
+      }
+    })
+  }
+
   ngOnDestroy() {
     this.displayLandingModal = false;
     clearTimeout();
@@ -126,6 +142,10 @@ export class LandingComponent implements OnInit, OnDestroy, AfterViewInit{
 
   closeSideMenu() {
     this.display = false;
+  }
+
+  closeDepositModal() {
+    this.displayDepositModal = false;
   }
 
   fetchAllTodayBids() {

@@ -35,6 +35,7 @@ import { MenuModule } from 'primeng/menu';
 import { StepperComponent } from './components/stepper/stepper.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { AccordionModule } from 'primeng/accordion';
+import { FundDepositComponent } from './components/fund-deposit/fund-deposit.component';
 
 @NgModule({
   declarations: [SidenavComponent, TopnavComponent, MobileSidenavComponent, CustomeDatePipe, AddBankDetailsComponent,
@@ -46,6 +47,7 @@ import { AccordionModule } from 'primeng/accordion';
     WinningMarqueeComponent,
     StepperComponent,
     FooterComponent,
+    FundDepositComponent,
   ],
   imports: [
     CommonModule,
@@ -79,6 +81,7 @@ import { AccordionModule } from 'primeng/accordion';
     StepperFourComponent,
     StepperFiveComponent,
     WinningMarqueeComponent,
+    FundDepositComponent,
     ButtonModule,
     TabViewModule,
     AccordionModule,

@@ -472,3 +472,12 @@
     </div>
   </div>
 </p-dialog>
+
+<p-dialog [(visible)]="displayDepositModal" styleClass="transfer-modal" [modal]="true" [style]="{width: '100%', maxWidth: '40rem'}"
+  [baseZIndex]="10000" [draggable]="false" [resizable]="false" (onHide)="closeDepositModal()">
+  <div class="modal-content p-px-1 p-mt-2">
+    <!-- <h4 class="text--regular text--center p-mb-3">Account Deposit</h4> -->
+    <p class="text--regular-alt p-mb-5">Hello, {{user.firstname}}. Your account balance is low, kindly deposit more funds to place bets</p>
+    <app-fund-deposit></app-fund-deposit>
+  </div>
+</p-dialog>
