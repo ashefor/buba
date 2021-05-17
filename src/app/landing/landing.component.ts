@@ -9,7 +9,7 @@ import { LandingService } from './landing.service';
   templateUrl: './landing.component.html',
   styleUrls: ['./landing.component.scss']
 })
-export class LandingComponent implements OnInit, OnDestroy, AfterViewInit, AfterContentInit{
+export class LandingComponent implements OnInit, OnDestroy, AfterViewInit {
   noBanner = true;
   display: boolean;
   displayLandingModal: boolean;
@@ -52,7 +52,11 @@ export class LandingComponent implements OnInit, OnDestroy, AfterViewInit, After
   products = ['', '', '', '', ''];
   youtubeUrls = [
     'https://www.youtube.com/embed/yEoa3kUqF8g?autoplay=1&mute=0',
-    'https://www.youtube.com/embed/w2IyneuLHaE'
+    'https://www.youtube.com/embed/w2IyneuLHaE',
+    'https://www.youtube.com/embed/H5OQiKad3n8',
+    'https://www.youtube.com/embed/J9CnA3OxR18',
+    'https://www.youtube.com/embed/AKqJYZK8fh0',
+    'https://www.youtube.com/embed/rb82Bk_M0kY'
   ]
   hotBids: any[];
   todayBids: any[];
@@ -110,22 +114,22 @@ export class LandingComponent implements OnInit, OnDestroy, AfterViewInit, After
 
   ngAfterViewInit() {
     setTimeout(() => {
-      // this.displayLandingModal = true;
+      this.displayLandingModal = true;
     }, 1000);
   }
 
-  ngAfterContentInit() {
-    this.authService.getUser$().subscribe((user: any) => {
-      if (user) {
-        this.user = user;
-        if (parseFloat(user.balance) < 100) {
-          setTimeout(() => {
-            this.displayDepositModal = true;
-          }, 1000);
-        }
-      }
-    })
-  }
+  // ngAfterContentInit() {
+  //   this.authService.getUser$().subscribe((user: any) => {
+  //     if (user) {
+  //       this.user = user;
+  //       if (parseFloat(user.balance) < 100) {
+  //         setTimeout(() => {
+  //           this.displayDepositModal = true;
+  //         }, 1000);
+  //       }
+  //     }
+  //   })
+  // }
 
   ngOnDestroy() {
     this.displayLandingModal = false;

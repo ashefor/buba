@@ -63,7 +63,7 @@
                   <!-- <span class="user__name text--bold">{{userDetails.firstname}}&nbsp;{{userDetails.lastname}}</span> -->
                   
                   <span class="user__balance">
-                    <!-- <a [routerLink]="['/dashboard/transactions']" class="button button--sm button--transparent text--primary">
+                    <!-- <a [routerLink]="['/dashboard/deposit']" class="button button--sm button--transparent text--primary">
                       Deposit 
                     </a> -->
                     {{userDetails.balance | currency : '₦'}}
@@ -81,7 +81,7 @@
                   <li class="dropdown-item text--capital" [routerLinkActiveOptions]="{ exact: true }" [routerLink]="['/dashboard/home']" routerLinkActive="active">
                     <span>Dashboard</span>
                   </li>
-                  <li class="dropdown-item text--capital" [routerLink]="['/dashboard/transactions']" routerLinkActive="active" >
+                  <li class="dropdown-item text--capital" [routerLink]="['/dashboard/deposit']" routerLinkActive="active" >
                     <span>deposit</span>
                   </li>
                   <li class="dropdown-item text--capital" [routerLink]="['/dashboard/withdrawals']" routerLinkActive="active" >

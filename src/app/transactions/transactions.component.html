@@ -149,3 +149,22 @@
     </form>
   </div>
 </p-dialog> -->
+
+
+<p-dialog [(visible)]="displayJollofModal" styleClass="transfer-modal" [modal]="true"
+[style]="{width: '100%', maxWidth: '50rem'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+  <div class="modal-content p-px-1">
+    <div>
+      <div class="p-grid p-py-1">
+        <div class="p-col-12">
+          <div class="">
+          <picture>
+            <source media="(min-width:992px)" srcset="assets/img/buba-jollof.webp">
+            <img src="assets/img/buba-jollof.webp" alt="Buba Jollof" width="100%'">
+          </picture>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</p-dialog>

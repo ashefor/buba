@@ -1,7 +1,9 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from '../core/services/auth.service';
+import { loggedInUser } from '../makebid/models/logged-user';
 
 @Component({
   selector: 'app-main',
@@ -35,6 +37,7 @@ export class MainComponent implements OnInit {
         }, 4000);
       }
     });
+    this.refreshWallet();
   }
 
   showSideMenu(event) {
@@ -47,4 +50,13 @@ export class MainComponent implements OnInit {
   // closeSideMenu() {
   //   this.display = false;
   // }
+
+  refreshWallet() {
+    this.auth.getWalletBalance().subscribe((data: loggedInUser) => {
+      this.auth.storeUser(data.user);
+      // console.log(data);
+    }, (error: any) => {
+      
+    });
+  }
 }

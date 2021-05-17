@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
@@ -11,9 +11,10 @@ import { BidService } from '../makebid/services/bid.service';
   templateUrl: './transactions.component.html',
   styleUrls: ['./transactions.component.scss']
 })
-export class TransactionsComponent implements OnInit {
+export class TransactionsComponent implements OnInit, AfterViewInit {
   userDetails$: Observable<any>;
   displayFundModal: boolean;
+  displayJollofModal: boolean;
   fundWalletForm: FormGroup;
   isPaying: boolean;
 
@@ -25,6 +26,12 @@ export class TransactionsComponent implements OnInit {
   ngOnInit(): void {
     this.userDetails$ = this.authService.getUser$();
     this.fundWalletFormInit();
+  }
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.displayJollofModal = true;
+    }, 500);
   }
 
   openFundModal() {

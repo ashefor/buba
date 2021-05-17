@@ -463,9 +463,12 @@
               </ng-template>
           </p-carousel> -->
           <picture>
-            <source media="(min-width:992px)" srcset="assets/img/landing-v2.jpg">
-            <img src="assets/img/landing.jpg" alt="Buba Jackpot" width="100%'" height="400">
+            <source media="(min-width:992px)" srcset="assets/img/promo.jpg">
+            <img style="object-fit: contain;" src="assets/img/promo-sm.webp" alt="Buba Jackpot" width="100%'" height="400">
           </picture>
+          <div class="text--center p-mt-3">
+            <a [routerLink]="['/dashboard/deposit']" role="button" class="button button--primary button--wider text--large text--capital">fund now</a>
+          </div>
           </div>
         </div>
       </div>
@@ -473,11 +476,13 @@
   </div>
 </p-dialog>
 
-<p-dialog [(visible)]="displayDepositModal" styleClass="transfer-modal" [modal]="true" [style]="{width: '100%', maxWidth: '40rem'}"
+<ng-container *ngIf="user">
+  <p-dialog [(visible)]="displayDepositModal" styleClass="transfer-modal" [modal]="true" [style]="{width: '100%', maxWidth: '40rem'}"
   [baseZIndex]="10000" [draggable]="false" [resizable]="false" (onHide)="closeDepositModal()">
   <div class="modal-content p-px-1 p-mt-2">
     <!-- <h4 class="text--regular text--center p-mb-3">Account Deposit</h4> -->
-    <p class="text--regular-alt p-mb-5">Hello, {{user.firstname}}. Your account balance is low, kindly deposit more funds to place bets</p>
+    <p class="text--regular-alt p-mb-5">Hello, {{user.firstname}}. Your account balance is low, kindly deposit more funds to place bids and play games.</p>
     <app-fund-deposit></app-fund-deposit>
   </div>
 </p-dialog>
+</ng-container>

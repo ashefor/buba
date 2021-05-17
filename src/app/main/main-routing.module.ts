@@ -59,7 +59,7 @@ const routes: Routes = [
         loadChildren: () => import('../cash-spin-landing/cash-spin-landing.module').then(m => m.CashSpinLandingModule)
       },
       {
-        path: 'transactions',
+        path: 'deposit',
         canActivate: [AuthGuard],
         loadChildren: () => import('../transactions/transactions.module').then(m => m.TransactionsModule)
       },
