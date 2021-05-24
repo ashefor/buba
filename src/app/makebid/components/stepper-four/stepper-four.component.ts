@@ -18,7 +18,10 @@ import { CurrencyPipe } from '@angular/common';
 })
 export class StepperFourComponent implements OnInit, OnDestroy {
   @Input() animation: any;
+  @Input() buyTicket: boolean;
+  @Input() productName: string;
   @Input() bidDetails: bidDetails;
+  @Input() ticketDetails: any;
   @Input() accountDetails;
   @Input() gameType: any;
   @Input() selectedEntry: any;
@@ -51,6 +54,40 @@ export class StepperFourComponent implements OnInit, OnDestroy {
     const bidData = { bid_id, bid_type, no_of_bid };
     this.processing = true;
     this.makeBidSubscription = this.bidService.buyBid(bidData).pipe(tap((bid) => {
+   }), concatMap(() => this.auth.getWalletBalance())).subscribe((data: any) => {
+      
+      this.processing = false;
+      this.auth.storeUser(data.user);
+      if (data.status === 'success') {
+        this.bidService.setCurrentPage(5);
+      } else {
+        this.toastr.error(data.message, 'Error!');
+      }
+    }, (error: any) => {
+      
+      this.processing = false;
+      if (error instanceof HttpErrorResponse) {
+        if (error.status === 401) {
+          this.bidService.setCurrentPage(2);
+        } else if (error.status === 400) {
+          this.toastr.error(error.error.message, 'Error');
+        } else {
+          this.toastr.error('Server error. Please try again later', 'Error');
+        }
+      } else if (error instanceof TimeoutError) {
+        this.toastr.error('Server timed out. Please try again later', 'Time Out!');
+      } else {
+        this.toastr.error('An unknown error has occured. Please try again later', 'Error');
+      }
+    });
+  }
+
+  purchaseTickets() {
+    
+    const { no_of_ticket } = this.ticketDetails;
+    const ticketData = { no_of_ticket };
+    this.processing = true;
+    this.makeBidSubscription = this.bidService.buyTicket(ticketData).pipe(tap((bid) => {
    }), concatMap(() => this.auth.getWalletBalance())).subscribe((data: any) => {
       
       this.processing = false;

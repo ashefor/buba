@@ -5,6 +5,7 @@ import { ActivatedRoute, NavigationEnd, Params, Router } from '@angular/router';
 import { LoadingBarService } from '@ngx-loading-bar/core';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, Subscription, TimeoutError } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { AuthService } from '../core/services/auth.service';
 import { BidService } from './services/bid.service';
 
@@ -28,18 +29,29 @@ export class MakebidComponent implements OnInit, OnDestroy {
   processing: boolean;
   fetchBidSubscription: Subscription;
   gameType = 'bid';
+  buyTicket: boolean;
+  productName: string;
+  ticketDetails$:  Observable<any>;
   // tslint:disable-next-line: max-line-length
   constructor(private route: ActivatedRoute, private service: BidService,  private auth: AuthService, private toastr: ToastrService, private router: Router, private chref: ChangeDetectorRef, private title: Title) {
     this.title.setTitle('Buba - Complete Bid');
+    this.productName = environment.productName;
   }
 
   ngOnInit(): void {
     
     this.currentPage$ = this.service.getCurrentPage$();
     this.bidDetails$ = this.service.getBidDetails$();
+    this.ticketDetails$ = this.service.getBidDetails$();
     this.accountDetails$ = this.service.getWalletDetails$();
     this.route.params.subscribe((params: Params) => {
-      this.fetchOneBid(params.id);
+      if (params.id === 'buy-tickets') {
+        // this.fetchOneBid(params.id);
+        this.buyTicket = true;
+        this.gameType = null;
+      } else {
+        this.fetchOneBid(params.id);
+      }
     });
   }
 

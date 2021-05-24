@@ -12,6 +12,30 @@
         </ng-template>
     </p-carousel> -->
     <!-- <img src="assets/img/banner-main.jpg" alt="" width="100%" srcset=""> -->
+    <article class="jumbotron container">
+      <div class="p-grid p-nogutter">
+        <div class="p-col-12 p-md-4 p-mx-auto">
+          <img src="assets/img/jumbo-item.png" class="p-p-3" srcset="">
+        </div>
+        <div class="p-col-12 p-md-5 p-mr-auto">
+          <div class="text--center jumbotron_content p-p-3">
+            <div class="text--upper text--white p-mb-2 jumbo_text text--bold">win</div>
+            <div class="text--upper text--white p-mb-2 jumbo_text text--bold">tecno camon 17</div>
+            <div class="text--upper text--white p-mb-2 jumbo_text text--bold">with {{500 | currency: '₦': 'symbol':'1.0'}}</div>
+            <div class="text--upper text--white p-mb-3 jumbo_text text--bold">this friday</div>
+            <p class="text--medium text--white p-mb-3">With ₦ 500 you stand a chance to win an item every Friday by 6pm</p>
+            <button [routerLink]="['/process_bid/buy-tickets']" class="button button--primary text--upper button--lg text--bold">buy ticket</button>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="p-grid p-d-none">
+        <div class="text--center jumbotron_content p-col-11 p-md-5 p-mx-auto">
+          <h1 class="text--upper text--white p-mb-2">Bid of the day</h1>
+          <p class="text--white text--medium p-mb-2">Tecno Camon 17</p>
+          <button class="button button--primary text--upper button--lg">click here</button>
+        </div>
+      </div> -->
+    </article>
     </div>
 
     <div class="container">
@@ -71,11 +95,11 @@
                           spin for {{today.spin_prize | currency: '₦': 'symbol':'1.0'}}
                         </span>
                       </button>
-                      <button [routerLink]="['/process_bid', today.display_id]" class="button button--secondary button--sm">
+                      <!-- <button [routerLink]="['/process_bid', today.display_id]" class="button button--secondary button--sm">
                         <span class="product_price p-mb-0 text--semi-small text--white text--capital">
                           bid for {{today.bid_prize | currency: '₦': 'symbol':'1.0'}}
                         </span>
-                      </button>
+                      </button> -->
                     </div>
                   </div>
                 </a>
@@ -187,11 +211,11 @@
                           spin for {{cash.spin_prize | currency: '₦': 'symbol':'1.0'}}
                         </span>
                       </button>
-                      <button [routerLink]="['/process_bid', cash.display_id]" class="button button--secondary button--sm">
+                      <!-- <button [routerLink]="['/process_bid', cash.display_id]" class="button button--secondary button--sm">
                         <span class="product_price p-mb-0 text--semi-small text--white text--capital">
                           bid for {{cash.bid_prize | currency: '₦': 'symbol':'1.0'}}
                         </span>
-                      </button>
+                      </button> -->
                     </div>
                   </div>
                 </a>
@@ -260,11 +284,11 @@
                           spin for {{gadget.spin_prize | currency: '₦': 'symbol':'1.0'}}
                         </span>
                       </button>
-                      <button [routerLink]="['/process_bid', gadget.display_id]" class="button button--secondary button--sm">
+                      <!-- <button [routerLink]="['/process_bid', gadget.display_id]" class="button button--secondary button--sm">
                         <span class="product_price p-mb-0 text--semi-small text--white text--capital">
                           bid for {{gadget.bid_prize | currency: '₦': 'symbol':'1.0'}}
                         </span>
-                      </button>
+                      </button> -->
                     </div>
                   </div>
                 </a>
@@ -333,11 +357,11 @@
                           spin for {{product.spin_prize | currency: '₦': 'symbol':'1.0'}}
                         </span>
                       </button>
-                      <button [routerLink]="['/process_bid', product.display_id]" class="button button--secondary button--sm">
+                      <!-- <button [routerLink]="['/process_bid', product.display_id]" class="button button--secondary button--sm">
                         <span class="product_price p-mb-0 text--semi-small text--white text--capital">
                           bid for {{product.bid_prize | currency: '₦': 'symbol':'1.0'}}
                         </span>
-                      </button>
+                      </button> -->
                     </div>
                   </div>
                 </a>
@@ -428,11 +452,11 @@
                         spin for {{bid.spin_prize | currency: '₦': 'symbol':'1.0'}}
                       </span>
                     </button>
-                    <button [routerLink]="['/process_bid', bid.display_id]" class="button button--secondary button--sm">
+                    <!-- <button [routerLink]="['/process_bid', bid.display_id]" class="button button--secondary button--sm">
                       <span class="product_price p-mb-0 text--semi-small text--white text--capital">
                         bid for {{bid.bid_prize | currency: '₦': 'symbol':'1.0'}}
                       </span>
-                    </button>
+                    </button> -->
                   </div>
                 </div>
               </a>

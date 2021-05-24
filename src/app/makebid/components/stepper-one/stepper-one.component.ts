@@ -16,6 +16,8 @@ import { BidService } from '../../services/bid.service';
 })
 export class StepperOneComponent implements OnInit, OnDestroy {
   @Input() error: any;
+  @Input() buyTicket: boolean;
+  @Input () productName: string;
   @Input() bidList: any;
   @Input() bidInfo: any;
   @Input() animation: any;
@@ -93,6 +95,20 @@ export class StepperOneComponent implements OnInit, OnDestroy {
     this.totalAmount = parseFloat(this.bidInfo.bid_list.bid_prize) * this.quantity;
   }
 
+  changeTicketQty(event) {
+    if (event && event.value) {
+      this.quantity = event.value;
+      if (this.quantity > 53) {
+        this.maxError = true;
+      } else {
+        this.maxError = false;
+      }
+    } else {
+      this.quantity = 1;
+      this.maxError = false;
+    }
+    this.totalAmount = 500 * this.quantity;
+  }
  
 
   getBidProgressValue(start, end) {
@@ -106,7 +122,6 @@ export class StepperOneComponent implements OnInit, OnDestroy {
   }
 
   makeBid() {
-    
     this.processing = true;
     const bid: bidDetails = {
       bid_id: this.bidInfo.bid_details.bid_id,
@@ -118,6 +133,50 @@ export class StepperOneComponent implements OnInit, OnDestroy {
       bid_price: this.bidInfo.bid_list.bid_prize,
       product_name: this.bidInfo.bid_list.product_name,
       product_image: this.bidInfo.bid_list.product_image
+    };
+    this.bidService.setBidDetails(bid);
+    this.authService.getWalletBalance().subscribe((data: loggedInUser) => {
+      
+      this.processing = false;
+      this.bidService.setWalletDetails(data.user);
+      this.authService.storeUser(data.user);
+      bid.wallet_balance = data.user.balance;
+      this.bidService.setBidDetails(bid);
+      if (parseFloat(data.user.balance) < parseFloat(bid.total_amount)) {
+        this.bidService.setCurrentPage(3);
+      } else {
+        this.bidService.setCurrentPage(4);
+      }
+    }, (error: any) => {
+      
+      this.processing = false;
+      if (error instanceof HttpErrorResponse) {
+        if (error.status === 401) {
+          // this.bidService.setCurrentPage(2);
+        } else {
+          this.toastr.error('An error has occured. Please try again later', 'Error');
+        }
+      } else if (error instanceof TimeoutError) {
+        this.toastr.error('Server timed out. Please try again later', 'Time Out!');
+      } else {
+        this.toastr.error('An unknown error has occured. Please try again later', 'Error');
+      }
+    });
+  }
+
+  buyTickets() {
+    this.processing = true;
+    const bid: any = {
+      no_of_ticket: this.quantity,
+      // bid_id: this.bidInfo.bid_details.bid_id,
+      // no_of_bid: this.quantity.toString(),
+      // // bid_type: this.bidType1 ? '1' : '2',
+      // bid_type: '5',
+      // // tslint:disable-next-line: max-line-length
+      total_amount: this.totalAmount ? this.totalAmount.toString() : (500 * this.quantity).toString(),
+      // bid_price: this.bidInfo.bid_list.bid_prize,
+      // product_name: this.bidInfo.bid_list.product_name,
+      // product_image: this.bidInfo.bid_list.product_image
     };
     this.bidService.setBidDetails(bid);
     this.authService.getWalletBalance().subscribe((data: loggedInUser) => {

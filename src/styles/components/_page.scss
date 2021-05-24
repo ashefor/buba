@@ -38,3 +38,9 @@
   .pointer{
     cursor: pointer;
   }
+
+  .bg{
+    &--tertiary{
+      background-color: $color-tertiary;
+    }
+  }

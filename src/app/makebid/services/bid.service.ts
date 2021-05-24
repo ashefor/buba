@@ -20,7 +20,7 @@ export class BidService {
     return this.http.post(`${environment.bubaApi}/bid/one`, { bid_id }).pipe(catchError(error => throwError(error)));
   }
 
-  setBidDetails(bid: bidDetails) {
+  setBidDetails(bid: any) {
     return this.bidDetails$.next(bid);
   }
 
@@ -53,6 +53,10 @@ export class BidService {
 
   buyBid(bid) {
     return this.http.post(`${environment.bubaApi}/bid/buy`, bid).pipe(catchError(error => throwError(error)));
+  }
+
+  buyTicket(bid) {
+    return this.http.post(`${environment.bubaApi}/bid/ticket/buy`, bid).pipe(catchError(error => throwError(error)));
   }
   
   checkBidStatus(bid) {

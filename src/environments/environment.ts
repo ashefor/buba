@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   bubaApi: 'https://api.buba.ng/public',
+  productName: 'Tecno Camon 17',
   gtag: 'G-9MET1RDF76'
 };
 

@@ -48,22 +48,76 @@
     line-height: 16px;
   }
 
-  .jumbo-carousel{
+  .jumbo-carousel {
     max-width: 1600px;
     margin-left: auto;
     margin-right: auto;
   }
 
   .jumbotron {
-    min-height: 18rem;
-    max-height: 18rem;
+    // min-height: 18rem;
+    // max-height: 18rem;
+    padding: 0 1rem;
     // background-color: lighten($color: $color-secondary, $amount: 30);
     // background-size: cover;
     // background-position: center;
-    width: 100%;
+    // width: 100%;
+    // max-width: 1400px;
+    margin: 0 auto;
     height: 100%;
+    position: relative;
+    overflow: hidden;
+    // background-color: rgba(17, 17, 203, 0.25);
+    background-color: $color-tertiary;
     // background-repeat: no-repeat;
     // background-attachment: fixed;
+
+    &::after {
+      // content: "";
+      // display: block;
+      // position: absolute;
+      // left: 0;
+      // right: 0;
+      // top: 0;
+      // bottom: 0;
+      // background-color: rgba(17, 17, 203, 0.25);
+      // background-color: #1816e3;
+    }
+
+    &_content{
+      // position: absolute;
+      // background-color: rgba($color-grey, .5);
+      // border-radius: 5px;
+      // z-index: 10;
+      // left: 50%;
+      // // right: 60px;
+      // top: 50%;
+      // padding: 30px 30px 30px 35px;
+      // transform: translate(-50%, -50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+
+      .jumbo_text{
+        font-size: 2rem;
+
+
+        @media all and (min-width: 992px) {
+          font-size: 4rem;
+        }
+      }
+
+      button{
+        font-size: 1.8rem;
+
+
+        @media all and (min-width: 992px) {
+          font-size: 2rem;
+        }
+      }
+    }
 
     @media all and (min-width: 768px) {
       min-height: 30rem;
@@ -77,8 +131,18 @@
 
     img {
       width: 100%;
-      height: 100%;
-      vertical-align: middle;
+      // height: 100%;
+      // vertical-align: middle;
+      // width: 300px;
+      // position: absolute;
+      // left: 25%;
+      // top: 50%;
+      // transform: translate(-50%, -50%);
+
+      @media all and (max-width: 767px) {
+        height: 320px;
+        object-fit: contain;
+      }
     }
   }
 
@@ -100,9 +164,9 @@
       vertical-align: middle;
     }
 
-    &_text {
-      text-align: justify;
-    }
+    // &_text {
+    //   text-align: justify;
+    // }
   }
 
   .games {
