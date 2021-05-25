@@ -48,7 +48,7 @@ export class MakebidComponent implements OnInit, OnDestroy {
       if (params.id === 'buy-tickets') {
         // this.fetchOneBid(params.id);
         this.buyTicket = true;
-        this.gameType = null;
+        this.gameType = 'buy-ticket';
       } else {
         this.fetchOneBid(params.id);
       }

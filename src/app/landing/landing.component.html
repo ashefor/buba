@@ -371,7 +371,7 @@
         </ng-container>
        
       </div>
-      <div class="landing_wrapper referral">
+      <!-- <div class="landing_wrapper referral">
         <div class="p-grid">
           <div class="p-col-12 p-md-6 p-mr-auto p-mb-3">
             <div class="p-pr-md-6">
@@ -392,8 +392,10 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="landing_wrapper bids">
+      </div> -->
+      
+      
+      <!-- <div class="landing_wrapper bids">
         <div class="landing_header">
           <h6 class="landing_title text--500 text--capital">
             <strong>
@@ -443,20 +445,17 @@
                   <p class="product_name text--semi-small text--upper lh-16 p-mb-2">
                     {{bid.product_name}}
                   </p>
-                  <!-- <span class="product_price p-d-block lh-16 text--regular text--primary">
-                    {{bid.bid_prize | currency: '₦'}}
-                  </span> -->
                   <div class="p-d-block lh-16">
                     <button [routerLink]="['/dashboard/games/wheel']" class="button button--primary button--sm p-mr-2">
                       <span class="product_price p-mb-0 text--semi-small text--white text--capital">
                         spin for {{bid.spin_prize | currency: '₦': 'symbol':'1.0'}}
                       </span>
                     </button>
-                    <!-- <button [routerLink]="['/process_bid', bid.display_id]" class="button button--secondary button--sm">
+                    <button [routerLink]="['/process_bid', bid.display_id]" class="button button--secondary button--sm">
                       <span class="product_price p-mb-0 text--semi-small text--white text--capital">
                         bid for {{bid.bid_prize | currency: '₦': 'symbol':'1.0'}}
                       </span>
-                    </button> -->
+                    </button>
                   </div>
                 </div>
               </a>
@@ -464,7 +463,7 @@
           </ngx-slick-carousel>
         </div>
        </ng-container>
-      </div>
+      </div> -->
     </div>
   </main>
   <app-footer></app-footer>
