@@ -13,11 +13,16 @@ export class BidService {
   userDetails$ = new BehaviorSubject<any>(null);
   walletDetails$ = new BehaviorSubject<any>(null);
   currentPage$ = new BehaviorSubject<number>(1);
+  successObject$ = new BehaviorSubject<any>(null);;
   constructor(private http: HttpClient) { }
 
   // tslint:disable-next-line: variable-name
   listOneBid(bid_id) {
-    return this.http.post(`${environment.bubaApi}/bid/one`, { bid_id }).pipe(catchError(error => throwError(error)));
+    return this.http.post(`${environment.bubaApi}/bid/one`, { bid_id });
+  }
+
+  listOneProduct(display_id) {
+    return this.http.post(`${environment.bubaApi}/product/one`, { display_id });
   }
 
   setBidDetails(bid: any) {
@@ -51,20 +56,32 @@ export class BidService {
     return this.currentPage$.asObservable();
   }
 
+  setSuccessObject(data) {
+    return this.successObject$.next(data);
+  }
+
+  getSuccessObject$() {
+    return this.successObject$.asObservable();
+  }
+
   buyBid(bid) {
-    return this.http.post(`${environment.bubaApi}/bid/buy`, bid).pipe(catchError(error => throwError(error)));
+    return this.http.post(`${environment.bubaApi}/bid/buy`, bid);
   }
 
   buyTicket(bid) {
-    return this.http.post(`${environment.bubaApi}/bid/ticket/buy`, bid).pipe(catchError(error => throwError(error)));
+    return this.http.post(`${environment.bubaApi}/bid/ticket/buy`, bid);
   }
   
   checkBidStatus(bid) {
-    return this.http.post(`${environment.bubaApi}/bids/check`, bid).pipe(catchError(error => throwError(error)));
+    return this.http.post(`${environment.bubaApi}/bids/check`, bid);
   }
 
-  initiateFlutterwave(details) {
-    return this.http.post(`${environment.bubaApi}/flutterwave/initiate`, details);
+  // initiateFlutterwave(details) {
+  //   return this.http.post(`${environment.bubaApi}/flutterwave/initiate`, details);
+  // }
+
+  initiatePaystack(details) {
+    return this.http.post(`${environment.bubaApi}/paystack/initiate`, details);
   }
 
   verifyFlutterwave(details) {

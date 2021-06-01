@@ -1,43 +1,52 @@
 <app-topnav></app-topnav>
 <section>
-  <main style="margin-bottom: 5rem;" class="landing" [ngStyle]="{'margin-top': noBanner ? '8rem' : '14rem'}">
-    <div class="jumbo-carousel">
-      <!-- <p-carousel [value]="jumbos" styleClass="custom-carousel" [numVisible]="1" [numScroll]="1" [circular]="false" [autoplayInterval]="3000">
+  <main style="margin-bottom: 5rem;" class="landing" [ngStyle]="{'margin-top': noBanner ? '9rem' : '14rem'}">
+    <!-- <div *ngIf="todayBids && todayBids.length" class="container jumbotron" [ngStyle]="{'background-color': bgColor}">
+      <p-carousel (onPage)="hasChanged($event)" [value]="todayBids" styleClass="custom-carousel" [numVisible]="1" [numScroll]="1" [circular]="false" [autoplayInterval]="3000">
         <ng-template let-jumbo pTemplate="item">
           <div class="jumbotron">
-            <a [routerLink]="[jumbo.router]" routerLinkActive="router-link-active" >
+            <a [routerLink]="[jumbo.router]">
               <img [src]="jumbo.url" [alt]="jumbo.alt" srcset="">
             </a>
           </div>
-        </ng-template>
-    </p-carousel> -->
-    <!-- <img src="assets/img/banner-main.jpg" alt="" width="100%" srcset=""> -->
-    <article class="jumbotron container">
-      <div class="p-grid p-nogutter">
-        <div class="p-col-12 p-md-4 p-mx-auto">
-          <img src="assets/img/jumbo-item.png" class="p-p-3" srcset="">
-        </div>
-        <div class="p-col-12 p-md-5 p-mr-auto">
-          <div class="text--center jumbotron_content p-p-3">
-            <div class="text--upper text--white p-mb-2 jumbo_text text--bold">win</div>
-            <div class="text--upper text--white p-mb-2 jumbo_text text--bold">tecno camon 17</div>
-            <div class="text--upper text--white p-mb-2 jumbo_text text--bold">with {{500 | currency: '₦': 'symbol':'1.0'}}</div>
-            <div class="text--upper text--white p-mb-3 jumbo_text text--bold">this friday</div>
-            <p class="text--medium text--white p-mb-3">With ₦ 500 you stand a chance to win an item every Friday by 6pm</p>
-            <button [routerLink]="['/process_bid/buy-tickets']" class="button button--primary text--upper button--lg text--bold">buy ticket</button>
+          <div class="p-grid p-nogutter h-100">
+            <div class="p-col-12 p-md-4 p-mx-auto">
+              <div class="p-d-flex p-ai-center h-100">
+                <img [src]="jumbo.product_image" class="p-p-3" srcset="">
+              </div>
+            </div>
+            <div class="p-col-12 p-md-5 p-mr-auto">
+              <div class="text--center jumbotron_content p-p-3">
+                <div class="text--upper text--white p-mb-2 jumbo_text text--bold">win</div>
+                <div class="text--upper text--white p-mb-2 jumbo_text text--bold">{{jumbo.product_name}}</div>
+                <div class="text--upper text--white p-mb-2 jumbo_text text--bold">with {{jumbo.bid_prize | currency: '₦': 'symbol':'1.0'}}</div>
+                <div class="text--upper text--white p-mb-3 jumbo_text text--bold">this friday</div>
+                <p class="text--medium text--white p-mb-3">With ₦ 500 you stand a chance to win an item every Friday by 6pm</p>
+                <button [routerLink]="['/process_bid/', 'ticket-id='+jumbo.display_id]" [ngClass]="{'button--tertiary': bgColor === '#03027f'}" class="button button--primary text--upper button--lg text--bold">buy bid</button>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      <!-- <div class="p-grid p-d-none">
-        <div class="text--center jumbotron_content p-col-11 p-md-5 p-mx-auto">
-          <h1 class="text--upper text--white p-mb-2">Bid of the day</h1>
-          <p class="text--white text--medium p-mb-2">Tecno Camon 17</p>
-          <button class="button button--primary text--upper button--lg">click here</button>
-        </div>
-      </div> -->
-    </article>
+        </ng-template>
+    </p-carousel>
+    </div> -->
+ <!-- <img src="assets/img/banner-main.jpg" alt="" width="100%" srcset=""> -->
+ <article class="jumbotron container">
+  <div class="p-grid p-nogutter">
+    <div class="p-col-12 p-md-4 p-mx-auto">
+      <img src="assets/img/jumbo-item.png" class="p-p-3" srcset="">
     </div>
-
+    <div class="p-col-12 p-md-5 p-mr-auto">
+      <div class="text--center jumbotron_content p-p-3">
+        <div class="text--upper text--white p-mb-2 jumbo_text text--bold">win</div>
+        <div class="text--upper text--white p-mb-2 jumbo_text text--bold">tecno camon 17</div>
+        <div class="text--upper text--white p-mb-2 jumbo_text text--bold">with {{500 | currency: '₦': 'symbol':'1.0'}}</div>
+        <div class="text--upper text--white p-mb-3 jumbo_text text--bold">this friday</div>
+        <p class="text--medium text--white p-mb-3">With ₦ 500 you stand a chance to win an item every Friday by 6pm</p>
+        <button [routerLink]="['/process_bid', 'ticket_id=BUBA_373810798887082977788825692174863091690']" class="button button--primary text--upper button--lg text--bold">buy bid</button>
+      </div>
+    </div>
+  </div>
+</article>
     <div class="container">
       <div class="landing_wrapper bids" id="today-deals">
         <div class="landing_header">
@@ -95,11 +104,11 @@
                           spin for {{today.spin_prize | currency: '₦': 'symbol':'1.0'}}
                         </span>
                       </button>
-                      <!-- <button [routerLink]="['/process_bid', today.display_id]" class="button button--secondary button--sm">
+                      <button [routerLink]="['/process_bid/', 'ticket-id='+today.display_id]" class="button button--secondary button--sm">
                         <span class="product_price p-mb-0 text--semi-small text--white text--capital">
                           bid for {{today.bid_prize | currency: '₦': 'symbol':'1.0'}}
                         </span>
-                      </button> -->
+                      </button>
                     </div>
                   </div>
                 </a>
@@ -162,7 +171,7 @@
         </div>
         <ng-container *ngIf="!cashBids">
           <div class="carousel-container">
-            <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+            <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="cashSlideConfig">
               <div ngxSlickItem *ngFor="let item of products" class="slide">
                 <div class="p-px-2">
                   <div class="bids_card">
@@ -187,7 +196,7 @@
         </ng-container>
         <ng-container *ngIf="cashBids">
           <div class="carousel-container">
-            <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+            <ngx-slick-carousel class="cash-carousel" #slickModal="slick-carousel" [config]="cashSlideConfig">
               <div ngxSlickItem *ngFor="let cash of cashBids" class="slide">
                 <a class="bid_item">
                   <div class="bids_card">
@@ -202,20 +211,20 @@
                     <p class="product_name text--semi-small text--upper lh-16 p-mb-2">
                       {{cash.product_name}}
                     </p>
-                    <!-- <span class="product_price p-d-block lh-16 text--regular text--primary">
+                    <span class="product_price p-d-block lh-16 text--regular text--primary">
                       {{cash.bid_prize | currency: '₦'}}
-                    </span> -->
+                    </span>
                     <div class="p-d-block lh-16">
                       <button [routerLink]="['/dashboard/games/wheel']" class="button button--primary button--sm p-mr-2">
                         <span class="product_price p-mb-0 text--semi-small text--white text--capital">
                           spin for {{cash.spin_prize | currency: '₦': 'symbol':'1.0'}}
                         </span>
                       </button>
-                      <!-- <button [routerLink]="['/process_bid', cash.display_id]" class="button button--secondary button--sm">
+                      <button [routerLink]="['/process_bid', cash.display_id]" class="button button--secondary button--sm">
                         <span class="product_price p-mb-0 text--semi-small text--white text--capital">
                           bid for {{cash.bid_prize | currency: '₦': 'symbol':'1.0'}}
                         </span>
-                      </button> -->
+                      </button>
                     </div>
                   </div>
                 </a>
@@ -225,7 +234,7 @@
         </ng-container>
        
       </div>
-      <div class="landing_wrapper bids">
+      <!-- <div class="landing_wrapper bids">
         <div class="landing_header">
           <h6 class="landing_title text--500 text--capital">
             <strong>
@@ -275,20 +284,20 @@
                     <p class="product_name text--semi-small text--upper lh-16 p-mb-2">
                       {{gadget.product_name}}
                     </p>
-                    <!-- <span class="product_price p-d-block lh-16 text--regular text--primary">
+                    <span class="product_price p-d-block lh-16 text--regular text--primary">
                       {{gadget.bid_prize | currency: '₦'}}
-                    </span> -->
+                    </span>
                     <div class="p-d-block lh-16">
                       <button [routerLink]="['/dashboard/games/wheel']" class="button button--primary button--sm p-mr-2">
                         <span class="product_price p-mb-0 text--semi-small text--white text--capital">
                           spin for {{gadget.spin_prize | currency: '₦': 'symbol':'1.0'}}
                         </span>
                       </button>
-                      <!-- <button [routerLink]="['/process_bid', gadget.display_id]" class="button button--secondary button--sm">
+                      <button [routerLink]="['/process_bid', gadget.display_id]" class="button button--secondary button--sm">
                         <span class="product_price p-mb-0 text--semi-small text--white text--capital">
                           bid for {{gadget.bid_prize | currency: '₦': 'symbol':'1.0'}}
                         </span>
-                      </button> -->
+                      </button>
                     </div>
                   </div>
                 </a>
@@ -297,8 +306,8 @@
           </div>
         </ng-container>
        
-      </div>
-      <div class="landing_wrapper bids">
+      </div> -->
+      <!-- <div class="landing_wrapper bids">
         <div class="landing_header">
           <h6 class="landing_title text--500 text--capital">
             <strong>
@@ -348,20 +357,20 @@
                     <p class="product_name text--semi-small text--upper lh-16 p-mb-2">
                       {{product.product_name}}
                     </p>
-                    <!-- <span class="product_price p-d-block lh-16 text--regular text--primary">
+                    <span class="product_price p-d-block lh-16 text--regular text--primary">
                       {{product.bid_prize | currency: '₦'}}
-                    </span> -->
+                    </span>
                     <div class="p-d-block lh-16">
                       <button [routerLink]="['/dashboard/games/wheel']" class="button button--primary button--sm p-mr-2">
                         <span class="product_price p-mb-0 text--semi-small text--white text--capital">
                           spin for {{product.spin_prize | currency: '₦': 'symbol':'1.0'}}
                         </span>
                       </button>
-                      <!-- <button [routerLink]="['/process_bid', product.display_id]" class="button button--secondary button--sm">
+                      <button [routerLink]="['/process_bid', product.display_id]" class="button button--secondary button--sm">
                         <span class="product_price p-mb-0 text--semi-small text--white text--capital">
                           bid for {{product.bid_prize | currency: '₦': 'symbol':'1.0'}}
                         </span>
-                      </button> -->
+                      </button>
                     </div>
                   </div>
                 </a>
@@ -370,7 +379,7 @@
           </div>
         </ng-container>
        
-      </div>
+      </div> -->
       <!-- <div class="landing_wrapper referral">
         <div class="p-grid">
           <div class="p-col-12 p-md-6 p-mr-auto p-mb-3">

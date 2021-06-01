@@ -56,6 +56,9 @@ export class TopnavComponent implements OnInit, AfterViewInit {
         this.display = false;
       }
     });
+    if (this.authService.isLoggedIn()) {
+      this.refreshWallet();
+    }
     this.userDetails$ = this.authService.getUser$();
     this.currentUrl = this.router.url.split('/');
     this.items = [

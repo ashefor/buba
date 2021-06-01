@@ -13,6 +13,13 @@ export class LandingService {
     return this.http.post(`${environment.bubaApi}/bids`, details);
   }
 
+  fetchTodayDeals() {
+    return this.http.get(`${environment.bubaApi}/products/list/ticket`);
+  }
+
+  fetchCashDeals() {
+    return this.http.get(`${environment.bubaApi}/products/list/bid`);
+  }
   fetchSortBids(details) {
     return this.http.post(`${environment.bubaApi}/bids/sort`, details);
   }

@@ -100,7 +100,7 @@ export class PaymentAccountComponent implements OnInit, OnDestroy {
       return_url: '/dashboard',
     };
     this.isPaying = true;
-    this.bidService.initiateFlutterwave(details).subscribe((data: any) => {
+    this.bidService.initiatePaystack(details).subscribe((data: any) => {
       if (data.status === 'success') {
         location.href = data.link;
       }

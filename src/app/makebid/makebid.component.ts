@@ -32,6 +32,8 @@ export class MakebidComponent implements OnInit, OnDestroy {
   buyTicket: boolean;
   productName: string;
   ticketDetails$:  Observable<any>;
+  successObject$: Observable<any>;
+  boughtTickets: any;
   // tslint:disable-next-line: max-line-length
   constructor(private route: ActivatedRoute, private service: BidService,  private auth: AuthService, private toastr: ToastrService, private router: Router, private chref: ChangeDetectorRef, private title: Title) {
     this.title.setTitle('Buba - Complete Bid');
@@ -41,14 +43,16 @@ export class MakebidComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     
     this.currentPage$ = this.service.getCurrentPage$();
+    this.successObject$ = this.service.getSuccessObject$();
     this.bidDetails$ = this.service.getBidDetails$();
     this.ticketDetails$ = this.service.getBidDetails$();
     this.accountDetails$ = this.service.getWalletDetails$();
     this.route.params.subscribe((params: Params) => {
-      if (params.id === 'buy-tickets') {
+      if (params.id.includes('ticket_id')) {
         // this.fetchOneBid(params.id);
-        this.buyTicket = true;
         this.gameType = 'buy-ticket';
+        const paramId = params.id.slice(10)
+        this.fetchOneProduct(paramId)
       } else {
         this.fetchOneBid(params.id);
       }
@@ -96,4 +100,19 @@ export class MakebidComponent implements OnInit, OnDestroy {
   }
 
 
+  fetchOneProduct(bidId) { 
+    this.service.listOneProduct(bidId).subscribe((data: any) => {
+      if (data.status === 'success') {
+        this.buyTicket = true;
+        this.bidInfo = data;
+        this.bidList = data.bid_list;
+        this.boughtTickets = data.bought_tickets;
+      }
+    }, (error: HttpErrorResponse) => {
+      
+      if (error.status === 404) {
+        this.fetchBidErrors = error.error.message;
+      }
+    });
+  }
 }

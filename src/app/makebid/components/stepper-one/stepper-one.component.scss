@@ -192,3 +192,26 @@ input[type=number] {
 }
 
 
+
+
+.winning {
+  &_marquee {
+    // background: $color-primary;
+    padding: .5rem;
+    border-radius: 5px;
+    margin-bottom: 5px;
+  }
+
+  &_item {
+    // color: $color-secondary;
+    color: $color-primary;
+    text-transform: capitalize;
+
+    &:not(:last-of-type, :first-of-type) {
+      display: inline-block;
+      padding-right: .5rem;
+      padding-left: .5rem;
+      border-right: 1px solid $color-tertiary;
+    }
+  }
+}

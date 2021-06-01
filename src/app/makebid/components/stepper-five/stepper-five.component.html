@@ -7,9 +7,43 @@
                 </h4>
                 <span class="bid-success_heading--subtitle">You're the real deal!</span>
            </div>
-           <div class="bid-success--img">
+           <ng-container *ngIf="successObj; else noSuccessObj">
+                <div class="p-grid">
+                    <div class="p-col-5">
+                        <strong>
+                            Reference
+                        </strong>
+                    </div>
+                    <div class="p-col-7">
+                        {{successObj.reference}}
+                    </div>
+                </div>
+                <div class="p-grid">
+                    <div class="p-col-5">
+                        <strong>
+                            Ticket ID
+                        </strong>
+                    </div>
+                    <div class="p-col-7">
+                        {{successObj.ticket_id.ticket_id}}
+                    </div>
+                </div>
+                <div class="p-grid">
+                    <div class="p-col-5">
+                        <strong>
+                            Draw Date
+                        </strong>
+                    </div>
+                    <div class="p-col-7">
+                        {{successObj.ticket_id.draw_date | date}}
+                    </div>
+                </div>
+           </ng-container>
+           <ng-template #noSuccessObj>
+            <div class="bid-success--img">
                 <img src="assets/img/bidsuccess.svg" alt="">
            </div>
+           </ng-template>
        </div>
        <div class="p-mt-5 text--center">
         <a [routerLink]="['/dashboard']" class="button button--secondary text--capital ">return to dashboard</a>

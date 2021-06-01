@@ -3,7 +3,6 @@ import { DomSanitizer, Title } from '@angular/platform-browser';
 import { EMPTY, Observable } from 'rxjs';
 import { AuthService } from '../core/services/auth.service';
 import { LandingService } from './landing.service';
-
 @Component({
   selector: 'app-landing',
   templateUrl: './landing.component.html',
@@ -66,6 +65,7 @@ export class LandingComponent implements OnInit, OnDestroy, AfterViewInit {
   gadgetBids: any;
   safeYouTubeUrls: any;
   user: any;
+  bgColor = '#ed326b';
   constructor(private service: LandingService, private sanitizer: DomSanitizer, private title: Title, private authService: AuthService,) {
     // this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/yEoa3kUqF8g')
     this.safeYouTubeUrls = this.youtubeUrls.map(url => this.sanitizer.bypassSecurityTrustResourceUrl(url));
@@ -104,6 +104,35 @@ export class LandingComponent implements OnInit, OnDestroy, AfterViewInit {
       }
     ]
   };
+  cashSlideConfig = {
+    slidesToShow: 5,
+    slidesToScroll: 5,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          infinite: true,
+          dots: true
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2
+        }
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1
+        }
+      }
+    ]
+  };
   ngOnInit(): void {
     this.fetchAllTodayBids();
     this.fetchAllRecommendedBids();
@@ -118,6 +147,36 @@ export class LandingComponent implements OnInit, OnDestroy, AfterViewInit {
     }, 1000);
   }
 
+  hasChanged(event) {
+   
+    switch (event.page) {
+      case 1:
+        setTimeout(() => {
+          this.bgColor = '#03027f';
+        }, 200);
+        break;
+      case 2:
+        setTimeout(() => {
+          this.bgColor = '#ed326b';
+        }, 200);
+        break;
+      case 3:
+        setTimeout(() => {
+          this.bgColor = 'green';
+        }, 200);
+        break;
+      case 4:
+        setTimeout(() => {
+          this.bgColor = '#ed326b';
+        }, 200);
+        break;
+      default:
+        // setTimeout(() => {
+        //   this.bgColor = '#ed326b';
+        // }, 500);
+        break;
+    }
+  }
   // ngAfterContentInit() {
   //   this.authService.getUser$().subscribe((user: any) => {
   //     if (user) {
@@ -153,10 +212,7 @@ export class LandingComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   fetchAllTodayBids() {
-    const details = {
-      operations_category: 'TODAYS_DEAL'
-    };
-    this.service.fetchLandingBids(details).subscribe((data: any) => {
+    this.service.fetchTodayDeals().subscribe((data: any) => {
       if (data.status === 'success') {
         this.todayBids = data.bids;
       }
@@ -190,10 +246,8 @@ export class LandingComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   fetchCashBids() {
-    const details = {
-      category: 'CASH'
-    };
-    this.service.fetchSortBids(details).subscribe((data: any) => {
+
+    this.service.fetchCashDeals().subscribe((data: any) => {
       if (data.status === 'success') {
         this.cashBids = data.bids;
       }

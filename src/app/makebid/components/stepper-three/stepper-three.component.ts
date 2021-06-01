@@ -157,7 +157,7 @@ export class StepperThreeComponent implements OnInit, OnDestroy {
       return_url: this.router.url,
     };
     this.isPaying = true;
-    this.bidService.initiateFlutterwave(details).subscribe((data: any) => {
+    this.bidService.initiatePaystack(details).subscribe((data: any) => {
       if (data.status === 'success') {
         location.href = data.link;
       }

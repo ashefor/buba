@@ -59,7 +59,7 @@
                 <div [ngSwitch]="(currentPage$ | async)">
                   <div class="w-100">
                     <ng-container *ngSwitchCase="1">
-                      <app-stepper-one [productName]="productName" [buyTicket]="buyTicket" [animation]="animation" [bidInfo]="bidInfo" [error]="fetchBidErrors">
+                      <app-stepper-one [boughtTickets]="boughtTickets" [productName]="productName" [buyTicket]="buyTicket" [animation]="animation" [bidInfo]="bidInfo" [error]="fetchBidErrors">
                       </app-stepper-one>
                     </ng-container>
                     <ng-container *ngSwitchCase="2">
@@ -76,7 +76,7 @@
                         [accountDetails]="(accountDetails$ | async)" [animation]="animation"></app-stepper-four>
                     </ng-container>
                     <ng-container *ngSwitchCase="5">
-                      <app-stepper-five [animation]="animation"></app-stepper-five>
+                      <app-stepper-five [successObj]="(successObject$ | async)" [animation]="animation"></app-stepper-five>
                     </ng-container>
                   </div>
                 </div>

@@ -84,8 +84,8 @@ export class StepperFourComponent implements OnInit, OnDestroy {
 
   purchaseTickets() {
     
-    const { no_of_ticket } = this.ticketDetails;
-    const ticketData = { no_of_ticket };
+    const { no_of_ticket, display_id } = this.ticketDetails;
+    const ticketData = { no_of_ticket, display_id };
     this.processing = true;
     this.makeBidSubscription = this.bidService.buyTicket(ticketData).pipe(tap((bid) => {
    }), concatMap(() => this.auth.getWalletBalance())).subscribe((data: any) => {
@@ -93,6 +93,7 @@ export class StepperFourComponent implements OnInit, OnDestroy {
       this.processing = false;
       this.auth.storeUser(data.user);
       if (data.status === 'success') {
+        this.bidService.setSuccessObject(data);
         this.bidService.setCurrentPage(5);
       } else {
         this.toastr.error(data.message, 'Error!');

@@ -19,6 +19,7 @@ export class StepperOneComponent implements OnInit, OnDestroy {
   @Input() buyTicket: boolean;
   @Input () productName: string;
   @Input() bidList: any;
+  @Input() boughtTickets: any;
   @Input() bidInfo: any;
   @Input() animation: any;
   processing: boolean;
@@ -107,7 +108,7 @@ export class StepperOneComponent implements OnInit, OnDestroy {
       this.quantity = 1;
       this.maxError = false;
     }
-    this.totalAmount = 500 * this.quantity;
+    this.totalAmount = parseFloat(this.bidInfo.bid_list.bid_prize) * this.quantity;
   }
  
 
@@ -173,10 +174,12 @@ export class StepperOneComponent implements OnInit, OnDestroy {
       // // bid_type: this.bidType1 ? '1' : '2',
       // bid_type: '5',
       // // tslint:disable-next-line: max-line-length
-      total_amount: this.totalAmount ? this.totalAmount.toString() : (500 * this.quantity).toString(),
+      // total_amount: this.totalAmount ? this.totalAmount.toString() : (500 * this.quantity).toString(),
+      total_amount: this.totalAmount ? this.totalAmount.toString() : (parseFloat(this.bidInfo.bid_list.bid_prize) * this.quantity).toString(),
       // bid_price: this.bidInfo.bid_list.bid_prize,
-      // product_name: this.bidInfo.bid_list.product_name,
-      // product_image: this.bidInfo.bid_list.product_image
+      product_name: this.bidInfo.bid_list.product_name,
+      display_id: this.bidInfo.bid_list.display_id,
+      product_image: this.bidInfo.bid_list.product_image
     };
     this.bidService.setBidDetails(bid);
     this.authService.getWalletBalance().subscribe((data: loggedInUser) => {

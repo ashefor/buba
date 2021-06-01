@@ -330,7 +330,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       };
       this.isPaying = true;
       this.fundWalletForm.disable();
-      this.bidService.initiateFlutterwave(details).subscribe((data: any) => {
+      this.bidService.initiatePaystack(details).subscribe((data: any) => {
         if (data.status === 'success') {
           location.href = data.link;
         }

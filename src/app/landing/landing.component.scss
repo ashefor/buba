@@ -72,6 +72,10 @@
     // background-repeat: no-repeat;
     // background-attachment: fixed;
 
+    // &:nth-of-type(2) {
+    //   background-color: $color-tertiary;
+    // }
+
     &::after {
       // content: "";
       // display: block;
