@@ -298,7 +298,7 @@
 
 <p-dialog [(visible)]="displayTransferModal" styleClass="transfer-modal" [modal]="true" [style]="{width: '35rem'}"
   [baseZIndex]="10000" [draggable]="false" [resizable]="false" (onHide)="resetModal()">
-  <div class="modal-content p-px-1 p-mt-2">
+  <div class="modal_content p-px-1 p-mt-2">
     <h4 class="text--regular text--center p-mb-5">Enter how amount to transfer to wallet</h4>
     <form [formGroup]="transferFundsForm" (ngSubmit)="transferFunds(transferFundsForm.value)">
       <div class="p-fluid">
@@ -332,7 +332,7 @@
 
 <p-dialog [(visible)]="displayPromoModal" styleClass="transfer-modal" [modal]="true" [style]="{width: '32rem'}"
   [baseZIndex]="10000" [draggable]="false" [resizable]="false" (onHide)="resetPromoModal()">
-  <div class="modal-content p-px-1 p-mt-2">
+  <div class="modal_content p-px-1 p-mt-2">
     <h4 class="text--regular text--center p-mb-5">Enter promo code</h4>
     <form [formGroup]="promoCodeForm" (ngSubmit)="redeemPromoCode(promoCodeForm.value)">
       <div class="p-fluid">
@@ -366,7 +366,7 @@
 
 <p-dialog [(visible)]="displayFundModal" styleClass="transfer-modal" [modal]="true" [style]="{width: '32rem'}"
   [baseZIndex]="10000" [draggable]="false" [resizable]="false" (onHide)="resetFundModal()">
-  <div class="modal-content p-px-1 p-mt-2">
+  <div class="modal_content p-px-1 p-mt-2">
     <!-- <div>
       <p class="text--regular">As we are currently experiencing a downtime with the flutterwave payment system please make a transfer to the account details below and use your BUBA account name as payment reference/narration for quick resolution </p>
                     <div class="p-my-4 p-mx-2">
@@ -412,7 +412,7 @@
 <p-dialog [(visible)]="displayLoyaltyTransferModal" styleClass="transfer-modal" [modal]="true"
   [style]="{width: '35rem'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false"
   (onHide)="resetLoyaltyTransferModal()">
-  <div class="modal-content p-px-1 p-mt-2">
+  <div class="modal_content p-px-1 p-mt-2">
     <h4 class="text--regular text--center p-mb-5">Enter how amount to transfer to wallet</h4>
     <form [formGroup]="loyaltyTransferForm" (ngSubmit)="loyaltyTransferFunds(loyaltyTransferForm.value)">
       <div class="p-fluid">
@@ -447,7 +447,7 @@
 <p-dialog [(visible)]="displayLoyaltyWithdrawModal" styleClass="transfer-modal" [modal]="true"
   [style]="{width: '35rem'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false"
   (onHide)="resetLoyaltyWithdrawModal()">
-  <div class="modal-content p-px-1 p-mt-2">
+  <div class="modal_content p-px-1 p-mt-2">
     <h4 class="text--regular text--center p-mb-5">Please complete form to proceed</h4>
     <form [formGroup]="loyaltyWithdrawForm" (ngSubmit)="loyaltyWithdrawFunds(loyaltyWithdrawForm.value)">
       <div class="p-fluid">
@@ -491,7 +491,7 @@
 
 <p-dialog [(visible)]="displayAccountModal" styleClass="transfer-modal" [modal]="true"
   [style]="{width: '35rem'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
-  <div class="modal-content p-px-1 p-mt-2">
+  <div class="modal_content p-px-1 p-mt-2">
     <h4 class="text--regular text--center p-mb-5">Make a transfer to the account details</h4>
     <div>
       <div class="p-grid p-py-1">

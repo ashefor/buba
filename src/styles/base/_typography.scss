@@ -67,6 +67,20 @@ button {
   }
 
   //   colours
+  &--danger {
+    color: $color-danger !important;
+  }
+  &--black {
+    color: $color-black !important;
+  }
+
+  &--deep-black {
+    color: $color-deep-black !important;
+  }
+
+  &--white {
+    color: $color-white !important;
+  }
   &--primary {
     color: $color-primary !important;
   }
@@ -95,20 +109,7 @@ button {
     color: $color-ash !important;
   }
 
-  &--danger {
-    color: $color-danger !important;
-  }
-  &--black {
-    color: $color-black !important;
-  }
-
-  &--deep-black {
-    color: $color-deep-black !important;
-  }
-
-  &--white {
-    color: $color-white !important;
-  }
+ 
 
   //   weights
 

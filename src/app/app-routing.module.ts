@@ -48,6 +48,14 @@ const routes: Routes = [
     loadChildren: () => import('./landing/landing.module').then(m => m.LandingModule)
   },
   {
+    path: 'privacy-policy',
+    loadChildren: () => import('./legal/privacy-policy/privacy-policy.module').then(m => m.PrivacyPolicyModule)
+  },
+  {
+    path: 'terms-of-use',
+    loadChildren : () => import('./legal/terms-of-use/terms-of-use.module').then(m => m.TermsOfUseModule)
+  },
+  {
     path: '',
     loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
   },

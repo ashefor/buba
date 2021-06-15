@@ -10,6 +10,15 @@ table {
   margin-bottom: 1rem;
   background-color: transparent;
 
+  &_bordered {
+    border: 1px solid #dee2e6;
+
+    td,
+    th {
+      border: 1px solid #dee2e6;
+    }
+  }
+
   .action__btn {
     border: 1px solid rgba(0, 0, 0, 0.5);
   }
@@ -60,11 +69,12 @@ table {
       font-size: $font-size-regular;
       background-color: $color-white;
     }
-    td{
+
+    td {
       text-align: left;
-    border: 1px solid #e9ecef;
-    border-width: 0 0 1px 0;
-    padding: 1.25rem 1.25rem;
+      border: 1px solid #e9ecef;
+      border-width: 0 0 1px 0;
+      padding: 1.25rem 1.25rem;
     }
   }
 

@@ -85,6 +85,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
       email: [null, [Validators.required, Validators.email]],
       password: [null, [Validators.required, Validators.minLength(6)]],
       confirmpassword: [null, [this.confirmValidator]],
+      checked: [null, this.underAgeValidator],
       referred_by: ['']
     });
   }
@@ -103,6 +104,15 @@ export class RegisterComponent implements OnInit, OnDestroy {
       return { confirm: true, error: true };
     }
     return {};
+  }
+
+  underAgeValidator = (control: FormControl): { [s: string]: boolean } => {
+    if (!control.value) {
+      return { error: true, required: true };
+    } else if (control.value === false) {
+      return { error: true, required: true };
+    }
+    return {}
   }
 
   register(formvalue: registerFormType) {

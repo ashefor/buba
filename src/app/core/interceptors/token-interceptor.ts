@@ -13,6 +13,7 @@ export class TokenInterceptor implements HttpInterceptor {
     constructor(private service: AuthService,
                 private router: Router,
                 private toastr: ToastrService,
+                private url: RouterService,
                 private bidService: BidService, private activatedRoute: ActivatedRoute,
                 private routeStatus: RouterService) { }
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -61,7 +62,7 @@ export class TokenInterceptor implements HttpInterceptor {
                     } else {
                         this.routeStatus.setRouteStatus(1);
                     }
-                    this.router.navigate(['/login']);
+                    this.router.navigate(['/login'] , {queryParams: {redirect: this.url.getCurrentUrl()}});
                 }
                 // this.toastr.error('Please sign in to continue', 'Unauthorised!');
                 return throwError(error);

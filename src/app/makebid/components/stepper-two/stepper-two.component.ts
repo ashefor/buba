@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoadingBarService } from '@ngx-loading-bar/core';
 import { ToastrService } from 'ngx-toastr';
@@ -108,6 +108,7 @@ export class StepperTwoComponent implements OnInit, OnDestroy {
       phone_number: [null, [Validators.required, Validators.pattern('(0)[0-9 ]{10}')]],
       email: [null, [Validators.email, Validators.required]],
       password: [null, [Validators.required, Validators.minLength(6)]],
+      checked: [null, this.underAgeValidator],
       referred_by: [null]
     });
   }
@@ -126,6 +127,15 @@ export class StepperTwoComponent implements OnInit, OnDestroy {
 
   get resetFormControls() {
     return this.resetForm.controls;
+  }
+
+  underAgeValidator = (control: FormControl): { [s: string]: boolean } => {
+    if (!control.value) {
+      return { error: true, required: true };
+    } else if (control.value === false) {
+      return { error: true, required: true };
+    }
+    return {}
   }
 
   logIn(formvalue) {

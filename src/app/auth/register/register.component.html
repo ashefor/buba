@@ -97,6 +97,15 @@
               </ng-container>
               </div>
             </div>
+            <div class="p-field-checkbox">
+              <p-checkbox formControlName="checked" binary="true" inputId="binary"></p-checkbox>
+              <label for="binary" class="form__label text--black">By creating an account you agree to accept our Terms of Use, are over 18 and are aware of our Responsible Gaming Policy.</label>
+          </div>
+          <ng-container
+          *ngIf="(registerFormControls.checked.dirty || registerFormControls.checked.touched) && registerFormControls.checked.errors">
+          <span *ngIf="registerFormControls.checked.errors.required" id="checked-help"
+            class="p-invalid p-mb-2 p-d-block p-px-2">Please tick before you proceed</span>
+        </ng-container>
             <div class="p-field form__item">
               <button class="button button--raised button--secondary button--wide text--capital" [disabled]="isRegistering">
                 <i *ngIf="isRegistering" class="pi pi-spin pi-spinner p-mr-2"></i>

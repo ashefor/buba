@@ -191,7 +191,7 @@
                 <ng-container *ngIf="!showExtraBtns">
                   <button [disabled]="isSpinning || !selectedEntry" class="button p-m-2 button--primary"
                     (click)="startSpin(raffle)">Spin {{selectedEntry?.stake_amount | currency : '₦'}} </button>
-                    <button *ngIf="selectedEntry" [routerLink]="['/process_bid', selectedEntry.product_id]" routerLinkActive="router-link-active"  [disabled]="isSpinning || !selectedEntry" class="button p-m-2 button--secondary">Bid {{selectedEntry?.bid_details?.bid_prize | currency : '₦'}}</button>
+                    <!-- <button *ngIf="selectedEntry" [routerLink]="['/process_bid', selectedEntry.product_id]" routerLinkActive="router-link-active"  [disabled]="isSpinning || !selectedEntry" class="button p-m-2 button--secondary">Bid {{selectedEntry?.bid_details?.bid_prize | currency : '₦'}}</button> -->
                 </ng-container>
                 <ng-container *ngIf="showExtraBtns">
                   <button *ngIf="showRetryBtn" [disabled]="isSpinning" class="button p-mx-2 button--tertiary"

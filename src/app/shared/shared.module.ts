@@ -36,6 +36,7 @@ import { StepperComponent } from './components/stepper/stepper.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { AccordionModule } from 'primeng/accordion';
 import { FundDepositComponent } from './components/fund-deposit/fund-deposit.component';
+import {CheckboxModule} from 'primeng/checkbox';
 
 @NgModule({
   declarations: [SidenavComponent, TopnavComponent, MobileSidenavComponent, CustomeDatePipe, AddBankDetailsComponent,
@@ -109,6 +110,7 @@ import { FundDepositComponent } from './components/fund-deposit/fund-deposit.com
     StepperComponent,
     AddBankDetailsComponent,
     FooterComponent,
+    CheckboxModule,
     RouterModule
   ],
   providers: [

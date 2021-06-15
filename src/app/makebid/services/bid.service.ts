@@ -76,9 +76,9 @@ export class BidService {
     return this.http.post(`${environment.bubaApi}/bids/check`, bid);
   }
 
-  // initiateFlutterwave(details) {
-  //   return this.http.post(`${environment.bubaApi}/flutterwave/initiate`, details);
-  // }
+  initiateFlutterwave(details) {
+    return this.http.post(`${environment.bubaApi}/flutterwave/initiate`, details);
+  }
 
   initiatePaystack(details) {
     return this.http.post(`${environment.bubaApi}/paystack/initiate`, details);

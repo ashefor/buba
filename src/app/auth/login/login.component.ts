@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LoadingBarService } from '@ngx-loading-bar/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth.service';
@@ -27,11 +27,15 @@ export class LoginComponent implements OnInit, OnDestroy {
   loggingIn: boolean;
   returnUrl: any;
   loginSubscription = new Subscription();
+  urlParams: any;
   constructor(private fb: FormBuilder,
-              
+              private activatedRoute: ActivatedRoute,
               private auth: AuthService,
               private bidService: BidService, private router: Router, private title: Title, private routerServices: RouterService) {
     this.title.setTitle('Buba - Account Login');
+    this.activatedRoute.queryParams.subscribe((urlparam: any) => {
+      this.urlParams = urlparam;
+    })
   }
 
   ngOnInit(): void {
@@ -78,14 +82,14 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.auth.storeUser(loggedUser.user);
       this.bidService.setWalletDetails(loggedUser.user);
       if (loggedUser.login_status === 0) {
-        if (this.auth.redirectUrl) {
-          this.router.navigateByUrl(this.auth.redirectUrl);
-        } else if (this.routerServices.getRouteStatus() === 1) {
-          if (this.returnUrl && this.returnUrl.length) {
-            this.router.navigateByUrl(this.returnUrl);
-          } else {
-            this.router.navigate(['/lobby']);
-          }
+        if (Object.keys(this.urlParams).length > 0) {
+          const redirectUrl = this.urlParams.redirect;
+          this.router.navigateByUrl(redirectUrl);
+          // if (this.returnUrl && this.returnUrl.length) {
+          //   this.router.navigateByUrl(this.returnUrl);
+          // } else {
+          //   this.router.navigate(['/lobby']);
+          // }
         } else {
           this.router.navigate(['/lobby']);
         }

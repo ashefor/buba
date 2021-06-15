@@ -23,6 +23,10 @@ export class RouterService {
     return this.previousUrl;
   }
 
+  public getCurrentUrl() {
+    return this.currentUrl;
+  }
+
   public setRouteStatus(status) {
     this.routeStatus = status;
     return this.routeStatus;
