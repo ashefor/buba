@@ -45,7 +45,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     setTimeout(() => {
-      this.displayLandingModal = true;
+      // this.displayLandingModal = true;
     }, 1000);
   }
 }

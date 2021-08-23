@@ -8,36 +8,40 @@
                 <span class="bid-success_heading--subtitle">You're the real deal!</span>
            </div>
            <ng-container *ngIf="successObj; else noSuccessObj">
-                <div class="p-grid">
-                    <div class="p-col-5">
+               <div class="p-col-9 p-mx-auto">
+                <div class="p-grid p-mb-2">
+                    <div class="p-col-5 text--regular-alt">
                         <strong>
                             Reference
                         </strong>
                     </div>
-                    <div class="p-col-7">
+                    <div class="p-col-7 text--regular-alt">
                         {{successObj.reference}}
                     </div>
                 </div>
-                <div class="p-grid">
-                    <div class="p-col-5">
+                <div class="p-grid p-mb-2">
+                    <div class="p-col-5 text--regular-alt">
                         <strong>
                             Ticket ID
                         </strong>
                     </div>
-                    <div class="p-col-7">
-                        {{successObj.ticket_id.ticket_id}}
+                    <div class="p-col-7 text--regular-alt">
+                        <ul *ngFor="let ticket of successObj.ticket_ids">
+                            <li class="text--regular-alt">{{ticket.ticket_id}}</li>
+                        </ul>
                     </div>
                 </div>
-                <div class="p-grid">
-                    <div class="p-col-5">
+                <div class="p-grid p-mb-2">
+                    <div class="p-col-5 text--regular-alt">
                         <strong>
                             Draw Date
                         </strong>
                     </div>
-                    <div class="p-col-7">
-                        {{successObj.ticket_id.draw_date | date}}
+                    <div class="p-col-7 text--regular-alt">
+                        {{successObj.draw_date | date}}
                     </div>
                 </div>
+               </div>
            </ng-container>
            <ng-template #noSuccessObj>
             <div class="bid-success--img">

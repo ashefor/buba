@@ -104,7 +104,7 @@
                           spin for {{today.spin_prize | currency: '₦': 'symbol':'1.0'}}
                         </span>
                       </button>
-                      <button [routerLink]="['/process_bid/', 'ticket-id='+today.display_id]" class="button button--secondary button--sm">
+                      <button [routerLink]="['/process_bid/', 'ticket_id='+today.display_id]" class="button button--secondary button--sm">
                         <span class="product_price p-mb-0 text--semi-small text--white text--capital">
                           bid for {{today.bid_prize | currency: '₦': 'symbol':'1.0'}}
                         </span>
@@ -161,7 +161,7 @@
           </div>
         </div>
       </div>
-      <div class="landing_wrapper bids">
+      <!-- <div class="landing_wrapper bids">
         <div class="landing_header">
           <h6 class="landing_title text--500 text--capital">
             <strong>
@@ -233,7 +233,7 @@
           </div>
         </ng-container>
        
-      </div>
+      </div> -->
       <!-- <div class="landing_wrapper bids">
         <div class="landing_header">
           <h6 class="landing_title text--500 text--capital">

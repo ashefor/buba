@@ -46,37 +46,7 @@ export class StepperOneComponent implements OnInit, OnDestroy {
   showHowToModal() {
     this.howToModal = true;
   }
-  handleBidTypeChange(type, e) {
-    if (type === 1) {
-      if (e.checked) {
-        this.bidType1 = e.checked;
-        this.bidType2 = false;
-      } else {
-        this.bidType1 = false;
-        this.bidType2 = true;
-      }
-    } else {
-      if (e.checked) {
-        this.bidType2 = e.checked;
-        this.bidType1 = false;
-      } else {
-        this.bidType2 = false;
-        this.bidType1 = true;
-      }
-    }
-  }
-
-  // handleChange2(e) {
-  //   if (e.checked) {
-  //     this.bidType1 = e.checked;
-  //     this.bidType2 = false;
-  //   }
-  // }
-
-  // makeBid() {
-  //   this.makeBidEmitter.emit(2);
-  // }
-
+  
   getTotalBidsAmount(percentage) {
     // const percent = (percentage /100)
     return (((percentage / 100) * this.bidInfo.bid_details.price) * this.bidInfo.bid_list.total_bid_lucky_five);

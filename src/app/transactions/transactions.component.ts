@@ -30,7 +30,7 @@ export class TransactionsComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     setTimeout(() => {
-      this.displayJollofModal = true;
+      // this.displayJollofModal = true;
     }, 500);
   }
 
